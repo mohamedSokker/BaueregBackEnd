@@ -7,7 +7,7 @@ const config = require("../config");
 const mongoose = require("mongoose");
 
 ////////////////////////////////////////////////SQL GET ALL//////////////////////////////////////////
-const sqlgetAllAppNotification = (req, res) => {
+const sqlgetAllAppNotification = async (req, res) => {
   var query = "SELECT * FROM AppNotification";
   let { cond, limit, fullquery, page } = req.query;
   if (limit) {
@@ -31,29 +31,34 @@ const sqlgetAllAppNotification = (req, res) => {
     query = fullquery;
   }
   try {
-    sql.connect(config, function (err) {
-      if (err) console.log(err);
-      // create Request object
-      var request = new sql.Request();
-      try {
-        request.query(query, function (err, recordsets) {
-          // if (err) res.send(err)
-          try {
-            res.status(200).json(recordsets.recordsets[0]);
-          } catch (error) {
-            res.status(404).send("Wrong Arguments");
-          }
-        });
-      } catch (error) {
-        res.status(404).send("Wrong Arguments");
-      }
-      //Read Sql Statment From File
-    });
+    const conn = await sql.connect(config);
+    const result = await sql.query(query);
+    await conn.close();
+    if (result.rowsAffected[0] === 0) throw new Error(`No Data`);
+    return res.status(200).json(result.recordsets[0]);
+    // sql.connect(config, function (err) {
+    //   if (err) console.log(err);
+    //   // create Request object
+    //   var request = new sql.Request();
+    //   try {
+    //     request.query(query, function (err, recordsets) {
+    //       // if (err) res.send(err)
+    //       try {
+    //         res.status(200).json(recordsets.recordsets[0]);
+    //       } catch (error) {
+    //         res.status(404).send("Wrong Arguments");
+    //       }
+    //     });
+    //   } catch (error) {
+    //     res.status(404).send("Wrong Arguments");
+    //   }
+    //   //Read Sql Statment From File
+    // });
   } catch (error) {
-    res.status(404).send("Wrong Arguments");
+    res.status(404).send(error.message);
   }
   sql.on("error", (err) => {
-    res.status(404).send("Wrong Arguments");
+    res.status(404).send(err.message);
   });
 };
 

@@ -1,10 +1,10 @@
 const sql = require("mssql");
-const config = require("../../configApp");
+const configApp = require("../../configApp");
 const configUser = require("../../configAppUser");
 
 const AppMobile = async (req, res) => {
   try {
-    const query = `SELECT
+    const query = `SELECT DISTINCT
                    Actions.Description,
                    Actions.CreatedDate As ActionsCreatedDate,
                    Actions.CreatedBy As ActionsCreatedBy,
@@ -17,7 +17,8 @@ const AppMobile = async (req, res) => {
                    Equipment.Model AS EquipmentModel,
                    EquipmentTypes.Name AS EquipmentType,
                    Projects.Name AS Location,
-                   SpareParts.Code
+                   SpareParts.Code,
+                   Attachments.FileName AS BreakdownType
                    FROM Actions
                    JOIN Issues
                    ON (Actions.IssueId = Issues.Id)
@@ -28,7 +29,11 @@ const AppMobile = async (req, res) => {
                    JOIN Projects
                    ON (Equipment.ProjectId = Projects.Id)
                    LEFT JOIN SpareParts
-                   ON (SpareParts.IssueId = Issues.Id)`;
+                   ON (SpareParts.IssueId = Issues.Id)
+                   JOIN IssueAttachments
+                   ON (IssueAttachments.IssueId = Issues.Id)
+                   JOIN Attachments
+                   ON (Attachments.Id = IssueAttachments.AttachmentId)`;
     const queryUser = `SELECT 
                    AspNetUsers.Id,
                    AspNetUsers.FirstName, 
@@ -39,11 +44,12 @@ const AppMobile = async (req, res) => {
                    ON (AspNetUsers.Id = AspNetUserRoles.UserId)
                    JOIN AspNetRoles
                    ON (AspNetRoles.Id = AspNetUserRoles.RoleId)`;
-    const dataConn = await sql.connect(config);
+
+    const dataConn = await new sql.connect(configApp);
     const result = await sql.query(query);
     await dataConn.close();
     if (result.rowsAffected[0] === 0) throw new Error(`No Data`);
-    const userConn = await sql.connect(configUser);
+    const userConn = await new sql.connect(configUser);
     const userResults = await sql.query(queryUser);
     await userConn.close();
     if (userResults.rowsAffected[0] === 0) throw new Error(`No User Data`);
@@ -58,6 +64,7 @@ const AppMobile = async (req, res) => {
       const ActionUserName = userData.find(
         (user) => user.Id === tableData[i].ActionsCreatedBy
       );
+      const BreakdownType = tableData[i].BreakdownType.split(".")[0];
       //   data.push({
       //     IssueUserName: IssueUserName,
       //     ActionUserName: ActionUserName,
@@ -71,6 +78,7 @@ const AppMobile = async (req, res) => {
         EquipmentModel: tableData[i].EquipmentModel,
         Equipment: tableData[i].Equipment,
         ResponseTime: tableData[i].ResponseTime,
+        BreakdownType: BreakdownType,
         StartTime: tableData[i].StartTime,
         EndTime: tableData[i].EndTime,
         SparePart: tableData[i].Code,
@@ -79,7 +87,7 @@ const AppMobile = async (req, res) => {
         ActionDescription: tableData[i].Description,
       });
     }
-    return res.status(200).json({ data: data });
+    return res.status(200).json(data);
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: error.message });
