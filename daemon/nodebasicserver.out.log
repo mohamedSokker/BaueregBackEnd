@@ -1,0 +1,2514 @@
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+RequestError: Incorrect syntax near ')'.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Incorrect syntax near ')'.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 102,
+      state: 1,
+      class: 15,
+      message: "Incorrect syntax near ')'.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 102,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: []
+}
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+RequestError: Unclosed quotation mark after the character string ''.
+    at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+    at Readable.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at next (node:internal/streams/from:98:31) {
+  code: 'EREQUEST',
+  originalError: Error: Unclosed quotation mark after the character string ''.
+      at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:382:19)
+      at Connection.emit (node:events:513:28)
+      at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+      at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+      at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+      at Readable.emit (node:events:513:28)
+      at addChunk (node:internal/streams/readable:324:12)
+      at readableAddChunk (node:internal/streams/readable:297:9)
+      at Readable.push (node:internal/streams/readable:234:10)
+      at next (node:internal/streams/from:98:31) {
+    info: ErrorMessageToken {
+      name: 'ERROR',
+      handlerName: 'onErrorMessage',
+      number: 105,
+      state: 1,
+      class: 15,
+      message: "Unclosed quotation mark after the character string ''.",
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: '',
+      lineNumber: 1
+    }
+  },
+  number: 105,
+  lineNumber: 1,
+  state: 1,
+  class: 15,
+  serverName: 'BAUEREGYPT\\SQLEXPRESS',
+  procName: '',
+  precedingErrors: [
+    RequestError: Incorrect syntax near 'WHERE ID = '.
+        at handleError (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:384:15)
+        at Connection.emit (node:events:513:28)
+        at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+        at RequestTokenHandler.onErrorMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\handler.js:365:21)
+        at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:26:33)
+        at Readable.emit (node:events:513:28)
+        at addChunk (node:internal/streams/readable:324:12)
+        at readableAddChunk (node:internal/streams/readable:297:9)
+        at Readable.push (node:internal/streams/readable:234:10)
+        at next (node:internal/streams/from:98:31) {
+      code: 'EREQUEST',
+      originalError: [Error],
+      number: 102,
+      lineNumber: 1,
+      state: 1,
+      class: 15,
+      serverName: 'BAUEREGYPT\\SQLEXPRESS',
+      procName: ''
+    }
+  ]
+}
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+ConnectionError: Failed to connect to 62.114.122.39:2433 in 15000ms
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\connection-pool.js:70:17
+    at Connection.onConnect (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1012:9)
+    at Object.onceWrapper (node:events:628:26)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at Connection.connectTimeout (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1254:10)
+    at Timeout._onTimeout (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1199:12)
+    at listOnTimeout (node:internal/timers:569:17)
+    at process.processTimers (node:internal/timers:512:7) {
+  code: 'ETIMEOUT',
+  originalError: ConnectionError: Failed to connect to 62.114.122.39:2433 in 15000ms
+      at Connection.connectTimeout (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1254:26)
+      at Timeout._onTimeout (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1199:12)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7) {
+    code: 'ETIMEOUT',
+    isTransient: undefined
+  }
+}
+Server is listening on port 3000
+ConnectionError: Failed to connect to 62.114.122.39:2433 in 15000ms
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\connection-pool.js:70:17
+    at Connection.onConnect (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1012:9)
+    at Object.onceWrapper (node:events:628:26)
+    at Connection.emit (node:events:513:28)
+    at Connection.emit (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1040:18)
+    at Connection.connectTimeout (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1254:10)
+    at Timeout._onTimeout (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1199:12)
+    at listOnTimeout (node:internal/timers:569:17)
+    at process.processTimers (node:internal/timers:512:7) {
+  code: 'ETIMEOUT',
+  originalError: ConnectionError: Failed to connect to 62.114.122.39:2433 in 15000ms
+      at Connection.connectTimeout (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1254:26)
+      at Timeout._onTimeout (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:1199:12)
+      at listOnTimeout (node:internal/timers:569:17)
+      at process.processTimers (node:internal/timers:512:7) {
+    code: 'ETIMEOUT',
+    isTransient: undefined
+  }
+}
+RequestError: No connection is specified for that request.
+    at Request._query (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:493:37)
+    at Request._query (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:363:11)
+    at Request.query (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:429:12)
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:10:17
+    at Immediate.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\global-connection.js:56:7)
+    at process.processImmediate (node:internal/timers:478:21) {
+  code: 'ENOCONN'
+}
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is listening on port 3000
+Server is Lisiting on port 80
+Server is listening on port 3000
+Server is Lisiting on port 5000
+Server is listening on port 3000
+Server is Lisiting on port 80
+Server is listening on port 3000
+Server is Lisiting on port 80
+Server is listening on port 3000
+Server is Lisiting on port 80
+Server is listening on port 3000
+Server is Lisiting on port 5000
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/dashboard.php File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+Server is listening on port 3000
+Server is Lisiting on port 5000
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+Server is listening on port 3000
+Server is Lisiting on port 5000
+c:/xampp/htdocs/bauereg/api/Test.html File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/style29.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/bootstrap.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/all.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/fontawesome.min.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/css/normalize.css File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/logo.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/images/profile.jpg File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery-3.5.1.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/webfonts/fa-solid-900.woff2 File Successfully Recieved
+c:/xampp/htdocs/bauereg/api/js/main15.js File Successfully Recieved
+Server is listening on port 3000
+Server is Lisiting on port 5000
+Server is listening on port 3000
+Server is Lisiting on port 5000
+[
+  'app.js',       'config.js',
+  'controllers',  'css',
+  'daemon',       'images',
+  'js',           'nodeservice.js',
+  'node_modules', 'package-lock.json',
+  'package.json', 'routes',
+  'style29.css',  'svgs',
+  'test.html',    'webfonts'
+]
+Server is listening on port 3000
+Server is Lisiting on port 5000
+[
+  'app.js',       'config.js',
+  'controllers',  'css',
+  'daemon',       'images',
+  'js',           'nodeservice.js',
+  'node_modules', 'package-lock.json',
+  'package.json', 'routes',
+  'style29.css',  'svgs',
+  'test.html',    'webfonts'
+]
+Server is listening on port 3000
+Server is Lisiting on port 5000
+[
+  'app.js',       'config.js',
+  'controllers',  'css',
+  'daemon',       'images',
+  'js',           'nodeservice.js',
+  'node_modules', 'package-lock.json',
+  'package.json', 'routes',
+  'style29.css',  'svgs',
+  'test.html',    'webfonts'
+]
+Server is listening on port 5000
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{
+  ID: 2925,
+  Date: '2023-01-11T00:00:00.000Z',
+  QuotationNo: 170087660,
+  OrderNo: 'E01/023',
+  PartNo: 944592,
+  Description: 'digital force measuring box',
+  Quantity: 4,
+  Unit: 'PC',
+  UnitPrice: 1397.25,
+  TotalPrice: 5589
+}
+UPDATE Order_Quotation SET ID ='2925',Date ='2023-01-11T00:00:00.000Z',QuotationNo ='170087660',OrderNo ='E01/023',PartNo ='944592',Description ='digital force measuring box',Quantity ='4',Unit ='PC',UnitPrice ='1397.25',TotalPrice ='5589'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{
+  ID: 2925,
+  Date: '2023-01-11T00:00:00.000Z',
+  QuotationNo: 170087660,
+  OrderNo: 'E01/023',
+  PartNo: 944592,
+  Description: 'digital force measuring box',
+  Quantity: 4,
+  Unit: 'PC',
+  UnitPrice: 1397.25,
+  TotalPrice: 5589
+}
+UPDATE Order_Quotation SET ID ='2925',Date ='2023-01-11T00:00:00.000Z',QuotationNo ='170087660',OrderNo ='E01/023',PartNo ='944592',Description ='digital force measuring box',Quantity ='4',Unit ='PC',UnitPrice ='1397.25',TotalPrice ='5589'
+middleware
+Server is listening on port 5000
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+Server is listening on port 5000
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+Server is listening on port 5000
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+Server is listening on port 5000
+middleware
+middleware
+middleware
+middleware
+Server is listening on port 5000
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+Server is listening on port 5000
+middleware
+middleware
+Server is listening on port 5000
+middleware
+middleware
+Server is listening on port 5000
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+Server is listening on port 5000
+middleware
+Server is listening on port 5000
+middleware
+middleware
+Server is listening on port 5000
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+Server is listening on port 5000
+middleware
+middleware
+middleware
+middleware
+{ requiresCounts: true, skip: 0, take: 12 }
+INSERT INTO Test Values()
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{}
+UPDATE Test SET WHERE ID = '1'
+middleware
+middleware
+{ ID: 1, Data1: 'Alex1', Data2: 'MC 96 # 303' }
+UPDATE Test SET ID ='1',Data1 ='Alex1',Data2 ='MC 96 # 303'
+middleware
+middleware
+{ Data1: 'Alex1', Data2: 'MC 96 # 303' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='MC 96 # 303' WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{}
+UPDATE Test SET WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+middleware
+{}
+UPDATE Test SET WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'MC 96 # 303' }
+UPDATE Test SET Data1 ='Alex',Data2 ='MC 96 # 303' WHERE ID = '1'
+middleware
+middleware
+{ Data1: 'Alex1', Data2: 'MC 96 # 303' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='MC 96 # 303' WHERE ID = '1'
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'MC 96 # 303' }
+UPDATE Test SET Data1 ='Alex',Data2 ='MC 96 # 303' WHERE ID = '1'
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'MC 96 # 191' }
+UPDATE Test SET Data1 ='Alex',Data2 ='MC 96 # 191' WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex1', Data2: 'MC 96 # 191' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='MC 96 # 191' WHERE ID = '1'
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'MC 96 # 191' }
+UPDATE Test SET Data1 ='Alex',Data2 ='MC 96 # 191' WHERE ID = '1'
+middleware
+middleware
+{ Data1: 'Alex1', Data2: 'MC 96 # 191' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='MC 96 # 191' WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'MC 96 # 191' }
+UPDATE Test SET Data1 ='Alex',Data2 ='MC 96 # 191' WHERE ID = '1'
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'BMW' }
+UPDATE Test SET Data1 ='Alex',Data2 ='BMW' WHERE ID = '4'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'MC 128 # 169' }
+UPDATE Test SET Data1 ='Alex',Data2 ='MC 128 # 169' WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'Volex1' }
+UPDATE Test SET Data1 ='Alex',Data2 ='Volex1' WHERE ID = '1'
+middleware
+{ Data1: 'Alex1', Data2: 'Volex3' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='Volex3' WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex1', Data2: 'MC 96 # 303' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='MC 96 # 303' WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='Alex',Data2 ='BC 30 # 881' WHERE ID = '4'
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex1', Data2: 'MC 128 # 169' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='MC 128 # 169' WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'aaa', Data2: 'bbb' }
+INSERT INTO Test Values( 'aaa','bbb')
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'lll', Data2: 'mmm' }
+INSERT INTO Test Values( 'lll','mmm')
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex1', Data2: 'MC 128 ' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='MC 128 ' WHERE ID = '1'
+middleware
+middleware
+middleware
+{ Data1: 'asd', Data2: 'fgh' }
+INSERT INTO Test Values( 'asd','fgh')
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'MC 128 ' }
+UPDATE Test SET Data1 ='Alex',Data2 ='MC 128 ' WHERE ID = '1'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Banha', Data2: 'MC96' }
+UPDATE Test SET Data1 ='Banha',Data2 ='MC96' WHERE ID = '7'
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Banha', Data2: 'MC96' }
+UPDATE Test SET Data1 ='Banha',Data2 ='MC96' WHERE ID = '8'
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'sss', Data2: 'fff' }
+INSERT INTO Test Values( 'sss','fff')
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'MC96' }
+UPDATE Test SET Data1 ='Alex',Data2 ='MC96' WHERE ID = '11'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex1', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='Alex1',Data2 ='BC 30 # 881' WHERE ID = '3'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Dokky', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='Dokky',Data2 ='BC 30 # 881' WHERE ID = '4'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='Alex',Data2 ='BC 30 # 881' WHERE ID = '4'
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Banha', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='Banha',Data2 ='BC 30 # 881' WHERE ID = '4'
+middleware
+middleware
+middleware
+Server is listening on port 5000
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Mahmoud', Data2: 'Abd Elghaffar' }
+INSERT INTO Test Values( 'Mahmoud','Abd Elghaffar')
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Banha1', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='Banha1',Data2 ='BC 30 # 881' WHERE ID = '4'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'alex', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='alex',Data2 ='BC 30 # 881' WHERE ID = '4'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Banha', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='Banha',Data2 ='BC 30 # 881' WHERE ID = '4'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+SELECT * FROM Equipments_Location
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ Data1: 'Alex', Data2: 'BC 30 # 881' }
+UPDATE Test SET Data1 ='Alex',Data2 ='BC 30 # 881' WHERE ID = '4'
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+middleware
+{ DateTime: '2023-04-23', Equipment: 'MC 96', Location: 'Metro' }
+INSERT INTO Test1 Values( '2023-04-23','MC 96','Metro')
+middleware
+middleware
+middleware
+middleware
+Server is listening on port 5000
+Server is listening on port 5000
+middleware
+Server is listening on port 5000
+middleware
+{ Status: 'Open', Summary: 'adasadas' }
+INSERT INTO AdminTasks Values()
+{
+  DateCreated: '2023-05-22T21:23:00.000Z',
+  Title: 'Task',
+  Status: 'InProgress',
+  Summary: 'Test'
+}
+UPDATE AdminTasks SET
+{
+  DateCreated: '2023-05-22T21:23:00.000Z',
+  Title: 'Task',
+  Status: 'InProgress',
+  Summary: 'Test'
+}
+UPDATE AdminTasks SET
+{
+  DateCreated: '2023-05-22 21:23:00',
+  Title: 'Task',
+  Status: 'InProgress',
+  Summary: 'Test'
+}
+UPDATE AdminTasks SET

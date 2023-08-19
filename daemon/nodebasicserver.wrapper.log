@@ -1,0 +1,685 @@
+2023-04-06 05:13:47 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 05:13:47 - Started 20316
+2023-04-06 19:03:47 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 19:03:47 - Started 1268
+2023-04-06 19:04:20 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 19:04:20 - Started 17524
+2023-04-06 19:04:26 - Stopping nodebasicserver.exe
+2023-04-06 19:04:26 - ProcessKill 17524
+2023-04-06 19:04:27 - Stopping process 17524
+2023-04-06 19:04:27 - Process 17524 is already stopped
+2023-04-06 19:04:27 - Finished nodebasicserver.exe
+2023-04-06 19:04:28 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 19:04:28 - Started 12796
+2023-04-06 19:04:39 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 19:04:39 - Started 19120
+2023-04-06 19:04:43 - Stopping nodebasicserver.exe
+2023-04-06 19:04:43 - ProcessKill 19120
+2023-04-06 19:04:43 - Found child process: 17164 Name: conhost.exe
+2023-04-06 19:04:43 - Stopping process 17164
+2023-04-06 19:04:43 - Send SIGINT 17164
+2023-04-06 19:04:44 - SIGINT to 17164 failed - Killing as fallback
+2023-04-06 19:04:44 - Stopping process 19120
+2023-04-06 19:04:44 - Send SIGINT 19120
+2023-04-06 19:04:44 - SIGINT to 19120 failed - Killing as fallback
+2023-04-06 19:04:44 - Finished nodebasicserver.exe
+2023-04-06 19:05:26 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 19:05:26 - Started 15236
+2023-04-06 20:52:53 - Stopping nodebasicserver.exe
+2023-04-06 20:52:53 - ProcessKill 15236
+2023-04-06 20:52:54 - Found child process: 10304 Name: conhost.exe
+2023-04-06 20:52:54 - Found child process: 18632 Name: node.exe
+2023-04-06 20:52:54 - Stopping process 10304
+2023-04-06 20:52:54 - Send SIGINT 10304
+2023-04-06 20:52:54 - SIGINT to 10304 failed - Killing as fallback
+2023-04-06 20:52:54 - Stopping process 18632
+2023-04-06 20:52:54 - Send SIGINT 18632
+2023-04-06 20:52:54 - SIGINT to 18632 failed - Killing as fallback
+2023-04-06 20:52:54 - Stopping process 15236
+2023-04-06 20:52:54 - Send SIGINT 15236
+2023-04-06 20:52:54 - SIGINT to 15236 failed - Killing as fallback
+2023-04-06 20:52:54 - Finished nodebasicserver.exe
+2023-04-06 20:52:55 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 20:52:55 - Started 17708
+2023-04-06 20:54:38 - Stopping nodebasicserver.exe
+2023-04-06 20:54:38 - ProcessKill 17708
+2023-04-06 20:54:38 - Found child process: 6320 Name: conhost.exe
+2023-04-06 20:54:38 - Found child process: 19120 Name: node.exe
+2023-04-06 20:54:39 - Stopping process 6320
+2023-04-06 20:54:39 - Send SIGINT 6320
+2023-04-06 20:54:39 - SIGINT to 6320 failed - Killing as fallback
+2023-04-06 20:54:39 - Stopping process 19120
+2023-04-06 20:54:39 - Send SIGINT 19120
+2023-04-06 20:54:39 - SIGINT to 19120 failed - Killing as fallback
+2023-04-06 20:54:39 - Stopping process 17708
+2023-04-06 20:54:39 - Send SIGINT 17708
+2023-04-06 20:54:39 - SIGINT to 17708 failed - Killing as fallback
+2023-04-06 20:54:39 - Finished nodebasicserver.exe
+2023-04-06 20:54:40 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 20:54:40 - Started 20336
+2023-04-06 21:01:06 - Stopping nodebasicserver.exe
+2023-04-06 21:01:06 - ProcessKill 20336
+2023-04-06 21:01:06 - Found child process: 11624 Name: conhost.exe
+2023-04-06 21:01:06 - Found child process: 14204 Name: node.exe
+2023-04-06 21:01:06 - Stopping process 11624
+2023-04-06 21:01:06 - Send SIGINT 11624
+2023-04-06 21:01:06 - SIGINT to 11624 failed - Killing as fallback
+2023-04-06 21:01:06 - Stopping process 14204
+2023-04-06 21:01:06 - Send SIGINT 14204
+2023-04-06 21:01:06 - SIGINT to 14204 failed - Killing as fallback
+2023-04-06 21:01:06 - Stopping process 20336
+2023-04-06 21:01:06 - Send SIGINT 20336
+2023-04-06 21:01:06 - SIGINT to 20336 failed - Killing as fallback
+2023-04-06 21:01:06 - Finished nodebasicserver.exe
+2023-04-06 21:01:07 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 21:01:07 - Started 6164
+2023-04-06 21:02:30 - Stopping nodebasicserver.exe
+2023-04-06 21:02:30 - ProcessKill 6164
+2023-04-06 21:02:30 - Found child process: 11956 Name: conhost.exe
+2023-04-06 21:02:30 - Found child process: 3572 Name: node.exe
+2023-04-06 21:02:30 - Stopping process 11956
+2023-04-06 21:02:30 - Send SIGINT 11956
+2023-04-06 21:02:30 - SIGINT to 11956 failed - Killing as fallback
+2023-04-06 21:02:30 - Stopping process 3572
+2023-04-06 21:02:30 - Send SIGINT 3572
+2023-04-06 21:02:30 - SIGINT to 3572 failed - Killing as fallback
+2023-04-06 21:02:30 - Stopping process 6164
+2023-04-06 21:02:30 - Send SIGINT 6164
+2023-04-06 21:02:30 - SIGINT to 6164 failed - Killing as fallback
+2023-04-06 21:02:30 - Finished nodebasicserver.exe
+2023-04-06 21:02:31 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 21:02:31 - Started 21380
+2023-04-06 21:02:48 - Stopping nodebasicserver.exe
+2023-04-06 21:02:48 - ProcessKill 21380
+2023-04-06 21:02:49 - Found child process: 8680 Name: conhost.exe
+2023-04-06 21:02:49 - Found child process: 1400 Name: node.exe
+2023-04-06 21:02:49 - Stopping process 8680
+2023-04-06 21:02:49 - Send SIGINT 8680
+2023-04-06 21:02:49 - SIGINT to 8680 failed - Killing as fallback
+2023-04-06 21:02:49 - Stopping process 1400
+2023-04-06 21:02:49 - Send SIGINT 1400
+2023-04-06 21:02:49 - SIGINT to 1400 failed - Killing as fallback
+2023-04-06 21:02:49 - Stopping process 21380
+2023-04-06 21:02:49 - Send SIGINT 21380
+2023-04-06 21:02:49 - SIGINT to 21380 failed - Killing as fallback
+2023-04-06 21:02:49 - Finished nodebasicserver.exe
+2023-04-06 21:10:02 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 21:10:02 - Started 17284
+2023-04-06 21:50:52 - Stopping nodebasicserver.exe
+2023-04-06 21:50:52 - ProcessKill 17284
+2023-04-06 21:50:53 - Found child process: 20844 Name: conhost.exe
+2023-04-06 21:50:53 - Found child process: 8400 Name: node.exe
+2023-04-06 21:50:53 - Stopping process 20844
+2023-04-06 21:50:53 - Send SIGINT 20844
+2023-04-06 21:50:53 - SIGINT to 20844 failed - Killing as fallback
+2023-04-06 21:50:53 - Stopping process 8400
+2023-04-06 21:50:53 - Send SIGINT 8400
+2023-04-06 21:50:53 - SIGINT to 8400 failed - Killing as fallback
+2023-04-06 21:50:53 - Stopping process 17284
+2023-04-06 21:50:53 - Send SIGINT 17284
+2023-04-06 21:50:53 - SIGINT to 17284 failed - Killing as fallback
+2023-04-06 21:50:53 - Finished nodebasicserver.exe
+2023-04-06 21:50:54 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 21:50:54 - Started 13768
+2023-04-06 21:51:19 - Stopping nodebasicserver.exe
+2023-04-06 21:51:19 - ProcessKill 13768
+2023-04-06 21:51:19 - Found child process: 20624 Name: conhost.exe
+2023-04-06 21:51:19 - Found child process: 2148 Name: node.exe
+2023-04-06 21:51:20 - Stopping process 20624
+2023-04-06 21:51:20 - Send SIGINT 20624
+2023-04-06 21:51:20 - SIGINT to 20624 failed - Killing as fallback
+2023-04-06 21:51:20 - Stopping process 2148
+2023-04-06 21:51:20 - Send SIGINT 2148
+2023-04-06 21:51:20 - SIGINT to 2148 failed - Killing as fallback
+2023-04-06 21:51:20 - Stopping process 13768
+2023-04-06 21:51:20 - Send SIGINT 13768
+2023-04-06 21:51:20 - SIGINT to 13768 failed - Killing as fallback
+2023-04-06 21:51:20 - Finished nodebasicserver.exe
+2023-04-06 21:51:21 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 21:51:21 - Started 10680
+2023-04-06 21:52:41 - Stopping nodebasicserver.exe
+2023-04-06 21:52:41 - ProcessKill 10680
+2023-04-06 21:52:41 - Found child process: 8260 Name: conhost.exe
+2023-04-06 21:52:41 - Found child process: 15548 Name: node.exe
+2023-04-06 21:52:41 - Stopping process 8260
+2023-04-06 21:52:41 - Send SIGINT 8260
+2023-04-06 21:52:41 - SIGINT to 8260 failed - Killing as fallback
+2023-04-06 21:52:41 - Stopping process 15548
+2023-04-06 21:52:41 - Send SIGINT 15548
+2023-04-06 21:52:41 - SIGINT to 15548 failed - Killing as fallback
+2023-04-06 21:52:41 - Stopping process 10680
+2023-04-06 21:52:41 - Send SIGINT 10680
+2023-04-06 21:52:41 - SIGINT to 10680 failed - Killing as fallback
+2023-04-06 21:52:41 - Finished nodebasicserver.exe
+2023-04-06 21:52:42 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 21:52:42 - Started 13264
+2023-04-06 22:12:49 - Stopping nodebasicserver.exe
+2023-04-06 22:12:49 - ProcessKill 13264
+2023-04-06 22:12:50 - Found child process: 14492 Name: conhost.exe
+2023-04-06 22:12:50 - Found child process: 19072 Name: node.exe
+2023-04-06 22:12:50 - Stopping process 14492
+2023-04-06 22:12:50 - Send SIGINT 14492
+2023-04-06 22:12:50 - SIGINT to 14492 failed - Killing as fallback
+2023-04-06 22:12:50 - Stopping process 19072
+2023-04-06 22:12:50 - Send SIGINT 19072
+2023-04-06 22:12:50 - SIGINT to 19072 failed - Killing as fallback
+2023-04-06 22:12:50 - Stopping process 13264
+2023-04-06 22:12:50 - Send SIGINT 13264
+2023-04-06 22:12:50 - SIGINT to 13264 failed - Killing as fallback
+2023-04-06 22:12:50 - Finished nodebasicserver.exe
+2023-04-06 22:12:51 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 22:12:51 - Started 1556
+2023-04-06 23:35:25 - Stopping nodebasicserver.exe
+2023-04-06 23:35:25 - ProcessKill 1556
+2023-04-06 23:35:26 - Found child process: 4848 Name: conhost.exe
+2023-04-06 23:35:26 - Found child process: 12872 Name: node.exe
+2023-04-06 23:35:26 - Stopping process 4848
+2023-04-06 23:35:26 - Send SIGINT 4848
+2023-04-06 23:35:26 - SIGINT to 4848 failed - Killing as fallback
+2023-04-06 23:35:26 - Stopping process 12872
+2023-04-06 23:35:26 - Send SIGINT 12872
+2023-04-06 23:35:26 - SIGINT to 12872 failed - Killing as fallback
+2023-04-06 23:35:26 - Stopping process 1556
+2023-04-06 23:35:26 - Send SIGINT 1556
+2023-04-06 23:35:26 - SIGINT to 1556 failed - Killing as fallback
+2023-04-06 23:35:26 - Finished nodebasicserver.exe
+2023-04-06 23:35:28 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 23:35:28 - Started 20792
+2023-04-06 23:37:22 - Stopping nodebasicserver.exe
+2023-04-06 23:37:22 - ProcessKill 20792
+2023-04-06 23:37:23 - Found child process: 2616 Name: conhost.exe
+2023-04-06 23:37:23 - Found child process: 20984 Name: node.exe
+2023-04-06 23:37:23 - Stopping process 2616
+2023-04-06 23:37:23 - Send SIGINT 2616
+2023-04-06 23:37:23 - SIGINT to 2616 failed - Killing as fallback
+2023-04-06 23:37:23 - Stopping process 20984
+2023-04-06 23:37:23 - Send SIGINT 20984
+2023-04-06 23:37:23 - SIGINT to 20984 failed - Killing as fallback
+2023-04-06 23:37:23 - Stopping process 20792
+2023-04-06 23:37:23 - Send SIGINT 20792
+2023-04-06 23:37:23 - SIGINT to 20792 failed - Killing as fallback
+2023-04-06 23:37:23 - Finished nodebasicserver.exe
+2023-04-06 23:37:24 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 23:37:24 - Started 13840
+2023-04-06 23:40:15 - Stopping nodebasicserver.exe
+2023-04-06 23:40:15 - ProcessKill 13840
+2023-04-06 23:40:15 - Found child process: 20708 Name: conhost.exe
+2023-04-06 23:40:15 - Found child process: 14964 Name: node.exe
+2023-04-06 23:40:15 - Stopping process 20708
+2023-04-06 23:40:15 - Send SIGINT 20708
+2023-04-06 23:40:15 - SIGINT to 20708 failed - Killing as fallback
+2023-04-06 23:40:16 - Stopping process 14964
+2023-04-06 23:40:16 - Send SIGINT 14964
+2023-04-06 23:40:16 - SIGINT to 14964 failed - Killing as fallback
+2023-04-06 23:40:16 - Stopping process 13840
+2023-04-06 23:40:16 - Send SIGINT 13840
+2023-04-06 23:40:16 - SIGINT to 13840 failed - Killing as fallback
+2023-04-06 23:40:16 - Finished nodebasicserver.exe
+2023-04-06 23:40:16 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 23:40:16 - Started 10412
+2023-04-06 23:44:11 - Stopping nodebasicserver.exe
+2023-04-06 23:44:11 - ProcessKill 10412
+2023-04-06 23:44:12 - Found child process: 15904 Name: conhost.exe
+2023-04-06 23:44:12 - Found child process: 15116 Name: node.exe
+2023-04-06 23:44:12 - Stopping process 15904
+2023-04-06 23:44:12 - Send SIGINT 15904
+2023-04-06 23:44:12 - SIGINT to 15904 failed - Killing as fallback
+2023-04-06 23:44:12 - Stopping process 15116
+2023-04-06 23:44:12 - Send SIGINT 15116
+2023-04-06 23:44:12 - SIGINT to 15116 failed - Killing as fallback
+2023-04-06 23:44:12 - Stopping process 10412
+2023-04-06 23:44:12 - Send SIGINT 10412
+2023-04-06 23:44:12 - SIGINT to 10412 failed - Killing as fallback
+2023-04-06 23:44:12 - Finished nodebasicserver.exe
+2023-04-06 23:44:13 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 23:44:13 - Started 11228
+2023-04-06 23:47:48 - Stopping nodebasicserver.exe
+2023-04-06 23:47:48 - ProcessKill 11228
+2023-04-06 23:47:48 - Found child process: 19316 Name: conhost.exe
+2023-04-06 23:47:48 - Found child process: 6956 Name: node.exe
+2023-04-06 23:47:49 - Stopping process 19316
+2023-04-06 23:47:49 - Send SIGINT 19316
+2023-04-06 23:47:49 - SIGINT to 19316 failed - Killing as fallback
+2023-04-06 23:47:49 - Stopping process 6956
+2023-04-06 23:47:49 - Send SIGINT 6956
+2023-04-06 23:47:49 - SIGINT to 6956 failed - Killing as fallback
+2023-04-06 23:47:49 - Stopping process 11228
+2023-04-06 23:47:49 - Send SIGINT 11228
+2023-04-06 23:47:49 - SIGINT to 11228 failed - Killing as fallback
+2023-04-06 23:47:49 - Finished nodebasicserver.exe
+2023-04-06 23:47:49 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-06 23:47:50 - Started 18912
+2023-04-07 00:05:50 - Stopping nodebasicserver.exe
+2023-04-07 00:05:50 - ProcessKill 18912
+2023-04-07 00:05:51 - Found child process: 12740 Name: conhost.exe
+2023-04-07 00:05:51 - Found child process: 18132 Name: node.exe
+2023-04-07 00:05:51 - Stopping process 12740
+2023-04-07 00:05:51 - Send SIGINT 12740
+2023-04-07 00:05:51 - SIGINT to 12740 failed - Killing as fallback
+2023-04-07 00:05:51 - Stopping process 18132
+2023-04-07 00:05:51 - Send SIGINT 18132
+2023-04-07 00:05:51 - SIGINT to 18132 failed - Killing as fallback
+2023-04-07 00:05:51 - Stopping process 18912
+2023-04-07 00:05:51 - Send SIGINT 18912
+2023-04-07 00:05:51 - SIGINT to 18912 failed - Killing as fallback
+2023-04-07 00:05:51 - Finished nodebasicserver.exe
+2023-04-07 00:05:52 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-07 00:05:52 - Started 16224
+2023-04-07 00:15:36 - Stopping nodebasicserver.exe
+2023-04-07 00:15:36 - ProcessKill 16224
+2023-04-07 00:15:36 - Found child process: 14132 Name: conhost.exe
+2023-04-07 00:15:36 - Found child process: 15768 Name: node.exe
+2023-04-07 00:15:36 - Stopping process 14132
+2023-04-07 00:15:36 - Send SIGINT 14132
+2023-04-07 00:15:36 - SIGINT to 14132 failed - Killing as fallback
+2023-04-07 00:15:37 - Stopping process 15768
+2023-04-07 00:15:37 - Send SIGINT 15768
+2023-04-07 00:15:37 - SIGINT to 15768 failed - Killing as fallback
+2023-04-07 00:15:37 - Stopping process 16224
+2023-04-07 00:15:37 - Send SIGINT 16224
+2023-04-07 00:15:37 - SIGINT to 16224 failed - Killing as fallback
+2023-04-07 00:15:37 - Finished nodebasicserver.exe
+2023-04-07 00:15:38 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-07 00:15:38 - Started 11624
+2023-04-07 20:00:45 - Stopping nodebasicserver.exe
+2023-04-07 20:00:45 - ProcessKill 11624
+2023-04-07 20:00:46 - Found child process: 16968 Name: conhost.exe
+2023-04-07 20:00:46 - Found child process: 2572 Name: node.exe
+2023-04-07 20:00:46 - Stopping process 16968
+2023-04-07 20:00:46 - Send SIGINT 16968
+2023-04-07 20:00:46 - SIGINT to 16968 failed - Killing as fallback
+2023-04-07 20:00:46 - Stopping process 2572
+2023-04-07 20:00:47 - Send SIGINT 2572
+2023-04-07 20:00:47 - SIGINT to 2572 failed - Killing as fallback
+2023-04-07 20:00:47 - Stopping process 11624
+2023-04-07 20:00:47 - Send SIGINT 11624
+2023-04-07 20:00:47 - SIGINT to 11624 failed - Killing as fallback
+2023-04-07 20:00:47 - Finished nodebasicserver.exe
+2023-04-07 20:00:49 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-07 20:00:49 - Started 8680
+2023-04-07 20:03:31 - Stopping nodebasicserver.exe
+2023-04-07 20:03:31 - ProcessKill 8680
+2023-04-07 20:03:31 - Found child process: 17324 Name: conhost.exe
+2023-04-07 20:03:31 - Found child process: 17524 Name: node.exe
+2023-04-07 20:03:31 - Stopping process 17324
+2023-04-07 20:03:31 - Send SIGINT 17324
+2023-04-07 20:03:31 - SIGINT to 17324 failed - Killing as fallback
+2023-04-07 20:03:31 - Stopping process 17524
+2023-04-07 20:03:31 - Send SIGINT 17524
+2023-04-07 20:03:31 - SIGINT to 17524 failed - Killing as fallback
+2023-04-07 20:03:31 - Stopping process 8680
+2023-04-07 20:03:31 - Send SIGINT 8680
+2023-04-07 20:03:31 - SIGINT to 8680 failed - Killing as fallback
+2023-04-07 20:03:31 - Finished nodebasicserver.exe
+2023-04-07 20:03:33 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-07 20:03:33 - Started 6904
+2023-04-07 20:04:38 - Stopping nodebasicserver.exe
+2023-04-07 20:04:38 - ProcessKill 6904
+2023-04-07 20:04:39 - Found child process: 10380 Name: conhost.exe
+2023-04-07 20:04:39 - Found child process: 16492 Name: node.exe
+2023-04-07 20:04:39 - Stopping process 10380
+2023-04-07 20:04:39 - Send SIGINT 10380
+2023-04-07 20:04:39 - SIGINT to 10380 failed - Killing as fallback
+2023-04-07 20:04:39 - Stopping process 16492
+2023-04-07 20:04:39 - Send SIGINT 16492
+2023-04-07 20:04:39 - SIGINT to 16492 failed - Killing as fallback
+2023-04-07 20:04:39 - Stopping process 6904
+2023-04-07 20:04:39 - Send SIGINT 6904
+2023-04-07 20:04:39 - SIGINT to 6904 failed - Killing as fallback
+2023-04-07 20:04:39 - Finished nodebasicserver.exe
+2023-04-07 20:04:40 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-07 20:04:40 - Started 14872
+2023-04-07 20:06:56 - Stopping nodebasicserver.exe
+2023-04-07 20:06:56 - ProcessKill 14872
+2023-04-07 20:06:56 - Found child process: 17704 Name: conhost.exe
+2023-04-07 20:06:56 - Found child process: 5400 Name: node.exe
+2023-04-07 20:06:56 - Stopping process 17704
+2023-04-07 20:06:57 - Send SIGINT 17704
+2023-04-07 20:06:57 - SIGINT to 17704 failed - Killing as fallback
+2023-04-07 20:06:57 - Stopping process 5400
+2023-04-07 20:06:57 - Send SIGINT 5400
+2023-04-07 20:06:57 - SIGINT to 5400 failed - Killing as fallback
+2023-04-07 20:06:57 - Stopping process 14872
+2023-04-07 20:06:57 - Send SIGINT 14872
+2023-04-07 20:06:57 - SIGINT to 14872 failed - Killing as fallback
+2023-04-07 20:06:57 - Finished nodebasicserver.exe
+2023-04-07 20:06:58 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-07 20:06:58 - Started 1104
+2023-04-07 20:09:12 - Stopping nodebasicserver.exe
+2023-04-07 20:09:12 - ProcessKill 1104
+2023-04-07 20:09:12 - Found child process: 10296 Name: conhost.exe
+2023-04-07 20:09:12 - Found child process: 14444 Name: node.exe
+2023-04-07 20:09:12 - Stopping process 10296
+2023-04-07 20:09:12 - Send SIGINT 10296
+2023-04-07 20:09:13 - SIGINT to 10296 failed - Killing as fallback
+2023-04-07 20:09:13 - Stopping process 14444
+2023-04-07 20:09:13 - Send SIGINT 14444
+2023-04-07 20:09:13 - SIGINT to 14444 failed - Killing as fallback
+2023-04-07 20:09:13 - Stopping process 1104
+2023-04-07 20:09:13 - Send SIGINT 1104
+2023-04-07 20:09:13 - SIGINT to 1104 failed - Killing as fallback
+2023-04-07 20:09:13 - Finished nodebasicserver.exe
+2023-04-07 20:17:15 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-07 20:17:15 - Started 13508
+2023-04-08 19:37:44 - Stopping nodebasicserver.exe
+2023-04-08 19:37:44 - ProcessKill 13508
+2023-04-08 19:37:45 - Found child process: 5236 Name: conhost.exe
+2023-04-08 19:37:45 - Found child process: 19408 Name: node.exe
+2023-04-08 19:37:45 - Stopping process 5236
+2023-04-08 19:37:45 - Send SIGINT 5236
+2023-04-08 19:37:46 - SIGINT to 5236 failed - Killing as fallback
+2023-04-08 19:37:46 - Stopping process 19408
+2023-04-08 19:37:46 - Send SIGINT 19408
+2023-04-08 19:37:46 - SIGINT to 19408 failed - Killing as fallback
+2023-04-08 19:37:46 - Stopping process 13508
+2023-04-08 19:37:46 - Send SIGINT 13508
+2023-04-08 19:37:46 - SIGINT to 13508 failed - Killing as fallback
+2023-04-08 19:37:46 - Finished nodebasicserver.exe
+2023-04-08 19:37:47 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-08 19:37:47 - Started 2820
+2023-04-08 19:40:17 - Stopping nodebasicserver.exe
+2023-04-08 19:40:17 - ProcessKill 2820
+2023-04-08 19:40:17 - Found child process: 11452 Name: conhost.exe
+2023-04-08 19:40:17 - Found child process: 18504 Name: node.exe
+2023-04-08 19:40:17 - Stopping process 11452
+2023-04-08 19:40:17 - Send SIGINT 11452
+2023-04-08 19:40:17 - SIGINT to 11452 failed - Killing as fallback
+2023-04-08 19:40:17 - Stopping process 18504
+2023-04-08 19:40:17 - Send SIGINT 18504
+2023-04-08 19:40:17 - SIGINT to 18504 failed - Killing as fallback
+2023-04-08 19:40:17 - Stopping process 2820
+2023-04-08 19:40:17 - Send SIGINT 2820
+2023-04-08 19:40:17 - SIGINT to 2820 failed - Killing as fallback
+2023-04-08 19:40:17 - Finished nodebasicserver.exe
+2023-04-08 19:54:26 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-08 19:54:26 - Started 19984
+2023-04-08 20:31:37 - Stopping nodebasicserver.exe
+2023-04-08 20:31:37 - ProcessKill 19984
+2023-04-08 20:31:38 - Found child process: 14948 Name: conhost.exe
+2023-04-08 20:31:38 - Found child process: 19204 Name: node.exe
+2023-04-08 20:31:38 - Stopping process 14948
+2023-04-08 20:31:38 - Send SIGINT 14948
+2023-04-08 20:31:38 - SIGINT to 14948 failed - Killing as fallback
+2023-04-08 20:31:38 - Stopping process 19204
+2023-04-08 20:31:38 - Send SIGINT 19204
+2023-04-08 20:31:38 - SIGINT to 19204 failed - Killing as fallback
+2023-04-08 20:31:38 - Stopping process 19984
+2023-04-08 20:31:38 - Send SIGINT 19984
+2023-04-08 20:31:38 - SIGINT to 19984 failed - Killing as fallback
+2023-04-08 20:31:38 - Finished nodebasicserver.exe
+2023-04-08 20:31:39 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-08 20:31:39 - Started 17648
+2023-04-08 20:37:12 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-08 20:37:12 - Started 13616
+2023-04-09 02:16:33 - Stopping nodebasicserver.exe
+2023-04-09 02:16:33 - ProcessKill 13616
+2023-04-09 02:16:36 - Found child process: 21120 Name: conhost.exe
+2023-04-09 02:16:36 - Found child process: 16512 Name: node.exe
+2023-04-09 02:16:36 - Stopping process 21120
+2023-04-09 02:16:36 - Send SIGINT 21120
+2023-04-09 02:16:36 - SIGINT to 21120 failed - Killing as fallback
+2023-04-09 02:16:36 - Stopping process 16512
+2023-04-09 02:16:36 - Send SIGINT 16512
+2023-04-09 02:16:36 - SIGINT to 16512 failed - Killing as fallback
+2023-04-09 02:16:36 - Stopping process 13616
+2023-04-09 02:16:36 - Send SIGINT 13616
+2023-04-09 02:16:36 - SIGINT to 13616 failed - Killing as fallback
+2023-04-09 02:16:36 - Finished nodebasicserver.exe
+2023-04-09 02:16:39 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-09 02:16:39 - Started 10128
+2023-04-09 02:20:30 - Stopping nodebasicserver.exe
+2023-04-09 02:20:30 - ProcessKill 10128
+2023-04-09 02:20:30 - Found child process: 7492 Name: conhost.exe
+2023-04-09 02:20:30 - Found child process: 3812 Name: node.exe
+2023-04-09 02:20:30 - Stopping process 7492
+2023-04-09 02:20:30 - Send SIGINT 7492
+2023-04-09 02:20:30 - SIGINT to 7492 failed - Killing as fallback
+2023-04-09 02:20:30 - Stopping process 3812
+2023-04-09 02:20:30 - Send SIGINT 3812
+2023-04-09 02:20:30 - SIGINT to 3812 failed - Killing as fallback
+2023-04-09 02:20:30 - Stopping process 10128
+2023-04-09 02:20:30 - Send SIGINT 10128
+2023-04-09 02:20:30 - SIGINT to 10128 failed - Killing as fallback
+2023-04-09 02:20:30 - Finished nodebasicserver.exe
+2023-04-09 02:20:31 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-09 02:20:31 - Started 15244
+2023-04-09 02:29:03 - Stopping nodebasicserver.exe
+2023-04-09 02:29:03 - ProcessKill 15244
+2023-04-09 02:29:03 - Found child process: 22136 Name: conhost.exe
+2023-04-09 02:29:03 - Found child process: 12864 Name: node.exe
+2023-04-09 02:29:03 - Stopping process 22136
+2023-04-09 02:29:03 - Send SIGINT 22136
+2023-04-09 02:29:03 - SIGINT to 22136 failed - Killing as fallback
+2023-04-09 02:29:03 - Stopping process 12864
+2023-04-09 02:29:03 - Send SIGINT 12864
+2023-04-09 02:29:03 - SIGINT to 12864 failed - Killing as fallback
+2023-04-09 02:29:03 - Stopping process 15244
+2023-04-09 02:29:03 - Send SIGINT 15244
+2023-04-09 02:29:03 - SIGINT to 15244 failed - Killing as fallback
+2023-04-09 02:29:03 - Finished nodebasicserver.exe
+2023-04-09 02:29:04 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-09 02:29:05 - Started 19260
+2023-04-09 02:29:18 - Stopping nodebasicserver.exe
+2023-04-09 02:29:18 - ProcessKill 19260
+2023-04-09 02:29:18 - Found child process: 20732 Name: conhost.exe
+2023-04-09 02:29:18 - Found child process: 12536 Name: node.exe
+2023-04-09 02:29:18 - Stopping process 20732
+2023-04-09 02:29:18 - Send SIGINT 20732
+2023-04-09 02:29:18 - SIGINT to 20732 failed - Killing as fallback
+2023-04-09 02:29:18 - Stopping process 12536
+2023-04-09 02:29:18 - Send SIGINT 12536
+2023-04-09 02:29:18 - SIGINT to 12536 failed - Killing as fallback
+2023-04-09 02:29:18 - Stopping process 19260
+2023-04-09 02:29:18 - Send SIGINT 19260
+2023-04-09 02:29:18 - SIGINT to 19260 failed - Killing as fallback
+2023-04-09 02:29:18 - Finished nodebasicserver.exe
+2023-04-09 02:29:19 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-09 02:29:19 - Started 11376
+2023-04-27 03:22:03 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-04-27 03:22:03 - Started 52544
+2023-05-03 10:28:34 - Stopping nodebasicserver.exe
+2023-05-03 10:28:34 - ProcessKill 52544
+2023-05-03 10:28:35 - Found child process: 33748 Name: conhost.exe
+2023-05-03 10:28:35 - Found child process: 57008 Name: node.exe
+2023-05-03 10:28:35 - Stopping process 33748
+2023-05-03 10:28:35 - Send SIGINT 33748
+2023-05-03 10:28:35 - SIGINT to 33748 failed - Killing as fallback
+2023-05-03 10:28:35 - Stopping process 57008
+2023-05-03 10:28:35 - Send SIGINT 57008
+2023-05-03 10:28:35 - SIGINT to 57008 failed - Killing as fallback
+2023-05-03 10:28:35 - Stopping process 52544
+2023-05-03 10:28:35 - Send SIGINT 52544
+2023-05-03 10:28:35 - SIGINT to 52544 failed - Killing as fallback
+2023-05-03 10:28:35 - Finished nodebasicserver.exe
+2023-05-03 22:21:11 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-03 22:21:11 - Started 47800
+2023-05-12 14:26:09 - Stopping nodebasicserver.exe
+2023-05-12 14:26:09 - ProcessKill 47800
+2023-05-12 14:26:13 - Found child process: 24240 Name: conhost.exe
+2023-05-12 14:26:13 - Found child process: 29412 Name: node.exe
+2023-05-12 14:26:13 - Stopping process 24240
+2023-05-12 14:26:14 - Send SIGINT 24240
+2023-05-12 14:26:14 - SIGINT to 24240 failed - Killing as fallback
+2023-05-12 14:26:14 - Stopping process 29412
+2023-05-12 14:26:14 - Send SIGINT 29412
+2023-05-12 14:26:14 - SIGINT to 29412 failed - Killing as fallback
+2023-05-12 14:26:14 - Stopping process 47800
+2023-05-12 14:26:14 - Send SIGINT 47800
+2023-05-12 14:26:14 - SIGINT to 47800 failed - Killing as fallback
+2023-05-12 14:26:14 - Finished nodebasicserver.exe
+2023-05-12 14:26:18 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-12 14:26:18 - Started 31432
+2023-05-12 14:27:53 - Stopping nodebasicserver.exe
+2023-05-12 14:27:53 - ProcessKill 31432
+2023-05-12 14:27:53 - Found child process: 13744 Name: conhost.exe
+2023-05-12 14:27:53 - Found child process: 50944 Name: node.exe
+2023-05-12 14:27:53 - Stopping process 13744
+2023-05-12 14:27:53 - Send SIGINT 13744
+2023-05-12 14:27:54 - SIGINT to 13744 failed - Killing as fallback
+2023-05-12 14:27:54 - Stopping process 50944
+2023-05-12 14:27:54 - Send SIGINT 50944
+2023-05-12 14:27:54 - SIGINT to 50944 failed - Killing as fallback
+2023-05-12 14:27:54 - Stopping process 31432
+2023-05-12 14:27:54 - Send SIGINT 31432
+2023-05-12 14:27:54 - SIGINT to 31432 failed - Killing as fallback
+2023-05-12 14:27:54 - Finished nodebasicserver.exe
+2023-05-12 14:27:55 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-12 14:27:55 - Started 74784
+2023-05-12 14:35:13 - Stopping nodebasicserver.exe
+2023-05-12 14:35:13 - ProcessKill 74784
+2023-05-12 14:35:13 - Found child process: 21876 Name: conhost.exe
+2023-05-12 14:35:13 - Found child process: 23068 Name: node.exe
+2023-05-12 14:35:13 - Stopping process 21876
+2023-05-12 14:35:13 - Send SIGINT 21876
+2023-05-12 14:35:13 - SIGINT to 21876 failed - Killing as fallback
+2023-05-12 14:35:13 - Stopping process 23068
+2023-05-12 14:35:13 - Send SIGINT 23068
+2023-05-12 14:35:13 - SIGINT to 23068 failed - Killing as fallback
+2023-05-12 14:35:13 - Stopping process 74784
+2023-05-12 14:35:13 - Send SIGINT 74784
+2023-05-12 14:35:13 - SIGINT to 74784 failed - Killing as fallback
+2023-05-12 14:35:13 - Finished nodebasicserver.exe
+2023-05-12 14:35:14 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-12 14:35:14 - Started 28572
+2023-05-12 14:37:35 - Stopping nodebasicserver.exe
+2023-05-12 14:37:35 - ProcessKill 28572
+2023-05-12 14:37:35 - Found child process: 69820 Name: conhost.exe
+2023-05-12 14:37:35 - Found child process: 51508 Name: node.exe
+2023-05-12 14:37:35 - Stopping process 69820
+2023-05-12 14:37:35 - Send SIGINT 69820
+2023-05-12 14:37:35 - SIGINT to 69820 failed - Killing as fallback
+2023-05-12 14:37:35 - Stopping process 51508
+2023-05-12 14:37:35 - Send SIGINT 51508
+2023-05-12 14:37:35 - SIGINT to 51508 failed - Killing as fallback
+2023-05-12 14:37:35 - Stopping process 28572
+2023-05-12 14:37:35 - Send SIGINT 28572
+2023-05-12 14:37:35 - SIGINT to 28572 failed - Killing as fallback
+2023-05-12 14:37:35 - Finished nodebasicserver.exe
+2023-05-12 14:37:36 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-12 14:37:36 - Started 82544
+2023-05-12 14:38:19 - Stopping nodebasicserver.exe
+2023-05-12 14:38:19 - ProcessKill 82544
+2023-05-12 14:38:19 - Found child process: 51944 Name: conhost.exe
+2023-05-12 14:38:19 - Found child process: 79820 Name: node.exe
+2023-05-12 14:38:19 - Stopping process 51944
+2023-05-12 14:38:19 - Send SIGINT 51944
+2023-05-12 14:38:19 - SIGINT to 51944 failed - Killing as fallback
+2023-05-12 14:38:19 - Stopping process 79820
+2023-05-12 14:38:19 - Send SIGINT 79820
+2023-05-12 14:38:19 - SIGINT to 79820 failed - Killing as fallback
+2023-05-12 14:38:19 - Stopping process 82544
+2023-05-12 14:38:19 - Send SIGINT 82544
+2023-05-12 14:38:19 - SIGINT to 82544 failed - Killing as fallback
+2023-05-12 14:38:19 - Finished nodebasicserver.exe
+2023-05-12 14:38:20 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-12 14:38:20 - Started 76988
+2023-05-12 14:41:29 - Stopping nodebasicserver.exe
+2023-05-12 14:41:29 - ProcessKill 76988
+2023-05-12 14:41:29 - Found child process: 26248 Name: conhost.exe
+2023-05-12 14:41:29 - Found child process: 64440 Name: node.exe
+2023-05-12 14:41:29 - Stopping process 26248
+2023-05-12 14:41:29 - Send SIGINT 26248
+2023-05-12 14:41:29 - SIGINT to 26248 failed - Killing as fallback
+2023-05-12 14:41:29 - Stopping process 64440
+2023-05-12 14:41:29 - Send SIGINT 64440
+2023-05-12 14:41:29 - SIGINT to 64440 failed - Killing as fallback
+2023-05-12 14:41:29 - Stopping process 76988
+2023-05-12 14:41:29 - Send SIGINT 76988
+2023-05-12 14:41:29 - SIGINT to 76988 failed - Killing as fallback
+2023-05-12 14:41:29 - Finished nodebasicserver.exe
+2023-05-12 14:41:30 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-12 14:41:30 - Started 32240
+2023-05-12 14:46:52 - Stopping nodebasicserver.exe
+2023-05-12 14:46:52 - ProcessKill 32240
+2023-05-12 14:46:52 - Found child process: 53872 Name: conhost.exe
+2023-05-12 14:46:52 - Found child process: 33204 Name: node.exe
+2023-05-12 14:46:52 - Stopping process 53872
+2023-05-12 14:46:52 - Send SIGINT 53872
+2023-05-12 14:46:52 - SIGINT to 53872 failed - Killing as fallback
+2023-05-12 14:46:52 - Stopping process 33204
+2023-05-12 14:46:52 - Send SIGINT 33204
+2023-05-12 14:46:52 - SIGINT to 33204 failed - Killing as fallback
+2023-05-12 14:46:52 - Stopping process 32240
+2023-05-12 14:46:52 - Send SIGINT 32240
+2023-05-12 14:46:52 - SIGINT to 32240 failed - Killing as fallback
+2023-05-12 14:46:52 - Finished nodebasicserver.exe
+2023-05-12 14:46:53 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-12 14:46:53 - Started 81944
+2023-05-12 14:47:50 - Stopping nodebasicserver.exe
+2023-05-12 14:47:50 - ProcessKill 81944
+2023-05-12 14:47:50 - Found child process: 67016 Name: conhost.exe
+2023-05-12 14:47:50 - Found child process: 74436 Name: node.exe
+2023-05-12 14:47:50 - Stopping process 67016
+2023-05-12 14:47:50 - Send SIGINT 67016
+2023-05-12 14:47:50 - SIGINT to 67016 failed - Killing as fallback
+2023-05-12 14:47:50 - Stopping process 74436
+2023-05-12 14:47:50 - Send SIGINT 74436
+2023-05-12 14:47:50 - SIGINT to 74436 failed - Killing as fallback
+2023-05-12 14:47:50 - Stopping process 81944
+2023-05-12 14:47:50 - Send SIGINT 81944
+2023-05-12 14:47:50 - SIGINT to 81944 failed - Killing as fallback
+2023-05-12 14:47:50 - Finished nodebasicserver.exe
+2023-05-12 14:47:51 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-12 14:47:51 - Started 53516
+2023-05-22 21:12:20 - Stopping nodebasicserver.exe
+2023-05-22 21:12:20 - ProcessKill 53516
+2023-05-22 21:12:21 - Found child process: 71172 Name: conhost.exe
+2023-05-22 21:12:21 - Found child process: 18108 Name: node.exe
+2023-05-22 21:12:22 - Stopping process 71172
+2023-05-22 21:12:22 - Send SIGINT 71172
+2023-05-22 21:12:22 - SIGINT to 71172 failed - Killing as fallback
+2023-05-22 21:12:22 - Stopping process 18108
+2023-05-22 21:12:22 - Send SIGINT 18108
+2023-05-22 21:12:22 - SIGINT to 18108 failed - Killing as fallback
+2023-05-22 21:12:22 - Stopping process 53516
+2023-05-22 21:12:22 - Send SIGINT 53516
+2023-05-22 21:12:22 - SIGINT to 53516 failed - Killing as fallback
+2023-05-22 21:12:22 - Finished nodebasicserver.exe
+2023-05-22 21:25:27 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-22 21:25:27 - Started 57352
+2023-05-22 22:17:03 - Stopping nodebasicserver.exe
+2023-05-22 22:17:03 - ProcessKill 57352
+2023-05-22 22:17:03 - Found child process: 63676 Name: conhost.exe
+2023-05-22 22:17:03 - Found child process: 40800 Name: node.exe
+2023-05-22 22:17:03 - Stopping process 63676
+2023-05-22 22:17:03 - Send SIGINT 63676
+2023-05-22 22:17:03 - SIGINT to 63676 failed - Killing as fallback
+2023-05-22 22:17:03 - Stopping process 40800
+2023-05-22 22:17:03 - Send SIGINT 40800
+2023-05-22 22:17:03 - SIGINT to 40800 failed - Killing as fallback
+2023-05-22 22:17:03 - Stopping process 57352
+2023-05-22 22:17:03 - Send SIGINT 57352
+2023-05-22 22:17:03 - SIGINT to 57352 failed - Killing as fallback
+2023-05-22 22:17:03 - Finished nodebasicserver.exe
+2023-05-22 22:17:04 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-22 22:17:04 - Started 34216
+2023-05-22 22:18:35 - Stopping nodebasicserver.exe
+2023-05-22 22:18:35 - ProcessKill 34216
+2023-05-22 22:18:35 - Found child process: 33160 Name: conhost.exe
+2023-05-22 22:18:35 - Found child process: 81968 Name: node.exe
+2023-05-22 22:18:35 - Stopping process 33160
+2023-05-22 22:18:35 - Send SIGINT 33160
+2023-05-22 22:18:35 - SIGINT to 33160 failed - Killing as fallback
+2023-05-22 22:18:35 - Stopping process 81968
+2023-05-22 22:18:35 - Send SIGINT 81968
+2023-05-22 22:18:35 - SIGINT to 81968 failed - Killing as fallback
+2023-05-22 22:18:35 - Stopping process 34216
+2023-05-22 22:18:35 - Send SIGINT 34216
+2023-05-22 22:18:35 - SIGINT to 34216 failed - Killing as fallback
+2023-05-22 22:18:35 - Finished nodebasicserver.exe
+2023-05-22 22:18:36 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\xampp\htdocs\bauereg\node_modules\node-windows\lib\wrapper.js --file C:\xampp\htdocs\bauereg\api\app.js --scriptoptions= --log "nodeBasicServer wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2023-05-22 22:18:36 - Started 31100
+2023-05-22 23:26:51 - Stopping nodebasicserver.exe
+2023-05-22 23:26:51 - ProcessKill 31100
+2023-05-22 23:26:52 - Found child process: 44164 Name: conhost.exe
+2023-05-22 23:26:52 - Found child process: 70232 Name: node.exe
+2023-05-22 23:26:52 - Stopping process 44164
+2023-05-22 23:26:52 - Send SIGINT 44164
+2023-05-22 23:26:52 - SIGINT to 44164 failed - Killing as fallback
+2023-05-22 23:26:52 - Stopping process 70232
+2023-05-22 23:26:52 - Send SIGINT 70232
+2023-05-22 23:26:52 - SIGINT to 70232 failed - Killing as fallback
+2023-05-22 23:26:52 - Stopping process 31100
+2023-05-22 23:26:52 - Send SIGINT 31100
+2023-05-22 23:26:52 - SIGINT to 31100 failed - Killing as fallback
+2023-05-22 23:26:52 - Finished nodebasicserver.exe

