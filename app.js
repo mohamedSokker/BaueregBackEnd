@@ -29,6 +29,7 @@ const io = socketio(server, {
       "http://192.168.52.186:3000",
       "http://192.168.220.186:3000",
       "http://mhsokker.ddnsfree.com:3000",
+      "https://bauereg.onrender.com",
     ],
   },
 });
