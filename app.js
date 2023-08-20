@@ -467,6 +467,10 @@ app.get("/style29.css", (req, res) => {
   res.sendFile(CurrDir + "/style29.css");
 });
 
+app.get("/favicon.ico", (req, res) => {
+  res.sendFile(CurrDir + "/images/logo.jpg");
+});
+
 app.get("/images/logo.jpg", (req, res) => {
   res.sendFile(CurrDir + "/images/logo.jpg");
 });
