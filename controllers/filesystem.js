@@ -16,6 +16,7 @@ let encodedURL = (string) => {
 const FileSystem = (req, res) => {
   // console.log(auth())
   let secPath = req.url;
+  console.log(req.url);
   // secPath = encodedURL(secPath);
   secPath = secPath.replaceAll("%20", " ");
   secPath = secPath.replaceAll("%23", "#");
