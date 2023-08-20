@@ -27,8 +27,8 @@ let decodeURL = (secPath) => {
 const FileSystem = (req, res) => {
   // console.log(auth())
   let secPath = req.url.toString();
-  console.log(req.url);
-  secPath = decodeURL(secPath);
+  // console.log(req.url);
+  // secPath = decodeURL(secPath);
   // secPath = secPath.replaceAll("%20", " ");
   // secPath = secPath.replaceAll("%23", "#");
   // secPath = secPath.replaceAll("%26", "&");
