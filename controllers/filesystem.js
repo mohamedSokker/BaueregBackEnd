@@ -3,32 +3,33 @@ var absPath = process.env.ABS_PATH;
 let abshost = process.env.BASE_URL;
 
 let encodedURL = (string) => {
-  string = string.replaceAll("%", "%25");
-  string = string.replaceAll(" ", "%20");
-  string = string.replaceAll("#", "%23");
-  string = string.replaceAll("&", "%26");
-  string = string.replaceAll('"', "%22");
-  string = string.replaceAll("(", "%28");
-  string = string.replaceAll(")", "%29");
+  string = string.replace("%", "%25");
+  string = string.replace(" ", "%20");
+  string = string.replace("#", "%23");
+  string = string.replace("&", "%26");
+  string = string.replace('"', "%22");
+  string = string.replace("(", "%28");
+  string = string.replace(")", "%29");
   return string;
 };
 
 let decodeURL = (secPath) => {
-  secPath = secPath.replaceAll("%20", " ");
-  secPath = secPath.replaceAll("%23", "#");
-  secPath = secPath.replaceAll("%26", "&");
-  secPath = secPath.replaceAll("%25", "%");
-  secPath = secPath.replaceAll("%22", '"');
-  secPath = secPath.replaceAll("%28", "(");
-  secPath = secPath.replaceAll("%29", ")");
+  secPath = secPath.replace("%20", " ");
+  secPath = secPath.replace("%23", "#");
+  secPath = secPath.replace("%26", "&");
+  secPath = secPath.replace("%25", "%");
+  secPath = secPath.replace("%22", '"');
+  secPath = secPath.replace("%28", "(");
+  secPath = secPath.replace("%29", ")");
   return secPath;
 };
 
 const FileSystem = (req, res) => {
   // console.log(auth())
   let secPath = req.url.toString();
-  // console.log(req.url);
-  // secPath = decodeURL(secPath);
+  console.log(req.url);
+  console.log(typeof req.url);
+  secPath = decodeURL(secPath);
   // secPath = secPath.replaceAll("%20", " ");
   // secPath = secPath.replaceAll("%23", "#");
   // secPath = secPath.replaceAll("%26", "&");
@@ -99,7 +100,7 @@ const FileSystem = (req, res) => {
       //     '</head>'
       // )
       arrayOfFiles.forEach((file) => {
-        encodedFile = file;
+        encodedFile = encodedURL(file);
         if (fs.lstatSync(absPath + secPath + "/" + file).isFile()) {
           let ext = file.split(".")[1];
 
