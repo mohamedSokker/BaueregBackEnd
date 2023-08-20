@@ -21,13 +21,13 @@ let encodedURL = (string) => {
 };
 
 let decodeURL = (secPath) => {
-  secPath = replaceAllChar(string, "%20", " ");
-  secPath = replaceAllChar(string, "%23", "#");
-  secPath = replaceAllChar(string, "%26", "&");
-  secPath = replaceAllChar(string, "%25", "%");
-  secPath = replaceAllChar(string, "%22", '"');
-  secPath = replaceAllChar(string, "%28", "(");
-  secPath = replaceAllChar(string, "%29", ")");
+  secPath = replaceAllChar(secPath, "%20", " ");
+  secPath = replaceAllChar(secPath, "%23", "#");
+  secPath = replaceAllChar(secPath, "%26", "&");
+  secPath = replaceAllChar(secPath, "%25", "%");
+  secPath = replaceAllChar(secPath, "%22", '"');
+  secPath = replaceAllChar(secPath, "%28", "(");
+  secPath = replaceAllChar(secPath, "%29", ")");
   return secPath;
 };
 
