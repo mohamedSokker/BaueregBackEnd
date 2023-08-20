@@ -476,7 +476,7 @@ app.get("/images/logo.jpg", (req, res) => {
 });
 
 app.get("/images/cover.jpg", (req, res) => {
-  res.sendFile(CurrDir + "/images/cover.jpg");
+  res.sendFile(CurrDir + "/images/Cover.jpg");
 });
 
 app.use("/login", login);
