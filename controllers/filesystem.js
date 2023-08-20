@@ -99,7 +99,7 @@ const FileSystem = (req, res) => {
       //     '</head>'
       // )
       arrayOfFiles.forEach((file) => {
-        encodedFile = encodedURL(file);
+        encodedFile = file;
         if (fs.lstatSync(absPath + secPath + "/" + file).isFile()) {
           let ext = file.split(".")[1];
 
