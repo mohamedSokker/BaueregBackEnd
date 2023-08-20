@@ -2,25 +2,32 @@ var fs = require("fs");
 var absPath = process.env.ABS_PATH;
 let abshost = process.env.BASE_URL;
 
+function replaceAllChar(string, char1, char2) {
+  while (string.includes(char1)) {
+    string = string.replace(char1, char2);
+  }
+  return string;
+}
+
 let encodedURL = (string) => {
-  string = string.replaceAll("%", "%25");
-  string = string.replaceAll(" ", "%20");
-  string = string.replaceAll("#", "%23");
-  string = string.replaceAll("&", "%26");
-  string = string.replaceAll('"', "%22");
-  string = string.replaceAll("(", "%28");
-  string = string.replaceAll(")", "%29");
+  string = replaceAllChar(string, "%", "%25");
+  string = replaceAllChar(string, " ", "%20");
+  string = replaceAllChar(string, "#", "%23");
+  string = replaceAllChar(string, "&", "%26");
+  string = replaceAllChar(string, '"', "%22");
+  string = replaceAllChar(string, "(", "%28");
+  string = replaceAllChar(string, ")", "%29");
   return string;
 };
 
 let decodeURL = (secPath) => {
-  secPath = secPath.replaceAll("%20", " ");
-  secPath = secPath.replaceAll("%23", "#");
-  secPath = secPath.replaceAll("%26", "&");
-  secPath = secPath.replaceAll("%25", "%");
-  secPath = secPath.replaceAll("%22", '"');
-  secPath = secPath.replaceAll("%28", "(");
-  secPath = secPath.replaceAll("%29", ")");
+  secPath = replaceAllChar(string, "%20", " ");
+  secPath = replaceAllChar(string, "%23", "#");
+  secPath = replaceAllChar(string, "%26", "&");
+  secPath = replaceAllChar(string, "%25", "%");
+  secPath = replaceAllChar(string, "%22", '"');
+  secPath = replaceAllChar(string, "%28", "(");
+  secPath = replaceAllChar(string, "%29", ")");
   return secPath;
 };
 
