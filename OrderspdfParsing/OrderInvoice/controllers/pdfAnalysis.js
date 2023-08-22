@@ -18,6 +18,13 @@ const pdfAnalysis = async (req, res) => {
   }
 };
 
+function replaceAllChar(string, char1, char2) {
+  while (string.includes(char1)) {
+    string = string.replace(char1, char2);
+  }
+  return string;
+}
+
 const checkEndOfNumber = (text, startIndex) => {
   let i = 0;
   for (i = 0; i < text.length; i++) {
@@ -153,35 +160,35 @@ const getConfirmationItems = (text) => {
           totalValue = data.indexOf("pc.");
           totalValue = data.slice(totalValue + 3);
           totalValue = checkEndOfNumber(totalValue, 0).text.trim();
-          totalValue = totalValue.replaceAll(".", "");
-          totalValue = totalValue.replaceAll(",", ".");
+          totalValue = replaceAllChar(totalValue, ".", "");
+          totalValue = replaceAllChar(totalValue, ",", ".");
         } else if (data.includes(" m")) {
           partNo = checkEndOfNumber(data, 0).text.trim();
           unit = "m";
           totalValue = data.indexOf(" m");
           totalValue = data.slice(totalValue + 2);
           totalValue = checkEndOfNumber(totalValue, 0).text.trim();
-          totalValue = totalValue.replaceAll(".", "");
-          totalValue = totalValue.replaceAll(",", ".");
+          totalValue = replaceAllChar(totalValue, ".", "");
+          totalValue = replaceAllChar(totalValue, ",", ".");
         } else if (data.includes("Set")) {
           partNo = checkEndOfNumber(data, 0).text.trim();
           unit = "set";
           totalValue = data.indexOf("Set");
           totalValue = data.slice(totalValue + 3);
           totalValue = checkEndOfNumber(totalValue, 0).text.trim();
-          totalValue = totalValue.replaceAll(".", "");
-          totalValue = totalValue.replaceAll(",", ".");
+          totalValue = replaceAllChar(totalValue, ".", "");
+          totalValue = replaceAllChar(totalValue, ",", ".");
         }
         if (data.includes("no")) {
           Quantity = data.indexOf("no");
           Quantity = data.slice(Quantity + 2);
           Quantity = checkEndOfNumber(Quantity, 0).text.trim();
-          Quantity = Quantity.replaceAll(",", ".");
+          Quantity = replaceAllChar(Quantity, ",", ".");
         } else if (data.includes("yes")) {
           Quantity = data.indexOf("yes");
           Quantity = data.slice(Quantity + 3);
           Quantity = checkEndOfNumber(Quantity, 0).text.trim();
-          Quantity = Quantity.replaceAll(",", ".");
+          Quantity = replaceAllChar(Quantity, ",", ".");
         }
       } else {
         desc += " " + data.trim();
