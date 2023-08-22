@@ -73,6 +73,7 @@ const AppMobile = async (req, res) => {
       data.push({
         IssuesCreatedDate: tableData[i].IssuesCreatedDate,
         IssuesCreatedBy: `${IssueUserName.FirstName} ${IssueUserName.LastName}`,
+        UserRole: IssueUserName?.Role,
         Location: tableData[i].Location,
         EquipmentType: tableData[i].EquipmentType,
         EquipmentModel: tableData[i].EquipmentModel,
