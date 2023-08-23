@@ -59,31 +59,32 @@ const sqlgetAllAppStocksTransition = (req, res) => {
 
 /////////////////////////////////////////////MONGO DB TRY GET ALL////////////////////////////////////////
 const getAllAppStocksTransition = async (req, res) => {
-  try {
-    mongoose
-      .connect(process.env.MONGO_CONN_STR, {
-        useNewUrlParser: true,
-      })
-      .catch((err) => {
-        console.log("Mongo Connection Falied");
-        sqlgetAllAppStocksTransition(req, res);
-      });
+  sqlgetAllAppStocksTransition(req, res);
+  // try {
+  //   mongoose
+  //     .connect(process.env.MONGO_CONN_STR, {
+  //       useNewUrlParser: true,
+  //     })
+  //     .catch((err) => {
+  //       console.log("Mongo Connection Falied");
+  //       sqlgetAllAppStocksTransition(req, res);
+  //     });
 
-    const connection = mongoose.connection;
-    connection.on("error", console.error.bind(console, "connection error:"));
-    connection.once("open", async () => {
-      const collection = connection.db.collection("AppStocksTransition");
-      collection
-        .find({}, { _id: 0 })
-        .toArray()
-        .then((data) => {
-          res.send(data);
-          mongoose.connection.close();
-        });
-    });
-  } catch (err) {
-    sqlgetAllAppStocksTransition(req, res);
-  }
+  //   const connection = mongoose.connection;
+  //   connection.on("error", console.error.bind(console, "connection error:"));
+  //   connection.once("open", async () => {
+  //     const collection = connection.db.collection("AppStocksTransition");
+  //     collection
+  //       .find({}, { _id: 0 })
+  //       .toArray()
+  //       .then((data) => {
+  //         res.send(data);
+  //         mongoose.connection.close();
+  //       });
+  //   });
+  // } catch (err) {
+  //   sqlgetAllAppStocksTransition(req, res);
+  // }
 };
 
 //////////////////////////////////SQL GET One///////////////////////////////////////////////////////
