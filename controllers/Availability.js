@@ -5,6 +5,13 @@ const { exitCode } = require("process");
 const url = require("url");
 const config = require("../config");
 
+function replaceAllChar(string, char1, char2) {
+  while (string.includes(char1)) {
+    string = string.replace(char1, char2);
+  }
+  return string;
+}
+
 const getAllAvailability = (req, res) => {
   var query = "SELECT * FROM Availability";
   let { cond, limit, fullquery } = req.query;
@@ -16,24 +23,22 @@ const getAllAvailability = (req, res) => {
   if (cond) {
     // cond = url.parse(cond,true)
     query = query + " WHERE " + cond;
-    query = query.replaceAll("%20", " ");
-    query = query.replaceAll("%27", "'");
-    query = query.replaceAll("%23", "#");
-    query = query.replaceAll("%26", "&");
-    query = query.replaceAll("%25", "%");
-    query = query.replaceAll("%22", '"');
-    query = query.replaceAll("%28", "(");
-    query = query.replaceAll("%29", ")");
+    query = replaceAllChar(query, "%20", " ");
+    query = replaceAllChar(query, "%23", "#");
+    query = replaceAllChar(query, "%26", "&");
+    query = replaceAllChar(query, "%25", "%");
+    query = replaceAllChar(query, "%22", '"');
+    query = replaceAllChar(query, "%28", "(");
+    query = replaceAllChar(query, "%29", ")");
   } else if (fullquery) {
     query = fullquery;
-    query = query.replaceAll("%20", " ");
-    query = query.replaceAll("%27", "'");
-    query = query.replaceAll("%23", "#");
-    query = query.replaceAll("%26", "&");
-    query = query.replaceAll("%25", "%");
-    query = query.replaceAll("%22", '"');
-    query = query.replaceAll("%28", "(");
-    query = query.replaceAll("%29", ")");
+    query = replaceAllChar(query, "%20", " ");
+    query = replaceAllChar(query, "%23", "#");
+    query = replaceAllChar(query, "%26", "&");
+    query = replaceAllChar(query, "%25", "%");
+    query = replaceAllChar(query, "%22", '"');
+    query = replaceAllChar(query, "%28", "(");
+    query = replaceAllChar(query, "%29", ")");
   }
   try {
     sql.connect(config, function (err) {
