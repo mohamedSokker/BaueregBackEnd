@@ -5,13 +5,13 @@ const { exitCode } = require("process");
 const url = require("url");
 const config = require("../config");
 
-const getAllFuelConsumption = async (req, res) => {
-  var query = "SELECT * FROM FuelConsumption";
+const getAllOilConsumption = (req, res) => {
+  var query = "SELECT * FROM OilConsumption";
   let { cond, limit, fullquery } = req.query;
   if (limit) {
-    query = "SELECT TOP " + limit + " * FROM FuelConsumption";
+    query = "SELECT TOP " + limit + " * FROM OilConsumption";
   } else {
-    query = "SELECT * FROM FuelConsumption";
+    query = "SELECT * FROM OilConsumption";
   }
   if (cond) {
     // cond = url.parse(cond,true)
@@ -36,18 +36,37 @@ const getAllFuelConsumption = async (req, res) => {
     query = query.replaceAll("%29", ")");
   }
   try {
-    const conn = await sql.connect(config);
-    const result = await sql.query(query);
-    await conn.close();
-    console.log(result.recordsets[0]);
-    return res.status(200).send(result.recordsets[0]);
+    sql.connect(config, function (err) {
+      if (err) console.log(err.message);
+      // create Request object
+      var request = new sql.Request();
+      try {
+        request.query(query, function (err, recordsets) {
+          if (err) {
+            console.log(err.message);
+            return res.send(err.message);
+          }
+          try {
+            return res.status(200).send(recordsets.recordsets[0]);
+          } catch (error) {
+            return res.status(404).send({ message: error.message });
+          }
+        });
+      } catch (error) {
+        return res.status(404).send({ message: error.message });
+      }
+      //Read Sql Statment From File
+    });
   } catch (error) {
     return res.status(404).send({ message: error.message });
   }
+  sql.on("error", (err) => {
+    res.status(404).send({ message: err.message });
+  });
 };
 
-const getFuelConsumption = (req, res) => {
-  var query = "SELECT * FROM FuelConsumption";
+const getOilConsumption = (req, res) => {
+  var query = "SELECT * FROM OilConsumption";
   // console.log(query);
   sql.connect(config, function (err) {
     if (err) console.log(err);
@@ -67,9 +86,9 @@ const getFuelConsumption = (req, res) => {
   });
 };
 
-const addFuelConsumption = (req, res) => {
+const addOilConsumption = (req, res) => {
   var getquery =
-    "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('FuelConsumption')";
+    "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('OilConsumption')";
   var Results = [];
   // console.log(query);
   sql.connect(config).then(() => {
@@ -81,7 +100,7 @@ const addFuelConsumption = (req, res) => {
       // if (err) console.log(err)
       Results = recordsets.recordsets[0];
       let keysStatus = true;
-      var query = "INSERT INTO FuelConsumption Values( ";
+      var query = "INSERT INTO OilConsumption Values( ";
       const keys = Object.keys(req.body);
       console.log(req.body);
       // var i = 0
@@ -115,9 +134,9 @@ const addFuelConsumption = (req, res) => {
   });
 };
 
-const updateFuelConsumption = (req, res) => {
+const updateOilConsumption = (req, res) => {
   var getquery =
-    "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('FuelConsumption')";
+    "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('OilConsumption')";
   var Results = [];
   var cond = "";
   // console.log(query);
@@ -130,7 +149,7 @@ const updateFuelConsumption = (req, res) => {
       // if (err) console.log(err)
       Results = recordsets.recordsets[0];
       let keysStatus = true;
-      var query = "UPDATE FuelConsumption SET ";
+      var query = "UPDATE OilConsumption SET ";
       const keys = Object.keys(req.body);
       console.log(req.body);
       // var i = 0
@@ -165,8 +184,8 @@ const updateFuelConsumption = (req, res) => {
   });
 };
 
-const deleteFuelConsumption = (req, res) => {
-  // var query = 'SELECT * FROM FuelConsumption';
+const deleteOilConsumption = (req, res) => {
+  // var query = 'SELECT * FROM OilConsumption';
   // console.log(query);
   const { data1, data2 } = req.body;
   sql.connect(config, function (err) {
@@ -175,7 +194,7 @@ const deleteFuelConsumption = (req, res) => {
     var request = new sql.Request();
     //Read Sql Statment From File
     request.query(
-      "DELETE FROM FuelConsumption " +
+      "DELETE FROM OilConsumption " +
         "WHERE ID = '" +
         Object.values(req.params)[0] +
         "'",
@@ -192,9 +211,9 @@ const deleteFuelConsumption = (req, res) => {
 };
 
 module.exports = {
-  getAllFuelConsumption,
-  getFuelConsumption,
-  addFuelConsumption,
-  updateFuelConsumption,
-  deleteFuelConsumption,
+  getAllOilConsumption,
+  getOilConsumption,
+  addOilConsumption,
+  updateOilConsumption,
+  deleteOilConsumption,
 };

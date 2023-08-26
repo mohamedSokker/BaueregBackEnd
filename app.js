@@ -125,6 +125,7 @@ const Equipment_Performance_Piles = require("./routes/Equipment_Performance_Pile
 const Equipments_Location = require("./routes/Equipments_Location");
 const Equipments_Notes = require("./routes/Equipments_Notes");
 const Fuel_Consumption = require("./routes/Fuel_Consumption");
+const OilConsumption = require("./routes/OilConsumption");
 const GearBoxes = require("./routes/GearBoxes");
 const GearBoxesTrench = require("./routes/GearBoxesTrench");
 const Holidays = require("./routes/Holidays");
@@ -203,7 +204,7 @@ app.use("/api/v1/AdminUsersData", authapp("AdminUsersData"), AdminUsersData);
 
 app.use("/api/v1/AdminUsersLog", authapp("AdminUsersLog"), AdminUsersLog);
 
-app.use("/api/v1/Availability", authapp("Availability"), Availability);
+app.use("/api/v1/Availability", Availability);
 
 app.use(
   "/api/v1/Availability_Plan",
@@ -271,11 +272,9 @@ app.use(
   Equipments_Notes
 );
 
-app.use(
-  "/api/v1/Fuel_Consumption",
-  authapp("Fuel_Consumption"),
-  Fuel_Consumption
-);
+app.use("/api/v1/FuelConsumption", Fuel_Consumption);
+
+app.use("/api/v1/OilConsumption", OilConsumption);
 
 app.use("/api/v1/GearBoxes", authapp("GearBoxes"), GearBoxes);
 
