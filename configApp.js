@@ -1,10 +1,10 @@
 // config for your database
 var config = {
-  user: "mohamed",
-  password: "mohamed",
-  server: "62.114.122.39",
-  port: 2433,
-  database: "BauerAppDb",
+  user: process.env.CONFIGAPP_USER,
+  password: process.env.CONFIGAPP_PASSWORD,
+  server: process.env.CONFIGAPP_SERVER,
+  port: process.env.CONFIGAPP_PORT,
+  database: process.env.CONFIGAPP_DATABASE,
   synchronize: true,
   trustServerCertificate: true,
 };

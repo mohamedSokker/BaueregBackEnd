@@ -10,10 +10,10 @@
 // };
 
 var config = {
-  user: "bauerreports",
-  password: "bauereg@2023",
-  server: "den1.mssql7.gear.host",
-  database: "bauerreports",
+  user: process.env.CONFIG_USER,
+  password: process.env.CONFIG_PASSWORD,
+  server: process.env.CONFIG_SERVER,
+  database: process.env.CONFIG_DATABASE,
   synchronize: true,
   trustServerCertificate: true,
 };

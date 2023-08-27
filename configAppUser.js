@@ -1,10 +1,10 @@
 // config for your database
 var config = {
-  user: "mohamed",
-  password: "mohamed",
-  server: "62.114.122.39",
-  port: 2433,
-  database: "bauerIdentity",
+  user: process.env.CONFIGAPPUSER_USER,
+  password: CONFIGAPPUSER_PASSWORD,
+  server: CONFIGAPPUSER_SERVER,
+  port: CONFIGAPPUSER_PORT,
+  database: CONFIGAPPUSER_DATABASE,
   synchronize: true,
   trustServerCertificate: true,
 };
