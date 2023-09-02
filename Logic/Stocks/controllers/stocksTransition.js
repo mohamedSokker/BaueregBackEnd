@@ -24,7 +24,7 @@ const addstocks = async (req, res) => {
         ItemStatus: req.body.ItemStatus,
       };
       const insertTransition = await insertToTransition(bodyData);
-      res.status(200).send(insertTransition);
+      res.status(200).json(insertTransition);
     } else {
       if (checkCode === `no items found`) {
         throw new Error(`no items found`);
@@ -38,7 +38,7 @@ const addstocks = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    return res.status(500).json({ message: error.message });
   }
 };
 

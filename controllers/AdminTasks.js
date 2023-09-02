@@ -1,202 +1,55 @@
-const { request } = require("http");
-const sql = require("mssql");
-const { type } = require("os");
-const { exitCode } = require("process");
-const url = require("url");
-const config = require("../config");
+const tableInsertData = require("../Logic/tablesData/tableInsertData");
+const tableUpdateData = require("../Logic/tablesData/tableUpdateData");
+const tableDeleteData = require("../Logic/tablesData/tableDeleteData");
+const tableGetAll = require("../Logic/tablesData/tableGetAll");
+const tableGetSingle = require("../Logic/tablesData/tableGetSingle");
 
-const getAllAdminTasks = (req, res) => {
-  var query = "SELECT * FROM AdminTasks ORDER BY ID DESC";
-  let { cond, limit, fullquery } = req.query;
-  if (limit) {
-    query = "SELECT TOP " + limit + " * FROM AdminTasks";
-  } else {
-    query = "SELECT * FROM AdminTasks ORDER BY ID DESC";
-  }
-  if (cond) {
-    // cond = url.parse(cond,true)
-    query = query + " WHERE " + cond;
-    query = query.replaceAll("%20", " ");
-    query = query.replaceAll("%27", "'");
-    query = query.replaceAll("%23", "#");
-  } else if (fullquery) {
-    query = fullquery;
-  }
+const getAllAdminTasks = async (req, res) => {
   try {
-    sql.connect(config, function (err) {
-      if (err) {
-        console.log(err);
-        return res.sendStatus(500);
-      }
-      // create Request object
-      var request = new sql.Request();
-      try {
-        request.query(query, function (err, recordsets) {
-          // if (err) res.send(err)
-          try {
-            res.status(200).send(recordsets.recordsets[0]);
-          } catch (error) {
-            res.status(404).send("Wrong Arguments");
-          }
-        });
-      } catch (error) {
-        res.status(404).send("Wrong Arguments");
-      }
-      //Read Sql Statment From File
-    });
+    const result = await tableGetAll(`AdminTasks`, req.query);
+    return res.status(200).json(result);
   } catch (error) {
-    res.status(404).send("Wrong Arguments");
+    return res.status(500).json({ message: error.message });
   }
-  sql.on("error", (err) => {
-    res.status(404).send("Wrong Arguments");
-  });
 };
 
-const getAdminTasks = (req, res) => {
-  var query = "SELECT * FROM AdminTasks";
-  // console.log(query);
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-    //Read Sql Statment From File
-    request.query(query, function (err, recordsets) {
-      if (err) console.log(err);
-      Results = recordsets.recordsets[0];
-      const SearchedItems = Results.find(
-        (Result) => Result.UserID == Object.values(req.params)[0]
-      );
-      var SearchedItemsArray = [];
-      SearchedItemsArray[0] = SearchedItems;
-      res.json(SearchedItemsArray);
-    });
-  });
+const getAdminTasks = async (req, res) => {
+  try {
+    const cond = req.params.id;
+    const result = await tableGetSingle(`AdminTasks`, cond);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
-const addAdminTasks = (req, res) => {
-  var getquery =
-    "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('AdminTasks')";
-  var Results = [];
-  // console.log(query);
-  sql.connect(config).then(() => {
-    // if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-    //Read Sql Statment From File
-    request.query(getquery, function (err, recordsets) {
-      // if (err) console.log(err)
-      Results = recordsets.recordsets[0];
-      let keysStatus = true;
-      var query = "INSERT INTO AdminTasks Values( ";
-      const keys = Object.keys(req.body);
-      console.log(req.body);
-      // var i = 0
-      for (let i = 0; i < Results.length; i++) {
-        // console.log(Results[i]['name'])
-        if (keys.includes(Results[i]["name"])) {
-          query += "'" + req.body[Results[i]["name"]] + "',";
-        } else if (Results[i]["name"] == "ID") {
-          query = query;
-        } else {
-          keysStatus = false;
-          res.status(404).send("Wrong Arguments");
-          break;
-        }
-      }
-      query = query.slice(0, -1);
-      query += ")";
-      console.log(query);
-      if (keysStatus == true) {
-        sql.connect(config, function (err) {
-          // if (err) console.log(err);
-          // create Request object
-          var request = new sql.Request();
-          //Read Sql Statment From File
-          request.query(query, function (err, recordsets) {
-            // if (err) console.log(err)
-            res.status(200).send({ success: true, data: req.body });
-          });
-        });
-      }
-    });
-  });
+const addAdminTasks = async (req, res) => {
+  try {
+    const result = await tableInsertData(req.body, `AdminTasks`);
+    return res.status(200).json({ success: "true", dataAdded: result });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
-const updateAdminTasks = (req, res) => {
-  var getquery =
-    "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('AdminTasks')";
-  var Results = [];
-  var cond = "";
-  // console.log(query);
-  sql.connect(config).then(() => {
-    // if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-    //Read Sql Statment From File
-    request.query(getquery, function (err, recordsets) {
-      // if (err) console.log(err)
-      Results = recordsets.recordsets[0];
-      let keysStatus = true;
-      var query = "UPDATE AdminTasks SET ";
-      const keys = Object.keys(req.body);
-      console.log(req.body);
-      // var i = 0
-      for (let i = 0; i < Results.length; i++) {
-        // console.log(Results[i]['name'])
-        if (keys.includes(Results[i]["name"])) {
-          query +=
-            Results[i]["name"] + " ='" + req.body[Results[i]["name"]] + "',";
-        } else if (Results[i]["name"] == "ID") {
-          cond = " WHERE ID = '" + Object.values(req.params)[0] + "'";
-        } else {
-          keysStatus = false;
-          res.status(404).send("Wrong Arguments");
-          break;
-        }
-      }
-      query = query.slice(0, -1);
-      query += cond;
-      console.log(query);
-      if (keysStatus == true) {
-        sql.connect(config, function (err) {
-          // if (err) console.log(err);
-          // create Request object
-          var request = new sql.Request();
-          //Read Sql Statment From File
-          request.query(query, function (err, recordsets) {
-            // if (err) console.log(err)
-            res.status(200).send({ success: true, data: req.body });
-          });
-        });
-      }
-    });
-  });
+const updateAdminTasks = async (req, res) => {
+  try {
+    const targetColVal = Object.values(req.params)[0];
+    const result = await tableUpdateData(req.body, `AdminTasks`, targetColVal);
+    return res.status(200).json({ success: "true", dataUpdated: result });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
-const deleteAdminTasks = (req, res) => {
-  // var query = 'SELECT * FROM AdminTasks';
-  // console.log(query);
-  const { data1, data2 } = req.body;
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-    //Read Sql Statment From File
-    request.query(
-      "DELETE FROM AdminTasks " +
-        "WHERE ID = '" +
-        Object.values(req.params)[0] +
-        "'",
-      function (err, recordsets) {
-        if (err) console.log(err);
-        Results = recordsets.recordsets[0];
-        // const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
-        // var SearchedItemsArray = []
-        // SearchedItemsArray[0] = SearchedItems
-        res.status(200).send({ success: true, data: req.body });
-      }
-    );
-  });
+const deleteAdminTasks = async (req, res) => {
+  try {
+    const targetColVal = Object.values(req.params)[0];
+    const result = await tableDeleteData(`AdminTasks`, targetColVal);
+    return res.status(200).json({ success: "true", dataDeleted: result });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 module.exports = {

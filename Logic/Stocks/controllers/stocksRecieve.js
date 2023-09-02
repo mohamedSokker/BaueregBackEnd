@@ -30,21 +30,21 @@ const stocksRecieve = async (req, res) => {
         ItemStatus: req.body.ItemStatus,
       };
       const updateStoreData = await updateStore(bodyData);
-      res.status(200).send(updateStoreData);
+      return res.status(200).json(updateStoreData);
     } else {
       if (checkItem === `no items found`) {
         throw new Error(`no items found`);
-        res.status(404).send({ message: `no items found` });
+        // res.status(404).send({ message: `no items found` });
       }
 
       if (checkItem === `Error`) {
         throw new Error(`Error`);
-        res.status(500).send({ message: `Error` });
+        // res.status(500).send({ message: `Error` });
       }
     }
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    return res.status(500).json({ message: error.message });
   }
 };
 

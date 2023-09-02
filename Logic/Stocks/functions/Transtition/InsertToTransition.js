@@ -1,5 +1,4 @@
-const sql = require("mssql");
-const config = require("../../../../config");
+const { getData } = require("../../../../functions/getData");
 
 const insertToTransition = async (bodyData) => {
   const transQuery = `INSERT INTO AppStocksTransition VALUES(
@@ -14,12 +13,12 @@ const insertToTransition = async (bodyData) => {
 
   const notificationQuery = await updateNotification(bodyData);
 
-  // const updateStore = await calcUpdateStore(bodyData);
   const query = `${transQuery} ${fromQuery} ${notificationQuery}`;
 
   try {
-    await sql.connect(config);
-    const result = await sql.query(query);
+    const result = await getData(query);
+    // await sql.connect(config);
+    // const result = await sql.query(query);
     if (result.rowsAffected[0] === 0) return `no items found`;
     return result;
   } catch (error) {
@@ -36,8 +35,9 @@ const getDate = (date) => {
 
 const updateNotification = async (bodyData) => {
   const getUsersRoleQuery = `SELECT * FROM AdminUsersApp`;
-  await sql.connect(config);
-  const usersDataResult = await sql.query(getUsersRoleQuery);
+  const usersDataResult = await getData(getUsersRoleQuery);
+  // await sql.connect(config);
+  // const usersDataResult = await sql.query(getUsersRoleQuery);
   const usersData = usersDataResult.recordsets[0];
   let notificationQuery = "";
   usersData.forEach((user) => {
@@ -64,7 +64,7 @@ const updateNotification = async (bodyData) => {
         'false', 'false'
       )`;
       } else {
-        console.log(`user: ${user.UserName} is Not Allowed`);
+        // console.log(`user: ${user.UserName} is Not Allowed`);
       }
     }
   });

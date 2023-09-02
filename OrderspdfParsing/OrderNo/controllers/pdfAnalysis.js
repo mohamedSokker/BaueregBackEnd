@@ -6,18 +6,22 @@ const WordExtractor = require("word-extractor");
 const extractor = new WordExtractor();
 
 const pdfAnalysis = async (req, res) => {
-  const path = req.query.filepath;
-  let data = "";
-  if (fs.existsSync(path)) {
-    const extracted = extractor.extract(path);
-    extracted.then((doc) => {
-      data = doc.getBody();
-      data = removeText(data, "\t\t\t\t\t\t");
-      let item = getConfirmationItems(data);
-      res.send(item);
-    });
-  } else {
-    res.sendStatus(404);
+  try {
+    const path = req.query.filepath;
+    let data = "";
+    if (fs.existsSync(path)) {
+      const extracted = extractor.extract(path);
+      extracted.then((doc) => {
+        data = doc.getBody();
+        data = removeText(data, "\t\t\t\t\t\t");
+        let item = getConfirmationItems(data);
+        return res.status(200).json(item);
+      });
+    } else {
+      throw new Error(`Directory not found`);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };
 

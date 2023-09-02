@@ -1,5 +1,4 @@
-const sql = require("mssql");
-const config = require("../../../config");
+const { getData } = require("../../../functions/getData");
 
 const confirmOrder = async (req, res) => {
   try {
@@ -15,16 +14,12 @@ const confirmOrder = async (req, res) => {
              'false', 'false')`;
         count++;
       }
-      await sql.connect(config);
-      const result = await sql.query(query);
-      console.log(query);
+      const result = await getData(query);
+      return res.status(200).json({ data: result.rowsAffected[0] });
     }
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).send({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
-
-  return res.status(200).send({ message: "Success" });
 };
 
 module.exports = { confirmOrder };

@@ -1,5 +1,4 @@
-const sql = require("mssql");
-const config = require("../../../../config");
+const { getData } = require("../../../../functions/getData");
 
 const updateStore = async (bodyData) => {
   const fromQuery = `INSERT INTO AppStocksTransition VALUES(
@@ -10,8 +9,9 @@ const updateStore = async (bodyData) => {
   const searchQuery = `SELECT TOP 1 * FROM AppStocks WHERE Code = '${bodyData.Code}'
   AND Store = '${bodyData.ItemTo}'`;
   try {
-    await sql.connect(config);
-    const searchResult = await sql.query(searchQuery);
+    const searchResult = await getData(searchQuery);
+    // await sql.connect(config);
+    // const searchResult = await sql.query(searchQuery);
     let toQuery = ``;
     if (searchResult.rowsAffected[0] === 0) {
       toQuery = `INSERT INTO AppStocks VALUES ('${bodyData.Code}',
@@ -25,10 +25,13 @@ const updateStore = async (bodyData) => {
 
     const notificationQuery = await updateNotification(bodyData);
 
-    await sql.connect(config);
-    const result = await sql.query(
+    const result = await getData(
       `${fromQuery} ${toQuery} ${notificationQuery}`
     );
+    // await sql.connect(config);
+    // const result = await sql.query(
+    //   `${fromQuery} ${toQuery} ${notificationQuery}`
+    // );
     return result;
   } catch (error) {
     console.log(error.message);
@@ -44,8 +47,9 @@ const getDate = (date) => {
 
 const updateNotification = async (bodyData) => {
   const getUsersRoleQuery = `SELECT * FROM AdminUsersApp`;
-  await sql.connect(config);
-  const usersDataResult = await sql.query(getUsersRoleQuery);
+  const usersDataResult = await getData(getUsersRoleQuery);
+  // await sql.connect(config);
+  // const usersDataResult = await sql.query(getUsersRoleQuery);
   const usersData = usersDataResult.recordsets[0];
   let notificationQuery = "";
   usersData.forEach((user) => {
@@ -72,10 +76,9 @@ const updateNotification = async (bodyData) => {
         'false', 'false'
       )`;
       } else {
-        console.log(`user: ${user.UserName} is Not Allowed`);
+        // console.log(`user: ${user.UserName} is Not Allowed`);
       }
     }
-    console.log(notificationQuery);
   });
   return notificationQuery;
 };

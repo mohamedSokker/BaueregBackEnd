@@ -49,6 +49,16 @@ io.on("connection", (socket) => {
   });
 });
 
+//////////////////////////////////////////////////Tables Logic /////////////////////////////////////////////
+
+const avPlanLogic = require("./Logic/AvailabilityPlan/routes/logic");
+const avCalcLogic = require("./Logic/AvailabilityCalc/routes/logic");
+const insertPerMaint = require("./Logic/PerMaintPlan/routes/logic");
+
+app.use("/api/v1/AvPlanLogic", avPlanLogic);
+app.use("/api/v1/avCalcLogic", avCalcLogic);
+app.use("/api/v1/insertPerMaint", insertPerMaint);
+
 //////////////////////////////////////////////////Orders FileSystem ////////////////////////////////////////
 
 const createFolder = require("./OrdersFile/routes/OrdersCreateFolder"); // need query (fullpath)
@@ -192,9 +202,9 @@ app.use("/api/v1/Test", Test);
 
 app.use("/api/v1/Test1", authapp("Test1"), Test1);
 
-app.use("/api/v1/manageUsers", manageUsers);
+app.use("/api/v1/manageUsers", authapp("manageUsers"), manageUsers);
 
-app.post("/api/v1/uploadImg", uploadImg);
+app.post("/api/v1/uploadImg", authapp("uploadImg"), uploadImg);
 
 app.use("/api/v1/AdminTasks", authapp("AdminTasks"), AdminTasks);
 
@@ -204,7 +214,7 @@ app.use("/api/v1/AdminUsersData", authapp("AdminUsersData"), AdminUsersData);
 
 app.use("/api/v1/AdminUsersLog", authapp("AdminUsersLog"), AdminUsersLog);
 
-app.use("/api/v1/Availability", Availability);
+app.use("/api/v1/Availability", authapp("Availability"), Availability);
 
 app.use(
   "/api/v1/Availability_Plan",
@@ -214,7 +224,11 @@ app.use(
 
 app.use("/api/v1/Bauer_Breakdown", authapp("Bauer_Breakdown"), Bauer_Breakdown);
 
-app.use("/api/v1/Bauer_Equipments", Bauer_Equipments);
+app.use(
+  "/api/v1/Bauer_Equipments",
+  authapp("Bauer_Equipments"),
+  Bauer_Equipments
+);
 
 app.use(
   "/api/v1/Bauer_Equipments_Model",
@@ -272,9 +286,13 @@ app.use(
   Equipments_Notes
 );
 
-app.use("/api/v1/FuelConsumption", Fuel_Consumption);
+app.use(
+  "/api/v1/FuelConsumption",
+  authapp("FuelConsumption"),
+  Fuel_Consumption
+);
 
-app.use("/api/v1/OilConsumption", OilConsumption);
+app.use("/api/v1/OilConsumption", authapp("OilConsumption"), OilConsumption);
 
 app.use("/api/v1/GearBoxes", authapp("GearBoxes"), GearBoxes);
 
@@ -400,7 +418,7 @@ app.use(
   Soil_Rates_Piles
 );
 
-app.use("/api/v1/Stocks", Stocks);
+app.use("/api/v1/Stocks", authapp("Stocks"), Stocks);
 
 app.use(
   "/api/v1/Stocks_Equipments",
@@ -432,23 +450,27 @@ app.use(
   AppStocksTransition
 );
 
-app.use("/api/v1/AppStocks", AppStocks);
+app.use("/api/v1/AppStocks", authapp("AppStocks"), AppStocks);
 
-app.use("/api/v1/AppNotification", AppNotification);
+app.use("/api/v1/AppNotification", authapp("AppNotification"), AppNotification);
 
-app.use("/api/v1/StockTransition", StockTransition);
+app.use("/api/v1/StockTransition", authapp("StockTransition"), StockTransition);
 
-app.use("/api/v1/AppPlaceOrder", AppPlaceOrder);
+app.use("/api/v1/AppPlaceOrder", authapp("AppPlaceOrder"), AppPlaceOrder);
 
-app.use("/api/v1/stocksRecieve", stocksRecieve);
+app.use("/api/v1/stocksRecieve", authapp("stocksRecieve"), stocksRecieve);
 
-app.use("/api/v1/stocksExchange", stocksExchange);
+app.use("/api/v1/stocksExchange", authapp("stocksExchange"), stocksExchange);
 
-app.use("/api/v1/stocksNewItem", stocksNewItem);
+app.use("/api/v1/stocksNewItem", authapp("stocksNewItem"), stocksNewItem);
 
-app.use("/api/v1/stocksPlaceOrder", stocksPlaceOrder);
+app.use(
+  "/api/v1/stocksPlaceOrder",
+  authapp("stocksPlaceOrder"),
+  stocksPlaceOrder
+);
 
-app.use("/api/v1/confirmOrder", confirmOrder);
+app.use("/api/v1/confirmOrder", authapp("confirmOrder"), confirmOrder);
 
 app.use("/api/v1/AppMobile", AppMobile);
 
@@ -542,7 +564,7 @@ const specs = swaggerjsdoc(options);
 app.use("/doc", auth, swaggerui.serve, swaggerui.setup(specs));
 
 app.get("*", (req, res) => {
-  res.write("401 Access Denied");
+  res.status(400).json({ message: "No route found" });
   res.end();
 });
 

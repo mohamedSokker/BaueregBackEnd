@@ -4,24 +4,28 @@ const pdfDoc = require("pdf-lib");
 const pdf = require("pdf-parse");
 
 const pdfAnalysis = async (req, res) => {
-  let prevpdfText = "";
-  const path = req.query.filepath;
-  if (fs.existsSync(path)) {
-    let pdfBytes = fs.readFileSync(path);
-    await pdf(pdfBytes).then((pdfdata) => {
-      prevpdfText = pdfdata.text;
-    });
-    let targetDeliveryDate;
-    let targetItem;
-    targetDeliveryDate = getDeliveryDate(prevpdfText);
-    if (targetDeliveryDate === "See item") {
-      targetItem = getConfirmationItems(prevpdfText);
+  try {
+    let prevpdfText = "";
+    const path = req.query.filepath;
+    if (fs.existsSync(path)) {
+      let pdfBytes = fs.readFileSync(path);
+      await pdf(pdfBytes).then((pdfdata) => {
+        prevpdfText = pdfdata.text;
+      });
+      let targetDeliveryDate;
+      let targetItem;
+      targetDeliveryDate = getDeliveryDate(prevpdfText);
+      if (targetDeliveryDate === "See item") {
+        targetItem = getConfirmationItems(prevpdfText);
+      } else {
+        targetItem = getConfirmationItemsPublic(prevpdfText);
+      }
+      return res.status(200).json(targetItem);
     } else {
-      targetItem = getConfirmationItemsPublic(prevpdfText);
+      throw new Error(`Directory not found`);
     }
-    res.send(targetItem);
-  } else {
-    res.sendStatus(404);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };
 

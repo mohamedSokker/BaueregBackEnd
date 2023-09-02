@@ -1,19 +1,17 @@
 const fs = require("fs");
 
 const renameFolder = (req, res) => {
-  // console.log(req.query)
-  // console.log(req.query.url);
   try {
-    // if (!fs.existsSync(req.query.oldpath)) {
-    fs.rename(req.query.oldpath, req.query.newpath, () => {
-      res.sendStatus(200);
-      //   res.status(200).redirect(req.query.url);
-    });
-    //   console.log(req.query.url);
-    // }
+    if (fs.existsSync(req.query.oldpath)) {
+      fs.rename(req.query.oldpath, req.query.newpath, (err) => {
+        if (err) throw new Error(err.message);
+      });
+      return res.status(200).json({ message: "Success" });
+    } else {
+      throw new Error(`No Such Directory`);
+    }
   } catch (err) {
-    console.error(err);
-    res.end();
+    res.status(500).json({ message: err.message });
   }
 };
 

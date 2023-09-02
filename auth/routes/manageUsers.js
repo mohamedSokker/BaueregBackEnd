@@ -6,10 +6,10 @@ const { addmanageUsers } = require("../controllers/manageUsers");
 const { updatemanageUsers } = require("../controllers/manageUsers");
 const { deletemanageUsers } = require("../controllers/manageUsers");
 
-// router.use((req,res,next) => {
-//     console.log('middleware')
-//     next()
-// })
+router.use((req, res, next) => {
+  console.log("manage Users middleware");
+  next();
+});
 
 router.get("/", getAllmanageUsers);
 

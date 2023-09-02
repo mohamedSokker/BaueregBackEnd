@@ -1,7 +1,6 @@
 const { checkIteminStock } = require("../functions/global/checkItemInStock");
 const {
   insertToTransition,
-  updateNotification,
 } = require("../functions/Exchange/InsertToTransition");
 
 const stocksExchange = async (req, res) => {
@@ -25,21 +24,21 @@ const stocksExchange = async (req, res) => {
         ItemStatus: req.body.ItemStatus,
       };
       const insertTransition = await insertToTransition(bodyData);
-      res.status(200).send(insertTransition);
+      return res.status(200).json(insertTransition);
     } else {
       if (checkCode === `no items found`) {
         throw new Error(`no items found`);
-        res.status(404).send({ message: `no items found` });
+        // res.status(404).send({ message: `no items found` });
       }
 
       if (checkCode === `Error`) {
         throw new Error(`Error`);
-        res.status(500).send({ message: `Error` });
+        // res.status(500).send({ message: `Error` });
       }
     }
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    return res.status(500).json({ message: error.message });
   }
 };
 

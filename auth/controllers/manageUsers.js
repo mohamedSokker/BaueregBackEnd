@@ -1,214 +1,145 @@
-const sql = require("mssql");
-const config = require("../../config");
-// const bcrypt = require("bcrypt");
-const fs = require("fs");
+const { parseURL } = require("../../functions/parseURL");
+const { getData } = require("../../functions/getData");
+const bcrypt = require("bcrypt");
 
-const getAllmanageUsers = (req, res) => {
-  var query = "SELECT * FROM AdminUsersApp";
-  let { cond, limit, fullquery } = req.query;
+const getAllmanageUsers = async (req, res) => {
+  let query = "";
+  const { cond, limit, fullquery, page } = req.query;
   if (limit) {
     query = "SELECT TOP " + limit + " * FROM AdminUsersApp";
   } else {
     query = "SELECT * FROM AdminUsersApp";
   }
+  if (page && limit) {
+    let startCount = (Number(page) - 1) * Number(limit) + 1;
+    let endCount = Number(startCount) + Number(limit) - 1;
+    query = `WITH RowNo AS (SELECT ROW_NUMBER() OVER (ORDER BY ID) AS rowno, 
+            * FROM AdminUsersApp) SELECT * FROM RowNo WHERE RowNo BETWEEN ${startCount} AND  ${endCount}`;
+    parseURL(query);
+  }
   if (cond) {
-    // cond = url.parse(cond,true)
     query = query + " WHERE " + cond;
-    query = query.replaceAll("%20", " ");
-    query = query.replaceAll("%27", "'");
-    query = query.replaceAll("%23", "#");
+    parseURL(query);
   } else if (fullquery) {
     query = fullquery;
+    parseURL(query);
   }
+
   try {
-    sql.connect(config, function (err) {
-      if (err) console.log(err);
-      // create Request object
-      var request = new sql.Request();
-      try {
-        request.query(query, function (err, recordsets) {
-          // if (err) res.send(err)
-          try {
-            res.status(200).send(recordsets.recordsets[0]);
-          } catch (error) {
-            res.status(404).send("Wrong Arguments");
-          }
-        });
-      } catch (error) {
-        res.status(404).send("Wrong Arguments");
-      }
-      //Read Sql Statment From File
-    });
+    const result = await getData(query);
+    return res.status(200).json(result.recordsets[0]);
   } catch (error) {
-    res.status(404).send("Wrong Arguments");
+    return res.status(500).json({ message: error.message });
   }
-  sql.on("error", (err) => {
-    res.status(404).send("Wrong Arguments");
-  });
 };
 
-const getmanageUsers = (req, res) => {
-  var query = "SELECT * FROM AdminUsersApp";
-  // console.log(query);
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-    //Read Sql Statment From File
-    request.query(query, function (err, recordsets) {
-      if (err) console.log(err);
-      Results = recordsets.recordsets[0];
-      const SearchedItems = Results.find(
-        (Result) => Result.ID == Object.values(req.params)[0]
-      );
-      var SearchedItemsArray = [];
-      SearchedItemsArray[0] = SearchedItems;
-      res.json(SearchedItemsArray);
-    });
-  });
+const getmanageUsers = async (req, res) => {
+  const cond = req.params.id;
+  const query = `SELECT * FROM AdminUsersApp WHERE ID = '${cond}'`;
+  try {
+    const result = await getData(query);
+    return res.status(200).json(result.recordsets[0]);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
-const addmanageUsers = (req, res) => {
-  var getquery =
+const addmanageUsers = async (req, res) => {
+  const getquery =
     "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('AdminUsersApp')";
-  var Results = [];
-  let hashedPassword = "";
-  // console.log(query);
-  sql.connect(config).then(() => {
-    // if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-    //Read Sql Statment From File
-    request.query(getquery, async (err, recordsets) => {
-      // if (err) console.log(err)
-      Results = recordsets.recordsets[0];
-      let keysStatus = true;
-      var query = "INSERT INTO AdminUsersApp Values( ";
-      const keys = Object.keys(req.body);
-      // console.log(req.body);
-      // var i = 0
-      for (let i = 0; i < Results.length; i++) {
-        // console.log(Results[i]['name'])
-        if (keys.includes(Results[i]["name"])) {
-          if (Results[i]["name"] == "Password") {
-            // await bcrypt.hash(req.body[Results[i]["name"]], 10).then((hash) => {
-            //   hashedPassword = hash;
-            //   console.log(hash);
-            //   query += "'" + hashedPassword + "',";
-            // });
-          } else {
-            query += "'" + req.body[Results[i]["name"]] + "',";
-          }
-        } else if (Results[i]["name"] == "ID") {
-          query = query;
-        } else {
-          keysStatus = false;
-          res.status(404).send("Wrong Arguments");
-          break;
-        }
-      }
-      query = query.slice(0, -1);
-      query += ")";
-      // console.log(query);
-      if (keysStatus == true) {
-        sql.connect(config, (err) => {
-          // if (err) console.log(err);
-          // create Request object
-          var request = new sql.Request();
-          //Read Sql Statment From File
-          request.query(query, (err, recordsets) => {
-            // if (err) console.log(err)
-            res.status(200).send({ success: true, data: req.body });
+  let Results = [];
+  try {
+    Results = await getData(getquery);
+    Results = Results.recordsets[0];
+    let keysStatus = true;
+    let query = "INSERT INTO AdminUsersApp Values( ";
+    const keys = Object.keys(req.body);
+    for (let i = 0; i < Results.length; i++) {
+      if (keys.includes(Results[i]["name"])) {
+        if (Results[i]["name"] == "Password") {
+          await bcrypt.hash(req.body[Results[i]["name"]], 10).then((hash) => {
+            hashedPassword = hash;
+            console.log(hash);
+            query += "'" + hashedPassword + "',";
           });
-        });
+        } else {
+          query += "'" + req.body[Results[i]["name"]] + "',";
+        }
+      } else if (Results[i]["name"] == "ID") {
+        query = query;
+      } else {
+        keysStatus = false;
+        res.status(404).send("Wrong Arguments");
+        break;
       }
-    });
-  });
+    }
+    query = query.slice(0, -1);
+    query += ")";
+    if (keysStatus === true) {
+      const result = await getData(query);
+      return res.status(200).json({ success: "true", dataAdded: result });
+    } else {
+      return res.status(400).json({ message: "Bad request" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
-const updatemanageUsers = (req, res) => {
-  var getquery =
+const updatemanageUsers = async (req, res) => {
+  const getquery =
     "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('AdminUsersApp')";
-  var Results = [];
-  var cond = "";
-  // console.log(query);
-  sql.connect(config).then(() => {
-    // if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-    //Read Sql Statment From File
-    request.query(getquery, function (err, recordsets) {
-      // if (err) console.log(err)
-      Results = recordsets.recordsets[0];
-      let keysStatus = true;
-      var query = "UPDATE AdminUsersApp SET ";
-      const keys = Object.keys(req.body);
-      console.log(req.body);
-      // var i = 0
-      for (let i = 0; i < Results.length; i++) {
-        // console.log(Results[i]['name'])
-        if (keys.includes(Results[i]["name"])) {
-          if (Results[i]["name"] == "Password") {
-            query +=
-              Results[i]["name"] +
-              " ='" +
-              bcrypt.hash(req.body[Results[i]["name"]], 10) +
-              "',";
-          } else {
-            query +=
-              Results[i]["name"] + " ='" + req.body[Results[i]["name"]] + "',";
-          }
-        } else if (Results[i]["name"] == "ID") {
-          cond = " WHERE ID = '" + Object.values(req.params)[0] + "'";
+  let Results = [];
+  let cond = "";
+  try {
+    Results = await getData(getquery);
+    Results = Results.recordsets[0];
+    let keysStatus = true;
+    var query = "UPDATE AdminUsersApp SET ";
+    const keys = Object.keys(req.body);
+    for (let i = 0; i < Results.length; i++) {
+      if (keys.includes(Results[i]["name"])) {
+        if (Results[i]["name"] == "Password") {
+          query +=
+            Results[i]["name"] +
+            " ='" +
+            (await bcrypt.hash(req.body[Results[i]["name"]], 10)) +
+            "',";
         } else {
-          keysStatus = false;
-          res.status(404).send("Wrong Arguments");
-          break;
+          query +=
+            Results[i]["name"] + " ='" + req.body[Results[i]["name"]] + "',";
         }
+      } else if (Results[i]["name"] == "ID") {
+        cond = " WHERE ID = '" + Object.values(req.params)[0] + "'";
+      } else {
+        keysStatus = false;
+        res.status(404).send("Wrong Arguments");
+        break;
       }
-      query = query.slice(0, -1);
-      query += cond;
-      console.log(query);
-      if (keysStatus == true) {
-        sql.connect(config, function (err) {
-          // if (err) console.log(err);
-          // create Request object
-          var request = new sql.Request();
-          //Read Sql Statment From File
-          request.query(query, function (err, recordsets) {
-            // if (err) console.log(err)
-            res.status(200).send({ success: true, data: req.body });
-          });
-        });
-      }
-    });
-  });
+    }
+    query = query.slice(0, -1);
+    query += cond;
+    if (keysStatus === true) {
+      const result = await getData(query);
+      return res.status(200).json({ success: "true", dataUpdated: result });
+    } else {
+      return res.status(400).json({ message: "Bad request" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
-const deletemanageUsers = (req, res) => {
-  // var query = 'SELECT * FROM manageUsers';
-  // console.log(query);
-  const { data1, data2 } = req.body;
-  sql.connect(config, function (err) {
-    if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-    //Read Sql Statment From File
-    request.query(
-      "DELETE FROM AdminUsersApp " +
-        "WHERE ID = '" +
-        Object.values(req.params)[0] +
-        "'",
-      function (err, recordsets) {
-        if (err) console.log(err);
-        Results = recordsets.recordsets[0];
-        // const SearchedItems = Results.find((Result) => Result.ID == Object.values(req.params)[0])
-        // var SearchedItemsArray = []
-        // SearchedItemsArray[0] = SearchedItems
-        res.status(200).send({ success: true, data: req.body });
-      }
-    );
-  });
+const deletemanageUsers = async (req, res) => {
+  const query = `DELETE FROM AdminUsersApp WHERE ID = '${
+    Object.values(req.params)[0]
+  }'`;
+  try {
+    const result = await getData(query);
+    return res.status(200).json({ success: "true", dataDeleted: result });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 module.exports = {

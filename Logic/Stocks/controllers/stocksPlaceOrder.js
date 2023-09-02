@@ -1,6 +1,4 @@
-const sql = require("mssql");
-const config = require("../../../config");
-
+const { getData } = require("../../../functions/getData");
 const { checkItemInStore } = require("../functions/global/checjItemInStore");
 
 const stocksPlaceOrder = async (req, res) => {
@@ -23,18 +21,18 @@ const stocksPlaceOrder = async (req, res) => {
             'false', 'false')`;
           count++;
         }
-        await sql.connect(config);
-        const result = await sql.query(query);
+        const result = await getData(query);
+        return res.status(200).json({ data: result.rowsAffected[0] });
+        // await sql.connect(config);
+        // const result = await sql.query(query);
       } else {
-        return res.status(404).send({ message: "no items found" });
+        return res.status(404).json({ message: "no items found" });
       }
-      console.log(query);
     }
   } catch (error) {
     console.log(error);
     return res.status(500).send({ message: error.message });
   }
-  return res.status(200).send({ message: `Success` });
 };
 
 module.exports = { stocksPlaceOrder };
