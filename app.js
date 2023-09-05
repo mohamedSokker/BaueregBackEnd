@@ -49,6 +49,30 @@ io.on("connection", (socket) => {
   });
 });
 
+const { authapp } = require("./auth/controllers/auth");
+
+//////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
+
+const dashboardAvLogic = require("./Dashboard/Availability/routes/logic");
+const dashboardFuelLogic = require("./Dashboard/FuelConsumption/routes/logic");
+const dashboardOilLogic = require("./Dashboard/OilConsumption/routes/logic");
+const dashboardBreakdownLogic = require("./Dashboard/Breakdowns/routes/logic");
+const dashboardPerMaintLogic = require("./Dashboard/PerMaint/routes/logic");
+
+app.use("/api/v1/dashboardAv", authapp("Dashboard"), dashboardAvLogic);
+app.use("/api/v1/dashboardFuel", authapp("Dashboard"), dashboardFuelLogic);
+app.use("/api/v1/dashboardOil", authapp("Dashboard"), dashboardOilLogic);
+app.use(
+  "/api/v1/dashboardBreakdown",
+  authapp("Dashboard"),
+  dashboardBreakdownLogic
+);
+app.use(
+  "/api/v1/dashboardPerMaint",
+  authapp("Dashboard"),
+  dashboardPerMaintLogic
+);
+
 //////////////////////////////////////////////////Tables Logic /////////////////////////////////////////////
 
 const avPlanLogic = require("./Logic/AvailabilityPlan/routes/logic");
@@ -106,6 +130,7 @@ app.use("/OrdersOrderpdfAnalysis", OrdersOrderNopdf);
 
 //////////////////////////////////////////////////End Points ///////////////////////////////////////////////
 
+const EqsInSites = require("./routes/getEqsInSite");
 const Test = require("./routes/Test");
 const Test1 = require("./routes/Test1");
 const manageUsers = require("./auth/routes/manageUsers");
@@ -196,7 +221,7 @@ var absPath = "c:/xampp/htdocs";
 let CurrDir = process.env.CURRENT_DIRECTORY;
 let abshost = process.env.BASE_URL;
 
-const { authapp } = require("./auth/controllers/auth");
+app.use("/api/v1/EqsInSite", EqsInSites);
 
 app.use("/api/v1/Test", Test);
 
