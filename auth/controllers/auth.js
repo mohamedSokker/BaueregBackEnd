@@ -99,7 +99,7 @@ const manageResources = {
       "Dashboard",
     ],
     Kanban: ["AdminTasks", "Bauer_Equipments", "Location_Bauer", "manageUsers"],
-    Sites: ["Location_Bauer"],
+    Sites: ["Sites"],
     Equipments: ["Bauer_Equipments"],
     Orders: [
       "AppGetFiles",
