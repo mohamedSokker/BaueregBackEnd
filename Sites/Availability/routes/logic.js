@@ -3,7 +3,7 @@ const router = express.Router();
 const logic = require("../controllers/logic");
 
 router.use((req, res, next) => {
-  console.log("Dashboard Availability middleware");
+  console.log("Sites Availability middleware");
   next();
 });
 

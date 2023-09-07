@@ -80,12 +80,16 @@ const sitesFuelLogic = require("./Sites/FuelConsumption/routes/logic");
 const sitesOilLogic = require("./Sites/OilConsumption/routes/logic");
 const sitesBreakdownLogic = require("./Sites/Breakdowns/routes/logic");
 const sitesPerMaintLogic = require("./Sites/PerMaint/routes/logic");
+const sitesMachinaryLogic = require("./Sites/Machinary/routes/logic");
+const sitesEqsLogic = require("./Sites/Equipments/routes/logic");
 
 app.use("/api/v1/sitesAv", authapp("Sites"), sitesAvLogic);
 app.use("/api/v1/sitesFuel", authapp("Sites"), sitesFuelLogic);
 app.use("/api/v1/sitesOil", authapp("Sites"), sitesOilLogic);
 app.use("/api/v1/sitesBreakdown", authapp("Sites"), sitesBreakdownLogic);
 app.use("/api/v1/sitesPerMaint", authapp("Sites"), sitesPerMaintLogic);
+app.use("/api/v1/sitesMachinary", authapp("Sites"), sitesMachinaryLogic);
+app.use("/api/v1/sitesEqs", authapp("Sites"), sitesEqsLogic);
 
 //////////////////////////////////////////////////Tables Logic /////////////////////////////////////////////
 

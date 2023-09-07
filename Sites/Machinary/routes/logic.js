@@ -3,7 +3,7 @@ const router = express.Router();
 const logic = require("../controllers/logic");
 
 router.use((req, res, next) => {
-  console.log("Sites Breakdowns middleware");
+  console.log("Sites Machinary middleware");
   next();
 });
 

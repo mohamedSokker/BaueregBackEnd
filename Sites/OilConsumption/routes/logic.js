@@ -3,7 +3,7 @@ const router = express.Router();
 const logic = require("../controllers/logic");
 
 router.use((req, res, next) => {
-  console.log("Dashboard oilConsumption middleware");
+  console.log("Sites oilConsumption middleware");
   next();
 });
 
