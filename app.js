@@ -547,6 +547,8 @@ app.use("/login", login);
 
 app.get("/Bauereg/Share/*", auth, FileSystem);
 
+app.get("/MaintApp/*", FileSystem);
+
 app.get("/Bauereg/Orders/*", FileSystem);
 
 app.get("/Bauereg/OilSamples/*", FileSystem);
