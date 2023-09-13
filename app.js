@@ -51,6 +51,12 @@ io.on("connection", (socket) => {
 
 const { authapp } = require("./auth/controllers/auth");
 
+//////////////////////////////////////////////////App Mobile ///////////////////////////////////////////////
+
+const getAllEq = require("./AppMobile/routes/GetAllEquipments");
+
+app.use("/api/v1/getAllEq", authapp("AppManageUsers"), getAllEq);
+
 //////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
 
 const dashboardAvLogic = require("./Dashboard/Availability/routes/logic");
@@ -582,7 +588,6 @@ app.get("/loginapp", (req, res) => {
 });
 
 const loginapp = require("./auth/routes/login");
-const { connect } = require("http2");
 
 app.use("/handleLoginApp", loginapp);
 

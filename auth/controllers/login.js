@@ -19,7 +19,9 @@ const loginapp = async (req, res) => {
       roles: JSON.parse(SearchedItems["UserRole"]),
       img: SearchedItems["ProfileImg"],
     };
-    const token = jwt.sign(user, "Bauer", { expiresIn: "5000000d" });
+    const token = jwt.sign(user, process.env.TOKEN_SECRET_KEY, {
+      expiresIn: "5000000d",
+    });
     return res.status(200).json({ token: token });
   });
 };

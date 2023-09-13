@@ -89,6 +89,7 @@ const manageResources = {
       "manageUsers",
       "Equipments_Location",
     ],
+    ManageUsers: ["AppManageUsers"],
     Dashboard: [
       // "Availability",
       // "FuelConsumption",
