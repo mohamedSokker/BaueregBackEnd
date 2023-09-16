@@ -11,7 +11,11 @@ const tableInsertData = async (fieldsData, tableName) => {
     const keys = Object.keys(fieldsData);
     for (let i = 0; i < Results.length; i++) {
       if (keys.includes(Results[i]["name"])) {
-        query += "'" + fieldsData[Results[i]["name"]] + "',";
+        if (fieldsData[Results[i]["name"]] === null) {
+          query += null + ",";
+        } else {
+          query += "'" + fieldsData[Results[i]["name"]] + "',";
+        }
       } else if (Results[i]["name"] == "ID") {
         query = query;
       } else {

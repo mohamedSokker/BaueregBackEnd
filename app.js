@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
+let CurrDir = process.env.CURRENT_DIRECTORY;
+
 //////////////////////////////////////////////////Mongo DB Backup///////////////////////////////////////////
 const mongoBackup = require("./Mongo Backup/routes/mongoBackup");
 
@@ -36,9 +38,16 @@ const io = socketio(server, {
 
 io.on("connection", (socket) => {
   console.log(`New Connection ${socket.id}`);
-  socket.on("StockTransition", (data) => {
-    console.log(data);
-    socket.broadcast.emit("updateNotification");
+  // socket.on("StockTransition", (data) => {
+  //   console.log(data);
+  //   socket.broadcast.emit("updateNotification");
+  // });
+  socket.emit("userID", socket.id);
+  socket.on("scanned", (data) => {
+    socket.to(data.split("==")[1]).emit("checkScan", data);
+  });
+  socket.on("successScan", (data1) => {
+    socket.to(data1.split("==")[0]).emit("confirmScan", data1);
   });
   socket.on("TaskEdited", (data) => {
     console.log(data);
@@ -50,12 +59,50 @@ io.on("connection", (socket) => {
 });
 
 const { authapp } = require("./auth/controllers/auth");
+const { appMaintauth } = require("./AppMobile/controllers/auth");
 
 //////////////////////////////////////////////////App Mobile ///////////////////////////////////////////////
 
 const getAllEq = require("./AppMobile/routes/GetAllEquipments");
+const appManageUsers = require("./AppMobile/routes/appManageUsers");
+const appMaintMaintenance = require("./AppMobile/routes/AppMaintMaintenance");
+const appGetReports = require("./AppMobile/Reports/routes/getReports");
+const { appUploadImg } = require("./AppMobile/controllers/appUploadImg");
+const appLogin = require("./AppMobile/routes/appLogin");
 
 app.use("/api/v1/getAllEq", authapp("AppManageUsers"), getAllEq);
+app.use("/api/v1/appManageUsers", authapp("AppManageUsers"), appManageUsers);
+app.use("/api/v1/appMaintMaintenance", appMaintauth, appMaintMaintenance);
+app.use("/api/v1/appGetReports", appMaintauth, appGetReports);
+app.post("/api/v1/appUploadImg", authapp("AppManageUsers"), appUploadImg);
+app.get("/appUsers/img/:username/:imgName", (req, res) => {
+  res.sendFile(
+    `${process.env.ABS_PATH}/MaintApp/users/${Object.values(req.params)[0]}/${
+      Object.values(req.params)[1]
+    }`
+  );
+});
+app.use("/appLogin", appLogin);
+
+/////////////////////////////////////////////////auth //////////////////////////////////////////////////////
+
+const manageUsers = require("./auth/routes/manageUsers");
+const { uploadImg } = require("./auth/controllers/uploadimg");
+const loginapp = require("./auth/routes/login");
+
+app.use("/api/v1/manageUsers", authapp("manageUsers"), manageUsers);
+
+app.post("/api/v1/uploadImg", authapp("uploadImg"), uploadImg);
+
+app.get("/users/img/:username/:imgName", (req, res) => {
+  res.sendFile(
+    `${CurrDir}/users/${Object.values(req.params)[0]}/${
+      Object.values(req.params)[1]
+    }`
+  );
+});
+
+app.use("/handleLoginApp", loginapp);
 
 //////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
 
@@ -157,8 +204,6 @@ app.use("/OrdersOrderpdfAnalysis", OrdersOrderNopdf);
 const EqsInSites = require("./routes/getEqsInSite");
 const Test = require("./routes/Test");
 const Test1 = require("./routes/Test1");
-const manageUsers = require("./auth/routes/manageUsers");
-const { uploadImg } = require("./auth/controllers/uploadimg");
 const AdminTasks = require("./routes/AdminTasks");
 const AdminUsers = require("./routes/AdminUsers");
 const AdminUsersData = require("./routes/AdminUsersData");
@@ -240,20 +285,11 @@ const stocksPlaceOrder = require("./Logic/Stocks/routes/stocksPlaceOrder");
 const confirmOrder = require("./Logic/Stocks/routes/confirmOrder");
 const AppMobile = require("./AppMobile/routes/AppMobile");
 
-var fs = require("fs");
-var absPath = "c:/xampp/htdocs";
-let CurrDir = process.env.CURRENT_DIRECTORY;
-let abshost = process.env.BASE_URL;
-
 app.use("/api/v1/EqsInSite", EqsInSites);
 
 app.use("/api/v1/Test", Test);
 
 app.use("/api/v1/Test1", authapp("Test1"), Test1);
-
-app.use("/api/v1/manageUsers", authapp("manageUsers"), manageUsers);
-
-app.post("/api/v1/uploadImg", authapp("uploadImg"), uploadImg);
 
 app.use("/api/v1/AdminTasks", authapp("AdminTasks"), AdminTasks);
 
@@ -561,14 +597,6 @@ app.get("/Bauereg/OilSamples/*", FileSystem);
 
 app.get("/Bauereg/OilSamplesAnalyzed/*", FileSystem);
 
-app.get("/users/img/:username/:imgName", (req, res) => {
-  res.sendFile(
-    `${CurrDir}/users/${Object.values(req.params)[0]}/${
-      Object.values(req.params)[1]
-    }`
-  );
-});
-
 const filesystemrcreateroutes = require("./FileSystemroutes/handleCreateFolder");
 const filessystemrenameroutes = require("./FileSystemroutes/handleRenameFolder");
 const filessystemdeleteroutes = require("./FileSystemroutes/handleDeleteFolder");
@@ -586,10 +614,6 @@ app.use("/Upload", filessystemuploadroutes);
 app.get("/loginapp", (req, res) => {
   res.sendFile(CurrDir + "/loginapp.html");
 });
-
-const loginapp = require("./auth/routes/login");
-
-app.use("/handleLoginApp", loginapp);
 
 // let schemas = require("./routes/schemas");
 // app.use("/All", schemas);
