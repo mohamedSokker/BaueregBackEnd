@@ -6,7 +6,6 @@ const logic = async (req, res) => {
     const PerEqs = fieldsData.usersData[0].roles.Editor?.Equipments.concat(
       fieldsData.usersData[0].roles.User?.Equipments
     );
-    console.log(PerEqs);
 
     let eqURL = ``;
     for (let i = 0; i < PerEqs.length; i++) {
@@ -53,7 +52,6 @@ const logic = async (req, res) => {
       queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqURL}`;
     }
 
-    console.log(query);
     let data = await getData(query);
     data = data.recordsets[0];
     let dataLastWeek = await getData(queryLastWeek);
@@ -79,7 +77,6 @@ const logic = async (req, res) => {
       diff: (Number(per) - Number(perLastWeek)).toFixed(2),
       data: allData.recordsets[0],
     };
-    console.log(result);
     return res.status(200).json(result);
   } catch (error) {
     console.log(error.message);
