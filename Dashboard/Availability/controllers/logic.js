@@ -80,6 +80,7 @@ const logic = async (req, res) => {
     console.log(result);
     return res.status(200).json(result);
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
