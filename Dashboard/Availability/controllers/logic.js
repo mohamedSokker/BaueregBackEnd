@@ -6,6 +6,7 @@ const logic = async (req, res) => {
     const PerEqs = fieldsData.usersData[0].roles.Editor?.Equipments.concat(
       fieldsData.usersData[0].roles.User?.Equipments
     );
+    console.log(PerEqs);
 
     let eqURL = ``;
     for (let i = 0; i < PerEqs.length; i++) {
