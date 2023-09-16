@@ -3,6 +3,7 @@ const { getData } = require("../../../functions/getData");
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
+    console.log(fieldsData);
     const PerEqs = fieldsData.usersData[0].roles.Editor?.Equipments.concat(
       fieldsData.usersData[0].roles.User?.Equipments
     );
