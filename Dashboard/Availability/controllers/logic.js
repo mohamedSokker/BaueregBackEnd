@@ -77,6 +77,7 @@ const logic = async (req, res) => {
       diff: (Number(per) - Number(perLastWeek)).toFixed(2),
       data: allData.recordsets[0],
     };
+    console.log(result);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
