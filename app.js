@@ -47,7 +47,10 @@ io.on("connection", (socket) => {
     socket.to(data.split("==")[1]).emit("checkScan", data);
   });
   socket.on("successScan", (data1) => {
-    socket.to(data1.split("==")[0]).emit("confirmScan", data1);
+    socket.to(data1?.data?.split("==")[0]).emit("confirmScan", data1);
+  });
+  socket.on("updateAppData", (data) => {
+    socket.emit("appDataUpdate", data);
   });
   socket.on("TaskEdited", (data) => {
     console.log(data);
@@ -66,6 +69,7 @@ const { appMaintauth } = require("./AppMobile/controllers/auth");
 const getAllEq = require("./AppMobile/routes/GetAllEquipments");
 const appManageUsers = require("./AppMobile/routes/appManageUsers");
 const appMaintMaintenance = require("./AppMobile/routes/AppMaintMaintenance");
+const appGetEqs = require("./AppMobile/getEquipments/routes/logic");
 const appGetReports = require("./AppMobile/Reports/routes/getReports");
 const { appUploadImg } = require("./AppMobile/controllers/appUploadImg");
 const appLogin = require("./AppMobile/routes/appLogin");
@@ -73,6 +77,7 @@ const appLogin = require("./AppMobile/routes/appLogin");
 app.use("/api/v1/getAllEq", authapp("AppManageUsers"), getAllEq);
 app.use("/api/v1/appManageUsers", authapp("AppManageUsers"), appManageUsers);
 app.use("/api/v1/appMaintMaintenance", appMaintauth, appMaintMaintenance);
+app.use("/api/v1/appGetEqs", appMaintauth, appGetEqs);
 app.use("/api/v1/appGetReports", appMaintauth, appGetReports);
 app.post("/api/v1/appUploadImg", authapp("AppManageUsers"), appUploadImg);
 app.get("/appUsers/img/:username/:imgName", (req, res) => {

@@ -11,11 +11,13 @@ const tableUpdateData = async (fieldsData, tableName, targetColVal) => {
     var query = `UPDATE ${tableName} SET `;
     const keys = Object.keys(fieldsData);
     for (let i = 0; i < Results.length; i++) {
-      if (keys.includes(Results[i]["name"])) {
-        query +=
-          Results[i]["name"] + " ='" + fieldsData[Results[i]["name"]] + "',";
+      if (fieldsData[Results[i]["name"]] === null) {
+        query += `${Results[i]["name"]} = NULL ,`;
       } else if (Results[i]["name"] == "ID") {
         cond = " WHERE ID = '" + targetColVal + "'";
+      } else if (keys.includes(Results[i]["name"])) {
+        query +=
+          Results[i]["name"] + " ='" + fieldsData[Results[i]["name"]] + "',";
       } else {
         keysStatus = false;
         break;
@@ -23,6 +25,7 @@ const tableUpdateData = async (fieldsData, tableName, targetColVal) => {
     }
     query = query.slice(0, -1);
     query += cond;
+    console.log(query);
     if (keysStatus === true) {
       const result = await getData(query);
       return result.recordsets[0];

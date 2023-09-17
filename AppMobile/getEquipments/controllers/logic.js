@@ -1,8 +1,9 @@
 const { getData } = require("../../../functions/getData");
 
-const getReports = async (req, res) => {
+const getEquipments = async (req, res) => {
   const bodyData = req.body;
-  const query = `SELECT * FROM AppMaintMaintenance WHERE Location = '${bodyData.Location}' ORDER BY ID DESC`;
+  const query = `SELECT * FROM Equipments_Location WHERE Location = '${bodyData.Location}' 
+                    AND End_Date IS NULL AND Equipment_Type = '${bodyData.Equipment_Type}'`;
   try {
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);
@@ -11,4 +12,4 @@ const getReports = async (req, res) => {
   }
 };
 
-module.exports = { getReports };
+module.exports = { getEquipments };
