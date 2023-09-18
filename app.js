@@ -645,6 +645,15 @@ app.use("/doc", auth, swaggerui.serve, swaggerui.setup(specs));
 app.get("*", (req, res) => {
   return res.status(400).json({ message: "No route found" });
 });
+app.post("*", (req, res) => {
+  return res.status(400).json({ message: "No route found" });
+});
+app.put("*", (req, res) => {
+  return res.status(400).json({ message: "No route found" });
+});
+app.delete("*", (req, res) => {
+  return res.status(400).json({ message: "No route found" });
+});
 
 server.listen(process.env.PORT, () => {
   console.log("Server is listening on port 5000");
