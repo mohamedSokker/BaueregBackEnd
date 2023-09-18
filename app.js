@@ -643,8 +643,7 @@ const specs = swaggerjsdoc(options);
 app.use("/doc", auth, swaggerui.serve, swaggerui.setup(specs));
 
 app.get("*", (req, res) => {
-  res.status(400).json({ message: "No route found" });
-  res.end();
+  return res.status(400).json({ message: "No route found" });
 });
 
 server.listen(process.env.PORT, () => {
