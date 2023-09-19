@@ -206,6 +206,7 @@ app.use("/OrdersOrderpdfAnalysis", OrdersOrderNopdf);
 
 //////////////////////////////////////////////////End Points ///////////////////////////////////////////////
 
+const appMaint = require("./AppMobile/routes/AppMaintMaintenance");
 const EqsInSites = require("./routes/getEqsInSite");
 const Test = require("./routes/Test");
 const Test1 = require("./routes/Test1");
@@ -289,6 +290,8 @@ const stocksNewItem = require("./Logic/Stocks/routes/stocksNewItem");
 const stocksPlaceOrder = require("./Logic/Stocks/routes/stocksPlaceOrder");
 const confirmOrder = require("./Logic/Stocks/routes/confirmOrder");
 const AppMobile = require("./AppMobile/routes/AppMobile");
+
+app.use("/api/v1/appMaint", appMaint);
 
 app.use("/api/v1/EqsInSite", EqsInSites);
 
