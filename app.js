@@ -46,16 +46,28 @@ io.on("connection", (socket) => {
   socket.on("scanned", (data) => {
     socket.to(data.split("==")[1]).emit("checkScan", data);
   });
+
   socket.on("successScan", (data1) => {
     socket.to(data1?.data?.split("==")[0]).emit("confirmScan", data1);
   });
+
   socket.on("updateAppData", (data) => {
     socket.emit("appDataUpdate", data);
   });
+
+  socket.on("appNewMaint", (data) => {
+    socket.broadcast.emit("appNewMessage", data);
+  });
+
+  socket.on("appFinishedMaint", (data) => {
+    socket.broadcast.emit("appFinishedMessage", data);
+  });
+
   socket.on("TaskEdited", (data) => {
     console.log(data);
     socket.broadcast.emit("UpdateTask", data);
   });
+
   socket.on("disconnect", () => {
     console.log("Connection Lost");
   });
@@ -116,6 +128,7 @@ const dashboardFuelLogic = require("./Dashboard/FuelConsumption/routes/logic");
 const dashboardOilLogic = require("./Dashboard/OilConsumption/routes/logic");
 const dashboardBreakdownLogic = require("./Dashboard/Breakdowns/routes/logic");
 const dashboardPerMaintLogic = require("./Dashboard/PerMaint/routes/logic");
+const messages = require("./AppMobile/getProblems/routes/getProblems");
 
 app.use("/api/v1/dashboardAv", authapp("Dashboard"), dashboardAvLogic);
 app.use("/api/v1/dashboardFuel", authapp("Dashboard"), dashboardFuelLogic);
@@ -130,6 +143,7 @@ app.use(
   authapp("Dashboard"),
   dashboardPerMaintLogic
 );
+app.use("/api/v1/getMessages", authapp("Dashboard"), messages);
 
 //////////////////////////////////////////////////Sites Logic //////////////////////////////////////////
 
