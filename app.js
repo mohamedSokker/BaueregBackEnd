@@ -23,6 +23,7 @@ app.use("/api/v1/mongoBackup", mongoBackup);
 
 //////////////////////////////////////////////////Web Socket ///////////////////////////////////////////////
 const server = http.createServer(app);
+let users = {};
 const io = socketio(server, {
   cors: {
     origin: [
@@ -43,6 +44,12 @@ io.on("connection", (socket) => {
   //   socket.broadcast.emit("updateNotification");
   // });
   socket.emit("userID", socket.id);
+
+  socket.on("userName", (data) => {
+    console.log(`New Connection ${data} => ${socket.id}`);
+    users = { ...users, [data.username]: socket.id };
+  });
+
   socket.on("scanned", (data) => {
     socket.to(data.split("==")[1]).emit("checkScan", data);
   });
@@ -52,7 +59,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("updateAppData", (data) => {
-    socket.emit("appDataUpdate", data);
+    socket.broadcast.emit("appDataUpdate", data);
   });
 
   socket.on("appNewMaint", (data) => {
@@ -85,6 +92,9 @@ const appGetEqs = require("./AppMobile/getEquipments/routes/logic");
 const appGetReports = require("./AppMobile/Reports/routes/getReports");
 const { appUploadImg } = require("./AppMobile/controllers/appUploadImg");
 const appLogin = require("./AppMobile/routes/appLogin");
+const appMaintNotification = require("./AppMobile/appNotification/routes/logic");
+const appMaintGetNot = require("./AppMobile/appNotification/routes/getNotification");
+const appUpdateNot = require("./AppMobile/appNotification/routes/updateNotification");
 
 app.use("/api/v1/getAllEq", authapp("AppManageUsers"), getAllEq);
 app.use("/api/v1/appManageUsers", authapp("AppManageUsers"), appManageUsers);
@@ -100,6 +110,9 @@ app.get("/appUsers/img/:username/:imgName", (req, res) => {
   );
 });
 app.use("/appLogin", appLogin);
+app.use("/api/v1/appMaintNotification", appMaintauth, appMaintNotification);
+app.use("/api/v1/appMaintGetNot", appMaintauth, appMaintGetNot);
+app.use("/api/v1/appUpdateNot", appMaintauth, appUpdateNot);
 
 /////////////////////////////////////////////////auth //////////////////////////////////////////////////////
 
