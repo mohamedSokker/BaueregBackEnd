@@ -18,7 +18,7 @@ const logic = async (req, res) => {
       }
     }
     let query = ``;
-    const mainQuery = `SELECT TOP 50 ID AS id,
+    const mainQuery = `SELECT  ID AS id,
                        TimeStart AS StartTime,
                        TimeEnd AS EndTime,
                        Location + '=> ' + Equipment AS Location,
