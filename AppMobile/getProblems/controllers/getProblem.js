@@ -9,7 +9,9 @@ const logic = async (req, res) => {
 
     let LocURL = ``;
     for (let i = 0; i < PerLocs.length; i++) {
-      if (i === 0) {
+      if (PerLocs.length === 1) {
+        LocURL += ` (Location = '${PerLocs[i].name}')`;
+      } else if (i === 0) {
         LocURL += ` (Location = '${PerLocs[i].name}'`;
       } else if (i === PerLocs.length - 1) {
         LocURL += ` OR Location = '${PerLocs[i].name}')`;
