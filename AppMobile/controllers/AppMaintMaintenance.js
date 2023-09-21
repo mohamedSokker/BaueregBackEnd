@@ -26,6 +26,21 @@ const getAppMaintMaintenance = async (req, res) => {
 const addAppMaintMaintenance = async (req, res) => {
   try {
     const result = await tableInsertData(req.body, `AppMaintMaintenance`);
+    const body = {
+      appId: 12408,
+      appToken: "oDLe3TKuWZlbElegUhVVvT",
+      title: "check problem",
+      body: "Eq",
+      dateSent: new Date(),
+    };
+    const url = `https://app.nativenotify.com/api/notification`;
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
     return res.status(200).json({ success: "true", dataAdded: result });
   } catch (error) {
     return res.status(500).json({ message: error.message });
