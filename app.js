@@ -47,7 +47,8 @@ io.on("connection", (socket) => {
 
   socket.on("userName", (data) => {
     console.log(`New Connection ${data} => ${socket.id}`);
-    users = { ...users, [data.username]: socket.id };
+    users = { ...users, [socket.id]: data.username };
+    console.log(users);
   });
 
   socket.on("scanned", (data) => {
@@ -76,7 +77,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("Connection Lost");
+    console.log(`${users[socket?.id]} Connection Lost`);
+    delete users[socket?.id];
   });
 });
 
