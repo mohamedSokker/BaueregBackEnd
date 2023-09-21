@@ -47,7 +47,7 @@ io.on("connection", (socket) => {
 
   socket.on("userName", (data) => {
     console.log(`New Connection ${data} => ${socket.id}`);
-    users = { ...users, [socket.id]: data.username };
+    users = { ...users, [socket.id]: data };
     console.log(users);
   });
 
