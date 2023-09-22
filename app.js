@@ -82,6 +82,53 @@ io.on("connection", (socket) => {
   });
 });
 
+const axios = require("axios");
+const XLSX = require("xlsx");
+const ExcelJS = require("exceljs");
+const jsontoxml = require("jsontoxml");
+const https = require("https");
+
+async function testAxiosXlsx(url) {
+  try {
+    const options = {
+      url,
+      responseType: "arraybuffer",
+    };
+    let axiosResponse = await axios(options);
+    const workbook = XLSX.read(axiosResponse.data);
+
+    let worksheets = workbook.SheetNames.map((sheetName) => {
+      return {
+        sheetName,
+        data: XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]),
+      };
+    });
+    const data1 = JSON.stringify(worksheets);
+    // const data2 = jsontoxml(worksheets, {});
+    return { data1: JSON.parse(data1)[0].data };
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+// const fetchSheet = require("@flumens/fetch-onedrive-excel");
+
+app.get("/api/v1/excel", async (req, res) => {
+  try {
+    // const file =
+    //   "https://onedrive.live.com/edit.aspx?resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU";
+    // const sheet1 = "My Sheet 1";
+    // const sheet = await fetchSheet({ file, sheet1 });
+    // const url = `https://onedrive.live.com/edit.aspx?resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
+    const url = `https://onedrive.live.com/download?cid=FAC65013E50F7D37!315&resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
+    // const url = `https://baueregapi.onrender.com/bauereg/Orders/Bauer/Order%20No/Export.xlsx`;
+    const result = await testAxiosXlsx(url);
+    return res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ messages: error.message });
+  }
+});
+
 const { authapp } = require("./auth/controllers/auth");
 const { appMaintauth } = require("./AppMobile/controllers/auth");
 
