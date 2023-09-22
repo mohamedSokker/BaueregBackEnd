@@ -118,11 +118,11 @@ async function testAxiosXlsx(url) {
       method: "get",
       url,
       responseType: "arraybuffer",
+      headers: {
+        "User-Agent": "PostmanRuntime/7.33.0",
+      },
     };
     axiosResponse = await axios(options);
-    // console.log(axiosResponse.status);
-    // const data = await axiosResponse.arrayBuffer();
-    // let loc = axiosResponse.headers.get("Location");
     const workbook = XLSX.read(axiosResponse.data);
 
     let worksheets = workbook.SheetNames.map((sheetName) => {
@@ -132,7 +132,6 @@ async function testAxiosXlsx(url) {
       };
     });
     let data1 = worksheets;
-    // let data2 = ExcelDateToJSDate(data1[0]?.data[0]["Pouring Finish"]);
     return { data1 };
   } catch (error) {
     throw new Error(error);
@@ -141,8 +140,6 @@ async function testAxiosXlsx(url) {
 
 app.get("/api/v1/excel", async (req, res) => {
   try {
-    // const url = `https://kt7wpq.dm.files.1drv.com/y4mUshPR-x-xmKhSdl3a6JAtahvSTa2QlY3yf30x0udVUrn-7tj0ocmXQlgaytRxKGxgkOTyukImrbN_7pyOhJrtsFwlrsYmjzMZcDJYluwfg1XlHIIl1qjQ3Q0CyXKGBucs4uVPeMfd2BPbMDbnQEg9O1uw2PPepIciSseySxRxvE/B.E%20Production%20Data.xlsx?download&psid=1`;
-    // const url = `https://kt7wpq.dm.files.1drv.com/y4m9umoiP9QulKQv7a7UErvHT2KwtXRhvk5zr2aPrd9X2GkqDI1sy-fHAeY2O1mVU_N34vrtedZfAK4l3rz9havpItz8YEyAfDNoO0DH_uXJq7EXZ6760cK4hP7drNSr39zP8xliqTs0j2k9qeI_-m2d3ulRpx99f3wEsvblSheW14/B.E%20Production%20Data.xlsx?download&psid=1`;
     const url = `https://onedrive.live.com/download?resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
     const result = await testAxiosXlsx(url);
     return res.status(200).json(result);
