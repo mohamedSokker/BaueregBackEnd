@@ -131,8 +131,7 @@ async function testAxiosXlsx(url) {
         data: XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]),
       };
     });
-    let data1 = worksheets;
-    return { data1 };
+    return worksheets;
   } catch (error) {
     throw new Error(error);
   }
