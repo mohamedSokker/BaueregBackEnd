@@ -85,14 +85,45 @@ io.on("connection", (socket) => {
 const axios = require("axios");
 const XLSX = require("xlsx");
 
+function ExcelDateToJSDate(serial) {
+  var utc_days = Math.floor(serial - 25569);
+  var utc_value = utc_days * 86400;
+  var date_info = new Date(utc_value * 1000);
+
+  var fractional_day = serial - Math.floor(serial) + 0.0000001;
+
+  var total_seconds = Math.floor(86400 * fractional_day);
+
+  var seconds = total_seconds % 60;
+
+  total_seconds -= seconds;
+
+  var hours = Math.floor(total_seconds / (60 * 60));
+  var minutes = Math.floor(total_seconds / 60) % 60;
+
+  return new Date(
+    date_info.getFullYear(),
+    date_info.getMonth(),
+    date_info.getDate(),
+    hours,
+    minutes,
+    seconds
+  );
+}
+
 async function testAxiosXlsx(url) {
+  let axiosResponse;
   try {
     const options = {
+      method: "get",
       url,
       responseType: "arraybuffer",
     };
-    let axiosResponse = await axios(options);
-    const workbook = XLSX.read(axiosResponse.data);
+    axiosResponse = await fetch(url);
+    // console.log(axiosResponse.status);
+    const data = await axiosResponse.arrayBuffer();
+    // let loc = axiosResponse.headers.get("Location");
+    const workbook = XLSX.read(data);
 
     let worksheets = workbook.SheetNames.map((sheetName) => {
       return {
@@ -100,8 +131,9 @@ async function testAxiosXlsx(url) {
         data: XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]),
       };
     });
-    const data1 = JSON.stringify(worksheets);
-    return JSON.parse(data1)[0].data;
+    let data1 = worksheets;
+    // let data2 = ExcelDateToJSDate(data1[0]?.data[0]["Pouring Finish"]);
+    return { data1 };
   } catch (error) {
     throw new Error(error);
   }
@@ -109,8 +141,9 @@ async function testAxiosXlsx(url) {
 
 app.get("/api/v1/excel", async (req, res) => {
   try {
-    const url = `https://kt7wpq.dm.files.1drv.com/y4m9umoiP9QulKQv7a7UErvHT2KwtXRhvk5zr2aPrd9X2GkqDI1sy-fHAeY2O1mVU_N34vrtedZfAK4l3rz9havpItz8YEyAfDNoO0DH_uXJq7EXZ6760cK4hP7drNSr39zP8xliqTs0j2k9qeI_-m2d3ulRpx99f3wEsvblSheW14/B.E%20Production%20Data.xlsx?download&psid=1`;
-    // const url = `https://onedrive.live.com/download?cid=FAC65013E50F7D37!315&resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
+    // const url = `https://kt7wpq.dm.files.1drv.com/y4mUshPR-x-xmKhSdl3a6JAtahvSTa2QlY3yf30x0udVUrn-7tj0ocmXQlgaytRxKGxgkOTyukImrbN_7pyOhJrtsFwlrsYmjzMZcDJYluwfg1XlHIIl1qjQ3Q0CyXKGBucs4uVPeMfd2BPbMDbnQEg9O1uw2PPepIciSseySxRxvE/B.E%20Production%20Data.xlsx?download&psid=1`;
+    // const url = `https://kt7wpq.dm.files.1drv.com/y4m9umoiP9QulKQv7a7UErvHT2KwtXRhvk5zr2aPrd9X2GkqDI1sy-fHAeY2O1mVU_N34vrtedZfAK4l3rz9havpItz8YEyAfDNoO0DH_uXJq7EXZ6760cK4hP7drNSr39zP8xliqTs0j2k9qeI_-m2d3ulRpx99f3wEsvblSheW14/B.E%20Production%20Data.xlsx?download&psid=1`;
+    const url = `https://onedrive.live.com/download?resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
     const result = await testAxiosXlsx(url);
     return res.status(200).json(result);
   } catch (error) {
