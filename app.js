@@ -119,11 +119,11 @@ async function testAxiosXlsx(url) {
       url,
       responseType: "arraybuffer",
     };
-    axiosResponse = await fetch(url);
+    axiosResponse = await axios(options);
     // console.log(axiosResponse.status);
-    const data = await axiosResponse.arrayBuffer();
+    // const data = await axiosResponse.arrayBuffer();
     // let loc = axiosResponse.headers.get("Location");
-    const workbook = XLSX.read(data);
+    const workbook = XLSX.read(axiosResponse.data);
 
     let worksheets = workbook.SheetNames.map((sheetName) => {
       return {
