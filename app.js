@@ -84,9 +84,6 @@ io.on("connection", (socket) => {
 
 const axios = require("axios");
 const XLSX = require("xlsx");
-const ExcelJS = require("exceljs");
-const jsontoxml = require("jsontoxml");
-const https = require("https");
 
 async function testAxiosXlsx(url) {
   try {
@@ -104,24 +101,16 @@ async function testAxiosXlsx(url) {
       };
     });
     const data1 = JSON.stringify(worksheets);
-    // const data2 = jsontoxml(worksheets, {});
-    return { data1: JSON.parse(data1)[0].data };
+    return JSON.parse(data1)[0].data;
   } catch (error) {
     throw new Error(error);
   }
 }
 
-// const fetchSheet = require("@flumens/fetch-onedrive-excel");
-
 app.get("/api/v1/excel", async (req, res) => {
   try {
-    // const file =
-    //   "https://onedrive.live.com/edit.aspx?resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU";
-    // const sheet1 = "My Sheet 1";
-    // const sheet = await fetchSheet({ file, sheet1 });
-    // const url = `https://onedrive.live.com/edit.aspx?resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
-    const url = `https://onedrive.live.com/download?cid=FAC65013E50F7D37!315&resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
-    // const url = `https://baueregapi.onrender.com/bauereg/Orders/Bauer/Order%20No/Export.xlsx`;
+    const url = `https://kt7wpq.dm.files.1drv.com/y4m9umoiP9QulKQv7a7UErvHT2KwtXRhvk5zr2aPrd9X2GkqDI1sy-fHAeY2O1mVU_N34vrtedZfAK4l3rz9havpItz8YEyAfDNoO0DH_uXJq7EXZ6760cK4hP7drNSr39zP8xliqTs0j2k9qeI_-m2d3ulRpx99f3wEsvblSheW14/B.E%20Production%20Data.xlsx?download&psid=1`;
+    // const url = `https://onedrive.live.com/download?cid=FAC65013E50F7D37!315&resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
     const result = await testAxiosXlsx(url);
     return res.status(200).json(result);
   } catch (error) {
