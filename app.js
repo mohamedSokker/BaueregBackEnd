@@ -111,6 +111,12 @@ function ExcelDateToJSDate(serial) {
   );
 }
 
+const getDate1 = (date) => {
+  const dt = new Date(date);
+  dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+  return dt.toISOString();
+};
+
 async function testAxiosXlsx(url, sheet) {
   let axiosResponse;
   try {
@@ -128,7 +134,13 @@ async function testAxiosXlsx(url, sheet) {
     // let worksheets = workbook.SheetNames.map((sheetName) => {
     //   return {
     //     sheetName,
-    return XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+    let data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+    for (let i = 0; i < data.length; i++) {
+      data[i]["Pouring Finish"] = getDate1(
+        ExcelDateToJSDate(data[i]["Pouring Finish"])
+      );
+    }
+    return data;
     //   };
     // });
     // return worksheets;
