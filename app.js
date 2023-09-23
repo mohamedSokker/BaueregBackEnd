@@ -113,7 +113,7 @@ function ExcelDateToJSDate(serial) {
 
 const getDate1 = (date) => {
   const dt = new Date(date);
-  dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+  dt.setMinutes(dt.getMinutes() + dt.getTimezoneOffset());
   return dt.toISOString();
 };
 
