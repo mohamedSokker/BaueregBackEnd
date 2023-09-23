@@ -136,9 +136,7 @@ async function testAxiosXlsx(url, sheet) {
     //     sheetName,
     let data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
     for (let i = 0; i < data.length; i++) {
-      data[i]["Pouring Finish"] = getDate1(
-        ExcelDateToJSDate(data[i]["Pouring Finish"])
-      );
+      data[i]["Pouring Finish"] = ExcelDateToJSDate(data[i]["Pouring Finish"]);
     }
     return data;
     //   };
