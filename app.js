@@ -111,7 +111,7 @@ function ExcelDateToJSDate(serial) {
   );
 }
 
-async function testAxiosXlsx(url) {
+async function testAxiosXlsx(url, sheet) {
   let axiosResponse;
   try {
     const options = {
@@ -125,22 +125,23 @@ async function testAxiosXlsx(url) {
     axiosResponse = await axios(options);
     const workbook = XLSX.read(axiosResponse.data);
 
-    let worksheets = workbook.SheetNames.map((sheetName) => {
-      return {
-        sheetName,
-        data: XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]),
-      };
-    });
-    return worksheets;
+    // let worksheets = workbook.SheetNames.map((sheetName) => {
+    //   return {
+    //     sheetName,
+    return XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+    //   };
+    // });
+    // return worksheets;
   } catch (error) {
     throw new Error(error);
   }
 }
 
-app.get("/api/v1/excel", async (req, res) => {
+app.get("/api/v1/excel/:id", async (req, res) => {
   try {
+    const sheet = req.params.id;
     const url = `https://onedrive.live.com/download?resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
-    const result = await testAxiosXlsx(url);
+    const result = await testAxiosXlsx(url, sheet);
     return res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ messages: error.message });
