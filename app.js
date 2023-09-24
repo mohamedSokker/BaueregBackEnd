@@ -82,76 +82,15 @@ io.on("connection", (socket) => {
   });
 });
 
-const axios = require("axios");
-const XLSX = require("xlsx");
+////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
 
-function ExcelDateToJSDate(serial) {
-  var utc_days = Math.floor(serial - 25569);
-  var utc_value = utc_days * 86400;
-  var date_info = new Date(utc_value * 1000);
-
-  var fractional_day = serial - Math.floor(serial) + 0.0000001;
-
-  var total_seconds = Math.floor(86400 * fractional_day);
-
-  var seconds = total_seconds % 60;
-
-  total_seconds -= seconds;
-
-  var hours = Math.floor(total_seconds / (60 * 60));
-  var minutes = Math.floor(total_seconds / 60) % 60;
-
-  return new Date(
-    date_info.getFullYear(),
-    date_info.getMonth(),
-    date_info.getDate(),
-    hours,
-    minutes,
-    seconds
-  );
-}
-
-const getDate1 = (date) => {
-  const dt = new Date(date);
-  dt.setMinutes(dt.getMinutes() + dt.getTimezoneOffset());
-  return dt.toISOString();
-};
-
-async function testAxiosXlsx(url, sheet) {
-  let axiosResponse;
-  try {
-    const options = {
-      method: "get",
-      url,
-      responseType: "arraybuffer",
-      headers: {
-        "User-Agent": "PostmanRuntime/7.33.0",
-      },
-    };
-    axiosResponse = await axios(options);
-    const workbook = XLSX.read(axiosResponse.data);
-
-    // let worksheets = workbook.SheetNames.map((sheetName) => {
-    //   return {
-    //     sheetName,
-    let data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
-    for (let i = 0; i < data.length; i++) {
-      data[i]["Pouring Finish"] = ExcelDateToJSDate(data[i]["Pouring Finish"]);
-    }
-    return data;
-    //   };
-    // });
-    // return worksheets;
-  } catch (error) {
-    throw new Error(error);
-  }
-}
+const AxiosXlsx = require("./functions/AxiosXlsx");
 
 app.get("/api/v1/excel/:id", async (req, res) => {
   try {
     const sheet = req.params.id;
-    const url = `https://onedrive.live.com/download?resid=FAC65013E50F7D37!315&ithint=file%2cxlsx&wdo=2&authkey=!ALh_vDOi922YiEU`;
-    const result = await testAxiosXlsx(url, sheet);
+    const url = process.env.ONEDRIVE_URL;
+    const result = await AxiosXlsx(url, sheet);
     return res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ messages: error.message });
