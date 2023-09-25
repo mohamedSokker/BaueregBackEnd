@@ -101,7 +101,7 @@ const manageResources = {
     ],
     Kanban: ["AdminTasks", "Bauer_Equipments", "Location_Bauer", "manageUsers"],
     Sites: ["Sites"],
-    Equipments: ["Bauer_Equipments"],
+    Equipments: ["Equipments"],
     Orders: [
       "AppGetFiles",
       "AppCreateFolder",
@@ -149,7 +149,7 @@ const manageResources = {
     Dashboard: ["Dashboard"],
     Kanban: ["AdminTasks", "Bauer_Equipments", "Location_Bauer", "manageUsers"],
     Sites: ["Sites"],
-    Equipments: ["Bauer_Equipments"],
+    Equipments: ["Equipments"],
     Orders: ["AppGetFiles", "AppCheck", "OrdersFile"],
     Stocks: ["Maintenance_Stocks"],
     StocksList: [],

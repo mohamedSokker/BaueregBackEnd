@@ -93,7 +93,7 @@ app.get("/api/v1/excel/:id", async (req, res) => {
     const result = await AxiosXlsx(url, sheet);
     return res.status(200).json(result);
   } catch (error) {
-    res.status(500).json({ messages: error.message });
+    return res.status(500).json({ messages: error.message });
   }
 });
 
@@ -158,6 +158,7 @@ const dashboardFuelLogic = require("./Dashboard/FuelConsumption/routes/logic");
 const dashboardOilLogic = require("./Dashboard/OilConsumption/routes/logic");
 const dashboardBreakdownLogic = require("./Dashboard/Breakdowns/routes/logic");
 const dashboardPerMaintLogic = require("./Dashboard/PerMaint/routes/logic");
+const dashboardProductionLogic = require("./Dashboard/Production/routes/logic");
 const messages = require("./AppMobile/getProblems/routes/getProblems");
 
 app.use("/api/v1/dashboardAv", authapp("Dashboard"), dashboardAvLogic);
@@ -173,6 +174,7 @@ app.use(
   authapp("Dashboard"),
   dashboardPerMaintLogic
 );
+app.use("/api/v1/dashboardProduction", dashboardProductionLogic);
 app.use("/api/v1/getMessages", authapp("Dashboard"), messages);
 
 //////////////////////////////////////////////////Sites Logic //////////////////////////////////////////
@@ -184,6 +186,7 @@ const sitesBreakdownLogic = require("./Sites/Breakdowns/routes/logic");
 const sitesPerMaintLogic = require("./Sites/PerMaint/routes/logic");
 const sitesMachinaryLogic = require("./Sites/Machinary/routes/logic");
 const sitesEqsLogic = require("./Sites/Equipments/routes/logic");
+const sitesProductionLogic = require("./Sites/Production/routes/logic");
 
 app.use("/api/v1/sitesAv", authapp("Sites"), sitesAvLogic);
 app.use("/api/v1/sitesFuel", authapp("Sites"), sitesFuelLogic);
@@ -192,6 +195,23 @@ app.use("/api/v1/sitesBreakdown", authapp("Sites"), sitesBreakdownLogic);
 app.use("/api/v1/sitesPerMaint", authapp("Sites"), sitesPerMaintLogic);
 app.use("/api/v1/sitesMachinary", authapp("Sites"), sitesMachinaryLogic);
 app.use("/api/v1/sitesEqs", authapp("Sites"), sitesEqsLogic);
+app.use("/api/v1/sitesProduction", authapp("Sites"), sitesProductionLogic);
+
+//////////////////////////////////////////////////Equipment Logic //////////////////////////////////////////
+
+const eqAvLogic = require("./Equipments/Availability/routes/logic");
+const eqFuelLogic = require("./Equipments/FuelConsumption/routes/logic");
+const eqOilLogic = require("./Equipments/OilConsumption/routes/logic");
+const eqBreakdownLogic = require("./Equipments/Breakdowns/routes/logic");
+const eqPerMaintLogic = require("./Equipments/PerMaint/routes/logic");
+const eqProductionLogic = require("./Equipments/Production/routes/logic");
+
+app.use("/api/v1/eqAv", authapp("Equipments"), eqAvLogic);
+app.use("/api/v1/eqFuel", authapp("Equipments"), eqFuelLogic);
+app.use("/api/v1/eqOil", authapp("Equipments"), eqOilLogic);
+app.use("/api/v1/eqBreakdown", authapp("Equipments"), eqBreakdownLogic);
+app.use("/api/v1/eqPerMaint", authapp("Equipments"), eqPerMaintLogic);
+app.use("/api/v1/eqProduction", authapp("Equipments"), eqProductionLogic);
 
 //////////////////////////////////////////////////Tables Logic /////////////////////////////////////////////
 
