@@ -25,7 +25,7 @@ const appLogin = async (req, res) => {
         img: SearchedItems["ProfileImg"],
         eqtype: SearchedItems["Equipment_Type"],
         Location: SearchedItems["Location"],
-        Equipment: SearchedItems["Equipment"],
+        Token: SearchedItems["Token"],
       };
       const token = jwt.sign(user, process.env.TOKEN_SECRET_KEY, {
         expiresIn: "5000000d",
