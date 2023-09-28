@@ -114,7 +114,7 @@ const appMaintGetNot = require("./AppMobile/appNotification/routes/getNotificati
 const appUpdateNot = require("./AppMobile/appNotification/routes/updateNotification");
 
 app.use("/api/v1/getAllEq", authapp("AppManageUsers"), getAllEq);
-app.use("/api/v1/appManageUsers", authapp("AppManageUsers"), appManageUsers);
+app.use("/api/v1/appManageUsers", appManageUsers);
 app.use("/api/v1/appMaintMaintenance", appMaintauth, appMaintMaintenance);
 app.use("/api/v1/appGetEqs", appMaintauth, appGetEqs);
 app.use("/api/v1/appGetReports", appMaintauth, appGetReports);
