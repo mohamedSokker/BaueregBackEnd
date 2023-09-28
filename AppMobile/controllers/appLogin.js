@@ -20,6 +20,7 @@ const appLogin = async (req, res) => {
         return res.status(401).json({ message: `Password Didn't Match` });
 
       const user = {
+        id: SearchedItems["ID"],
         username: username,
         role: SearchedItems["Role"],
         img: SearchedItems["ProfileImg"],
