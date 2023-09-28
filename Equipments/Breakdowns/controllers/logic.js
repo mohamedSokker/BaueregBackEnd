@@ -5,7 +5,7 @@ const logic = async (req, res) => {
     const fieldsData = req.body;
     const PerEqs = fieldsData.Equipment;
 
-    let eqURL = ` (Equipment = '${PerEqs}')`;
+    let eqURL = ` (Equipment = '${PerEqs}') `;
 
     let query = ``;
     const mainQuery = `SELECT DISTINCT TOP 10 Breakdown_Type AS label,
