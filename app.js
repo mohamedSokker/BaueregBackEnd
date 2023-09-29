@@ -113,6 +113,7 @@ const appMaintNotification = require("./AppMobile/appNotification/routes/logic")
 const appMaintGetNot = require("./AppMobile/appNotification/routes/getNotification");
 const appUpdateNot = require("./AppMobile/appNotification/routes/updateNotification");
 const appGetUsersinSite = require("./AppMobile/getUserInsite/routes/logic");
+const { sendMessage } = require("./AppMobile/controllers/sendMessage");
 
 app.use("/api/v1/getAllEq", authapp("AppManageUsers"), getAllEq);
 app.use("/api/v1/appManageUsers", appManageUsers);
@@ -132,6 +133,7 @@ app.use("/api/v1/appMaintNotification", appMaintauth, appMaintNotification);
 app.use("/api/v1/appMaintGetNot", appMaintauth, appMaintGetNot);
 app.use("/api/v1/appUpdateNot", appMaintauth, appUpdateNot);
 app.use("/api/v1/appGetUsersInSite", appMaintauth, appGetUsersinSite);
+app.use("/api/v1/appSendMessage", sendMessage);
 
 /////////////////////////////////////////////////auth //////////////////////////////////////////////////////
 
