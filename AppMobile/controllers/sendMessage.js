@@ -1,7 +1,7 @@
 const { initializeApp, applicationDefault } = require("firebase-admin/app");
 const { getMessaging } = require("firebase-admin/messaging");
 
-const serviceAccount = require("path/to/serviceAccountKey.json");
+// const serviceAccount = require("path/to/serviceAccountKey.json");
 
 initializeApp({
   credential: applicationDefault(),
