@@ -103,7 +103,9 @@ const updatemanageUsers = async (req, res) => {
     var query = "UPDATE AppMaintUsers SET ";
     const keys = Object.keys(req.body);
     for (let i = 0; i < keys.length; i++) {
-      if (arrayResult.includes(keys[i]) && keys[i] !== "ID") {
+      if (keys[i] === "Password") {
+        query += `${keys[i]} = '${await bcrypt.hash(req.body[keys[i]], 10)}'`;
+      } else if (arrayResult.includes(keys[i]) && keys[i] !== "ID") {
         query += keys[i] + " ='" + req.body[keys[i]] + "',";
       } else {
         keysStatus = false;
