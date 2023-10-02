@@ -17,7 +17,7 @@ const getReports = async (req, res) => {
       }
     }
   }
-  const query = `SELECT * FROM AppMaintMaintenance WHERE ${locQuery}`;
+  const query = `SELECT * FROM AppMaintMaintenance WHERE ${locQuery} ORDER BY ID DESC`;
   try {
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);
