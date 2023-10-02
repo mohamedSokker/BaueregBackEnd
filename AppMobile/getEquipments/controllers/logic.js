@@ -1,8 +1,19 @@
 const { getData } = require("../../../functions/getData");
 
 const getEquipments = async (req, res) => {
-  const bodyData = req.body;
-  const query = `SELECT * FROM Equipments_Location WHERE Location = '${bodyData.Location}' 
+  const { Location } = req.body;
+
+  let locQuery = ``;
+  for (let i = 0; i < Location.length; i++) {
+    if (i === 0) {
+      locQuery += ` (Location LIKE '%${Location[i]}%'`;
+    } else if (i === PerEqs.length - 1) {
+      locQuery += ` OR Location LIKE '%${Location[i]}%')`;
+    } else {
+      locQuery += ` OR Location LIKE '%${Location[i]}%'`;
+    }
+  }
+  const query = `SELECT * FROM Equipments_Location WHERE ${locQuery} 
                     AND End_Date IS NULL AND Equipment_Type = '${bodyData.Equipment_Type}'`;
   try {
     const result = await getData(query);
