@@ -5,7 +5,7 @@ const logic = async (req, res) => {
     const fieldsData = req.body;
     let query = ``;
     if (fieldsData?.type === "newIssue") {
-      query = `SELECT * FROM AppMaintUsers WHERE Location = '${fieldsData?.Location}' AND
+      query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
                        Role <> 'Operator'`;
       let result = await getData(query);
       result = result.recordsets[0];
@@ -22,7 +22,7 @@ const logic = async (req, res) => {
         await getData(notQuery);
       }
     } else if (fieldsData?.type === "endIssue") {
-      query = `SELECT * FROM AppMaintUsers WHERE Location = '${fieldsData?.Location}' AND
+      query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
                        Role = 'Operator' AND Equipment_Type = '${fieldsData?.Equipment_Type}'`;
       let result = await getData(query);
       result = result.recordsets[0];
