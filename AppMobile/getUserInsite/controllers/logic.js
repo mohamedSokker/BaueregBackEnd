@@ -5,12 +5,16 @@ const logic = async (req, res) => {
     const { Location } = req.body;
     let locQuery = ``;
     for (let i = 0; i < Location.length; i++) {
-      if (i === 0) {
-        locQuery += ` (Location LIKE '%${Location[i]}%'`;
-      } else if (i === Location.length - 1) {
-        locQuery += ` OR Location LIKE '%${Location[i]}%')`;
+      if (Location.length === 1) {
+        locQuery += ` (Location LIKE '%${Location[i]}%')`;
       } else {
-        locQuery += ` OR Location LIKE '%${Location[i]}%'`;
+        if (i === 0) {
+          locQuery += ` (Location LIKE '%${Location[i]}%'`;
+        } else if (i === Location.length - 1) {
+          locQuery += ` OR Location LIKE '%${Location[i]}%')`;
+        } else {
+          locQuery += ` OR Location LIKE '%${Location[i]}%'`;
+        }
       }
     }
     const query = `SELECT Token FROM AppMaintUsers WHERE ${locQuery}'
