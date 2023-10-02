@@ -19,6 +19,7 @@ const logic = async (req, res) => {
     }
     const query = `SELECT Token FROM AppMaintUsers WHERE ${locQuery}'
                    AND Role <> 'Operator'`;
+    console.log(query);
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);
   } catch (error) {
