@@ -1,16 +1,16 @@
 const { getData } = require("../../../functions/getData");
 
 const getEquipments = async (req, res) => {
-  const { Location } = req.body;
+  const bodyData = req.body;
 
   let locQuery = ``;
-  for (let i = 0; i < Location.length; i++) {
+  for (let i = 0; i < bodyData.Location.length; i++) {
     if (i === 0) {
-      locQuery += ` (Location LIKE '%${Location[i]}%'`;
-    } else if (i === PerEqs.length - 1) {
-      locQuery += ` OR Location LIKE '%${Location[i]}%')`;
+      locQuery += ` (Location LIKE '%${bodyData.Location[i]}%'`;
+    } else if (i === bodyData.Location.length - 1) {
+      locQuery += ` OR Location LIKE '%${bodyData.Location[i]}%')`;
     } else {
-      locQuery += ` OR Location LIKE '%${Location[i]}%'`;
+      locQuery += ` OR Location LIKE '%${bodyData.Location[i]}%'`;
     }
   }
   const query = `SELECT * FROM Equipments_Location WHERE ${locQuery} 

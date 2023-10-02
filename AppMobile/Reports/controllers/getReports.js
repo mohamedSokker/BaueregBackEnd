@@ -7,7 +7,7 @@ const getReports = async (req, res) => {
   for (let i = 0; i < Location.length; i++) {
     if (i === 0) {
       locQuery += ` (Location LIKE '%${Location[i]}%'`;
-    } else if (i === PerEqs.length - 1) {
+    } else if (i === Location.length - 1) {
       locQuery += ` OR Location LIKE '%${Location[i]}%')`;
     } else {
       locQuery += ` OR Location LIKE '%${Location[i]}%'`;
