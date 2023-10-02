@@ -6,14 +6,14 @@ const logic = async (req, res) => {
     let locQuery = ``;
     for (let i = 0; i < Location.length; i++) {
       if (Location.length === 1) {
-        locQuery += ` (Location LIKE '%${Location[i]}%')`;
+        locQuery += ` (Location = '${Location[i]}')`;
       } else {
         if (i === 0) {
-          locQuery += ` (Location LIKE '%${Location[i]}%'`;
+          locQuery += ` (Location = '${Location[i]}'`;
         } else if (i === Location.length - 1) {
-          locQuery += ` OR Location LIKE '%${Location[i]}%')`;
+          locQuery += ` OR Location = '${Location[i]}')`;
         } else {
-          locQuery += ` OR Location LIKE '%${Location[i]}%'`;
+          locQuery += ` OR Location = '${Location[i]}'`;
         }
       }
     }
