@@ -9,7 +9,10 @@ const appLogin = async (req, res) => {
     let Results = await getData(query);
     Results = Results.recordsets[0];
     const SearchedItems = Results?.find(
-      (Result) => Result.UserName == username
+      (Result) =>
+        Result.UserName == username ||
+        Result.Email === username ||
+        Result.Phone === username
     );
     if (!SearchedItems)
       return res.status(401).json({ message: `No Found Username in DB` });
