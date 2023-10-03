@@ -18,6 +18,12 @@ let appMaintauth = (req, res, next) => {
   });
 };
 
-const resourcesTitles = ["Operator", "Senior", "Junior", "Technician"];
+const resourcesTitles = [
+  "Project Manager",
+  "Operator",
+  "Senior",
+  "Junior",
+  "Technician",
+];
 
 module.exports = { appMaintauth };
