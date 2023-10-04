@@ -102,6 +102,7 @@ const { appMaintauth } = require("./AppMobile/controllers/auth");
 
 //////////////////////////////////////////////////App Mobile ///////////////////////////////////////////////
 
+const getServerDate = require("./AppMobile/getServerDate/routes/logic");
 const getAllEq = require("./AppMobile/routes/GetAllEquipments");
 const appManageUsers = require("./AppMobile/routes/appManageUsers");
 const appMaintMaintenance = require("./AppMobile/routes/AppMaintMaintenance");
@@ -115,6 +116,7 @@ const appUpdateNot = require("./AppMobile/appNotification/routes/updateNotificat
 const appGetUsersinSite = require("./AppMobile/getUserInsite/routes/logic");
 const { sendMessage } = require("./AppMobile/controllers/sendMessage");
 
+app.use("/api/v1/getServerDate", appMaintauth, getServerDate);
 app.use("/api/v1/getAllEq", authapp("AppManageUsers"), getAllEq);
 app.use("/api/v1/appManageUsers", appManageUsers);
 app.use("/api/v1/appMaintMaintenance", appMaintauth, appMaintMaintenance);
