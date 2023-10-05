@@ -7,6 +7,7 @@ router.use((req, res, next) => {
   next();
 });
 
+router.get("/", logic);
 router.post("/", logic);
 
 module.exports = router;
