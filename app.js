@@ -279,7 +279,7 @@ app.use("/OrdersOrderpdfAnalysis", OrdersOrderNopdf);
 //////////////////////////////////////////////////End Points ///////////////////////////////////////////////
 
 const appMaint = require("./AppMobile/routes/AppMaintMaintenance");
-const appMaint_Notification = require("./AppMobile/appNotification/routes/logic");
+const appMaint_Notification = require("./AppMobile/appNotification/routes/getNotification");
 const EqsInSites = require("./routes/getEqsInSite");
 const Test = require("./routes/Test");
 const Test1 = require("./routes/Test1");

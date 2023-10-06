@@ -24,7 +24,7 @@ const appLogin = async (req, res) => {
 
       const user = {
         id: SearchedItems["ID"],
-        username: username,
+        username: SearchedItems["UserName"],
         role: SearchedItems["Role"],
         img: SearchedItems["ProfileImg"],
         eqtype: SearchedItems["Equipment_Type"],
