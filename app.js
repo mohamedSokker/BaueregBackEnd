@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
   //   console.log(data);
   //   socket.broadcast.emit("updateNotification");
   // });
-  socket.emit("userID", { id: socket.id, appVersion: 1 });
+  socket.emit("userID", { id: socket.id, appVersion: 2 });
 
   socket.on("userName", (data) => {
     console.log(`New Connection ${data} => ${socket.id}`);
