@@ -7,6 +7,7 @@ router.use((req, res, next) => {
   next();
 });
 
+router.get("/", getNotification);
 router.post("/", getNotification);
 
 module.exports = router;

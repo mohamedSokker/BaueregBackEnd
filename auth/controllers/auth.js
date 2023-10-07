@@ -11,11 +11,11 @@ let authapp = (endPointName) => {
     jwt.verify(token, process.env.TOKEN_SECRET_KEY, (err, decode) => {
       if (err) return res.status(403).json({ message: err.message });
 
-      if (decode.roles.Admin) {
+      if (decode.roles?.Admin) {
         next();
       } else if (
-        checkRole(endPointName, decode.roles.Editor.Tables) ||
-        checkRole(endPointName, decode.roles.User.Tables)
+        checkRole(endPointName, decode.roles?.Editor?.Tables) ||
+        checkRole(endPointName, decode.roles?.User?.Tables)
       ) {
         next();
       } else {

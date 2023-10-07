@@ -116,6 +116,7 @@ const appUpdateNot = require("./AppMobile/appNotification/routes/updateNotificat
 const appGetUsersinSite = require("./AppMobile/getUserInsite/routes/logic");
 const appGetOperatorToken = require("./AppMobile/getOperatorToken/routes/logic");
 const { sendMessage } = require("./AppMobile/controllers/sendMessage");
+const appMaint_getNotification = require("./AppMobile/appNotification/routes/getNotification");
 
 app.use("/api/v1/getServerDate", appMaintauth, getServerDate);
 app.use("/api/v1/getAllEq", authapp("AppManageUsers"), getAllEq);
@@ -138,6 +139,11 @@ app.use("/api/v1/appUpdateNot", appMaintauth, appUpdateNot);
 app.use("/api/v1/appGetUsersInSite", appMaintauth, appGetUsersinSite);
 app.use("/api/v1/appGetOperatorToken", appMaintauth, appGetOperatorToken);
 app.use("/api/v1/appSendMessage", sendMessage);
+app.use(
+  "/api/v1/appMaint_getNotification",
+  appMaintauth,
+  appMaint_getNotification
+);
 
 /////////////////////////////////////////////////auth //////////////////////////////////////////////////////
 
