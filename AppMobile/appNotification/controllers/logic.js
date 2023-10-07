@@ -13,7 +13,7 @@ const logic = async (req, res) => {
         let notQuery = `INSERT INTO AppMaintNotification VALUES(
                         GETDATE(),
                         '${fieldsData?.username}',
-                        '${result[i]?.ProfileImg}',
+                        '${fieldsData?.ProfileImg}',
                         '${result[i]?.UserName}',
                         '${fieldsData?.Equipment} Started New Problem ${fieldsData?.Breakdown_Type} at ${fieldsData?.Problem_start_From}',
                         'false',
@@ -30,9 +30,9 @@ const logic = async (req, res) => {
         let notQuery = `INSERT INTO AppMaintNotification VALUES(
                         GETDATE(),
                         '${fieldsData?.username}',
-                        '${result[i]?.ProfileImg}',
+                        '${fieldsData?.ProfileImg}',
                         '${result[i]?.UserName}',
-                        '${fieldsData?.Equipment} Started New Problem ${fieldsData?.Breakdown_Type} at ${fieldsData?.Problem_start_From}',
+                        '${fieldsData?.Equipment} Ended Problem ${fieldsData?.Breakdown_Type} at ${fieldsData?.problem_End_To}',
                         'false',
                         'false'
         )`;
