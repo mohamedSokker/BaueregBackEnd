@@ -3,7 +3,7 @@ const { getData } = require("../../../functions/getData");
 const getNotification = async (req, res) => {
   try {
     const { username } = req.query;
-    const query = `SELECT * FROM AppMaintNotification WHERE ToUser = '${username}' AND Sent = 'false'`;
+    const query = `SELECT * FROM AppMaintNotification WHERE ToUser = '${username}' AND Sent = 'false' ORDER BY ID DESC`;
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);
   } catch (error) {
