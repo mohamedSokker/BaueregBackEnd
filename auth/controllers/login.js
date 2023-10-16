@@ -40,7 +40,7 @@ const loginapp = async (req, res) => {
         httpOnly: true,
         maxAge: 5000000 * 24 * 60 * 60 * 100,
         path: "/",
-        secure: false,
+        secure: true,
         sameSite: "None",
       });
       return res.status(200).json({ token: token, roles: user.roles });
