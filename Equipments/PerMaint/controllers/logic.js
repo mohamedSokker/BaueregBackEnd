@@ -10,21 +10,19 @@ const logic = async (req, res) => {
     const mainQuery = `SELECT  ID AS id,
                        TimeStart AS StartTime,
                        TimeEnd AS EndTime,
-                       Location + '=> ' + Equipment AS Location,
-                       ExpectedTask AS Subject
+                       Location + '=> ' + Equipment AS Subject,
+                       ExpectedTask AS Location,
+                       Type
                        FROM PeriodicMaintenance_Plan WHERE `;
-    const filterQuery = `Equipment_Type = '${fieldsData?.filter}'`;
-    const dateTimeQuery = `TimeStart >= '${fieldsData.dateTime}'`;
+    // const filterQuery = fieldsData?.filter
+    //   ? `Equipment_Type = '${fieldsData?.filter}'`
+    //   : `Equipment_Type = 'Trench_Cutting_Machine' OR Equipment_Type = 'Drilling_Machine'`;
+    const dateTimeQuery = !fieldsData.dateTime
+      ? `TimeStart >= '2023-01-01'`
+      : `TimeStart BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
     if (eqURL.length === 0) return res.status(200).json([]);
-    if (!fieldsData?.dateTime && !fieldsData?.filter) {
-      query = `${mainQuery} ${eqURL}`;
-    } else if (fieldsData?.dateTime && fieldsData?.filter) {
-      query = `${mainQuery} ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-    } else if (fieldsData?.dateTime && !fieldsData?.filter) {
-      query = `${mainQuery} ${dateTimeQuery} AND ${eqURL}`;
-    } else if (!fieldsData?.dateTime && fieldsData?.filter) {
-      query = `${mainQuery} ${filterQuery} AND ${eqURL}`;
-    }
+
+    query = `${mainQuery} ${dateTimeQuery} AND ${eqURL}`;
 
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);

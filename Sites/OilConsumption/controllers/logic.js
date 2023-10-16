@@ -8,19 +8,25 @@ const logic = async (req, res) => {
     );
 
     let eqURL = ``;
+    let eqUrlForSum = ``;
     for (let i = 0; i < PerEqs.length; i++) {
       if (i === 0) {
         eqURL += ` (OilConsumption.Equipment = '${PerEqs[i].name}'`;
+        eqUrlForSum += ` (OilConsumption.Equipment = '${PerEqs[i].name}'`;
       } else if (i === PerEqs.length - 1) {
-        eqURL += ` OR OilConsumption.Equipment = '${PerEqs[i].name}')`;
+        eqURL += ` OR OilConsumption.Equipment = '${PerEqs[i].name}')  
+                   GROUP BY OilConsumption.TotalConsumption, OilConsumption.Date 
+                   ORDER BY OilConsumption.Date ASC`;
+        eqUrlForSum += ` OR OilConsumption.Equipment = '${PerEqs[i].name}')`;
       } else {
         eqURL += ` OR OilConsumption.Equipment = '${PerEqs[i].name}'`;
+        eqUrlForSum += ` OR OilConsumption.Equipment = '${PerEqs[i].name}'`;
       }
     }
     let query = ``;
     let queryLastWeek = ``;
     let dataQuery = ``;
-    const dataMainQuery = `SELECT * FROM OilConsumption
+    const dataMainQuery = `SELECT OilConsumption.Date, OilConsumption.TotalConsumption FROM OilConsumption
                        JOIN Equipments_Location
                        ON (OilConsumption.Equipment = Equipments_Location.Equipment) 
                        WHERE Equipments_Location.End_Date IS NULL AND
@@ -30,28 +36,20 @@ const logic = async (req, res) => {
                        ON (OilConsumption.Equipment = Equipments_Location.Equipment) 
                        WHERE Equipments_Location.End_Date IS NULL AND
                        OilConsumption.Location = '${fieldsData.Location}'`;
-    const filterQuery = `Equipments_Location.Equipment_Type = '${fieldsData?.filter}'`;
-    const dateTimeQuery = `OilConsumption.Date >= '${fieldsData?.dateTime}'`;
-    const lastWeekQuery = `OilConsumption.Date < GETDATE() - 7`;
+    const filterQuery = fieldsData?.filter
+      ? `Equipments_Location.Equipment_Type = '${fieldsData?.filter}'`
+      : `Equipments_Location.Equipment_Type <> ''`;
+    const dateTimeQuery = !fieldsData.dateTime
+      ? `OilConsumption.Date >= '2023-01-01'`
+      : `OilConsumption.Date BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
+    const lastWeekQuery = !fieldsData.dateTime
+      ? `OilConsumption.Date BETWEEN '2023-01-01' AND GETDATE() - 7`
+      : `OilConsumption.Date BETWEEN '2023-01-01' AND DATEADD(dd, -7, '${fieldsData.dateTime}')`;
     if (eqURL.length === 0) return res.status(200).json([]);
-    if (!fieldsData?.dateTime && !fieldsData?.filter) {
-      query = `${mainQuery} AND ${eqURL}`;
-      dataQuery = `${dataMainQuery} AND ${eqURL}`;
-      queryLastWeek = `${mainQuery} AND ${lastWeekQuery} AND ${eqURL}`;
-    } else if (fieldsData?.dateTime && fieldsData?.filter) {
-      query = `${mainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-      dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-      queryLastWeek = `${mainQuery} AND ${dateTimeQuery} AND 
-                       ${filterQuery} AND ${lastWeekQuery} AND ${eqURL}`;
-    } else if (fieldsData?.dateTime && !fieldsData?.filter) {
-      query = `${mainQuery} AND ${dateTimeQuery} AND ${eqURL}`;
-      dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${eqURL}`;
-      queryLastWeek = `${mainQuery} AND ${dateTimeQuery} AND ${lastWeekQuery} AND ${eqURL}`;
-    } else if (!fieldsData?.dateTime && fieldsData?.filter) {
-      query = `${mainQuery} AND ${filterQuery} AND ${eqURL}`;
-      dataQuery = `${dataMainQuery} AND ${filterQuery} AND ${eqURL}`;
-      queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqURL}`;
-    }
+
+    query = `${mainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqUrlForSum}`;
+    dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
+    queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqUrlForSum}`;
 
     let data = await getData(query);
     data = data.recordsets[0];

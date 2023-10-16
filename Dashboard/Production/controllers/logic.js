@@ -8,9 +8,15 @@ const Piles = ["Piles"];
 
 const filterDate = async (data, date) => {
   if (date) {
-    return data.filter((d) => new Date(d["Pouring Finish"]) < new Date(date));
+    return data.filter(
+      (d) =>
+        new Date(d["Pouring Finish"]) <= new Date(date) &&
+        new Date(d["Pouring Finish"]) >= new Date("2023-01-01")
+    );
   } else {
-    return data;
+    return data.filter(
+      (d) => new Date(d["Pouring Finish"]) >= new Date("2023-01-01")
+    );
   }
 };
 
@@ -64,7 +70,13 @@ const logic = async (req, res) => {
 
     result = await filterDate(result, fieldsData?.dateTime);
 
-    let resultLastWeek = await filterDate(result, addDays(new Date(), -7));
+    result.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
+
+    let resultLastWeek = !fieldsData?.dateTime
+      ? await filterDate(result, addDays(new Date(), -7))
+      : await filterDate(result, addDays(fieldsData?.dateTime, -7));
+
+    resultLastWeek.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
 
     let per = 0;
     let perLastWeek = 0;

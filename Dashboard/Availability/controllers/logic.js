@@ -3,24 +3,31 @@ const { getData } = require("../../../functions/getData");
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
-    const PerEqs = fieldsData.usersData[0].roles.Editor?.Equipments.concat(
-      fieldsData.usersData[0].roles.User?.Equipments
+    const PerEqs = fieldsData.usersData[0]?.roles.Editor?.Equipments.concat(
+      fieldsData.usersData[0]?.roles.User?.Equipments
     );
 
     let eqURL = ``;
+    let eqUrlForSum = ``;
     for (let i = 0; i < PerEqs.length; i++) {
       if (i === 0) {
         eqURL += ` (Availability.Equipment = '${PerEqs[i].name}'`;
+        eqUrlForSum += ` (Availability.Equipment = '${PerEqs[i].name}'`;
       } else if (i === PerEqs.length - 1) {
-        eqURL += ` OR Availability.Equipment = '${PerEqs[i].name}')`;
+        eqURL += ` OR Availability.Equipment = '${PerEqs[i].name}') 
+                   GROUP BY Availability.Maintenance_Availability, Availability.Date_Time 
+                   ORDER BY Availability.Date_Time ASC`;
+        eqUrlForSum += ` OR Availability.Equipment = '${PerEqs[i].name}')`;
       } else {
         eqURL += ` OR Availability.Equipment = '${PerEqs[i].name}'`;
+        eqUrlForSum += ` OR Availability.Equipment = '${PerEqs[i].name}'`;
       }
     }
     let query = ``;
     let queryLastWeek = ``;
     let dataQuery = ``;
-    const dataMainQuery = `SELECT * FROM Availability 
+    const dataMainQuery = `SELECT Availability.Date_Time,Availability.Maintenance_Availability 
+                       FROM Availability 
                        JOIN Equipments_Location
                        ON (Availability.Equipment = Equipments_Location.Equipment) 
                        WHERE Equipments_Location.End_Date IS NULL`;
@@ -29,28 +36,20 @@ const logic = async (req, res) => {
                        JOIN Equipments_Location
                        ON (Availability.Equipment = Equipments_Location.Equipment) 
                        WHERE Equipments_Location.End_Date IS NULL`;
-    const filterQuery = `Equipment_Type = '${fieldsData.filter}'`;
-    const dateTimeQuery = `Date_Time >= '${fieldsData.dateTime}'`;
-    const lastWeekQuery = `Date_Time < GETDATE() - 7`;
+    const filterQuery = fieldsData?.filter
+      ? `Equipments_Location.Equipment_Type = '${fieldsData?.filter}'`
+      : `Equipments_Location.Equipment_Type <> ''`;
+    const dateTimeQuery = !fieldsData.dateTime
+      ? `Availability.Date_Time >= '2023-01-01'`
+      : `Availability.Date_Time BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
+    const lastWeekQuery = !fieldsData.dateTime
+      ? `Availability.Date_Time BETWEEN '2023-01-01' AND GETDATE() - 7`
+      : `Availability.Date_Time BETWEEN '2023-01-01' AND DATEADD(dd, -7, '${fieldsData.dateTime}')`;
     if (eqURL.length === 0) return res.status(200).json([]);
-    if (!fieldsData?.dateTime && !fieldsData?.filter) {
-      query = `${mainQuery} AND ${eqURL}`;
-      dataQuery = `${dataMainQuery} AND ${eqURL}`;
-      queryLastWeek = `${mainQuery} AND ${lastWeekQuery} AND ${eqURL}`;
-    } else if (fieldsData?.dateTime && fieldsData?.filter) {
-      query = `${mainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-      dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-      queryLastWeek = `${mainQuery} AND ${dateTimeQuery} AND 
-                       ${filterQuery} AND ${lastWeekQuery} AND ${eqURL}`;
-    } else if (fieldsData?.dateTime && !fieldsData?.filter) {
-      query = `${mainQuery} AND ${dateTimeQuery} AND ${eqURL}`;
-      dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${eqURL}`;
-      queryLastWeek = `${mainQuery} AND ${dateTimeQuery} AND ${lastWeekQuery} AND ${eqURL}`;
-    } else if (!fieldsData?.dateTime && fieldsData?.filter) {
-      query = `${mainQuery} AND ${filterQuery} AND ${eqURL}`;
-      dataQuery = `${dataMainQuery} AND ${filterQuery} AND ${eqURL}`;
-      queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqURL}`;
-    }
+
+    query = `${mainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqUrlForSum}`;
+    dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
+    queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqUrlForSum}`;
 
     let data = await getData(query);
     data = data.recordsets[0];
@@ -72,6 +71,7 @@ const logic = async (req, res) => {
         100
       ).toFixed(1);
     }
+
     const result = {
       per: Number(per),
       diff: (Number(per) - Number(perLastWeek)).toFixed(2),

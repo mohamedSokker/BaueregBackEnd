@@ -20,7 +20,7 @@ const logic = async (req, res) => {
     let query = ``;
     const mainQuery = `SELECT DISTINCT TOP 10 Breakdown_Type AS label,
                        COUNT(Breakdown_Type)
-                       AS value FROM Maintenance WHERE
+                       AS value FROM Maintenance WHERE Breakdown_Type <> 'Periodic Maintenance' AND
                        Location = '${fieldsData.Location}' AND `;
     const filterQuery = `Equipment_Type = '${fieldsData?.filter}'`;
     const dateTimeQuery = `Date_Time >= '${fieldsData.dateTime}'`;

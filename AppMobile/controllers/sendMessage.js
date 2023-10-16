@@ -3,10 +3,14 @@ const { getMessaging } = require("firebase-admin/messaging");
 
 // const serviceAccount = require("path/to/serviceAccountKey.json");
 
-initializeApp({
-  credential: applicationDefault(),
-  projectId: "bauereg-bc3ce",
-});
+try {
+  initializeApp({
+    credential: applicationDefault(),
+    projectId: "bauereg-bc3ce",
+  });
+} catch (error) {
+  console.log(error.message);
+}
 
 const sendMessage = async (req, res) => {
   const fieldsData = req.body;

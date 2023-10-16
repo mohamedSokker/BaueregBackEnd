@@ -20,9 +20,11 @@ const logic = async (req, res) => {
     let query = ``;
     const mainQuery = `SELECT DISTINCT TOP 10 Breakdown_Type AS label,
                        COUNT(Breakdown_Type)
-                       AS value FROM Maintenance WHERE`;
+                       AS value FROM Maintenance WHERE Breakdown_Type <> 'Periodic Maintenance' AND`;
     const filterQuery = `Equipment_Type = '${fieldsData?.filter}'`;
-    const dateTimeQuery = `Date_Time >= '${fieldsData.dateTime}'`;
+    const dateTimeQuery = !fieldsData.dateTime
+      ? `Date_Time >= '2023-01-01'`
+      : `Date_Time BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
     const groupByQuery = `GROUP BY Breakdown_Type
                           HAVING COUNT(Breakdown_Type) > 0
                           ORDER BY value DESC`;

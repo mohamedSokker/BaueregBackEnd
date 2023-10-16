@@ -23,9 +23,27 @@ const loginapp = async (req, res) => {
         img: SearchedItems["ProfileImg"],
       };
       const token = jwt.sign(user, process.env.TOKEN_SECRET_KEY, {
+        expiresIn: "1h",
+      });
+      const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: "5000000d",
       });
-      return res.status(200).json({ token: token });
+
+      // Insert refreshToken to database
+      res.header(
+        "Access-Control-Allow-Origin",
+        "http://mhsokker.ddnsfree.com:3000"
+      );
+      res.header("Access-Control-Allow-Credentials", true);
+      res.header("Access-Control-Allow-Headers", "X-Custom-Header");
+      res.cookie("jwt", refreshToken, {
+        httpOnly: true,
+        maxAge: 5000000 * 24 * 60 * 60 * 100,
+        path: "/",
+        secure: false,
+        sameSite: "None",
+      });
+      return res.status(200).json({ token: token, roles: user.roles });
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });

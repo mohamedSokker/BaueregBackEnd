@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const corsOptions = require("./config/corsAoptions");
+const credentials = require("./middleware/credentials");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const swaggerjsdoc = require("swagger-jsdoc");
@@ -11,7 +13,34 @@ const dotenv = require("dotenv").config();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
+app.use(credentials);
+
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions));
+
+// app.use(function (req, res, next) {
+//   // res.header(
+//   //   "Access-Control-Allow-Origin",
+//   //   "http://mhsokker.ddnsfree.com:3000"
+//   // );
+//   // res.header(
+//   //   "Access-Control-Allow-Headers",
+//   //   "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//   // );
+//   res.header("Access-Control-Allow-Credentials", true);
+//   next();
+// });
+
+// app.use(
+//   cors({
+//     origin: "http://mhsokker.ddnsfree.com:3000",
+//     credentials: true,
+//   })
+// );
+
 app.use(cookieParser());
 
 let CurrDir = process.env.CURRENT_DIRECTORY;
@@ -32,6 +61,7 @@ const io = socketio(server, {
       "http://192.168.52.186:3000",
       "http://192.168.220.186:3000",
       "http://mhsokker.ddnsfree.com:3000",
+      "http://192.168.1.7:3000",
       "https://bauereg.onrender.com",
     ],
   },
@@ -150,6 +180,8 @@ app.use(
 const manageUsers = require("./auth/routes/manageUsers");
 const { uploadImg } = require("./auth/controllers/uploadimg");
 const loginapp = require("./auth/routes/login");
+const handleRefreshToken = require("./auth/routes/refreshToken");
+const handleLogout = require("./auth/routes/logout");
 
 app.use("/api/v1/manageUsers", authapp("manageUsers"), manageUsers);
 
@@ -164,6 +196,10 @@ app.get("/users/img/:username/:imgName", (req, res) => {
 });
 
 app.use("/handleLoginApp", loginapp);
+
+app.use("/refresh", handleRefreshToken);
+
+app.use("/logout", handleLogout);
 
 //////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
 
