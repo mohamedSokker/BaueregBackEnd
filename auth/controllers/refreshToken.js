@@ -19,12 +19,20 @@ const handleRefreshToken = (req, res) => {
         return res
           .status(403)
           .json({ message: `Failed from verifing refresh token` });
-      const user = {
+      const tokenUser = {
         username: decoded.username,
-        roles: decoded.roles,
+        // roles: decoded.roles,
         img: decoded.img,
       };
-      const token = jwt.sign(user, process.env.TOKEN_SECRET_KEY, {
+      var query = `SELECT UserRole FROM AdminUsersApp WHERE UserName = '${decoded.username}'`;
+      let Results = await getData(query);
+      Results = Results.recordsets[0];
+      const user = {
+        username: decoded.username,
+        roles: Results["UserRole"],
+        img: decoded.img,
+      };
+      const token = jwt.sign(tokenUser, process.env.TOKEN_SECRET_KEY, {
         expiresIn: "1h",
       });
       if (user.roles.Admin) {

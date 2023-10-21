@@ -17,7 +17,7 @@ const logout = (req, res) => {
     httpOnly: true,
     maxAge: 5000000 * 24 * 60 * 60 * 100,
     path: "/",
-    secure: false,
+    secure: true,
     sameSite: "None",
   });
   res.status(200).json({ message: `Successfully Cleared Cookie` });

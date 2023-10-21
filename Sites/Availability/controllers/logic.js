@@ -15,7 +15,7 @@ const logic = async (req, res) => {
         eqUrlForSum += ` (Availability.Equipment = '${PerEqs[i].name}'`;
       } else if (i === PerEqs.length - 1) {
         eqURL += ` OR Availability.Equipment = '${PerEqs[i].name}') 
-                   GROUP BY Availability.Maintenance_Availability, Availability.Date_Time 
+                   GROUP BY Availability.ID,Availability.Maintenance_Availability, Availability.Date_Time 
                    ORDER BY Availability.Date_Time ASC`;
         eqUrlForSum += ` OR Availability.Equipment = '${PerEqs[i].name}')`;
       } else {
@@ -26,18 +26,17 @@ const logic = async (req, res) => {
     let query = ``;
     let queryLastWeek = ``;
     let dataQuery = ``;
-    const dataMainQuery = `SELECT Availability.Date_Time,Availability.Maintenance_Availability 
+    const dataMainQuery = `SELECT Availability.ID,Availability.Date_Time,Availability.Maintenance_Availability 
                        FROM Availability 
                        JOIN Equipments_Location
                        ON (Availability.Equipment = Equipments_Location.Equipment) 
-                       WHERE Equipments_Location.End_Date IS NULL AND 
-                       Availability.Location = '${fieldsData.Location}'`;
-    const mainQuery = `SELECT SUM(CONVERT(float,Availability.Maintenance_Availability)) AS SUM,
-                       COUNT(Availability.Maintenance_Availability) AS COUNT FROM Availability 
+                       WHERE Availability.Location = '${fieldsData.Location}'`;
+    const mainQuery = `WITH data AS (SELECT Availability.ID,Availability.Date_Time,Availability.Maintenance_Availability AS per
+                       FROM Availability 
                        JOIN Equipments_Location
                        ON (Availability.Equipment = Equipments_Location.Equipment) 
-                       WHERE Equipments_Location.End_Date IS NULL AND
-                       Availability.Location = '${fieldsData.Location}'`;
+                       WHERE Availability.Location = '${fieldsData.Location}' `;
+    const sumQuery = `)SELECT SUM(CONVERT(float,per)) AS SUM, COUNT(CONVERT(float,per)) AS COUNT FROM data`;
     const filterQuery = fieldsData?.filter
       ? `Equipments_Location.Equipment_Type = '${fieldsData?.filter}'`
       : `Equipments_Location.Equipment_Type <> ''`;
@@ -49,9 +48,9 @@ const logic = async (req, res) => {
       : `Availability.Date_Time BETWEEN '2023-01-01' AND DATEADD(dd, -7, '${fieldsData.dateTime}')`;
     if (eqURL.length === 0) return res.status(200).json([]);
 
-    query = `${mainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqUrlForSum}`;
+    query = `${mainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqUrlForSum} ${sumQuery}`;
     dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-    queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqUrlForSum}`;
+    queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqUrlForSum} ${sumQuery}`;
 
     let data = await getData(query);
     data = data.recordsets[0];

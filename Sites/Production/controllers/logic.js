@@ -48,8 +48,8 @@ const filterFilter = async (result, filter, Type) => {
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
-    const query = `SELECT * FROM Equipments_Location WHERE End_Date IS NULL
-                   AND Location = '${fieldsData.Location}'`;
+    const query = `SELECT DISTINCT Equipment FROM Equipments_Location WHERE
+                   Location = '${fieldsData.Location}'`;
     const perEqs = (await getData(query)).recordsets[0];
 
     let eqs = [];
