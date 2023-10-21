@@ -2,7 +2,9 @@ const admin = require("firebase-admin");
 const { initializeApp } = require("firebase-admin/app");
 const { getMessaging } = require("firebase-admin/messaging");
 
-const { privateKey } = JSON.parse(process.env.FIREBASE_PRIVATE_KEY);
+const { privateKey } = JSON.parse(
+  JSON.parse(Buffer.from(process.env.FIREBASE_PRIVATE_KEY, "base64").toString())
+);
 
 // const serviceAccount = require("path/to/serviceAccountKey.json");
 
