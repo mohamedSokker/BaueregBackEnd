@@ -31,7 +31,7 @@ const handleRefreshToken = (req, res) => {
         console.log(Results);
         const user = {
           username: decoded.username,
-          roles: JSON.parse(Results[0]["UserRole"]),
+          roles: JSON.parse(Results["UserRole"]),
           img: decoded.img,
         };
         const token = jwt.sign(tokenUser, process.env.TOKEN_SECRET_KEY, {
