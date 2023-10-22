@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { getData } = require("../../functions/getData");
 
 let authapp = (endPointName) => {
   return (req, res, next) => {
