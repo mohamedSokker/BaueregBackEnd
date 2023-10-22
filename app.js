@@ -10,6 +10,7 @@ const swaggerui = require("swagger-ui-express");
 const http = require("http");
 const socketio = require("socket.io");
 const dotenv = require("dotenv").config();
+const cache = require("./routeCache");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -112,8 +113,9 @@ io.on("connection", (socket) => {
   });
 });
 
-////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
+app.use(cache(600));
 
+////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
 const AxiosXlsx = require("./functions/AxiosXlsx");
 
 app.get("/api/v1/excel/:id", async (req, res) => {

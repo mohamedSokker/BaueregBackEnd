@@ -8,14 +8,19 @@ let authapp = (endPointName) => {
       return res.status(401).json({ message: "Failed From authHeader" });
 
     const token = authHeader && authHeader.split(" ")[1];
-    jwt.verify(token, process.env.TOKEN_SECRET_KEY, (err, decode) => {
+    jwt.verify(token, process.env.TOKEN_SECRET_KEY, async (err, decode) => {
       if (err) return res.status(403).json({ message: err.message });
 
-      if (decode.roles?.Admin) {
+      var query = `SELECT TOP 1  UserRole FROM AdminUsersApp WHERE UserName = '${decode.username}'`;
+      let Results = await getData(query);
+      Results = Results.recordsets[0];
+      console.log(Results);
+
+      if (Results[0]["UserRole"]?.Admin) {
         next();
       } else if (
-        checkRole(endPointName, decode.roles?.Editor?.Tables) ||
-        checkRole(endPointName, decode.roles?.User?.Tables)
+        checkRole(endPointName, Results[0]["UserRole"]?.Editor?.Tables) ||
+        checkRole(endPointName, Results[0]["UserRole"]?.User?.Tables)
       ) {
         next();
       } else {
@@ -25,16 +30,16 @@ let authapp = (endPointName) => {
           // console.log(manageResources.User[resourcesTitles[i]]);
           // console.log(endPointName);
           if (
-            (decode?.roles?.Editor[resourcesTitles[i]] === true ||
-              decode?.roles?.Editor[resourcesTitles[i]]?.length > 0) &&
+            (Results[0]["UserRole"]?.Editor[resourcesTitles[i]] === true ||
+              Results[0]["UserRole"]?.Editor[resourcesTitles[i]]?.length > 0) &&
             manageResources.Editor[resourcesTitles[i]]?.includes(endPointName)
           ) {
             flag = true;
             console.log(`true from Editor`);
             // next();
           } else if (
-            (decode?.roles?.User[resourcesTitles[i]] === true ||
-              decode?.roles?.User[resourcesTitles[i]]?.length > 0) &&
+            (Results[0]["UserRole"]?.User[resourcesTitles[i]] === true ||
+              Results[0]["UserRole"]?.User[resourcesTitles[i]]?.length > 0) &&
             manageResources.User[resourcesTitles[i]].includes(endPointName)
           ) {
             flag = true;
