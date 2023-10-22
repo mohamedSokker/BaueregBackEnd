@@ -15,14 +15,14 @@ let authapp = (endPointName) => {
       var query = `SELECT TOP 1  UserRole FROM AdminUsersApp WHERE UserName = '${decode.username}'`;
       let Results = await getData(query);
       Results = Results.recordsets[0];
-      Results = JSON.parse(Results);
-      console.log(Results[0]["UserRole"]);
+      const roles = JSON.parse(Results[0]["UserRole"]);
+      console.log(roles);
 
-      if (Results[0]["UserRole"]?.Admin) {
+      if (roles?.Admin) {
         next();
       } else if (
-        checkRole(endPointName, Results[0]["UserRole"]?.Editor?.Tables) ||
-        checkRole(endPointName, Results[0]["UserRole"]?.User?.Tables)
+        checkRole(endPointName, roles?.Editor?.Tables) ||
+        checkRole(endPointName, roles?.User?.Tables)
       ) {
         next();
       } else {
@@ -32,16 +32,16 @@ let authapp = (endPointName) => {
           // console.log(manageResources.User[resourcesTitles[i]]);
           // console.log(endPointName);
           if (
-            (Results[0]["UserRole"]?.Editor[resourcesTitles[i]] === true ||
-              Results[0]["UserRole"]?.Editor[resourcesTitles[i]]?.length > 0) &&
+            (roles?.Editor[resourcesTitles[i]] === true ||
+              roles?.Editor[resourcesTitles[i]]?.length > 0) &&
             manageResources.Editor[resourcesTitles[i]]?.includes(endPointName)
           ) {
             flag = true;
             console.log(`true from Editor`);
             // next();
           } else if (
-            (Results[0]["UserRole"]?.User[resourcesTitles[i]] === true ||
-              Results[0]["UserRole"]?.User[resourcesTitles[i]]?.length > 0) &&
+            (roles?.User[resourcesTitles[i]] === true ||
+              roles?.User[resourcesTitles[i]]?.length > 0) &&
             manageResources.User[resourcesTitles[i]].includes(endPointName)
           ) {
             flag = true;
