@@ -113,7 +113,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(cache(600));
+// app.use(cache(600));
 
 ////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
 const AxiosXlsx = require("./functions/AxiosXlsx");
@@ -226,7 +226,11 @@ app.use(
   authapp("Dashboard"),
   dashboardPerMaintLogic
 );
-app.use("/api/v1/dashboardProduction", dashboardProductionLogic);
+app.use(
+  "/api/v1/dashboardProduction",
+  authapp("Dashboard"),
+  dashboardProductionLogic
+);
 app.use("/api/v1/getMessages", authapp("Dashboard"), messages);
 
 //////////////////////////////////////////////////Sites Logic //////////////////////////////////////////
