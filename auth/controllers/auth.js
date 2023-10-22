@@ -15,6 +15,7 @@ let authapp = (endPointName) => {
       var query = `SELECT TOP 1  UserRole FROM AdminUsersApp WHERE UserName = '${decode.username}'`;
       let Results = await getData(query);
       Results = Results.recordsets[0];
+      Results = JSON.parse(Results);
       console.log(Results[0]["UserRole"]);
 
       if (Results[0]["UserRole"]?.Admin) {
