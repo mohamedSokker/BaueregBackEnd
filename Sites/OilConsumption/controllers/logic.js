@@ -35,8 +35,9 @@ const logic = async (req, res) => {
 
     let eqs = [];
     for (let j = 0; j < perEqs.length; j++) {
-      eqs.push(perEqs[j].name);
+      eqs.push(perEqs[j].Equipment);
     }
+    console.log(eqs);
 
     const url = process.env.CONSUMPTON_ONEDRIVE_URL;
     let result = await XlsxAll(url);
