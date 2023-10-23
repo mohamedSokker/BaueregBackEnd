@@ -117,6 +117,8 @@ io.on("connection", (socket) => {
 
 ////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
 const AxiosXlsx = require("./functions/AxiosXlsx");
+const XlsxAll = require("./functions/XlsxAll");
+const XLSX = require("xlsx");
 
 app.get("/api/v1/excel/:id", async (req, res) => {
   try {
@@ -124,6 +126,17 @@ app.get("/api/v1/excel/:id", async (req, res) => {
     const url = process.env.ONEDRIVE_URL;
     const result = await AxiosXlsx(url, sheet);
     return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ messages: error.message });
+  }
+});
+
+app.get("/api/v1/consumptions", async (req, res) => {
+  try {
+    const url = process.env.CONSUMPTON_ONEDRIVE_URL;
+    const result = await XlsxAll(url);
+    const data = XLSX.utils.sheet_to_json(result.Sheets[`Oil Consumption`]);
+    return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({ messages: error.message });
   }
@@ -213,25 +226,48 @@ const dashboardPerMaintLogic = require("./Dashboard/PerMaint/routes/logic");
 const dashboardProductionLogic = require("./Dashboard/Production/routes/logic");
 const messages = require("./AppMobile/getProblems/routes/getProblems");
 
-app.use("/api/v1/dashboardAv", authapp("Dashboard"), dashboardAvLogic);
-app.use("/api/v1/dashboardFuel", authapp("Dashboard"), dashboardFuelLogic);
-app.use("/api/v1/dashboardOil", authapp("Dashboard"), dashboardOilLogic);
+app.use(
+  "/api/v1/dashboardAv",
+  authapp("Dashboard"),
+  cache(`DB Dashboard Availability`),
+  dashboardAvLogic
+);
+app.use(
+  "/api/v1/dashboardFuel",
+  authapp("Dashboard"),
+  cache(`DB Dashboard Fuel`),
+  dashboardFuelLogic
+);
+app.use(
+  "/api/v1/dashboardOil",
+  authapp("Dashboard"),
+  cache(`DB Dashboard Oil`),
+  dashboardOilLogic
+);
 app.use(
   "/api/v1/dashboardBreakdown",
   authapp("Dashboard"),
+  cache(`DB Dashboard Breakdown`),
   dashboardBreakdownLogic
 );
 app.use(
   "/api/v1/dashboardPerMaint",
   authapp("Dashboard"),
+  cache(`DB Dashboard PerMaint`),
   dashboardPerMaintLogic
 );
 app.use(
   "/api/v1/dashboardProduction",
   authapp("Dashboard"),
+  cache(`DB Dashboard Production`),
   dashboardProductionLogic
 );
-app.use("/api/v1/getMessages", authapp("Dashboard"), messages);
+app.use(
+  "/api/v1/getMessages",
+  authapp("Dashboard"),
+  cache(`DB Dashboard Messages`),
+  messages
+);
 
 //////////////////////////////////////////////////Sites Logic //////////////////////////////////////////
 
@@ -244,14 +280,54 @@ const sitesMachinaryLogic = require("./Sites/Machinary/routes/logic");
 const sitesEqsLogic = require("./Sites/Equipments/routes/logic");
 const sitesProductionLogic = require("./Sites/Production/routes/logic");
 
-app.use("/api/v1/sitesAv", authapp("Sites"), sitesAvLogic);
-app.use("/api/v1/sitesFuel", authapp("Sites"), sitesFuelLogic);
-app.use("/api/v1/sitesOil", authapp("Sites"), sitesOilLogic);
-app.use("/api/v1/sitesBreakdown", authapp("Sites"), sitesBreakdownLogic);
-app.use("/api/v1/sitesPerMaint", authapp("Sites"), sitesPerMaintLogic);
-app.use("/api/v1/sitesMachinary", authapp("Sites"), sitesMachinaryLogic);
-app.use("/api/v1/sitesEqs", authapp("Sites"), sitesEqsLogic);
-app.use("/api/v1/sitesProduction", authapp("Sites"), sitesProductionLogic);
+app.use(
+  "/api/v1/sitesAv",
+  authapp("Sites"),
+  cache(`DB Sites Availability`),
+  sitesAvLogic
+);
+app.use(
+  "/api/v1/sitesFuel",
+  authapp("Sites"),
+  cache(`DB Sites Fuel`),
+  sitesFuelLogic
+);
+app.use(
+  "/api/v1/sitesOil",
+  authapp("Sites"),
+  cache(`DB Sites Oil`),
+  sitesOilLogic
+);
+app.use(
+  "/api/v1/sitesBreakdown",
+  authapp("Sites"),
+  cache(`DB Sites Breakdown`),
+  sitesBreakdownLogic
+);
+app.use(
+  "/api/v1/sitesPerMaint",
+  authapp("Sites"),
+  cache(`DB Sites PerMaint`),
+  sitesPerMaintLogic
+);
+app.use(
+  "/api/v1/sitesMachinary",
+  authapp("Sites"),
+  cache(`DB Sites Machinary`),
+  sitesMachinaryLogic
+);
+app.use(
+  "/api/v1/sitesEqs",
+  authapp("Sites"),
+  cache(`DB Sites sitesEqs`),
+  sitesEqsLogic
+);
+app.use(
+  "/api/v1/sitesProduction",
+  authapp("Sites"),
+  cache(`DB Sites Production`),
+  sitesProductionLogic
+);
 
 //////////////////////////////////////////////////Equipment Logic //////////////////////////////////////////
 
@@ -262,12 +338,42 @@ const eqBreakdownLogic = require("./Equipments/Breakdowns/routes/logic");
 const eqPerMaintLogic = require("./Equipments/PerMaint/routes/logic");
 const eqProductionLogic = require("./Equipments/Production/routes/logic");
 
-app.use("/api/v1/eqAv", authapp("Equipments"), eqAvLogic);
-app.use("/api/v1/eqFuel", authapp("Equipments"), eqFuelLogic);
-app.use("/api/v1/eqOil", authapp("Equipments"), eqOilLogic);
-app.use("/api/v1/eqBreakdown", authapp("Equipments"), eqBreakdownLogic);
-app.use("/api/v1/eqPerMaint", authapp("Equipments"), eqPerMaintLogic);
-app.use("/api/v1/eqProduction", authapp("Equipments"), eqProductionLogic);
+app.use(
+  "/api/v1/eqAv",
+  authapp("Equipments"),
+  cache(`DB Equipments Availability`),
+  eqAvLogic
+);
+app.use(
+  "/api/v1/eqFuel",
+  authapp("Equipments"),
+  cache(`DB Equipments Fuel`),
+  eqFuelLogic
+);
+app.use(
+  "/api/v1/eqOil",
+  authapp("Equipments"),
+  cache(`DB Equipments Oil`),
+  eqOilLogic
+);
+app.use(
+  "/api/v1/eqBreakdown",
+  authapp("Equipments"),
+  cache(`DB Equipments Breakdowns`),
+  eqBreakdownLogic
+);
+app.use(
+  "/api/v1/eqPerMaint",
+  authapp("Equipments"),
+  cache(`DB Equipments PerMaint`),
+  eqPerMaintLogic
+);
+app.use(
+  "/api/v1/eqProduction",
+  authapp("Equipments"),
+  cache(`DB Equipments Production`),
+  eqProductionLogic
+);
 
 //////////////////////////////////////////////////Tables Logic /////////////////////////////////////////////
 

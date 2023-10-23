@@ -1,82 +1,110 @@
+const XLSX = require("xlsx");
+const XlsxAll = require("../../../functions/XlsxAll");
+const ExcelDateToJSDate = require("../../../functions/ExcelToJsDate");
+const addDays = require("../../../Logic/globalFunction/addDays");
 const { getData } = require("../../../functions/getData");
+
+// const Trench = ["DW", "Cut-Off Wall", "Barrettes"];
+// const Piles = ["Piles"];
+
+const filterDate = async (data, date) => {
+  if (date) {
+    return data.filter(
+      (d) =>
+        new Date(d["Date "]) <= new Date(date) &&
+        new Date(d["Date "]) >= new Date("2023-01-01")
+    );
+  } else {
+    return data.filter((d) => new Date(d["Date "]) >= new Date("2023-01-01"));
+  }
+};
+
+const eqsFilter = async (data, eqs) => {
+  return data.filter((d) => eqs.includes(d["Equipment"]));
+};
+
+const filterFilter = async (result) => {
+  let data = [];
+  // if (!filter && Type === "Trench_Cutting_Machine") {
+  //   result.SheetNames.map((sheetName) => {
+  //     if (Trench.includes(sheetName)) {
+  //       data = [...data, ...XLSX.utils.sheet_to_json(result.Sheets[sheetName])];
+  //     }
+  //   });
+  // } else if (!filter && Type === "Drilling_Machine") {
+  //   result.SheetNames.map((sheetName) => {
+  //     if (Piles.includes(sheetName)) {
+  //       data = [...data, ...XLSX.utils.sheet_to_json(result.Sheets[sheetName])];
+  //     }
+  //   });
+  // } else {
+  data = XLSX.utils.sheet_to_json(result.Sheets[`Fuel Consumption`]);
+  // }
+  return data;
+};
 
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
-    const PerEqs = fieldsData.usersData[0].roles.Editor?.Equipments.concat(
-      fieldsData.usersData[0].roles.User?.Equipments
-    );
+    const query = `SELECT DISTINCT Equipment FROM Equipments_Location WHERE
+                   Location = '${fieldsData.Location}'`;
+    const perEqs = (await getData(query)).recordsets[0];
 
-    let eqURL = ``;
-    let eqUrlForSum = ``;
-    for (let i = 0; i < PerEqs.length; i++) {
-      if (i === 0) {
-        eqURL += ` (FuelConsumption.Equipment = '${PerEqs[i].name}'`;
-        eqUrlForSum += ` (FuelConsumption.Equipment = '${PerEqs[i].name}'`;
-      } else if (i === PerEqs.length - 1) {
-        eqURL += ` OR FuelConsumption.Equipment = '${PerEqs[i].name}') 
-                   GROUP BY FuelConsumption.Quantity, FuelConsumption.Date 
-                   ORDER BY FuelConsumption.Date ASC`;
-        eqUrlForSum += ` OR FuelConsumption.Equipment = '${PerEqs[i].name}')`;
-      } else {
-        eqURL += ` OR FuelConsumption.Equipment = '${PerEqs[i].name}'`;
-        eqUrlForSum += ` OR FuelConsumption.Equipment = '${PerEqs[i].name}'`;
-      }
+    let eqs = [];
+    for (let j = 0; j < perEqs.length; j++) {
+      eqs.push(perEqs[j].Equipment);
     }
-    let query = ``;
-    let queryLastWeek = ``;
-    let dataQuery = ``;
-    const dataMainQuery = `SELECT FuelConsumption.Date,FuelConsumption.Quantity FROM FuelConsumption
-                       JOIN Equipments_Location
-                       ON (FuelConsumption.Equipment = Equipments_Location.Equipment) 
-                       WHERE Equipments_Location.End_Date IS NULL AND
-                       FuelConsumption.Location = '${fieldsData.Location}'`;
-    const mainQuery = `SELECT SUM(FuelConsumption.Quantity) AS SUM FROM FuelConsumption
-                       JOIN Equipments_Location
-                       ON (FuelConsumption.Equipment = Equipments_Location.Equipment) 
-                       WHERE Equipments_Location.End_Date IS NULL AND
-                       FuelConsumption.Location = '${fieldsData.Location}'`;
-    const filterQuery = fieldsData?.filter
-      ? `Equipments_Location.Equipment_Type = '${fieldsData?.filter}'`
-      : `Equipments_Location.Equipment_Type <> ''`;
-    const dateTimeQuery = !fieldsData.dateTime
-      ? `FuelConsumption.Date >= '2023-01-01'`
-      : `FuelConsumption.Date BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
-    const lastWeekQuery = !fieldsData.dateTime
-      ? `FuelConsumption.Date BETWEEN '2023-01-01' AND GETDATE() - 7`
-      : `FuelConsumption.Date BETWEEN '2023-01-01' AND DATEADD(dd, -7, '${fieldsData.dateTime}')`;
-    if (eqURL.length === 0) return res.status(200).json([]);
 
-    query = `${mainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqUrlForSum}`;
-    dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-    queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqUrlForSum}`;
+    const url = process.env.CONSUMPTON_ONEDRIVE_URL;
+    let result = await XlsxAll(url);
 
-    let data = await getData(query);
-    data = data.recordsets[0];
-    let dataLastWeek = await getData(queryLastWeek);
-    dataLastWeek = dataLastWeek.recordsets[0];
-    const allData = await getData(dataQuery);
+    result = await filterFilter(result);
+    result = await eqsFilter(result, eqs);
+
+    for (let i = 0; i < result.length; i++) {
+      result[i]["Date "] = ExcelDateToJSDate(result[i]["Date "]);
+    }
+
+    result = await filterDate(result, fieldsData?.dateTime);
+
+    result.sort((a, b) => a["Date "] - b["Date "]);
+
+    let resultLastWeek = !fieldsData?.dateTime
+      ? await filterDate(result, addDays(new Date(), -7))
+      : await filterDate(result, addDays(fieldsData?.dateTime, -7));
+
+    resultLastWeek.sort((a, b) => a["Date "] - b["Date "]);
+
     let per = 0;
-    if (!data[0]?.SUM) {
-      per = 0;
-    } else {
-      per = (data[0]?.SUM).toFixed(0);
-    }
     let perLastWeek = 0;
-    if (!dataLastWeek[0]?.SUM) {
-      perLastWeek = 0;
-    } else {
-      perLastWeek = (dataLastWeek[0]?.SUM).toFixed(0);
+
+    for (let i = 0; i < result.length; i++) {
+      // if (fieldsData?.Type === "Trench_Cutting_Machine") {
+      per += Number(result[i]["Fuel Consumption Quantity (Liter)"]);
+      // } else {
+      //   per += Number(result[i]["Actual Depth"]);
+      // }
     }
 
-    const result = {
-      per: Number(per),
-      diff: Number(per) - Number(perLastWeek),
-      data: allData.recordsets[0],
+    for (let i = 0; i < resultLastWeek.length; i++) {
+      // if (fieldsData?.Type === "Trench_Cutting_Machine") {
+      perLastWeek += Number(
+        resultLastWeek[i]["Fuel Consumption Quantity (Liter)"]
+      );
+      // } else {
+      //   perLastWeek += Number(resultLastWeek[i]["Actual Depth"]);
+      // }
+    }
+
+    const target = {
+      per: Number(per).toFixed(0),
+      diff: ((Number(per) - Number(perLastWeek)) / Number(per)).toFixed(2),
+      data: result,
     };
-    return res.status(200).json(result);
+
+    return res.status(200).json(target);
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ messages: error.message });
   }
 };
 

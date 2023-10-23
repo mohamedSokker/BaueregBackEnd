@@ -28,7 +28,7 @@ const handleRefreshToken = (req, res) => {
         var query = `SELECT TOP 1 UserRole FROM AdminUsersApp WHERE UserName = '${decoded.username}'`;
         let Results = await getData(query);
         Results = Results.recordsets[0];
-        console.log(Results[0]["UserRole"]);
+        // console.log(Results[0]["UserRole"]);
         const user = {
           username: decoded.username,
           roles: JSON.parse(Results[0]["UserRole"]),
