@@ -22,7 +22,6 @@ const logic = async (req, res) => {
                        TimeStart AS StartTime,
                        TimeEnd AS EndTime,
                        Location + '=> ' + Equipment AS Subject,
-                       ExpectedTask AS Location,
                        Type
                        FROM PeriodicMaintenance_Plan WHERE`;
     const filterQuery = fieldsData?.filter
