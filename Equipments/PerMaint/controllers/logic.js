@@ -10,8 +10,7 @@ const logic = async (req, res) => {
     const mainQuery = `SELECT  ID AS id,
                        TimeStart AS StartTime,
                        TimeEnd AS EndTime,
-                       Location + '=> ' + Equipment AS Subject,
-                       ExpectedTask AS Location,
+                       TimeStart + '=> ' + TimeEnd AS Subject,
                        Type
                        FROM PeriodicMaintenance_Plan WHERE `;
     // const filterQuery = fieldsData?.filter

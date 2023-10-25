@@ -21,8 +21,7 @@ const logic = async (req, res) => {
     const mainQuery = `SELECT  ID AS id,
                        TimeStart AS StartTime,
                        TimeEnd AS EndTime,
-                       Location + '=> ' + Equipment AS Subject,
-                       ExpectedTask AS Location,
+                       Equipment AS Subject,
                        Type
                        FROM PeriodicMaintenance_Plan WHERE 
                        Location = '${fieldsData.Location}' AND `;
