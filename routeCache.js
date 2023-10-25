@@ -13,8 +13,8 @@ const cache = (updateKey) => (req, res, next) => {
   } else {
     key = req.originalUrl;
   }
-  const cachedRespone = cache.get(key);
-  const updateRequired = cache.get(updateKey);
+  const cachedRespone = cacheMemory.get(key);
+  const updateRequired = cacheMemory.get(updateKey);
   console.log(typeof updateRequired);
 
   if (cachedRespone && updateRequired === false) {
@@ -27,8 +27,8 @@ const cache = (updateKey) => (req, res, next) => {
     res.originalSend = res.send;
     res.send = (body) => {
       res.originalSend(body);
-      cache.set(key, body, duration);
-      cache.set(updateKey, false, duration);
+      cacheMemory.set(key, body, duration);
+      cacheMemory.set(updateKey, false, duration);
     };
     next();
   }
