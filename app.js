@@ -10,7 +10,7 @@ const swaggerui = require("swagger-ui-express");
 const http = require("http");
 const socketio = require("socket.io");
 const dotenv = require("dotenv").config();
-const cache = require("./routeCache");
+const { cache } = require("./routeCache");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

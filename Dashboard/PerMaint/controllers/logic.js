@@ -34,6 +34,7 @@ const logic = async (req, res) => {
     if (eqURL.length === 0) return res.status(200).json([]);
 
     query = `${mainQuery} ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
+    console.log(query);
 
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);
