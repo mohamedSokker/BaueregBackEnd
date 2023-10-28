@@ -11,9 +11,14 @@ let authapp = (endPointName) => {
     const token = authHeader && authHeader.split(" ")[1];
     jwt.verify(token, process.env.TOKEN_SECRET_KEY, async (err, decode) => {
       if (err) return res.status(403).json({ message: err.message });
+      let Results = [];
+      try {
+        var query = `SELECT TOP 1  UserRole FROM AdminUsersApp WHERE UserName = '${decode.username}'`;
+        Results = await getData(query);
+      } catch (error) {
+        return res.status(500).json({ message: error.message });
+      }
 
-      var query = `SELECT TOP 1  UserRole FROM AdminUsersApp WHERE UserName = '${decode.username}'`;
-      let Results = await getData(query);
       Results = Results.recordsets[0];
       const roles = JSON.parse(Results[0]["UserRole"]);
       // console.log(roles);
