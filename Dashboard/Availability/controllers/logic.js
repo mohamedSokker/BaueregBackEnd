@@ -57,7 +57,7 @@ const logic = async (req, res) => {
     allData = await filterFilter(allData, fieldsData?.filter);
     allData = await eqsFilter(allData, eqs);
     allData = await filterDate(allData, fieldsData?.dateTime);
-    allData.sort((a, b) => a["Date_Time"] - b["Date_Time"]);
+    allData.sort((a, b) => new Date(a["Date_Time"]) - new Date(b["Date_Time"]));
 
     let resultLastWeek = !fieldsData?.dateTime
       ? await filterDate(allData, addDays(new Date(), -7))

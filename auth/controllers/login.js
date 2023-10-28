@@ -72,6 +72,7 @@ const loginapp = async (req, res) => {
           ],
           StocksList: allStocksWithName,
           Tables: allTablesWithName,
+          DataEntry: true,
           Catalogues: [],
           OilSamples: true,
           OilSamplesAnalyzed: true,

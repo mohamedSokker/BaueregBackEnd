@@ -15,32 +15,9 @@ const { cache } = require("./routeCache");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Handle options credentials check - before CORS!
-// and fetch cookies credentials requirement
 app.use(credentials);
 
-// Cross Origin Resource Sharing
 app.use(cors(corsOptions));
-
-// app.use(function (req, res, next) {
-//   // res.header(
-//   //   "Access-Control-Allow-Origin",
-//   //   "http://mhsokker.ddnsfree.com:3000"
-//   // );
-//   // res.header(
-//   //   "Access-Control-Allow-Headers",
-//   //   "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//   // );
-//   res.header("Access-Control-Allow-Credentials", true);
-//   next();
-// });
-
-// app.use(
-//   cors({
-//     origin: "http://mhsokker.ddnsfree.com:3000",
-//     credentials: true,
-//   })
-// );
 
 app.use(cookieParser());
 
@@ -70,10 +47,6 @@ const io = socketio(server, {
 
 io.on("connection", (socket) => {
   console.log(`New Connection ${socket.id}`);
-  // socket.on("StockTransition", (data) => {
-  //   console.log(data);
-  //   socket.broadcast.emit("updateNotification");
-  // });
   socket.emit("userID", { id: socket.id, appVersion: 5 });
 
   socket.on("userName", (data) => {
@@ -112,8 +85,6 @@ io.on("connection", (socket) => {
     delete users[socket?.id];
   });
 });
-
-// app.use(cache(600));
 
 ////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
 const AxiosXlsx = require("./functions/AxiosXlsx");

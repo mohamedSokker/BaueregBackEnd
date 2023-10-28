@@ -12,7 +12,7 @@ const getEquipmentDetails = async (eq) => {
                  ON (Equipments_Location.Equipment = Bauer_Equipments.Equipment) 
                  WHERE
                  Equipments_Location.End_Date IS NULL AND
-                 Equipment = '${Equipment}'`;
+                 Equipment = '${eq}'`;
   const result = await getData(query);
   return result.recordsets[0];
 };
