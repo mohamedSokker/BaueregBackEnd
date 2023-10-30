@@ -104,8 +104,8 @@ const manageResources = {
       "uploadImg",
       "manageUsers",
       "Equipments_Location",
+      "AppManageUsers",
     ],
-    ManageUsers: ["AppManageUsers"],
     Dashboard: [
       // "Availability",
       // "FuelConsumption",
