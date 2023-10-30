@@ -32,10 +32,11 @@ let authapp = (endPointName) => {
         next();
       } else {
         for (let i = 0; i < resourcesTitles.length; i++) {
-          console.log(resourcesTitles[i]);
-          console.log(roles?.Editor[resourcesTitles[i]]);
-          console.log(manageResources.Editor[resourcesTitles[i]]);
-          console.log(endPointName);
+          // console.log(resourcesTitles[i]);
+          // console.log(roles?.Editor[resourcesTitles[i]]);
+          // console.log(manageResources.Editor[resourcesTitles[i]]);
+          // console.log(endPointName);
+
           // console.log(decode?.roles?.Editor[resourcesTitles[i]]);
           // console.log(decode?.roles?.User[resourcesTitles[i]]);
           // console.log(manageResources.User[resourcesTitles[i]]);
