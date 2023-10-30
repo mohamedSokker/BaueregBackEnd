@@ -27,7 +27,7 @@ const logic = async (req, res) => {
                        Location = '${fieldsData.Location}' AND `;
     const filterQuery = fieldsData?.filter
       ? `Equipment_Type = '${fieldsData?.filter}'`
-      : `Equipment_Type = ('Trench_Cutting_Machine' OR Equipment_Type = 'Drilling_Machine')`;
+      : `(Equipment_Type = 'Trench_Cutting_Machine' OR Equipment_Type = 'Drilling_Machine')`;
     const dateTimeQuery = !fieldsData.dateTime
       ? `TimeStart >= '2023-01-01'`
       : `TimeStart BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
