@@ -31,9 +31,9 @@ try {
 const sendMessage = async (req, res) => {
   const fieldsData = req.body;
   const message = {
-    data: {
+    notification: {
       title: fieldsData.title,
-      message: fieldsData.body,
+      body: fieldsData.body,
     },
 
     tokens: fieldsData.Tokens,
