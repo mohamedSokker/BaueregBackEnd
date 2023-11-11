@@ -13,6 +13,7 @@ let authapp = (endPointName) => {
       if (err) return res.status(403).json({ message: err.message });
       let Results = [];
       try {
+        // console.log(`decode => ${JSON.stringify(decode)}`);
         var query = `SELECT TOP 1  UserRole FROM AdminUsersApp WHERE UserName = '${decode.username}'`;
         Results = await getData(query);
       } catch (error) {
@@ -20,8 +21,9 @@ let authapp = (endPointName) => {
       }
 
       Results = Results.recordsets[0];
+      // console.log(Results);
       const roles = JSON.parse(Results[0]["UserRole"]);
-      console.log(roles);
+      // console.log(roles?.User);
 
       if (roles?.Admin) {
         next();
@@ -31,34 +33,43 @@ let authapp = (endPointName) => {
       ) {
         next();
       } else {
-        for (let i = 0; i < resourcesTitles.length; i++) {
-          // console.log(resourcesTitles[i]);
-          // console.log(roles?.Editor[resourcesTitles[i]]);
-          // console.log(manageResources.Editor[resourcesTitles[i]]);
-          // console.log(endPointName);
+        if (
+          roles?.StockRes &&
+          manageResources.User.StockRes.includes(endPointName)
+        ) {
+          flag = true;
+          console.log(`true from Stocks`);
+        } else {
+          for (let i = 0; i < resourcesTitles.length; i++) {
+            // console.log(resourcesTitles[i]);
+            // console.log(roles?.User[resourcesTitles[i]]);
+            // console.log(manageResources.User[resourcesTitles[i]]);
+            // console.log(endPointName);
 
-          // console.log(decode?.roles?.Editor[resourcesTitles[i]]);
-          // console.log(decode?.roles?.User[resourcesTitles[i]]);
-          // console.log(manageResources.User[resourcesTitles[i]]);
-          // console.log(endPointName);
-          if (
-            (roles?.Editor[resourcesTitles[i]] === true ||
-              roles?.Editor[resourcesTitles[i]]?.length > 0) &&
-            manageResources.Editor[resourcesTitles[i]]?.includes(endPointName)
-          ) {
-            flag = true;
-            console.log(`true from Editor`);
-            // next();
-          } else if (
-            (roles?.User[resourcesTitles[i]] === true ||
-              roles?.User[resourcesTitles[i]]?.length > 0) &&
-            manageResources.User[resourcesTitles[i]].includes(endPointName)
-          ) {
-            flag = true;
-            console.log(`true from User`);
-            // next();
+            // console.log(decode?.roles?.Editor[resourcesTitles[i]]);
+            // console.log(decode?.roles?.User[resourcesTitles[i]]);
+            // console.log(manageResources.User[resourcesTitles[i]]);
+            // console.log(endPointName);
+            if (
+              (roles?.Editor[resourcesTitles[i]] === true ||
+                roles?.Editor[resourcesTitles[i]]?.length > 0) &&
+              manageResources.Editor[resourcesTitles[i]]?.includes(endPointName)
+            ) {
+              flag = true;
+              console.log(`true from Editor`);
+              // next();
+            } else if (
+              (roles?.User[resourcesTitles[i]] === true ||
+                roles?.User[resourcesTitles[i]]?.length > 0) &&
+              manageResources.User[resourcesTitles[i]].includes(endPointName)
+            ) {
+              flag = true;
+              console.log(`true from User`);
+              // next();
+            }
           }
         }
+
         if (flag === true) {
           next();
         } else {
@@ -92,6 +103,7 @@ const resourcesTitles = [
   "Orders",
   "Stocks",
   "StocksList",
+  "StockRes",
   "OilSamples",
   "OilSamplesAnalyzed",
   "Catalogues",
@@ -134,6 +146,19 @@ const manageResources = {
     ],
     Stocks: ["Maintenance_Stocks"],
     StocksList: [],
+    StockRes: [
+      "AppNotification",
+      "AppStocksTransition",
+      "AppStocks",
+      "StockTransition",
+      "AppPlaceOrder",
+      "stocksRecieve",
+      "stocksExchange",
+      "stocksNewItem",
+      "stocksPlaceOrder",
+      "confirmOrder",
+      "Bauer_Equipments",
+    ],
     Tables: [],
     OilSamples: [
       "AppGetFiles",
@@ -170,6 +195,19 @@ const manageResources = {
     Orders: ["AppGetFiles", "AppCheck", "OrdersFile"],
     Stocks: ["Maintenance_Stocks"],
     StocksList: [],
+    StockRes: [
+      "AppNotification",
+      "AppStocksTransition",
+      "AppStocks",
+      "StockTransition",
+      "AppPlaceOrder",
+      "stocksRecieve",
+      "stocksExchange",
+      "stocksNewItem",
+      "stocksPlaceOrder",
+      "confirmOrder",
+      "Bauer_Equipments",
+    ],
     Tables: [],
     OilSamples: ["AppGetFiles", "AppCheck", "OilSamplesFile"],
     OilSamplesAnalyzed: ["AppGetFiles", "AppCheck", "OilSamplesAnalyzedFile"],

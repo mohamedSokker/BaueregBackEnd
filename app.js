@@ -169,7 +169,10 @@ const loginapp = require("./auth/routes/login");
 const handleRefreshToken = require("./auth/routes/refreshToken");
 const handleLogout = require("./auth/routes/logout");
 
-app.use("/api/v1/manageUsers", authapp("manageUsers"), manageUsers);
+const sparePartLogin = require("./auth/sparePartApp/routes/login");
+const sparePartRefresh = require("./auth/sparePartApp/routes/refreshToken");
+
+app.use("/api/v1/manageUsers", manageUsers);
 
 app.post("/api/v1/uploadImg", authapp("uploadImg"), uploadImg);
 
@@ -186,6 +189,10 @@ app.use("/handleLoginApp", loginapp);
 app.use("/refresh", handleRefreshToken);
 
 app.use("/logout", handleLogout);
+
+app.use("/sparePartLogin", sparePartLogin);
+
+app.use("/sparePartRefresh", sparePartRefresh);
 
 //////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
 
@@ -477,16 +484,7 @@ const TotalPanels = require("./routes/TotalPanels");
 const TotalPiles = require("./routes/TotalPiles");
 const Users = require("./routes/Users");
 const Week_Site_Plan = require("./routes/Week_Site_Plan");
-const AppStocksTransition = require("./routes/AppStocksTransition");
-const AppStocks = require("./routes/AppStocks");
-const AppNotification = require("./routes/AppNotification");
-const AppPlaceOrder = require("./routes/AppPlaceOrder");
-const StockTransition = require("./Logic/Stocks/routes/stocksTransition");
-const stocksRecieve = require("./Logic/Stocks/routes/stocksRecieve");
-const stocksExchange = require("./Logic/Stocks/routes/stocksExchange");
-const stocksNewItem = require("./Logic/Stocks/routes/stocksNewItem");
-const stocksPlaceOrder = require("./Logic/Stocks/routes/stocksPlaceOrder");
-const confirmOrder = require("./Logic/Stocks/routes/confirmOrder");
+
 const AppMobile = require("./AppMobile/routes/AppMobile");
 
 app.use("/api/v1/appMaint", authapp("appMaint"), appMaint);
@@ -741,6 +739,29 @@ app.use("/api/v1/Users", authapp("Users"), Users);
 
 app.use("/api/v1/Week_Site_Plan", authapp("Week_Site_Plan"), Week_Site_Plan);
 
+//////////////////////////////////////Spare Parts App ///////////////////////////////////////////////////
+const AppStocksTransition = require("./routes/AppStocksTransition");
+const AppStocks = require("./routes/AppStocks");
+const AppNotification = require("./routes/AppNotification");
+const AppPlaceOrder = require("./routes/AppPlaceOrder");
+const StockTransition = require("./Logic/Stocks/routes/stocksTransition");
+const stocksRecieve = require("./Logic/Stocks/routes/stocksRecieve");
+const stocksExchange = require("./Logic/Stocks/routes/stocksExchange");
+const stocksNewItem = require("./Logic/Stocks/routes/stocksNewItem");
+const stocksPlaceOrder = require("./Logic/Stocks/routes/stocksPlaceOrder");
+const confirmOrder = require("./Logic/Stocks/routes/confirmOrder");
+const {
+  SparePartSendMessage,
+} = require("./sparePartApp/controllers/sendMessage");
+const getUsersTokens = require("./sparePartApp/routes/getUsersToken");
+const AllStocks = require("./data/allStocks");
+const sparePartGetPosts = require("./sparePartApp/routes/getPosts");
+const sparePartGetItems = require("./sparePartApp/routes/getItems");
+const sparePartGetItem = require("./sparePartApp/routes/getItem");
+const sparePartGetProfile = require("./sparePartApp/routes/getProfile");
+const sparePartGetTargetOrder = require("./sparePartApp/routes/getTargetOrder");
+const sparePartGetMainToken = require("./sparePartApp/routes/getMainToken");
+
 app.use(
   "/api/v1/AppStocksTransition",
   authapp("AppStocksTransition"),
@@ -768,6 +789,28 @@ app.use(
 );
 
 app.use("/api/v1/confirmOrder", authapp("confirmOrder"), confirmOrder);
+
+app.use("/api/v1/SparePartSendMessage", SparePartSendMessage);
+
+app.use("/api/v1/sparePartGetUsersToken", getUsersTokens);
+
+app.get("/api/v1/sparePartGetStocksList", (req, res) => {
+  return res.status(200).json(AllStocks);
+});
+
+app.use("/api/v1/sparePartGetPosts", sparePartGetPosts);
+
+app.use("/api/v1/sparePartGetItems", sparePartGetItems);
+
+app.use("/api/v1/sparePartGetItem", sparePartGetItem);
+
+app.use("/api/v1/sparePartGetProfile", sparePartGetProfile);
+
+app.use("/api/v1/sparePartGetTargetOrder", sparePartGetTargetOrder);
+
+app.use("/api/v1/sparePartGetMainToken", sparePartGetMainToken);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.use("/api/v1/AppMobile", AppMobile);
 

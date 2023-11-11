@@ -90,27 +90,23 @@ const updatemanageUsers = async (req, res) => {
   const getquery =
     "SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('AdminUsersApp')";
   let Results = [];
-  let cond = "";
+  let cond = " WHERE ID = '" + Object.values(req.params)[0] + "'";
   try {
     Results = await getData(getquery);
     Results = Results.recordsets[0];
+    let arrayResult = [];
+    Results.map((result) => {
+      arrayResult.push(result.name);
+      return arrayResult;
+    });
     let keysStatus = true;
     var query = "UPDATE AdminUsersApp SET ";
     const keys = Object.keys(req.body);
-    for (let i = 0; i < Results.length; i++) {
-      if (keys.includes(Results[i]["name"])) {
-        if (Results[i]["name"] == "Password") {
-          query +=
-            Results[i]["name"] +
-            " ='" +
-            (await bcrypt.hash(req.body[Results[i]["name"]], 10)) +
-            "',";
-        } else {
-          query +=
-            Results[i]["name"] + " ='" + req.body[Results[i]["name"]] + "',";
-        }
-      } else if (Results[i]["name"] == "ID") {
-        cond = " WHERE ID = '" + Object.values(req.params)[0] + "'";
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i] === "Password") {
+        query += `${keys[i]} = '${await bcrypt.hash(req.body[keys[i]], 10)}',`;
+      } else if (arrayResult.includes(keys[i]) && keys[i] !== "ID") {
+        query += keys[i] + " ='" + req.body[keys[i]] + "',";
       } else {
         keysStatus = false;
         res.status(404).send("Wrong Arguments");
@@ -119,6 +115,7 @@ const updatemanageUsers = async (req, res) => {
     }
     query = query.slice(0, -1);
     query += cond;
+    console.log(query);
     if (keysStatus === true) {
       const result = await getData(query);
       return res.status(200).json({ success: "true", dataUpdated: result });

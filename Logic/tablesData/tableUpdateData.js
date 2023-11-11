@@ -1,23 +1,33 @@
 const { getData } = require("../../functions/getData");
+const bcrypt = require("bcrypt");
 
 const tableUpdateData = async (fieldsData, tableName, targetColVal) => {
   const getquery = `SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('${tableName}')`;
   let Results = [];
-  let cond = "";
+  let cond = "WHERE ID = '" + targetColVal + "'";
   try {
     Results = await getData(getquery);
     Results = Results.recordsets[0];
+    let arrayResult = [];
+    Results.map((result) => {
+      arrayResult.push(result.name);
+      return arrayResult;
+    });
     let keysStatus = true;
     var query = `UPDATE ${tableName} SET `;
     const keys = Object.keys(fieldsData);
-    for (let i = 0; i < Results.length; i++) {
-      if (fieldsData[Results[i]["name"]] === null) {
-        query += `${Results[i]["name"]} = NULL ,`;
-      } else if (Results[i]["name"] == "ID") {
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i] === "Password") {
+        query += `${keys[i]} = '${await bcrypt.hash(
+          fieldsData[keys[i]],
+          10
+        )}',`;
+      } else if (fieldsData[keys[i]] === null) {
+        query += `${keys[i]} = NULL ,`;
+      } else if (keys[i] == "ID") {
         cond = " WHERE ID = '" + targetColVal + "'";
-      } else if (keys.includes(Results[i]["name"])) {
-        query +=
-          Results[i]["name"] + " ='" + fieldsData[Results[i]["name"]] + "',";
+      } else if (arrayResult.includes(keys[i]) && keys[i] !== "ID") {
+        query += keys[i] + " ='" + fieldsData[keys[i]] + "',";
       } else {
         keysStatus = false;
         break;
