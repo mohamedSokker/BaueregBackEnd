@@ -1,6 +1,6 @@
 const { getData } = require("../../functions/getData");
 
-const getPosts = async (req, res) => {
+const getTargetPosts = async (req, res) => {
   try {
     const bodyData = req.body;
     const { limit, page } = req.query;
@@ -20,7 +20,7 @@ const getPosts = async (req, res) => {
       let startCount = (Number(page) - 1) * Number(limit) + 1;
       let endCount = Number(startCount) + Number(limit) - 1;
       query = `WITH RowNo AS (SELECT ROW_NUMBER() OVER (ORDER BY ID DESC) AS rowno, 
-            * FROM AppStocksTransition) SELECT * FROM RowNo WHERE RowNo BETWEEN ${startCount} AND  ${endCount} `;
+            * FROM AppStocksTransition WHERE Code = '${bodyData?.Code}') SELECT * FROM RowNo WHERE RowNo BETWEEN ${startCount} AND  ${endCount} `;
     }
     if (userRole?.Admin) {
       query = query;
@@ -53,4 +53,4 @@ const getPosts = async (req, res) => {
   }
 };
 
-module.exports = { getPosts };
+module.exports = { getTargetPosts };

@@ -761,6 +761,8 @@ const sparePartGetItem = require("./sparePartApp/routes/getItem");
 const sparePartGetProfile = require("./sparePartApp/routes/getProfile");
 const sparePartGetTargetOrder = require("./sparePartApp/routes/getTargetOrder");
 const sparePartGetMainToken = require("./sparePartApp/routes/getMainToken");
+const sparePartGetUnrevievedInv = require("./sparePartApp/routes/getUnrecievedInv");
+const sparePartGetTargetPosts = require("./sparePartApp/routes/getTargetPosts");
 
 app.use(
   "/api/v1/AppStocksTransition",
@@ -809,6 +811,10 @@ app.use("/api/v1/sparePartGetProfile", sparePartGetProfile);
 app.use("/api/v1/sparePartGetTargetOrder", sparePartGetTargetOrder);
 
 app.use("/api/v1/sparePartGetMainToken", sparePartGetMainToken);
+
+app.use("/api/v1/sparePartGetUnrecievedInv", sparePartGetUnrevievedInv);
+
+app.use("/api/v1/sparePartGetTargetPosts", sparePartGetTargetPosts);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
