@@ -1,4 +1,4 @@
-const { getData } = require("../../../../functions/getData");
+const { getData } = require("../../functions/getData");
 
 const getArrayValues = async (array) => {
   let result = undefined;
