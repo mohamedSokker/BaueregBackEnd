@@ -7,11 +7,11 @@ const checkIteminStock = async (code, store) => {
     const result = await getData(query);
     // await sql.connect(config);
     // const result = await sql.query(query);
-    if (result.rowsAffected[0] === 0) return `no items found`;
+    if (result.rowsAffected[0] === 0)
+      throw new Error(`no items found in Stock`);
     return result.recordsets[0];
   } catch (error) {
-    console.log(error);
-    return `Error`;
+    throw new Error(error.message);
   }
 };
 

@@ -20,16 +20,17 @@ const updateStore = async (bodyData) => {
       WHERE ID = '${searchResult.recordsets[0][0][`ID`]}'`;
     }
 
-    const notificationQuery = await updateNotification(bodyData);
+    // const notificationQuery = await updateNotification(bodyData);
+    console.log(fromQuery);
 
-    const result = await getData(
-      `${fromQuery} ${toQuery} ${notificationQuery}`
-    );
+    // const result = await getData(
+    //   `${fromQuery} ${toQuery} ${notificationQuery}`
+    // );
     // await sql.connect(config);
     // const result = await sql.query(
     //   `${fromQuery} ${toQuery} ${notificationQuery}`
     // );
-    return result;
+    return `${fromQuery} ${toQuery} `;
   } catch (error) {
     console.log(error.message);
     return `Error`;

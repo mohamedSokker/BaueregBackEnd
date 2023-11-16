@@ -1,4 +1,6 @@
 const { getData } = require("../../../functions/getData");
+const { getMainTokens } = require("../functions/global/getMainTokens");
+const { sendMessage } = require("../functions/global/sendMessage");
 
 const confirmOrder = async (req, res) => {
   try {
@@ -14,8 +16,16 @@ const confirmOrder = async (req, res) => {
              'false', 'false')`;
         count++;
       }
+      const tokens = await getMainTokens();
       const result = await getData(query);
-      return res.status(200).json({ data: result.rowsAffected[0] });
+      await sendMessage(
+        {
+          title: req.body[0].title,
+          body: req.body[0].body,
+        },
+        tokens
+      );
+      return res.status(200).json(result);
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });

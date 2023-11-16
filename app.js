@@ -47,7 +47,11 @@ const io = socketio(server, {
 
 io.on("connection", (socket) => {
   console.log(`New Connection ${socket.id}`);
-  socket.emit("userID", { id: socket.id, appVersion: 5 });
+  socket.emit("userID", {
+    id: socket.id,
+    appVersion: 5,
+    sparePartAppVersion: 1,
+  });
 
   socket.on("userName", (data) => {
     console.log(`New Connection ${data} => ${socket.id}`);
@@ -763,6 +767,8 @@ const sparePartGetTargetOrder = require("./sparePartApp/routes/getTargetOrder");
 const sparePartGetMainToken = require("./sparePartApp/routes/getMainToken");
 const sparePartGetUnrevievedInv = require("./sparePartApp/routes/getUnrecievedInv");
 const sparePartGetTargetPosts = require("./sparePartApp/routes/getTargetPosts");
+const sparePartGetActiveSites = require("./sparePartApp/routes/getActiveSites");
+const sparePartGetUserNotifications = require("./sparePartApp/routes/getUserNotifications");
 
 app.use(
   "/api/v1/AppStocksTransition",
@@ -815,6 +821,10 @@ app.use("/api/v1/sparePartGetMainToken", sparePartGetMainToken);
 app.use("/api/v1/sparePartGetUnrecievedInv", sparePartGetUnrevievedInv);
 
 app.use("/api/v1/sparePartGetTargetPosts", sparePartGetTargetPosts);
+
+app.use("/api/v1/sparePartGetActiveSites", sparePartGetActiveSites);
+
+app.use("/api/v1/sparePartGetUserNotifications", sparePartGetUserNotifications);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

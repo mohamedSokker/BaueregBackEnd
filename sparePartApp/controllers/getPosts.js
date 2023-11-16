@@ -28,7 +28,7 @@ const getPosts = async (req, res) => {
       query = `${query} AND (ItemFrom = '${userRole?.StockRes[0]}' OR ItemTo = '${userRole?.StockRes[0]}')`;
       console.log(query);
     } else if (userRole?.Editor?.StocksList?.length > 0) {
-      query = `SELECT * FROM AppStocksTransition WHERE `;
+      // query = `SELECT * FROM AppStocksTransition WHERE `;
       for (let i = 0; i < userRole?.Editor?.StocksList?.length; i++) {
         if (userRole?.Editor?.StocksList.length === 1) {
           restItemQuery += `('${userRole?.Editor?.StocksList[i]}')`;

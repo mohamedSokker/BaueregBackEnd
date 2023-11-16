@@ -11,19 +11,15 @@ const insertToTransition = async (bodyData) => {
   '${Number(bodyData.Quantity) - 1}'
    WHERE ID = '${bodyData.ID}'`;
 
-  const notificationQuery = await updateNotification(bodyData);
+  // const notificationQuery = await updateNotification(bodyData);
 
-  const query = `${transQuery} ${fromQuery} ${notificationQuery}`;
+  const query = `${transQuery} ${fromQuery} `;
 
   try {
-    const result = await getData(query);
-    // await sql.connect(config);
-    // const result = await sql.query(query);
-    if (result.rowsAffected[0] === 0) return `no items found`;
-    return result;
+    // const result = await getData(query);
+    return query;
   } catch (error) {
-    console.log(error.message);
-    return "Error";
+    throw new Error(error.message);
   }
 };
 

@@ -1,30 +1,24 @@
 const { getData } = require("../../../../functions/getData");
 
 const insertToTransition = async (bodyData) => {
-  const transQuery = `INSERT INTO AppStocksTransition VALUES(
+  try {
+    const transQuery = `INSERT INTO AppStocksTransition VALUES(
     GETDATE(),
   '${bodyData.Code}','${bodyData.SabCode}', '${bodyData.Description}', 
   '${bodyData.ItemFrom}','${bodyData.ItemTo}', '${bodyData.ItemStatus}',
    '')`;
 
-  const fromQuery = `UPDATE AppStocks SET Quantity = 
+    const fromQuery = `UPDATE AppStocks SET Quantity = 
   '${Number(bodyData.Quantity) - 1}'
    WHERE ID = '${bodyData.ID}'`;
 
-  const notificationQuery = await updateNotification(bodyData);
+    // const notificationQuery = await updateNotification(bodyData);
 
-  // const updateStore = await calcUpdateStore(bodyData);
-  const query = `${transQuery} ${fromQuery} ${notificationQuery}`;
+    const query = `${transQuery} ${fromQuery} `;
 
-  try {
-    const result = await getData(query);
-    // await sql.connect(config);
-    // const result = await sql.query(query);
-    if (result.rowsAffected[0] === 0) return `no items found`;
-    return result;
+    return query;
   } catch (error) {
-    console.log(error.message);
-    return "Error";
+    throw new Error(error.message);
   }
 };
 
