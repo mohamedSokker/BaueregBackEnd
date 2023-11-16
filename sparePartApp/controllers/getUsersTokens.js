@@ -1,36 +1,44 @@
-const { getData } = require("../../functions/getData");
+const { getData } = require("../../../../functions/getData");
 
-const getUsersToken = async (req, res) => {
-  try {
-    const bodyData = req.body;
-    const getUsersRoleQuery = `SELECT * FROM AdminUsersApp`;
-    const usersDataResult = await getData(getUsersRoleQuery);
-    const usersData = usersDataResult.recordsets[0];
+const getArrayValues = async (array) => {
+  let result = undefined;
+  if (array) {
+    result = array.map((data) => data.name);
+  }
 
-    let tokens = [];
+  return result;
+};
 
-    for (let i = 0; i < usersData.length; i++) {
-      const userRole = JSON.parse(usersData[i].UserRole);
-      if (userRole.Admin && usersData[i].UserName !== bodyData.UserName) {
+const getUsersToken = async (bodyData) => {
+  const getUsersRoleQuery = `SELECT * FROM AdminUsersApp`;
+  const usersDataResult = await getData(getUsersRoleQuery);
+  const usersData = usersDataResult.recordsets[0];
+
+  let tokens = [];
+
+  for (let i = 0; i < usersData.length; i++) {
+    const userRole = JSON.parse(usersData[i].UserRole);
+    const editorStocksList = await getArrayValues(userRole?.Editor?.StocksList);
+    const usersStocksList = await getArrayValues(userRole?.User?.StocksList);
+    if (
+      (userRole.Admin && usersData[i].UserName !== bodyData.UserName) ||
+      (usersData[i].UserName !== bodyData.UserName &&
+        (editorStocksList?.includes(bodyData.ItemFrom) ||
+          usersStocksList?.includes(bodyData.ItemFrom) ||
+          editorStocksList?.includes(bodyData.ItemTo) ||
+          usersStocksList?.includes(bodyData.ItemTo)))
+    ) {
+      if (
+        usersData[i]?.Token !== "null" &&
+        usersData[i]?.Token !== null &&
+        usersData[i]?.Token !== ""
+      ) {
         tokens.push(usersData[i]?.Token);
-      } else {
-        if (
-          usersData[i].UserName !== bodyData.UserName &&
-          (userRole?.Editor?.StocksList?.includes(bodyData.ItemFrom) ||
-            userRole?.User?.StocksList?.includes(bodyData.ItemFrom) ||
-            userRole?.Editor?.StocksList?.includes(bodyData.ItemTo) ||
-            userRole?.User?.StocksList?.includes(bodyData.ItemTo))
-        ) {
-          tokens.push(usersData[i]?.Token);
-        } else {
-          console.log(`user: ${usersData[i].UserName} is Not Allowed`);
-        }
       }
     }
-    return res.status(200).json(tokens);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
   }
+  console.log(tokens);
+  return tokens;
 };
 
 module.exports = { getUsersToken };

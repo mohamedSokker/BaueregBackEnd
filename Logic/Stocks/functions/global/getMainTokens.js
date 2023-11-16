@@ -10,7 +10,11 @@ const getMainTokens = async () => {
   for (let i = 0; i < usersData.length; i++) {
     const userRole = JSON.parse(usersData[i].UserRole);
     if (userRole.StockRes && userRole.StockRes[0] === "Main") {
-      if (usersData[i]?.Token !== "null" && usersData[i]?.Token !== null)
+      if (
+        usersData[i]?.Token !== "null" &&
+        usersData[i]?.Token !== null &&
+        usersData[i]?.Token !== ""
+      )
         tokens.push(usersData[i]?.Token);
     }
   }

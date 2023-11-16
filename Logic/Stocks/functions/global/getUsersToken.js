@@ -29,7 +29,11 @@ const getUsersToken = async (bodyData) => {
           editorStocksList?.includes(bodyData.ItemTo) ||
           usersStocksList?.includes(bodyData.ItemTo)))
     ) {
-      if (usersData[i]?.Token !== "null" && usersData[i]?.Token !== null) {
+      if (
+        usersData[i]?.Token !== "null" &&
+        usersData[i]?.Token !== null &&
+        usersData[i]?.Token !== ""
+      ) {
         tokens.push(usersData[i]?.Token);
         notificationQuery += ` INSERT INTO AppNotification VALUES(
         GETDATE(), '${bodyData.UserName}',
