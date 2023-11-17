@@ -27,7 +27,10 @@ const getUsersToken = async (bodyData) => {
         (editorStocksList?.includes(bodyData.ItemFrom) ||
           usersStocksList?.includes(bodyData.ItemFrom) ||
           editorStocksList?.includes(bodyData.ItemTo) ||
-          usersStocksList?.includes(bodyData.ItemTo)))
+          usersStocksList?.includes(bodyData.ItemTo))) ||
+      (userRole?.StockRes &&
+        userRole?.StockRes[0] === bodyData?.ItemTo &&
+        usersData[i].UserName !== bodyData.UserName)
     ) {
       if (
         usersData[i]?.Token !== "null" &&

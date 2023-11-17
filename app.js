@@ -769,6 +769,7 @@ const sparePartGetUnrevievedInv = require("./sparePartApp/routes/getUnrecievedIn
 const sparePartGetTargetPosts = require("./sparePartApp/routes/getTargetPosts");
 const sparePartGetActiveSites = require("./sparePartApp/routes/getActiveSites");
 const sparePartGetUserNotifications = require("./sparePartApp/routes/getUserNotifications");
+const sparePartGetTargetCode = require("./sparePartApp/routes/getTargetCode");
 
 app.use(
   "/api/v1/AppStocksTransition",
@@ -825,6 +826,8 @@ app.use("/api/v1/sparePartGetTargetPosts", sparePartGetTargetPosts);
 app.use("/api/v1/sparePartGetActiveSites", sparePartGetActiveSites);
 
 app.use("/api/v1/sparePartGetUserNotifications", sparePartGetUserNotifications);
+
+app.use("/api/v1/sparePartGetTargetCode", sparePartGetTargetCode);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

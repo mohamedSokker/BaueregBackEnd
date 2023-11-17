@@ -1,9 +1,10 @@
 const { getData } = require("../../functions/getData");
 
-const getTargetOrder = async (req, res) => {
+const getTargetCode = async (req, res) => {
   try {
     const bodyData = req.body;
-    const query = `SELECT * FROM AppPlaceOrder WHERE OrderNo = '${bodyData?.OrderNo}' ORDER BY ID DESC`;
+    const query = `SELECT * FROM AppStocks WHERE
+      Code = '${bodyData.Code}'`;
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);
   } catch (error) {
@@ -11,4 +12,4 @@ const getTargetOrder = async (req, res) => {
   }
 };
 
-module.exports = { getTargetOrder };
+module.exports = { getTargetCode };
