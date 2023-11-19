@@ -174,6 +174,7 @@ const getConfirmationItems = (text) => {
     let targetUnit = checkEndOfString(Qremain, 0);
     let unitRemain = targetUnit.nextText;
     let targetUnitPrice = unitRemain.split(" ");
+    console.log(targetUnitPrice);
     let UnitPriceRemain = "";
     for (let j = 1; j < targetUnitPrice.length; j++) {
       UnitPriceRemain += " " + targetUnitPrice[j];
