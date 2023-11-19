@@ -181,8 +181,9 @@ const getConfirmationItems = (text) => {
       UnitPriceRemain += " " + targetUnitPrice[j];
     }
     UnitPriceRemain = UnitPriceRemain.trim();
-    targetUnitPrice = replaceAllChar(targetUnitPrice[0], ".", "");
-    targetUnitPrice = replaceAllChar(targetUnitPrice[0], ",", ".");
+    targetUnitPrice = targetUnitPrice[0];
+    targetUnitPrice = replaceAllChar(targetUnitPrice, ".", "");
+    targetUnitPrice = replaceAllChar(targetUnitPrice, ",", ".");
 
     let targetTotalPrice = UnitPriceRemain.split(" ");
     let totalPriceRemain = "";
@@ -190,8 +191,9 @@ const getConfirmationItems = (text) => {
       totalPriceRemain += " " + targetTotalPrice[j];
     }
     totalPriceRemain = totalPriceRemain.trim() + "\n";
-    targetTotalPrice = replaceAllChar(targetTotalPrice[0], ".", "");
-    targetTotalPrice = replaceAllChar(targetTotalPrice[0], ",", ".");
+    targetTotalPrice = targetTotalPrice[0];
+    targetTotalPrice = replaceAllChar(targetTotalPrice, ".", "");
+    targetTotalPrice = replaceAllChar(targetTotalPrice, ",", ".");
     let deliveryDate = getDeliveryDate(totalPriceRemain);
 
     data.push({
@@ -264,8 +266,9 @@ const getConfirmationItemsPublic = (text) => {
       UnitPriceRemain += " " + targetUnitPrice[j];
     }
     UnitPriceRemain = UnitPriceRemain.trim();
-    targetUnitPrice = replaceAllChar(targetUnitPrice[0], ".", "");
-    targetUnitPrice = replaceAllChar(targetUnitPrice[0], ",", ".");
+    targetUnitPrice = targetUnitPrice[0];
+    targetUnitPrice = replaceAllChar(targetUnitPrice, ".", "");
+    targetUnitPrice = replaceAllChar(targetUnitPrice, ",", ".");
 
     let targetTotalPrice = UnitPriceRemain.split(" ");
     let totalPriceRemain = "";
@@ -273,8 +276,9 @@ const getConfirmationItemsPublic = (text) => {
       totalPriceRemain += " " + targetTotalPrice[j];
     }
     totalPriceRemain = totalPriceRemain.trim();
-    targetTotalPrice = replaceAllChar(targetTotalPrice[0], ".", "");
-    targetTotalPrice = replaceAllChar(targetTotalPrice[0], ",", ".");
+    targetTotalPrice = targetTotalPrice[0];
+    targetTotalPrice = replaceAllChar(targetTotalPrice, ".", "");
+    targetTotalPrice = replaceAllChar(targetTotalPrice, ",", ".");
     data.push({
       targetDate,
       targetConfirmNo,
