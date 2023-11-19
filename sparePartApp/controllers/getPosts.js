@@ -8,25 +8,24 @@ const getPosts = async (req, res) => {
     const usersDataResult = await getData(getUsersRoleQuery);
     const usersData = usersDataResult.recordsets[0];
 
-    let query = ``;
+    let query = `SELECT * FROM AppStocksTransition `;
     let itemFromQuery = `ItemFrom IN `;
     let itemToQuery = `ItemTo IN `;
     let restItemQuery = ``;
+    let finalItemQuery = ``;
 
     const userRole = usersData[0]?.UserRole
       ? JSON.parse(usersData[0]?.UserRole)
       : [];
     if (page && limit) {
-      let startCount = (Number(page) - 1) * Number(limit) + 1;
-      let endCount = Number(startCount) + Number(limit) - 1;
-      query = `WITH RowNo AS (SELECT ROW_NUMBER() OVER (ORDER BY ID DESC) AS rowno, 
-            * FROM AppStocksTransition) SELECT * FROM RowNo WHERE RowNo BETWEEN ${startCount} AND  ${endCount} `;
+      finalItemQuery = ` ORDER BY ID DESC OFFSET ${
+        (page - 1) * limit
+      } ROWS FETCH NEXT ${limit} ROWS ONLY`;
     }
     if (userRole?.Admin) {
       query = query;
     } else if (userRole?.StockRes?.length > 0) {
-      query = `${query} AND (ItemFrom = '${userRole?.StockRes[0]}' OR ItemTo = '${userRole?.StockRes[0]}')`;
-      console.log(query);
+      query = `${query} WHERE (ItemFrom = '${userRole?.StockRes[0]}' OR ItemTo = '${userRole?.StockRes[0]}')`;
     } else if (userRole?.Editor?.StocksList?.length > 0) {
       // query = `SELECT * FROM AppStocksTransition WHERE `;
       for (let i = 0; i < userRole?.Editor?.StocksList?.length; i++) {
@@ -42,9 +41,10 @@ const getPosts = async (req, res) => {
       }
       itemFromQuery += restItemQuery;
       itemToQuery += restItemQuery;
-      query += `AND (${itemFromQuery} OR ${itemToQuery})`;
-      console.log(query);
+      query += ` WHERE (${itemFromQuery} OR ${itemToQuery})`;
     }
+    query += finalItemQuery;
+    console.log(query);
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);
   } catch (error) {

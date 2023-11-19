@@ -11,26 +11,23 @@ const getProfile = async (req, res) => {
       bodyData?.usersData?.roles?.StockRes[0] === "Main"
     ) {
       if (page && limit) {
-        let startCount = (Number(page) - 1) * Number(limit) + 1;
-        let endCount = Number(startCount) + Number(limit) - 1;
-        query = `WITH RowNo AS (SELECT ROW_NUMBER() OVER (ORDER BY ID DESC) AS rowno, 
-             ID, OrderNo, FORMAT(DateTime, 'yyyy-MM-dd hh:mm:ss') AS DateTime,
-          FromStore,Confirmed FROM AppPlaceOrder WHERE Confirmed = 'true') 
-          SELECT * FROM RowNo WHERE RowNo BETWEEN ${startCount} AND  ${endCount}`;
+        query = `SELECT ID, OrderNo, FORMAT(DateTime, 'yyyy-MM-dd hh:mm:ss') AS DateTime,
+                 FromStore,Confirmed FROM AppPlaceOrder WHERE Confirmed = 'true'
+                 ORDER BY ID DESC OFFSET ${
+                   (page - 1) * limit
+                 } ROWS FETCH NEXT ${limit} ROWS ONLY`;
       }
     } else {
       if (page && limit) {
-        let startCount = (Number(page) - 1) * Number(limit) + 1;
-        let endCount = Number(startCount) + Number(limit) - 1;
-        query = `WITH RowNo AS (SELECT ROW_NUMBER() OVER (ORDER BY ID DESC) AS rowno, 
-             ID, OrderNo, FORMAT(DateTime, 'yyyy-MM-dd hh:mm:ss') AS DateTime,
+        query = `SELECT  ID, OrderNo, FORMAT(DateTime, 'yyyy-MM-dd hh:mm:ss') AS DateTime,
           FromStore,Confirmed FROM AppPlaceOrder 
           WHERE ToUser = '${bodyData?.usersData?.username}' OR
           FromStore = '${
             bodyData?.usersData?.roles?.StockRes &&
             bodyData?.usersData?.roles?.StockRes[0]
-          }') 
-          SELECT * FROM RowNo WHERE RowNo BETWEEN ${startCount} AND  ${endCount} `;
+          }' ORDER BY ID DESC OFFSET ${
+          (page - 1) * limit
+        } ROWS FETCH NEXT ${limit} ROWS ONLY`;
       }
     }
 
