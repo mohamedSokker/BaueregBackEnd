@@ -262,6 +262,7 @@ const getConfirmationItemsPublic = (text) => {
     for (let j = 1; j < targetUnitPrice.length; j++) {
       UnitPriceRemain += " " + targetUnitPrice[j];
     }
+    console.log(targetUnitPrice);
     UnitPriceRemain = UnitPriceRemain.trim();
     targetUnitPrice = replaceAllChar(targetUnitPrice[0], ".", "");
     targetUnitPrice = replaceAllChar(targetUnitPrice[0], ",", ".");
