@@ -119,6 +119,9 @@ app.get("/api/v1/consumptions", async (req, res) => {
 
 const { authapp } = require("./auth/controllers/auth");
 const { appMaintauth } = require("./AppMobile/controllers/auth");
+const { readExcel } = require("./functions/readExcel");
+
+app.get("/readExcel", readExcel);
 
 //////////////////////////////////////////////////App Mobile ///////////////////////////////////////////////
 
@@ -412,6 +415,10 @@ app.use("/OrdersInvoicepdfAnalysis", OrdersInvoicepdf);
 
 app.use("/OrdersOrderpdfAnalysis", OrdersOrderNopdf);
 
+const { pdfImage } = require("./pdfParsing/controllers/pdfImage");
+
+app.get("/PdfImage", pdfImage);
+
 //////////////////////////////////////////////////End Points ///////////////////////////////////////////////
 
 const appMaint = require("./AppMobile/routes/AppMaintMaintenance");
@@ -681,7 +688,7 @@ app.use("/api/v1/Pannel_Data", authapp("Pannel_Data"), Pannel_Data);
 
 app.use(
   "/api/v1/PeriodicMaintenance_Plan",
-  authapp("PeriodicMaintenance_Plan"),
+  // authapp("PeriodicMaintenance_Plan"),
   PeriodicMaintenance_Plan
 );
 
