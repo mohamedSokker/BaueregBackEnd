@@ -73,7 +73,7 @@ io.on("connection", (socket) => {
   console.log(`New Connection ${socket.id}`);
   socket.emit("userID", {
     id: socket.id,
-    appVersion: 6,
+    appVersion: 5,
     sparePartAppVersion: 1,
   });
 
