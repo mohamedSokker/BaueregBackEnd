@@ -10,8 +10,11 @@ const readExcel = async (req, res) => {
     let data = {};
     jsonData.map((d) => {
       data = data[d.Title]
-        ? { ...data, [d.Title]: [...data[d.Title], d.Task] }
-        : { ...data, [d.Title]: [d.Task] };
+        ? {
+            ...data,
+            [d.Title]: [...data[d.Title], { Task: d.Task, OilType: d.OilType }],
+          }
+        : { ...data, [d.Title]: [{ Task: d.Task, OilType: d.OilType }] };
 
       return data;
     });

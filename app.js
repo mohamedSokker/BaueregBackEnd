@@ -23,6 +23,30 @@ app.use(cookieParser());
 
 let CurrDir = process.env.CURRENT_DIRECTORY;
 
+// var AliexScrape = require(`aliexscrape`);
+
+// app.get("/aliexpress", (req, res) => {
+//   AliexScrape("1005005638299168") // 32853590425 is a productId
+//     .then((response) => res.status(200).json(response))
+//     .catch((error) => res.status(500).json(error.message));
+// });
+
+// const { aliExpress } = require(`./functions/AliExpress`);
+
+// app.post("/aliexpress", async (req, res) => {
+//   let input = req?.body?.input;
+//   let language = req?.body?.language;
+//   let aliExpressOBJ = await aliExpress(input, language).catch((e) => {
+//     console.log(e);
+//   });
+//   res.json(aliExpressOBJ);
+// });
+
+//////////////////////////////////////////////////QC Logic//////////////////////////////////////////////////
+const dataSelected = require("./Logic/QC/Maintenance/routes/getActiveSites");
+
+app.use("/api/v1/getActiveData", dataSelected);
+
 //////////////////////////////////////////////////Mongo DB Backup///////////////////////////////////////////
 const mongoBackup = require("./Mongo Backup/routes/mongoBackup");
 
@@ -49,7 +73,7 @@ io.on("connection", (socket) => {
   console.log(`New Connection ${socket.id}`);
   socket.emit("userID", {
     id: socket.id,
-    appVersion: 5,
+    appVersion: 6,
     sparePartAppVersion: 1,
   });
 
@@ -777,6 +801,7 @@ const sparePartGetTargetPosts = require("./sparePartApp/routes/getTargetPosts");
 const sparePartGetActiveSites = require("./sparePartApp/routes/getActiveSites");
 const sparePartGetUserNotifications = require("./sparePartApp/routes/getUserNotifications");
 const sparePartGetTargetCode = require("./sparePartApp/routes/getTargetCode");
+const sparePartSetUserSite = require("./sparePartApp/routes/setUserSite");
 
 app.use(
   "/api/v1/AppStocksTransition",
@@ -835,6 +860,8 @@ app.use("/api/v1/sparePartGetActiveSites", sparePartGetActiveSites);
 app.use("/api/v1/sparePartGetUserNotifications", sparePartGetUserNotifications);
 
 app.use("/api/v1/sparePartGetTargetCode", sparePartGetTargetCode);
+
+app.use("/api/v1/setUserSite", sparePartSetUserSite);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
