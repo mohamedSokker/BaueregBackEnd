@@ -3,7 +3,7 @@ const { getData } = require("../../functions/getData");
 const getUserEquipments = async (req, res) => {
   try {
     const bodyData = req.body;
-    const query = `SELECT TOP ID, Equipment FROM Equipments_Location WHERE
+    const query = `SELECT ID, Equipment FROM Equipments_Location WHERE
       End_Date IS NULL AND Location = '${bodyData?.site}'`;
     const result = await getData(query);
     return res.status(200).json(result.recordsets[0]);
