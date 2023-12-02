@@ -13,7 +13,10 @@ const setUserSite = async (req, res) => {
       User: { ...userRole.User, Sites: [bodyData?.site] },
       StockRes: userRole.StockRes,
     };
-    return res.status(200).json(newUserRole);
+    const updateQuery = `Update AdminUsersApp SET
+     UserRole = '${newUserRole}' WHERE UserName = '${bodyData?.username}'`;
+    const updateResult = await getData(updateQuery);
+    return res.status(200).json(updateResult);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
