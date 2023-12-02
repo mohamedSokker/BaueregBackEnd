@@ -802,6 +802,7 @@ const sparePartGetActiveSites = require("./sparePartApp/routes/getActiveSites");
 const sparePartGetUserNotifications = require("./sparePartApp/routes/getUserNotifications");
 const sparePartGetTargetCode = require("./sparePartApp/routes/getTargetCode");
 const sparePartSetUserSite = require("./sparePartApp/routes/setUserSite");
+const sparePartGetUserEqs = require("./sparePartApp/routes/getUserEquipments");
 
 app.use(
   "/api/v1/AppStocksTransition",
@@ -862,6 +863,8 @@ app.use("/api/v1/sparePartGetUserNotifications", sparePartGetUserNotifications);
 app.use("/api/v1/sparePartGetTargetCode", sparePartGetTargetCode);
 
 app.use("/api/v1/setUserSite", sparePartSetUserSite);
+
+app.use("/api/v1/sparePartGetUserEquipments", sparePartGetUserEqs);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
