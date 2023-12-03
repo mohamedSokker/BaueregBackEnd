@@ -28,3 +28,8 @@ CREATE TABLE QCDataTable (
     GroupID INT,
     Confirmed NVARCHAR(255)
 )
+
+CREATE TABLE WorkShops (
+    ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(255),
+)
