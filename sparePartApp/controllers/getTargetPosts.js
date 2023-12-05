@@ -17,7 +17,7 @@ const getTargetPosts = async (req, res) => {
     console.log(bodyData?.usersData?.roles);
 
     const userRole = bodyData?.usersData?.roles
-      ? JSON.parse(bodyData?.usersData?.roles)
+      ? bodyData?.usersData?.roles
       : [];
     if (page && limit) {
       finalItemQuery = ` ORDER BY ID DESC OFFSET ${
