@@ -3,7 +3,7 @@ const { getData } = require("../../functions/getData");
 const getItems = async (req, res) => {
   try {
     const bodyData = req.body;
-    const query = `SELECT DISTINCT Code, Description, SabCode, Quantity FROM AppStocks WHERE
+    const query = `SELECT DISTINCT Code, Description, SabCode, Quantity, Store FROM AppStocks WHERE
       Code LIKE '%${bodyData.Code}%' OR 
       Description LIKE '%${bodyData.Code}%' OR 
       SabCode LIKE '%${bodyData.Code}%'`;
