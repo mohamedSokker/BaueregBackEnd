@@ -26,9 +26,12 @@ const getTargetPosts = async (req, res) => {
     }
     if (userRole?.Admin) {
       query = query;
+      console.log(`from Admin`);
     } else if (userRole?.StockRes?.length > 0) {
       query = `${query} AND (ItemFrom = '${userRole?.StockRes[0]}' OR ItemTo = '${userRole?.StockRes[0]}')`;
+      console.log(`from Stock`);
     } else if (userRole?.Editor?.StocksList?.length > 0) {
+      console.log(`from User`);
       for (let i = 0; i < userRole?.Editor?.StocksList?.length; i++) {
         if (userRole?.Editor?.StocksList.length === 1) {
           restItemQuery += `('${userRole?.Editor?.StocksList[i]}')`;
