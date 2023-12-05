@@ -4,9 +4,9 @@ const getTargetPosts = async (req, res) => {
   try {
     const bodyData = req.body;
     const { limit, page } = req.query;
-    const getUsersRoleQuery = `SELECT TOP 1 UserRole FROM AdminUsersApp WHERE UserName = '${bodyData.username}'`;
-    const usersDataResult = await getData(getUsersRoleQuery);
-    const usersData = usersDataResult.recordsets[0];
+    // const getUsersRoleQuery = `SELECT TOP 1 UserRole FROM AdminUsersApp WHERE UserName = '${bodyData.username}'`;
+    // const usersDataResult = await getData(getUsersRoleQuery);
+    // const usersData = usersDataResult.recordsets[0];
 
     let query = `SELECT * FROM AppStocksTransition WHERE Code = '${bodyData?.Code}' `;
     let itemFromQuery = `ItemFrom IN `;
@@ -14,8 +14,8 @@ const getTargetPosts = async (req, res) => {
     let restItemQuery = ``;
     let finalItemQuery = ``;
 
-    const userRole = usersData[0]?.UserRole
-      ? JSON.parse(usersData[0]?.UserRole)
+    const userRole = bodyData?.usersData?.roles
+      ? JSON.parse(bodyData?.usersData?.roles)
       : [];
     if (page && limit) {
       finalItemQuery = ` ORDER BY ID DESC OFFSET ${
