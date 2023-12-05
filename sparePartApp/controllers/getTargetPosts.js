@@ -14,6 +14,8 @@ const getTargetPosts = async (req, res) => {
     let restItemQuery = ``;
     let finalItemQuery = ``;
 
+    console.log(bodyData?.usersData?.roles);
+
     const userRole = bodyData?.usersData?.roles
       ? JSON.parse(bodyData?.usersData?.roles)
       : [];
@@ -26,9 +28,7 @@ const getTargetPosts = async (req, res) => {
       query = query;
     } else if (userRole?.StockRes?.length > 0) {
       query = `${query} AND (ItemFrom = '${userRole?.StockRes[0]}' OR ItemTo = '${userRole?.StockRes[0]}')`;
-      console.log(query);
     } else if (userRole?.Editor?.StocksList?.length > 0) {
-      // query = `SELECT * FROM AppStocksTransition WHERE `;
       for (let i = 0; i < userRole?.Editor?.StocksList?.length; i++) {
         if (userRole?.Editor?.StocksList.length === 1) {
           restItemQuery += `('${userRole?.Editor?.StocksList[i]}')`;
