@@ -805,6 +805,9 @@ const sparePartSetUserSite = require("./sparePartApp/routes/setUserSite");
 const sparePartGetUserEqs = require("./sparePartApp/routes/getUserEquipments");
 const sparePartGetWorkshops = require("./sparePartApp/routes/getWorkshops");
 const sparePartAddWorkshop = require("./sparePartApp/routes/AddWorkshop");
+const {
+  checkIteminStock,
+} = require("./Logic/Stocks/functions/global/checkItemInStock");
 
 app.use(
   "/api/v1/AppStocksTransition",
@@ -871,6 +874,19 @@ app.use("/api/v1/sparePartGetUserEquipments", sparePartGetUserEqs);
 app.use("/api/v1/sparePartGetWorkshops", sparePartGetWorkshops);
 
 app.use("/api/v1/sparePartAddWorkshop", sparePartAddWorkshop);
+
+app.post(
+  ("/api/v1/sparePartCheckItemInStore",
+  async (req, res) => {
+    try {
+      const bodyData = req.body;
+      const result = await checkIteminStock(bodyData.Code, bodyData.Store);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  })
+);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

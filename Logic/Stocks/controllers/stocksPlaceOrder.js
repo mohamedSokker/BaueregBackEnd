@@ -1,5 +1,5 @@
 const { getData } = require("../../../functions/getData");
-const { checkItemInStore } = require("../functions/global/checjItemInStore");
+const { checkItemInStore } = require("../functions/global/checkItemInStore");
 
 const stocksPlaceOrder = async (req, res) => {
   try {
