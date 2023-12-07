@@ -1,8 +1,7 @@
 const { getData } = require("../../../../functions/getData");
 
 const checkIteminStock = async (code, store) => {
-  const query = `SELECT * FROM AppStocks WHERE Code = '${code}'
-  AND Store = '${store}'`;
+  const query = `SELECT * FROM AppStocks WHERE Code = '${code}'`;
   try {
     const result = await getData(query);
     // await sql.connect(config);
