@@ -9,11 +9,7 @@ const getArrayValues = async (array) => {
   return result;
 };
 
-const getUsersToken = async (bodyData) => {
-  const getUsersRoleQuery = `SELECT * FROM AdminUsersApp`;
-  const usersDataResult = await getData(getUsersRoleQuery);
-  const usersData = usersDataResult.recordsets[0];
-
+const getUsersToken = async (bodyData, usersData) => {
   let tokens = [];
   let notificationQuery = ``;
 
