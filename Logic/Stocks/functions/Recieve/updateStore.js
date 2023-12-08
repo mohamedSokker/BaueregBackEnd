@@ -3,33 +3,19 @@ const { getData } = require("../../../../functions/getData");
 const updateStore = async (bodyData) => {
   const fromQuery = `UPDATE AppStocksTransition SET IsPending = 'false' WHERE
     ID = '${bodyData.TransID}'`;
-  const searchQuery = `SELECT TOP 1 * FROM AppStocks WHERE Code = '${bodyData.Code}'
-  AND Store = '${bodyData.ItemTo}'`;
   try {
-    const searchResult = await getData(searchQuery);
-    // await sql.connect(config);
-    // const searchResult = await sql.query(searchQuery);
     let toQuery = ``;
-    if (searchResult.rowsAffected[0] === 0) {
+    if (bodyData.Status === `New`) {
       toQuery = `INSERT INTO AppStocks VALUES ('${bodyData.Code}',
-      '${bodyData.SabCode}', '${bodyData.Unit}', '1',
-      '${bodyData.ItemTo}', '${bodyData.Description}', '${bodyData.Detail}', '')`;
+      '${bodyData.SabCode}', '${bodyData.Unit}', '${Number(bodyData.q)}',
+      '${bodyData.ItemTo}', '${bodyData.Description}', 
+      '${bodyData.Detail}', '')`;
     } else {
       toQuery = `UPDATE AppStocks SET Quantity = 
-      '${Number(searchResult.recordsets[0][0][`Quantity`]) + 1}' 
-      WHERE ID = '${searchResult.recordsets[0][0][`ID`]}'`;
+      '${Number(bodyData.q) + Number(bodyData.Quantity)}' 
+      WHERE ID = '${bodyData?.ID}'`;
     }
-
-    // const notificationQuery = await updateNotification(bodyData);
     console.log(fromQuery);
-
-    // const result = await getData(
-    //   `${fromQuery} ${toQuery} ${notificationQuery}`
-    // );
-    // await sql.connect(config);
-    // const result = await sql.query(
-    //   `${fromQuery} ${toQuery} ${notificationQuery}`
-    // );
     return `${fromQuery} ${toQuery} `;
   } catch (error) {
     console.log(error.message);

@@ -878,7 +878,7 @@ app.use("/api/v1/sparePartAddWorkshop", sparePartAddWorkshop);
 app.post("/api/v1/sparePartCheckItemInStore", async (req, res) => {
   try {
     const bodyData = req.body;
-    const result = await checkIteminStock(bodyData.Code, bodyData.Store);
+    const result = await checkIteminStock(bodyData.Code);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });

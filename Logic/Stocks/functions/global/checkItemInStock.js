@@ -1,6 +1,6 @@
 const { getData } = require("../../../../functions/getData");
 
-const checkIteminStock = async (code, store) => {
+const checkIteminStock = async (code) => {
   const query = `SELECT * FROM AppStocks WHERE Code = '${code}'`;
   try {
     const result = await getData(query);

@@ -1,4 +1,3 @@
-const { checkIteminStock } = require("../functions/global/checkItemInStock");
 const {
   insertToTransition,
 } = require("../functions/Transtition/InsertToTransition");
@@ -7,21 +6,31 @@ const { app2 } = require("../../../config/firebaseConfigs");
 const { getUsersToken } = require("../functions/global/getUsersToken");
 const { sendMessage } = require("../functions/global/sendMessage");
 
+const getAllData = async (bodyData) => {
+  const usersQuery = `SELECT * FROM AdminUsersApp`;
+  const result = await getData(usersQuery);
+  return result;
+};
+
 const addstocks = async (req, res) => {
+  if (req.body.Status === "New")
+    throw new Error(`This Item Is not Found in your Stock`);
   try {
-    const checkCode = await checkIteminStock(req.body.Code, req.body.ItemFrom);
+    const usersData = allData.recordsets[0];
     const bodyData = {
-      ID: checkCode[0][`ID`],
+      ID: req.body?.ID,
+      Status: req.body?.Status,
+      Quantity: req.body?.Quantity,
+      q: req.body?.q,
+      SabCode: req.body?.SabCode,
+      Unit: req.body?.Unit,
+      Description: req.body?.Description,
+      Detail: req.body?.Detail,
       UserName: req.body.UserName,
       ProfileImg: req.body.ProfileImg,
       Category: "Stocks",
       Item: req.body.ItemFrom,
       Code: req.body.Code,
-      SabCode: checkCode[0][`SabCode`],
-      Unit: checkCode[0][`Unit`],
-      Description: checkCode[0][`Description`],
-      Detail: checkCode[0][`Detail`],
-      Quantity: checkCode[0][`Quantity`],
       ItemFrom: req.body.ItemFrom,
       ItemTo: req.body.ItemTo,
       ItemStatus: req.body.ItemStatus,
@@ -29,7 +38,7 @@ const addstocks = async (req, res) => {
       body: req.body.body,
     };
     const insertTransition = await insertToTransition(bodyData);
-    const tokensData = await getUsersToken(bodyData);
+    const tokensData = await getUsersToken(bodyData, usersData);
     const tokens = tokensData.tokens;
     const notificationQuery = tokensData.notificationQuery;
     const sendToDB = await getData(`${insertTransition} ${notificationQuery}`);

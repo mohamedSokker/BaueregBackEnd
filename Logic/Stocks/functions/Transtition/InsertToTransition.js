@@ -8,7 +8,7 @@ const insertToTransition = async (bodyData) => {
    'true')`;
 
   const fromQuery = `UPDATE AppStocks SET Quantity = 
-  '${Number(bodyData.Quantity) - 1}'
+  '${Number(bodyData.Quantity) - Number(bodyData.q)}'
    WHERE ID = '${bodyData.ID}'`;
 
   // const notificationQuery = await updateNotification(bodyData);

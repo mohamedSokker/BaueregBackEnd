@@ -1,10 +1,5 @@
-const {
-  checkItemInTransition,
-} = require("../functions/global/checkItemInTransition");
 const { updateStore } = require("../functions/Recieve/updateStore");
-const { checkItemInStore } = require("../functions/global/checkItemInStore");
 const { getData } = require("../../../functions/getData");
-const { app2 } = require("../../../config/firebaseConfigs");
 const { getUsersToken } = require("../functions/global/getUsersToken");
 const { sendMessage } = require("../functions/global/sendMessage");
 
@@ -21,9 +16,19 @@ const stocksRecieve = async (req, res) => {
   try {
     const allData = await getAllData(req.body);
     const checkItem = allData.recordsets[0];
+    if (checkItem.length === 0)
+      throw new Error(`No Item Found From this stock to you`);
     const usersData = allData.recordsets[1];
     const bodyData = {
-      TransID: checkItem[0][`ID`],
+      ID: req.body?.ID,
+      Status: req.body?.Status,
+      Quantity: req.body?.Quantity,
+      q: req.body?.q,
+      SabCode: req.body?.SabCode,
+      Unit: req.body?.Unit,
+      Description: req.body?.Description,
+      Detail: req.body?.Detail,
+      TransID: checkItem[0]?.ID,
       UserName: req.body.UserName,
       ProfileImg: req.body.ProfileImg,
       Category: "Stocks",
