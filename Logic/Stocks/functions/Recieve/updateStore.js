@@ -9,7 +9,7 @@ const updateStore = async (bodyData) => {
       toQuery = `INSERT INTO AppStocks VALUES ('${bodyData.Code}',
       '${bodyData.SabCode}', '${bodyData.Unit}', '${Number(bodyData.q)}',
       '${bodyData.ItemTo}', '${bodyData.Description}', 
-      '${bodyData.Detail}', '')`;
+      '${bodyData.Detail}', '${bodyData.Position}')`;
     } else {
       toQuery = `UPDATE AppStocks SET Quantity = 
       '${Number(bodyData.q) + Number(bodyData.Quantity)}' 

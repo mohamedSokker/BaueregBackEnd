@@ -38,6 +38,7 @@ const addstocks = async (req, res) => {
       title: req.body.title,
       body: req.body.body,
     };
+    console.log(bodyData);
     const insertTransition = await insertToTransition(bodyData);
     const tokensData = await getUsersToken(bodyData, usersData);
     const tokens = tokensData.tokens;

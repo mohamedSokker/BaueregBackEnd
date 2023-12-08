@@ -28,6 +28,7 @@ const stocksRecieve = async (req, res) => {
       Unit: req.body?.Unit,
       Description: req.body?.Description,
       Detail: req.body?.Detail,
+      Position: req.body?.Position,
       TransID: checkItem[0]?.ID,
       UserName: req.body.UserName,
       ProfileImg: req.body.ProfileImg,
