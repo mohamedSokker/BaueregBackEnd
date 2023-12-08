@@ -15,6 +15,8 @@ const insertToTransition = async (bodyData) => {
 
   const query = `${transQuery} ${fromQuery} `;
 
+  console.log(query);
+
   try {
     // const result = await getData(query);
     return query;
