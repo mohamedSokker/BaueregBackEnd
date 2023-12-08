@@ -16,6 +16,7 @@ const addstocks = async (req, res) => {
   if (req.body.Status === "New")
     throw new Error(`This Item Is not Found in your Stock`);
   try {
+    const allData = await getAllData(req.body);
     const usersData = allData.recordsets[0];
     const bodyData = {
       ID: req.body?.ID,
