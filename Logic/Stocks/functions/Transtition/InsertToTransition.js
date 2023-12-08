@@ -3,7 +3,8 @@ const { getData } = require("../../../../functions/getData");
 const insertToTransition = async (bodyData) => {
   const transQuery = `INSERT INTO AppStocksTransition VALUES(
     GETDATE(),
-  '${bodyData.Code}','${bodyData.SabCode}', '${bodyData.Description}', 
+  '${bodyData.Code}','${bodyData.SabCode}', '${bodyData.Description}',
+  '${bodyData?.q}', 
   '${bodyData.ItemFrom}','${bodyData.ItemTo}', '${bodyData.ItemStatus}',
    'true')`;
 

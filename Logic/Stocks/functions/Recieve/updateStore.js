@@ -1,8 +1,17 @@
 const { getData } = require("../../../../functions/getData");
 
 const updateStore = async (bodyData) => {
-  const fromQuery = `UPDATE AppStocksTransition SET IsPending = 'false' WHERE
-    ID = '${bodyData.TransID}'`;
+  const diff = Number(bodyData.TransQuantity) - Number(bodyData.q);
+  const fromQuery =
+    diff === 0
+      ? `UPDATE AppStocksTransition SET 
+  Quantity = '${diff}',
+  IsPending = 'false' WHERE
+  ID = '${bodyData.TransID}'`
+      : `UPDATE AppStocksTransition SET 
+  Quantity = '${diff}',
+  IsPending = 'true' WHERE
+  ID = '${bodyData.TransID}'`;
   try {
     let toQuery = ``;
     if (bodyData.Status === `New`) {
@@ -15,7 +24,7 @@ const updateStore = async (bodyData) => {
       '${Number(bodyData.q) + Number(bodyData.Quantity)}' 
       WHERE ID = '${bodyData?.ID}'`;
     }
-    console.log(fromQuery);
+    console.log(`${fromQuery} ${toQuery}`);
     return `${fromQuery} ${toQuery} `;
   } catch (error) {
     console.log(error.message);

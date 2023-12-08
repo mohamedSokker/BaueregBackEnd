@@ -47,7 +47,7 @@ const addstocks = async (req, res) => {
     await sendMessage(bodyData, tokens);
     return res.status(200).json(sendToDB);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
