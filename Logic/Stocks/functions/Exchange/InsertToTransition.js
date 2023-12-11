@@ -4,15 +4,13 @@ const insertToTransition = async (bodyData) => {
   try {
     const transQuery = `INSERT INTO AppStocksTransition VALUES(
     GETDATE(),
-  '${bodyData.Code}','${bodyData.SabCode}', '${bodyData.Description}', 
-  '${bodyData.ItemFrom}','${bodyData.ItemTo}', '${bodyData.ItemStatus}',
-   '')`;
+  '${bodyData.Code}','${bodyData.SabCode}', '${bodyData.Description}', '${bodyData?.q}',
+  '${bodyData.ItemFrom}', '', '${bodyData.ItemTo}', '${bodyData?.catData}',
+   '${bodyData.ItemStatus}', '')`;
 
     const fromQuery = `UPDATE AppStocks SET Quantity = 
-  '${Number(bodyData.Quantity) - 1}'
+  '${Number(bodyData.Quantity) - Number(bodyData.q)}'
    WHERE ID = '${bodyData.ID}'`;
-
-    // const notificationQuery = await updateNotification(bodyData);
 
     const query = `${transQuery} ${fromQuery} `;
 

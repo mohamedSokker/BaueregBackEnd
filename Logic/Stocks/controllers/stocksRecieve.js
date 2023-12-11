@@ -19,7 +19,7 @@ const stocksRecieve = async (req, res) => {
     if (checkItem.length === 0)
       throw new Error(`No Item Found From this stock to you`);
     if (req.body?.q > checkItem[0]?.Quantity)
-      throw new Error(`You have only ${req.body.q} items waiting`);
+      throw new Error(`You have only ${checkItem[0]?.Quantity} items waiting`);
     const usersData = allData.recordsets[1];
     const bodyData = {
       ID: req.body?.ID,

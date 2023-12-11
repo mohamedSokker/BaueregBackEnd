@@ -5,21 +5,18 @@ const insertToTransition = async (bodyData) => {
     GETDATE(),
   '${bodyData.Code}','${bodyData.SabCode}', '${bodyData.Description}',
   '${bodyData?.q}', 
-  '${bodyData.ItemFrom}','${bodyData.ItemTo}', '${bodyData.ItemStatus}',
+  '${bodyData.ItemFrom}', '', '${bodyData.ItemTo}', '', '${bodyData.ItemStatus}',
    'true')`;
 
   const fromQuery = `UPDATE AppStocks SET Quantity = 
   '${Number(bodyData.Quantity) - Number(bodyData.q)}'
    WHERE ID = '${bodyData.ID}'`;
 
-  // const notificationQuery = await updateNotification(bodyData);
-
   const query = `${transQuery} ${fromQuery} `;
 
   console.log(query);
 
   try {
-    // const result = await getData(query);
     return query;
   } catch (error) {
     throw new Error(error.message);
