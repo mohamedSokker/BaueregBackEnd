@@ -29,6 +29,7 @@ const stocksNewItem = async (req, res) => {
       ProfileImg: req.body.ProfileImg,
       Category: "Stocks",
       Item: req.body.ItemTo,
+      ItemFrom: req.body.ItemFrom,
       ItemTo: req.body.ItemTo,
       ItemStatus: req.body.ItemStatus,
       title: req.body.title,
