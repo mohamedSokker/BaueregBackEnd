@@ -808,7 +808,6 @@ const sparePartAddWorkshop = require("./sparePartApp/routes/AddWorkshop");
 const {
   checkIteminStock,
 } = require("./Logic/Stocks/functions/global/checkItemInStock");
-const sparePartEvent = require("./Events/SpareParts/routes/logic");
 
 app.use(
   "/api/v1/AppStocksTransition",
@@ -875,8 +874,6 @@ app.use("/api/v1/sparePartGetUserEquipments", sparePartGetUserEqs);
 app.use("/api/v1/sparePartGetWorkshops", sparePartGetWorkshops);
 
 app.use("/api/v1/sparePartAddWorkshop", sparePartAddWorkshop);
-
-app.use("/api/v1/sparePartEvents", sparePartEvent);
 
 app.post("/api/v1/sparePartCheckItemInStore", async (req, res) => {
   try {
