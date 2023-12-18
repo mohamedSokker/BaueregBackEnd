@@ -48,7 +48,7 @@ const filterFilter = async (result, filter, Type) => {
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
-    const query = `SELECT DISTINCT Equipment FROM Equipments_Location WHERE
+    const query = `SELECT Equipment, Start_Date FROM Equipments_Location WHERE
                    Location = '${fieldsData.Location}'`;
     const perEqs = (await getData(query)).recordsets[0];
 
