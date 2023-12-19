@@ -7,16 +7,19 @@ const { getData } = require("../../../functions/getData");
 const Trench = ["DW", "Cut-Off Wall", "Barrettes"];
 const Piles = ["Piles"];
 
-const filterDate = async (data, date) => {
+const filterDate = async (data, startDate, date) => {
   if (date) {
-    return data.filter(
-      (d) =>
-        new Date(d["Pouring Finish"]) <= new Date(date) &&
-        new Date(d["Pouring Finish"]) >= new Date("2023-01-01")
+    return data.filter((d) =>
+      new Date(d["Pouring Finish"]) <= new Date(date) &&
+      new Date("2023-01-01") > new Date(startDate)
+        ? new Date(d["Pouring Finish"]) >= new Date("2023-01-01")
+        : new Date([d["Pouring Finish"]]) >= new Date(startDate)
     );
   } else {
-    return data.filter(
-      (d) => new Date(d["Pouring Finish"]) >= new Date("2023-01-01")
+    return data.filter((d) =>
+      new Date("2023-01-01") > new Date(startDate)
+        ? new Date(d["Pouring Finish"]) >= new Date("2023-01-01")
+        : new Date([d["Pouring Finish"]]) >= new Date(startDate)
     );
   }
 };
@@ -52,6 +55,11 @@ const logic = async (req, res) => {
                    Location = '${fieldsData.Location}'`;
     const perEqs = (await getData(query)).recordsets[0];
 
+    const startDate = perEqs.sort(
+      (a, b) => new Date(a.Start_Date) - new Date(b.Start_Date)
+    );
+    // console.log(startDate[0].Start_Date);
+
     let eqs = [];
     for (let j = 0; j < perEqs.length; j++) {
       eqs.push(perEqs[j].Equipment);
@@ -69,13 +77,25 @@ const logic = async (req, res) => {
       );
     }
 
-    result = await filterDate(result, fieldsData?.dateTime);
+    result = await filterDate(
+      result,
+      startDate[0].Start_Date,
+      fieldsData?.dateTime
+    );
 
     result.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
 
     let resultLastWeek = !fieldsData?.dateTime
-      ? await filterDate(result, addDays(new Date(), -7))
-      : await filterDate(result, addDays(fieldsData?.dateTime, -7));
+      ? await filterDate(
+          result,
+          startDate[0].Start_Date,
+          addDays(new Date(), -7)
+        )
+      : await filterDate(
+          result,
+          startDate[0].Start_Date,
+          addDays(fieldsData?.dateTime, -7)
+        );
 
     resultLastWeek.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
 

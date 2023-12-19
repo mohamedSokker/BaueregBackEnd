@@ -333,8 +333,8 @@ app.use(
 );
 app.use(
   "/api/v1/sitesProduction",
-  authapp("Sites"),
-  cache(`DB Sites Production`),
+  // authapp("Sites"),
+  // cache(`DB Sites Production`),
   sitesProductionLogic
 );
 
