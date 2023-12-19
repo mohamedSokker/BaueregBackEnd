@@ -7,7 +7,7 @@ const { getData } = require("../../../functions/getData");
 // const Trench = ["DW", "Cut-Off Wall", "Barrettes"];
 // const Piles = ["Piles"];
 
-const filterDate = async (data, date) => {
+const filterDate = async (data, startDate, date) => {
   if (date) {
     return data.filter((d) =>
       new Date(d["Date "]) <= new Date(date) &&

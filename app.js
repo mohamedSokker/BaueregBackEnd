@@ -303,8 +303,8 @@ app.use(
 );
 app.use(
   "/api/v1/sitesOil",
-  authapp("Sites"),
-  cache(`DB Sites Oil`),
+  // authapp("Sites"),
+  // cache(`DB Sites Oil`),
   sitesOilLogic
 );
 app.use(

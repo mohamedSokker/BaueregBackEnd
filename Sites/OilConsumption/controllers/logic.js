@@ -4,7 +4,7 @@ const ExcelDateToJSDate = require("../../../functions/ExcelToJsDate");
 const addDays = require("../../../Logic/globalFunction/addDays");
 const { getData } = require("../../../functions/getData");
 
-const filterDate = async (data, date) => {
+const filterDate = async (data, startDate, date) => {
   if (date) {
     return data.filter((d) =>
       new Date(d["Date"]) <= new Date(date) &&
@@ -42,11 +42,13 @@ const logic = async (req, res) => {
       (a, b) => new Date(a?.Start_Date) - new Date(b?.Start_Date)
     );
 
+    // console.log(startDate);
+
     let eqs = [];
     for (let j = 0; j < perEqs.length; j++) {
       eqs.push(perEqs[j].Equipment);
     }
-    console.log(eqs);
+    // console.log(eqs);
 
     const url = process.env.CONSUMPTON_ONEDRIVE_URL;
     let result = await XlsxAll(url);
