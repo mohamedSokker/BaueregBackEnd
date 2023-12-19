@@ -23,8 +23,7 @@ const logic = async (req, res) => {
                        TimeEnd AS EndTime,
                        Equipment AS Subject,
                        Type
-                       FROM PeriodicMaintenance_Plan WHERE 
-                       Location = '${fieldsData.Location}' AND `;
+                       FROM PeriodicMaintenance_Plan WHERE `;
     const filterQuery = fieldsData?.filter
       ? `Equipment_Type = '${fieldsData?.filter}'`
       : `(Equipment_Type = 'Trench_Cutting_Machine' OR Equipment_Type = 'Drilling_Machine')`;
