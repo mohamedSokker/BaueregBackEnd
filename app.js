@@ -303,8 +303,8 @@ app.use(
 );
 app.use(
   "/api/v1/sitesOil",
-  // authapp("Sites"),
-  // cache(`DB Sites Oil`),
+  authapp("Sites"),
+  cache(`DB Sites Oil`),
   sitesOilLogic
 );
 app.use(
@@ -315,8 +315,8 @@ app.use(
 );
 app.use(
   "/api/v1/sitesPerMaint",
-  // authapp("Sites"),
-  // cache(`DB Sites PerMaint`),
+  authapp("Sites"),
+  cache(`DB Sites PerMaint`),
   sitesPerMaintLogic
 );
 app.use(
@@ -333,8 +333,8 @@ app.use(
 );
 app.use(
   "/api/v1/sitesProduction",
-  // authapp("Sites"),
-  // cache(`DB Sites Production`),
+  authapp("Sites"),
+  cache(`DB Sites Production`),
   sitesProductionLogic
 );
 
