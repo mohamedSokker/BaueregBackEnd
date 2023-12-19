@@ -10,26 +10,28 @@ const logic = async (req, res) => {
     let eqURL = ``;
     for (let i = 0; i < PerEqs.length; i++) {
       if (i === 0) {
-        eqURL += ` (Equipment = '${PerEqs[i].name}'`;
+        eqURL += ` (PeriodicMaintenance_Plan.Equipment = '${PerEqs[i].name}'`;
       } else if (i === PerEqs.length - 1) {
-        eqURL += ` OR Equipment = '${PerEqs[i].name}')`;
+        eqURL += ` OR PeriodicMaintenance_Plan.Equipment = '${PerEqs[i].name}')`;
       } else {
-        eqURL += ` OR Equipment = '${PerEqs[i].name}'`;
+        eqURL += ` OR PeriodicMaintenance_Plan.Equipment = '${PerEqs[i].name}'`;
       }
     }
     let query = ``;
-    const mainQuery = `SELECT  ID AS id,
-                       TimeStart AS StartTime,
-                       TimeEnd AS EndTime,
-                       Equipment AS Subject,
-                       Type
-                       FROM PeriodicMaintenance_Plan WHERE `;
+    const mainQuery = `SELECT  PeriodicMaintenance_Plan.ID AS id,
+                       PeriodicMaintenance_Plan.TimeStart AS StartTime,
+                       PeriodicMaintenance_Plan.TimeEnd AS EndTime,
+                       PeriodicMaintenance_Plan.Equipment AS Subject,
+                       PeriodicMaintenance_Plan.Type
+                       FROM PeriodicMaintenance_Plan JOIN Equipments_Location
+                       ON (PeriodicMaintenance_Plan.Equipment = Equipments_Location.Equipment) WHERE 
+                       Equipments_Location.Location = '${fieldsData.Location}' AND `;
     const filterQuery = fieldsData?.filter
-      ? `Equipment_Type = '${fieldsData?.filter}'`
-      : `(Equipment_Type = 'Trench_Cutting_Machine' OR Equipment_Type = 'Drilling_Machine')`;
+      ? `PeriodicMaintenance_Plan.Equipment_Type = '${fieldsData?.filter}'`
+      : `(PeriodicMaintenance_Plan.Equipment_Type = 'Trench_Cutting_Machine' OR PeriodicMaintenance_Plan.Equipment_Type = 'Drilling_Machine')`;
     const dateTimeQuery = !fieldsData.dateTime
-      ? `TimeStart >= '2023-01-01'`
-      : `TimeStart BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
+      ? `PeriodicMaintenance_Plan.TimeStart >= '2023-01-01'`
+      : `PeriodicMaintenance_Plan.TimeStart BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
     if (eqURL.length === 0) return res.status(200).json([]);
 
     query = `${mainQuery} ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;

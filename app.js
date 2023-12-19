@@ -315,8 +315,8 @@ app.use(
 );
 app.use(
   "/api/v1/sitesPerMaint",
-  authapp("Sites"),
-  cache(`DB Sites PerMaint`),
+  // authapp("Sites"),
+  // cache(`DB Sites PerMaint`),
   sitesPerMaintLogic
 );
 app.use(
