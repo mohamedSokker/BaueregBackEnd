@@ -34,12 +34,12 @@ const filterFilter = async (result) => {
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
-    const query = `SELECT DISTINCT Equipment FROM Equipments_Location WHERE
+    const query = `SELECT Equipment, Start_Date FROM Equipments_Location WHERE
                    Location = '${fieldsData.Location}'`;
     const perEqs = (await getData(query)).recordsets[0];
 
     const startDate = perEqs.sort(
-      (a, b) => new Date(a.Start_Date) - new Date(b.Start_Date)
+      (a, b) => new Date(a?.Start_Date) - new Date(b?.Start_Date)
     );
 
     let eqs = [];
