@@ -1,43 +1,100 @@
 const { getData } = require("../../../functions/getData");
 
+const filterDate = async (eq, data, startDate, date, endDate) => {
+  if (date) {
+    return data.filter((d) =>
+      new Date(date) <= new Date(endDate)
+        ? d[`Subject`] === eq &&
+          new Date(d[`StartTime`]) >= new Date(startDate) &&
+          new Date(d[`StartTime`]) <= new Date(date)
+        : d[`Subject`] === eq &&
+          new Date(d[`StartTime`]) >= new Date(startDate) &&
+          new Date(d[`StartTime`]) <= new Date(endDate)
+    );
+  } else {
+    return data.filter(
+      (d) =>
+        d[`Subject`] === eq &&
+        new Date(d[`StartTime`]) >= new Date(startDate) &&
+        new Date(d[`StartTime`]) <= new Date(endDate)
+    );
+  }
+};
+
+const filterFilter = async (data, filter) => {
+  return data.filter((d) => d.Equipment_Type === filter);
+};
+
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
-    const PerEqs = fieldsData.usersData[0].roles.Editor?.Equipments.concat(
-      fieldsData.usersData[0].roles.User?.Equipments
-    );
+    const eqQuery = `SELECT Equipment, Equipment_Type, Start_Date, End_Date FROM Equipments_Location WHERE
+                   Location = '${fieldsData.Location}'`;
+    const PerEqs = (await getData(eqQuery)).recordsets[0];
 
     let eqURL = ``;
+    let eqs = [];
     for (let i = 0; i < PerEqs.length; i++) {
       if (i === 0) {
-        eqURL += ` (PeriodicMaintenance_Plan.Equipment = '${PerEqs[i].name}'`;
+        eqURL += ` ('${PerEqs[i].Equipment}',`;
       } else if (i === PerEqs.length - 1) {
-        eqURL += ` OR PeriodicMaintenance_Plan.Equipment = '${PerEqs[i].name}')`;
+        eqURL += ` '${PerEqs[i].Equipment}')`;
       } else {
-        eqURL += ` OR PeriodicMaintenance_Plan.Equipment = '${PerEqs[i].name}'`;
+        eqURL += ` '${PerEqs[i].Equipment}',`;
+      }
+      if (
+        PerEqs[i].Equipment_Type === `Trench_Cutting_Machine` ||
+        PerEqs[i].Equipment_Type === `Drilling_Machine`
+      )
+        eqs.push(PerEqs[i].Equipment);
+    }
+
+    const dataQuery = `SELECT  ID AS id,
+                        TimeStart AS StartTime,
+                        TimeEnd AS EndTime,
+                        Equipment_Type,
+                        Equipment AS Subject,
+                        Type
+                        FROM PeriodicMaintenance_Plan WHERE
+                        Equipment IN  ${eqURL} ORDER BY Equipment`;
+    const data = (await getData(dataQuery)).recordsets[0];
+
+    let startDate;
+    let endDate;
+    let resultData = [];
+
+    for (let j = 0; j < eqs.length; j++) {
+      const perEqsFilter = PerEqs.filter((perEq) => perEq.Equipment === eqs[j]);
+
+      const eqStartDate = perEqsFilter.sort(
+        (a, b) => new Date(a?.Start_Date) - new Date(b?.Start_Date)
+      );
+
+      if (eqStartDate[0]) {
+        startDate =
+          new Date(eqStartDate[0].Start_Date) > new Date("2023-01-01")
+            ? new Date(eqStartDate[0].Start_Date)
+            : new Date("2023-01-01");
+        endDate =
+          eqStartDate[eqStartDate.length - 1].End_Date === null
+            ? new Date()
+            : new Date(eqStartDate[eqStartDate.length - 1].End_Date);
+
+        const filterResult = await filterDate(
+          eqs[j],
+          data,
+          startDate,
+          fieldsData?.dateTime,
+          endDate
+        );
+        filterResult.sort((a, b) => a["StartTime"] - b["StartTime"]);
+        resultData.push(...filterResult);
+        if (fieldsData.filter)
+          resultData = await filterFilter(resultData, fieldsData.filter);
       }
     }
-    let query = ``;
-    const mainQuery = `SELECT  PeriodicMaintenance_Plan.ID AS id,
-                       PeriodicMaintenance_Plan.TimeStart AS StartTime,
-                       PeriodicMaintenance_Plan.TimeEnd AS EndTime,
-                       PeriodicMaintenance_Plan.Equipment AS Subject,
-                       PeriodicMaintenance_Plan.Type
-                       FROM PeriodicMaintenance_Plan JOIN Equipments_Location
-                       ON (PeriodicMaintenance_Plan.Equipment = Equipments_Location.Equipment) WHERE 
-                       Equipments_Location.Location = '${fieldsData.Location}' AND `;
-    const filterQuery = fieldsData?.filter
-      ? `PeriodicMaintenance_Plan.Equipment_Type = '${fieldsData?.filter}'`
-      : `(PeriodicMaintenance_Plan.Equipment_Type = 'Trench_Cutting_Machine' OR PeriodicMaintenance_Plan.Equipment_Type = 'Drilling_Machine')`;
-    const dateTimeQuery = !fieldsData.dateTime
-      ? `PeriodicMaintenance_Plan.TimeStart >= '2023-01-01'`
-      : `PeriodicMaintenance_Plan.TimeStart BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
-    if (eqURL.length === 0) return res.status(200).json([]);
 
-    query = `${mainQuery} ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-
-    const result = await getData(query);
-    return res.status(200).json(result.recordsets[0]);
+    return res.status(200).json(resultData);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
