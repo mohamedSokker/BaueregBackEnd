@@ -112,6 +112,10 @@ const logic = async (req, res) => {
     per = ((sum / resultData.length) * 100).toFixed(1);
     perLastWeek = ((sum / lastWeekCount) * 100).toFixed(1);
 
+    resultData.sort(
+      (a, b) => new Date(a["Date_Time"]) - new Date(b["Date_Time"])
+    );
+
     const result = {
       per: Number(per),
       diff: (Number(per) - Number(perLastWeek)).toFixed(2),
