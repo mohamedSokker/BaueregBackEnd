@@ -58,19 +58,6 @@ const logic = async (req, res) => {
                        Equipment IN ${eqURL} ORDER BY Equipment`;
     const data = (await getData(dataQuery)).recordsets[0];
 
-    // let result = {};
-    // let resultArray = [];
-
-    // data.forEach((v) => {
-    //   result[v?.Breakdown_Type] = (result[v?.Breakdown_Type] || 0) + 1;
-    // });
-
-    // Object.keys(result).map((key) => {
-    //   resultArray.push({ label: key, COUNT: result[key] });
-    // });
-
-    // resultArray.sort((a, b) => b.COUNT - a.COUNT);
-
     let startDate;
     let endDate;
     let resultData = [];
@@ -110,10 +97,10 @@ const logic = async (req, res) => {
     });
 
     Object.keys(result).map((key) => {
-      resultArray.push({ label: key, COUNT: result[key] });
+      resultArray.push({ label: key, value: result[key] });
     });
 
-    resultArray.sort((a, b) => b.COUNT - a.COUNT);
+    resultArray.sort((a, b) => b.value - a.value);
     resultArray = resultArray.slice(0, 10);
     return res.status(200).json(resultArray);
   } catch (error) {
