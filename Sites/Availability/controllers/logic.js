@@ -1,81 +1,121 @@
 const { getData } = require("../../../functions/getData");
+const addDays = require("../../../Logic/globalFunction/addDays");
+
+const filterDate = async (eq, data, startDate, date, endDate) => {
+  if (date) {
+    return data.filter((d) =>
+      new Date(date) <= new Date(endDate)
+        ? d[`Equipment`] === eq &&
+          new Date(d[`Date_Time`]) >= new Date(startDate) &&
+          new Date(d[`Date_Time`]) <= new Date(date)
+        : d[`Equipment`] === eq &&
+          new Date(d[`Date_Time`]) >= new Date(startDate) &&
+          new Date(d[`Date_Time`]) <= new Date(endDate)
+    );
+  } else {
+    return data.filter(
+      (d) =>
+        d[`Equipment`] === eq &&
+        new Date(d[`Date_Time`]) >= new Date(startDate) &&
+        new Date(d[`Date_Time`]) <= new Date(endDate)
+    );
+  }
+};
+
+const filterFilter = async (data, filter) => {
+  return data.filter((d) => d.Equipment_Type === filter);
+};
 
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
-    const PerEqs = fieldsData.usersData[0].roles.Editor?.Equipments.concat(
-      fieldsData.usersData[0].roles.User?.Equipments
-    );
+    const eqQuery = `SELECT Equipment, Equipment_Type, Start_Date, End_Date FROM Equipments_Location WHERE
+                   Location = '${fieldsData.Location}'`;
+    let PerEqs = (await getData(eqQuery)).recordsets[0];
+
+    if (fieldsData.filter)
+      PerEqs = await filterFilter(PerEqs, fieldsData.filter);
 
     let eqURL = ``;
-    let eqUrlForSum = ``;
+    let eqs = [];
     for (let i = 0; i < PerEqs.length; i++) {
       if (i === 0) {
-        eqURL += ` (Availability.Equipment = '${PerEqs[i].name}'`;
-        eqUrlForSum += ` (Availability.Equipment = '${PerEqs[i].name}'`;
+        eqURL += ` ('${PerEqs[i].Equipment}',`;
       } else if (i === PerEqs.length - 1) {
-        eqURL += ` OR Availability.Equipment = '${PerEqs[i].name}') 
-                   GROUP BY Availability.ID,Availability.Maintenance_Availability, Availability.Date_Time 
-                   ORDER BY Availability.Date_Time ASC`;
-        eqUrlForSum += ` OR Availability.Equipment = '${PerEqs[i].name}')`;
+        eqURL += ` '${PerEqs[i].Equipment}')`;
       } else {
-        eqURL += ` OR Availability.Equipment = '${PerEqs[i].name}'`;
-        eqUrlForSum += ` OR Availability.Equipment = '${PerEqs[i].name}'`;
+        eqURL += ` '${PerEqs[i].Equipment}',`;
+      }
+
+      if (
+        PerEqs[i].Equipment_Type === `Trench_Cutting_Machine` ||
+        PerEqs[i].Equipment_Type === `Drilling_Machine`
+      )
+        eqs.push(PerEqs[i].Equipment);
+    }
+
+    console.log(eqs);
+
+    const dataQuery = `SELECT ID,
+                       Date_Time,
+                       Equipment,
+                       Maintenance_Availability
+                       FROM Availability
+                       WHERE Equipment IN ${eqURL} ORDER BY Equipment`;
+    const data = (await getData(dataQuery)).recordsets[0];
+
+    let startDate;
+    let endDate;
+    let resultData = [];
+
+    for (let j = 0; j < eqs.length; j++) {
+      const perEqsFilter = PerEqs.filter((perEq) => perEq.Equipment === eqs[j]);
+      const eqStartDate = perEqsFilter.sort(
+        (a, b) => new Date(a?.Start_Date) - new Date(b?.Start_Date)
+      );
+
+      if (eqStartDate[0]) {
+        startDate =
+          new Date(eqStartDate[0].Start_Date) > new Date("2023-01-01")
+            ? new Date(eqStartDate[0].Start_Date)
+            : new Date("2023-01-01");
+        endDate =
+          eqStartDate[eqStartDate.length - 1].End_Date === null
+            ? new Date()
+            : new Date(eqStartDate[eqStartDate.length - 1].End_Date);
+        const filterResult = await filterDate(
+          eqs[j],
+          data,
+          startDate,
+          fieldsData?.dateTime,
+          endDate
+        );
+        filterResult.sort((a, b) => a["Date_Time"] - b["Date_Time"]);
+        resultData.push(...filterResult);
       }
     }
-    let query = ``;
-    let queryLastWeek = ``;
-    let dataQuery = ``;
-    const dataMainQuery = `SELECT Availability.ID,Availability.Date_Time,Availability.Maintenance_Availability 
-                       FROM Availability 
-                       JOIN Equipments_Location
-                       ON (Availability.Equipment = Equipments_Location.Equipment) 
-                       WHERE Availability.Location = '${fieldsData.Location}'`;
-    const mainQuery = `WITH data AS (SELECT Availability.ID,Availability.Date_Time,Availability.Maintenance_Availability AS per
-                       FROM Availability 
-                       JOIN Equipments_Location
-                       ON (Availability.Equipment = Equipments_Location.Equipment) 
-                       WHERE Availability.Location = '${fieldsData.Location}' `;
-    const sumQuery = `)SELECT SUM(CONVERT(float,per)) AS SUM, COUNT(CONVERT(float,per)) AS COUNT FROM data`;
-    const filterQuery = fieldsData?.filter
-      ? `Equipments_Location.Equipment_Type = '${fieldsData?.filter}'`
-      : `Equipments_Location.Equipment_Type <> ''`;
-    const dateTimeQuery = !fieldsData.dateTime
-      ? `Availability.Date_Time >= '2023-01-01'`
-      : `Availability.Date_Time BETWEEN '2023-01-01' AND '${fieldsData.dateTime}'`;
-    const lastWeekQuery = !fieldsData.dateTime
-      ? `Availability.Date_Time BETWEEN '2023-01-01' AND GETDATE() - 7`
-      : `Availability.Date_Time BETWEEN '2023-01-01' AND DATEADD(dd, -7, '${fieldsData.dateTime}')`;
-    if (eqURL.length === 0) return res.status(200).json([]);
 
-    query = `${mainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqUrlForSum} ${sumQuery}`;
-    dataQuery = `${dataMainQuery} AND ${dateTimeQuery} AND ${filterQuery} AND ${eqURL}`;
-    queryLastWeek = `${mainQuery} AND ${filterQuery} AND ${lastWeekQuery} AND ${eqUrlForSum} ${sumQuery}`;
-
-    let data = await getData(query);
-    data = data.recordsets[0];
-    let dataLastWeek = await getData(queryLastWeek);
-    dataLastWeek = dataLastWeek.recordsets[0];
-    const allData = await getData(dataQuery);
     let per = 0;
-    if (!data[0]?.SUM) {
-      per = 0;
-    } else {
-      per = ((data[0]?.SUM / data[0]?.COUNT) * 100).toFixed(1);
-    }
     let perLastWeek = 0;
-    if (!dataLastWeek[0]?.SUM) {
-      perLastWeek = 0;
-    } else {
-      perLastWeek = (
-        (dataLastWeek[0]?.SUM / dataLastWeek[0]?.COUNT) *
-        100
-      ).toFixed(1);
-    }
+    let sum = 0;
+    let sumLastWeek = 0;
+    let lastWeekCount = 0;
+
+    resultData.map((d) => {
+      sum += Number(d?.Maintenance_Availability);
+      if (new Date(d.Date_Time) < addDays(new Date(), -7)) {
+        sumLastWeek += Number(d.Maintenance_Availability);
+        lastWeekCount += 1;
+      }
+    });
+
+    per = ((sum / resultData.length) * 100).toFixed(1);
+    perLastWeek = ((sum / lastWeekCount) * 100).toFixed(1);
+
     const result = {
       per: Number(per),
       diff: (Number(per) - Number(perLastWeek)).toFixed(2),
-      data: allData.recordsets[0],
+      data: resultData,
     };
     return res.status(200).json(result);
   } catch (error) {

@@ -291,8 +291,8 @@ const sitesProductionLogic = require("./Sites/Production/routes/logic");
 
 app.use(
   "/api/v1/sitesAv",
-  authapp("Sites"),
-  cache(`DB Sites Availability`),
+  // authapp("Sites"),
+  // cache(`DB Sites Availability`),
   sitesAvLogic
 );
 app.use(

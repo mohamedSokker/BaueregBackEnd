@@ -1,5 +1,4 @@
 const { getData } = require("../../../functions/getData");
-const formatDate = require("../../../Logic/globalFunction/formatdate");
 
 const filterDate = async (eq, data, startDate, date, endDate) => {
   if (date) {
