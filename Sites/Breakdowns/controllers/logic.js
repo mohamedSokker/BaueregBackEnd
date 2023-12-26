@@ -49,11 +49,8 @@ const logic = async (req, res) => {
         eqs.push(PerEqs[i].Equipment);
     }
 
-    const dataQuery = `SELECT Breakdown_Type,
-                       Date_Time,
-                       Equipment_Type,
-                       Equipment
-                       FROM Maintenance WHERE Breakdown_Type <> 'Periodic Maintenance' AND
+    const dataQuery = `SELECT * FROM Maintenance 
+                       WHERE Breakdown_Type <> 'Periodic Maintenance' AND
                        Equipment IN ${eqURL} ORDER BY Equipment`;
     const data = (await getData(dataQuery)).recordsets[0];
 
@@ -101,7 +98,7 @@ const logic = async (req, res) => {
 
     resultArray.sort((a, b) => b.value - a.value);
     resultArray = resultArray.slice(0, 10);
-    return res.status(200).json(resultArray);
+    return res.status(200).json({ graphData: resultArray, data: resultData });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

@@ -56,10 +56,7 @@ const logic = async (req, res) => {
 
     console.log(eqs);
 
-    const dataQuery = `SELECT ID,
-                       Date_Time,
-                       Equipment,
-                       Maintenance_Availability
+    const dataQuery = `SELECT *
                        FROM Availability
                        WHERE Equipment IN ${eqURL} ORDER BY Equipment`;
     const data = (await getData(dataQuery)).recordsets[0];
