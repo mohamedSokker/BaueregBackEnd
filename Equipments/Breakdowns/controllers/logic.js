@@ -52,7 +52,7 @@ const logic = async (req, res) => {
     const endDate = fieldsData.dateTime ? fieldsData.dateTime : new Date();
 
     const filterResult = await filterDate(
-      eqs,
+      fieldsData.Equipment,
       data,
       startDate,
       fieldsData?.dateTime,
