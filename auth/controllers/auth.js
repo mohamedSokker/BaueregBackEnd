@@ -98,6 +98,7 @@ const resourcesTitles = [
   "ManageUsers",
   "Dashboard",
   "Kanban",
+  "Transportations",
   "Sites",
   "Equipments",
   "Orders",
@@ -129,6 +130,7 @@ const manageResources = {
       "Dashboard",
     ],
     Kanban: ["AdminTasks", "Bauer_Equipments", "Location_Bauer", "manageUsers"],
+    Transportations: [],
     Sites: ["Sites"],
     Equipments: ["Equipments"],
     Orders: [
@@ -190,6 +192,7 @@ const manageResources = {
     ],
     Dashboard: ["Dashboard"],
     Kanban: ["AdminTasks", "Bauer_Equipments", "Location_Bauer", "manageUsers"],
+    Transportations: [],
     Sites: ["Sites"],
     Equipments: ["Equipments"],
     Orders: ["AppGetFiles", "AppCheck", "OrdersFile"],

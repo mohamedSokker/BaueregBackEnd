@@ -9,7 +9,8 @@ const XlsxAll = async (url) => {
       url,
       responseType: "arraybuffer",
       headers: {
-        "User-Agent": "PostmanRuntime/7.33.0",
+        "User-Agent":
+          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0",
       },
     };
     axiosResponse = await axios(options);

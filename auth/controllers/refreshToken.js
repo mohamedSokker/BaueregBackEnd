@@ -64,6 +64,7 @@ const handleRefreshToken = (req, res) => {
           user.roles.Editor = {
             Dashboard: true,
             Kanban: true,
+            Transportations: true,
             Sites: allSitesWithName,
             Equipments: allEqsWithName,
             Orders: [
