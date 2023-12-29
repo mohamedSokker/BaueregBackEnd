@@ -225,6 +225,13 @@ app.use("/sparePartLogin", sparePartLogin);
 
 app.use("/sparePartRefresh", sparePartRefresh);
 
+//////////////////////////////////////////////////Transportations //////////////////////////////////////////
+const transportGetActiveSites = require("./Transportation/routes/logic");
+const AddEquipmentTrans = require("./Transportation/routes/AddEquipmentsTrans");
+
+app.use("/api/v1/transportGetActiveSites", transportGetActiveSites);
+app.use("/api/v1/addEquipmentTrans", AddEquipmentTrans);
+
 //////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
 
 const dashboardAvLogic = require("./Dashboard/Availability/routes/logic");
