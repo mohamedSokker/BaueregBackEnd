@@ -42,6 +42,26 @@ let CurrDir = process.env.CURRENT_DIRECTORY;
 //   res.json(aliExpressOBJ);
 // });
 
+/////////////////////////////////////////////////Email//////////////////////////////////////////////////////
+const { transporter } = require("./config/mailConfig");
+
+// const mailOptions = {
+//   from: { name: "mohamed", address: process.env.GMAIL_EMAIL },
+//   to: [process.env.GMAIL_EMAIL],
+//   subject: "Subject of your email",
+//   text: "Body of your email",
+//   attachments: [{filename: "copied.pdf", path: "/home/mohamed/bauereg/api/copied.pdf"}]
+// };
+
+app.use("/api/v1/sendEmail", async (req, res) => {
+  try {
+    await transporter.sendMail(req.body);
+    return res.status(200).json({ message: `Email Sent` });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 //////////////////////////////////////////////////QC Logic//////////////////////////////////////////////////
 const dataSelected = require("./Logic/QC/Maintenance/routes/getActiveSites");
 
@@ -278,12 +298,7 @@ app.use(
   cache(`DB Dashboard Production`),
   dashboardProductionLogic
 );
-app.use(
-  "/api/v1/getMessages",
-  authapp("Dashboard"),
-  cache(`DB Dashboard Messages`),
-  messages
-);
+app.use("/api/v1/getMessages", authapp("Dashboard"), messages);
 
 //////////////////////////////////////////////////Sites Logic //////////////////////////////////////////
 
@@ -641,7 +656,7 @@ app.use("/api/v1/Kelly_Location", authapp("Kelly_Location"), Kelly_Location);
 
 app.use("/api/v1/LoadIndicator", authapp("LoadIndicator"), LoadIndicator);
 
-app.use("/api/v1/Location_Bauer", authapp("Location_Bauer"), Location_Bauer);
+app.use("/api/v1/Location_Bauer", Location_Bauer);
 
 app.use("/api/v1/Machinary", authapp("Machinary"), Machinary);
 

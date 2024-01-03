@@ -36,11 +36,14 @@ CREATE TABLE WorkShops (
 
 CREATE TABLE EquipmentsTransport (
     ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    StartDate DATE,
+    EndDate DATE,
     DateTime DATETIME,
     Equipment_Type NVARCHAR(255) NULL,
     Equipment NVARCHAR(255) NULL,
     UnderCarrage_Type NVARCHAR(255) NULL,
-    Location NVARCHAR(255) NULL,
+    FromLocation NVARCHAR(255) NULL,
+    ToLocation NVARCHAR(255) NULL,
     Confirmed NVARCHAR(255) NULL,
     Status NVARCHAR(255) Null
 )
