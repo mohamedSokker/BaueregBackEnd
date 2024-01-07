@@ -25,12 +25,13 @@ const handleRefreshToken = (req, res) => {
           // roles: decoded.roles,
           img: decoded.img,
         };
-        var query = `SELECT TOP 1 UserRole FROM AdminUsersApp WHERE UserName = '${decoded.username}'`;
+        var query = `SELECT TOP 1 * FROM AdminUsersApp WHERE UserName = '${decoded.username}'`;
         let Results = await getData(query);
         Results = Results.recordsets[0];
-        // console.log(Results[0]["UserRole"]);
         const user = {
           username: decoded.username,
+          title: Results[0]["Title"],
+          department: Results[0]["Department"],
           roles: JSON.parse(Results[0]["UserRole"]),
           img: decoded.img,
         };

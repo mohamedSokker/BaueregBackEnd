@@ -26,9 +26,12 @@ const loginapp = async (req, res) => {
       };
       const user = {
         username: username,
+        title: SearchedItems["Title"],
+        department: SearchedItems["Department"],
         roles: JSON.parse(SearchedItems["UserRole"]),
         img: SearchedItems["ProfileImg"],
       };
+      // console.log(user);
       if (user.roles.Admin) {
         let allTablesWithName = [];
         let allStocksWithName = [];

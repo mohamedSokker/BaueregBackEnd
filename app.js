@@ -46,9 +46,9 @@ let CurrDir = process.env.CURRENT_DIRECTORY;
 const { transporter } = require("./config/mailConfig");
 
 // const mailOptions = {
-//   from: { name: "mohamed", address: process.env.GMAIL_EMAIL },
+//   from: { name: "Bauer", address: process.env.GMAIL_EMAIL },
 //   to: [process.env.GMAIL_EMAIL],
-//   subject: "Subject of your email",
+//   subject: "New Transportation",
 //   text: "Body of your email",
 //   attachments: [{filename: "copied.pdf", path: "/home/mohamed/bauereg/api/copied.pdf"}]
 // };
@@ -73,8 +73,12 @@ const mongoBackup = require("./Mongo Backup/routes/mongoBackup");
 app.use("/api/v1/mongoBackup", mongoBackup);
 
 //////////////////////////////////////////////////Web Socket ///////////////////////////////////////////////
+// app.use("/display", (req, res) => {
+//   res.sendFile("/home/mohamed/bauereg/api/display.html");
+// });
 const server = http.createServer(app);
 let users = {};
+let rooms = {};
 const io = socketio(server, {
   cors: {
     origin: [
@@ -95,6 +99,35 @@ io.on("connection", (socket) => {
     id: socket.id,
     appVersion: 5,
     sparePartAppVersion: 1,
+  });
+
+  socket.on("join-message", (roomId) => {
+    socket.join(roomId);
+    rooms = { ...rooms, [socket.id]: roomId };
+    console.log(rooms);
+    // console.log("User joined in a room : " + roomId);
+  });
+
+  socket.on("screen-data", function (data) {
+    data = JSON.parse(data);
+    var room = data.room;
+    var imgStr = data.image;
+    socket.broadcast.to(room).emit("screen-data", imgStr);
+  });
+
+  socket.on("mouse-move", function (data) {
+    var room = JSON.parse(data).room;
+    socket.broadcast.to(room).emit("mouse-move", data);
+  });
+
+  socket.on("mouse-click", function (data) {
+    var room = JSON.parse(data).room;
+    socket.broadcast.to(room).emit("mouse-click", data);
+  });
+
+  socket.on("type", function (data) {
+    var room = JSON.parse(data).room;
+    socket.broadcast.to(room).emit("type", data);
   });
 
   socket.on("userName", (data) => {
@@ -130,7 +163,9 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log(`${users[socket?.id]} Connection Lost`);
+    delete rooms[socket?.id];
     delete users[socket?.id];
+    console.log(rooms);
   });
 });
 
@@ -248,9 +283,13 @@ app.use("/sparePartRefresh", sparePartRefresh);
 //////////////////////////////////////////////////Transportations //////////////////////////////////////////
 const transportGetActiveSites = require("./Transportation/routes/logic");
 const AddEquipmentTrans = require("./Transportation/routes/AddEquipmentsTrans");
+const deleteEqsTrans = require("./Transportation/routes/DeleteEqsTrans");
+const editEqsTrans = require("./Transportation/routes/EditEqsTrans");
 
 app.use("/api/v1/transportGetActiveSites", transportGetActiveSites);
 app.use("/api/v1/addEquipmentTrans", AddEquipmentTrans);
+app.use("/api/v1/deleteEqsTrans", deleteEqsTrans);
+app.use("/api/v1/editEqsTrans", editEqsTrans);
 
 //////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
 
