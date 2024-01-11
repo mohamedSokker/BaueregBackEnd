@@ -14,6 +14,7 @@ const { cache } = require("./routeCache");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.engine("html", require("ejs").renderFile);
 
 app.use(credentials);
 
@@ -93,8 +94,133 @@ const io = socketio(server, {
   },
 });
 
+const VncClient = require("vnc-rfb-client");
+const Jimp = require("jimp");
+const fs = require("fs");
+
+const initOptions = {
+  debug: false, // Set debug logging
+  encodings: [
+    // Encodings sent to server, in order of preference
+    VncClient.consts.encodings.copyRect,
+    VncClient.consts.encodings.zrle,
+    VncClient.consts.encodings.hextile,
+    VncClient.consts.encodings.raw,
+    VncClient.consts.encodings.pseudoDesktopSize,
+    VncClient.consts.encodings.pseudoCursor,
+  ],
+  debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
+};
+
+const connectionOptions = {
+  host: "127.0.0.1", // VNC Server
+  // password: "", // Password
+  set8BitColor: false, // If set to true, client will request 8 bit color, only supported with Raw encoding
+  port: 8000, // Remote server port
+};
+
+const addConndection = (socket) => {
+  const client = new VncClient(initOptions);
+  client.connect(connectionOptions);
+
+  client.on("connected", () => {
+    console.log("Client connected.");
+  });
+
+  // Connection timed out
+  client.on("connectTimeout", () => {
+    console.log("Connection timeout.");
+  });
+
+  // Client successfully authenticated
+  client.on("authenticated", () => {
+    console.log("Client authenticated.");
+  });
+
+  // Authentication error
+  client.on("authError", () => {
+    console.log("Client authentication error.");
+  });
+
+  // Bell received from server
+  client.on("bell", () => {
+    console.log("Bell received");
+  });
+
+  // Client disconnected
+  client.on("disconnect", () => {
+    console.log("Client disconnected.");
+    process.exit();
+  });
+
+  // Client disconnected
+  client.on("close", () => {
+    console.log("Client disconnected.");
+    process.exit();
+  });
+
+  // Clipboard event on server
+  client.on("cutText", (text) => {
+    console.log("clipboard text received: " + text);
+  });
+
+  // Frame buffer updated
+  client.on("firstFrameUpdate", (fb) => {
+    console.log("First Framebuffer update received.");
+  });
+
+  // Frame buffer updated
+  client.on("rect", (fb) => {
+    console.log("rect received.");
+  });
+
+  // Frame buffer updated
+  let imageBuffer = "hello";
+  client.on("frameUpdated", (fb) => {
+    console.log("Framebuffer updated.");
+    // console.log(client.getFb());
+    new Jimp(
+      {
+        width: client.clientWidth,
+        height: client.clientHeight,
+        data: client.getFb(),
+      },
+      async (err, image) => {
+        if (err) {
+          console.log(err);
+        }
+
+        imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
+        socket.emit("screen-data", imageBuffer);
+      }
+    );
+  });
+
+  // Color map updated (8 bit color only)
+  client.on("colorMapUpdated", (colorMap) => {
+    console.log("Color map updated. Colors: " + colorMap.length);
+  });
+
+  // Rect processed
+  client.on("rectProcessed", (rect) => {
+    console.log("rect processed");
+  });
+
+  // client.requestFrameUpdate(false, 0, 0, 0, client.width, client.height);
+
+  client.changeFps(10);
+};
+
 io.on("connection", (socket) => {
   console.log(`New Connection ${socket.id}`);
+  // var r = createRfbConnection(vncConfigs, socket);
+  // socket.on("mouse", function (evnt) {
+  //   r.pointerEvent(evnt.x, evnt.y, evnt.button);
+  // });
+  // socket.on("keyboard", function (evnt) {
+  //   r.keyEvent(evnt.keyCode, evnt.isDown);
+  // });
+
   socket.emit("userID", {
     id: socket.id,
     appVersion: 5,
@@ -105,6 +231,7 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     rooms = { ...rooms, [socket.id]: roomId };
     console.log(rooms);
+    addConndection(socket);
     // console.log("User joined in a room : " + roomId);
   });
 
@@ -167,6 +294,114 @@ io.on("connection", (socket) => {
     delete users[socket?.id];
     console.log(rooms);
   });
+});
+
+///////////////////////////////////////////////VNC1/////////////////////////////////////////////////////////
+// const VncClient = require("vnc-rfb-client");
+// const Jimp = require("jimp");
+// const fs = require("fs");
+
+// const initOptions = {
+//   debug: false, // Set debug logging
+//   encodings: [
+//     // Encodings sent to server, in order of preference
+//     VncClient.consts.encodings.copyRect,
+//     VncClient.consts.encodings.zrle,
+//     VncClient.consts.encodings.hextile,
+//     VncClient.consts.encodings.raw,
+//     VncClient.consts.encodings.pseudoDesktopSize,
+//     VncClient.consts.encodings.pseudoCursor,
+//   ],
+//   debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
+// };
+
+// const connectionOptions = {
+//   host: "192.168.1.5", // VNC Server
+//   // password: "", // Password
+//   set8BitColor: false, // If set to true, client will request 8 bit color, only supported with Raw encoding
+//   port: 5900, // Remote server port
+// };
+
+app.get("/api/v1/vnc1", (req, res) => {
+  res.sendFile("/home/mohamed/bauereg/api/display.html");
+  // const client = new VncClient(initOptions);
+  // client.connect(connectionOptions);
+  // client.on("connected", () => {
+  //   console.log("Client connected.");
+  // });
+  // // Connection timed out
+  // client.on("connectTimeout", () => {
+  //   console.log("Connection timeout.");
+  // });
+  // // Client successfully authenticated
+  // client.on("authenticated", () => {
+  //   console.log("Client authenticated.");
+  // });
+  // // Authentication error
+  // client.on("authError", () => {
+  //   console.log("Client authentication error.");
+  // });
+  // // Bell received from server
+  // client.on("bell", () => {
+  //   console.log("Bell received");
+  // });
+  // // Client disconnected
+  // client.on("disconnect", () => {
+  //   console.log("Client disconnected.");
+  //   process.exit();
+  // });
+  // // Client disconnected
+  // client.on("close", () => {
+  //   console.log("Client disconnected.");
+  //   process.exit();
+  // });
+  // // Clipboard event on server
+  // client.on("cutText", (text) => {
+  //   console.log("clipboard text received: " + text);
+  // });
+  // // Frame buffer updated
+  // client.on("firstFrameUpdate", (fb) => {
+  //   console.log("First Framebuffer update received.");
+  // });
+  // // Frame buffer updated
+  // client.on("rect", (fb) => {
+  //   console.log("rect received.");
+  // });
+  // // Frame buffer updated
+  // let imageBuffer = "hello";
+  // client.on("frameUpdated", (fb) => {
+  //   console.log("Framebuffer updated.");
+  //   // console.log(client.getFb());
+  //   new Jimp(
+  //     {
+  //       width: client.clientWidth,
+  //       height: client.clientHeight,
+  //       data: client.getFb(),
+  //     },
+  //     async (err, image) => {
+  //       if (err) {
+  //         console.log(err);
+  //       }
+  //       imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
+  //       // res.render("/home/mohamed/bauereg/api/view.html", {
+  //       //   name: imageBuffer,
+  //       // });
+  //     }
+  //   );
+  // });
+  // // Color map updated (8 bit color only)
+  // client.on("colorMapUpdated", (colorMap) => {
+  //   console.log("Color map updated. Colors: " + colorMap.length);
+  // });
+  // // Rect processed
+  // client.on("rectProcessed", (rect) => {
+  //   console.log("rect processed");
+  // });
+  // // client.requestFrameUpdate(false, 0, 0, 0, client.width, client.height);
+  // client.changeFps(10);
+  // res.render("/home/mohamed/bauereg/api/view.html", { name: imageBuffer });
+  // res.sendFile("/home/mohamed/bauereg/api/view.html");
+  // client.resetState();
 });
 
 ////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////

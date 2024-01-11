@@ -2,10 +2,8 @@
   <head>
     <title>Codeboard Screecast Viewer</title>
   </head>
-  <body style="background: linear-gradient(45deg, #7b0909, #6771b8b8)">
-    <img
-      style="width: 1920px; height: 1080px; margin-top: 2%; margin-left: 5%"
-    />
+  <body style="width: 90vw; height: 90vh; padding: 20px">
+    <img style="width: 100%; height: 100%" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
@@ -25,7 +23,7 @@
         socket.emit("join-message", room);
         socket.on("screen-data", function (message) {
           //   console.log(message);
-          $("img").attr("src", "data:image/png;base64," + message);
+          $("img").attr("src", message);
         });
 
         // $("img").mousemove(function (e) {
