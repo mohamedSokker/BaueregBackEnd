@@ -1,60 +1,124 @@
+// const { Client } = require("ssh2");
+// const RFB = require("rfb2");
+
+// const vncConfig = {
+//   host: "127.0.0.1", // VNC server host
+//   port: 8000, // VNC server port
+// };
+
+// const sshConfig = {
+//   host: "192.168.1.7",
+//   port: 22,
+//   username: "osama",
+//   password: "sokker999",
+// };
+
+// const ssh = new Client();
+
+// ssh.on("ready", () => {
+//   console.log("SSH connection established");
+
+//   ssh.forwardIn("127.0.0.1", vncConfig.port, (err, stream) => {
+//     if (err) throw err;
+
+//     const rfb = RFB.createConnection({
+//       host: vncConfig.host,
+//       port: stream.localPort,
+//       //   password: "your-vnc-password", // VNC server password
+//     });
+
+//     rfb.on("connect", () => {
+//       console.log("VNC connection established");
+//     });
+
+//     rfb.on("rect", (rect) => {
+//       // Handle received rectangles (screen updates)
+//       // rect contains pixel data, position, and dimensions
+//       console.log("Received screen update:", rect);
+//     });
+
+//     rfb.on("error", (err) => {
+//       console.error("VNC connection error:", err);
+//       ssh.end();
+//     });
+
+//     rfb.on("end", () => {
+//       console.log("VNC connection closed");
+//       ssh.end();
+//     });
+//   });
+// });
+
+// ssh.on("error", (err) => {
+//   console.error("SSH connection error:", err);
+// });
+
+// ssh.on("close", () => {
+//   console.log("SSH connection closed");
+// });
+
+// ssh.connect(sshConfig);
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const corsOptions = require("./config/corsAoptions");
+const credentials = require("./middleware/credentials");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+const swaggerjsdoc = require("swagger-jsdoc");
+const swaggerui = require("swagger-ui-express");
+const socketio = require("socket.io");
+const dotenv = require("dotenv").config();
+const { cache } = require("./routeCache");
+const fs = require("fs");
 const { Client } = require("ssh2");
-const RFB = require("rfb2");
+const http = require("http");
 
-const vncConfig = {
-  host: "127.0.0.1", // VNC server host
-  port: 8000, // VNC server port
-};
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.engine("html", require("ejs").renderFile);
 
-const sshConfig = {
-  host: "192.168.1.7",
-  port: 22,
-  username: "osama",
-  password: "sokker999",
-};
+app.use(credentials);
 
-const ssh = new Client();
+app.use(cors(corsOptions));
 
-ssh.on("ready", () => {
-  console.log("SSH connection established");
+app.use(cookieParser());
 
-  ssh.forwardIn("127.0.0.1", vncConfig.port, (err, stream) => {
-    if (err) throw err;
+const hostIP = "osama@192.168.1.7";
+const { spawn } = require("child_process");
 
-    const rfb = RFB.createConnection({
-      host: vncConfig.host,
-      port: stream.localPort,
-      //   password: "your-vnc-password", // VNC server password
-    });
+app.get("/create-tunnel", (req, res) => {
+  const ssh = spawn("ssh", ["-fN", "-R", "8000:192.168.1.8:5900", hostIP]);
+  ssh.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
 
-    rfb.on("connect", () => {
-      console.log("VNC connection established");
-    });
+  ssh.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
 
-    rfb.on("rect", (rect) => {
-      // Handle received rectangles (screen updates)
-      // rect contains pixel data, position, and dimensions
-      console.log("Received screen update:", rect);
-    });
+  setTimeout(() => ssh.stdin.write("pwd"), 2000);
 
-    rfb.on("error", (err) => {
-      console.error("VNC connection error:", err);
-      ssh.end();
-    });
+  ssh.on("close", (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
 
-    rfb.on("end", () => {
-      console.log("VNC connection closed");
-      ssh.end();
-    });
+  ssh.on("exit", (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
+
+  process.on("SIGINT", () => {
+    // Send SIGTERM to the child process to gracefully terminate the SSH connection
+    ssh.kill("SIGTERM");
+  });
+
+  process.on("exit", () => {
+    ssh.kill();
   });
 });
 
-ssh.on("error", (err) => {
-  console.error("SSH connection error:", err);
-});
+const server = http.createServer(app);
 
-ssh.on("close", () => {
-  console.log("SSH connection closed");
+server.listen(process.env.PORT, () => {
+  console.log("Server is listening on port 5001");
 });
-
-ssh.connect(sshConfig);

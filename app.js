@@ -73,6 +73,143 @@ const mongoBackup = require("./Mongo Backup/routes/mongoBackup");
 
 app.use("/api/v1/mongoBackup", mongoBackup);
 
+//////////////////////////////////////////////////SSH//////////////////////////////////////////////////////
+
+let fs = require("fs"),
+  inspect = require("util").inspect,
+  Client = require("ssh2").Client;
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
+
+async function lsWithGrep() {
+  try {
+    const { stdout, stderr } = await exec("pwd");
+    console.log("stdout:", stdout);
+    console.log("stderr:", stderr);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+app.get("/create-tunnel", async (req, res) => {
+  lsWithGrep();
+  // const remotePortForward = require("ssh-remote-port-forward");
+  // const sshConfig = {
+  //   host: "mhsokker.ddnsfree.com",
+  //   port: 22,
+  //   username: "osama",
+  //   privateKey: require("fs").readFileSync("/home/mohamed/.ssh/id_rsa"),
+  // };
+  // const forwardConfig = {
+  //   remoteHost: "192.168.1.5",
+  //   remotePort: 5900,
+  //   localPort: 8000,
+  // };
+  // const ssh = new Client();
+  // ssh.on("ready", () => {
+  //   remotePortForward(ssh, forwardConfig, (err, forward) => {
+  //     if (err) {
+  //       console.error("Error creating port forward:", err);
+  //       ssh.end();
+  //       return;
+  //     }
+  //     console.log(
+  //       `SSH tunnel established. Forwarding from ${forward.localHost}:${forward.localPort} to ${forward.remoteHost}:${forward.remotePort}`
+  //     );
+  //     // Handle tunnel events or perform other tasks
+  //     // To close the tunnel when done
+  //     // forward.close();
+  //   });
+  // });
+  // ssh.on("error", (err) => {
+  //   console.error("SSH connection error:", err);
+  // });
+  // ssh.connect(sshConfig);
+  // const connectConfig = {
+  //   host: "192.168.1.7",
+  //   port: "22",
+  //   username: "osama",
+  //   privateKey: require("fs").readFileSync("/home/mohamed/.ssh/id_rsa"),
+  // };
+  // const sshConnection = await createSshConnection(connectConfig);
+  // console.log("Connected");
+  // await sshConnection.remoteForward("192.168.1.7", 8001);
+  // console.log("Forwarded");
+});
+
+// const { Client } = require("ssh2");
+
+// app.get("/create-tunnel", (req, res) => {
+//   try {
+//     // SSH tunnel configuration
+//     const sshConfig = {
+//       host: "192.168.1.7",
+//       port: 22, // SSH port
+//       username: "osama",
+//       privateKey: require("fs").readFileSync("/home/mohamed/.ssh/id_rsa"),
+//       // Add more configurations as needed
+//     };
+
+//     const forwardConfig = {
+//       srcHost: "localhost",
+//       srcPort: 8000, // Source port
+//       dstHost: "192.168.1.7",
+//       dstPort: 8001, // Destination port
+//     };
+
+//     const conn = new Client();
+
+//     conn
+//       .on("ready", () => {
+//         conn.forwardOut(
+//           forwardConfig.srcHost,
+//           forwardConfig.srcPort,
+//           forwardConfig.dstHost,
+//           forwardConfig.dstPort,
+//           (err, stream) => {
+//             // if (err) return res.status(500).json({ message: err.message });
+
+//             // You can do something with the SSH tunnel stream here
+//             console.log("SSH tunnel established");
+//             // console.log(stream);
+
+//             // For demonstration purposes, let's just send a success response
+//             // res.send("SSH tunnel established");
+//           }
+//         );
+//       })
+//       .on("tcp connection", (info, accept, reject) => {
+//         console.log("TCP :: INCOMING CONNECTION:");
+//         console.dir(info);
+//         accept()
+//           .on("close", () => {
+//             console.log("TCP :: CLOSED");
+//           })
+//           .on("data", (data) => {
+//             console.log("TCP :: DATA: " + data);
+//           })
+//           .end(
+//             [
+//               "HTTP/1.1 404 Not Found",
+//               "Date: Thu, 15 Nov 2012 02:07:58 GMT",
+//               "Server: ForwardedConnection",
+//               "Content-Length: 0",
+//               "Connection: close",
+//               "",
+//               "",
+//             ].join("\r\n")
+//           );
+//       });
+
+//     // conn.on("error", () => {
+//     //   return res.status(500).json({ message: "Failed to establish connection" });
+//     // });
+//     conn.connect(sshConfig);
+//   } catch (error) {
+//     return res.status(500).json({ message: error });
+//   }
+// });
+
 //////////////////////////////////////////////////Web Socket ///////////////////////////////////////////////
 // app.use("/display", (req, res) => {
 //   res.sendFile("/home/mohamed/bauereg/api/display.html");
@@ -90,13 +227,14 @@ const io = socketio(server, {
       "http://mhsokker.ddnsfree.com:3000",
       "http://192.168.1.7:3000",
       "https://bauereg.onrender.com",
+      "https://baueregapi.onrender.com",
     ],
   },
 });
 
 const VncClient = require("vnc-rfb-client");
 const Jimp = require("jimp");
-const fs = require("fs");
+// const fs = require("fs");
 
 const initOptions = {
   debug: false, // Set debug logging
@@ -1280,5 +1418,5 @@ app.delete("*", (req, res) => {
 });
 
 server.listen(process.env.PORT, () => {
-  console.log("Server is listening on port 5000");
+  console.log("Server is listening on port 5001");
 });
