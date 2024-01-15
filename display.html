@@ -18,7 +18,7 @@
           return;
         }
 
-        socket = io.connect("http://localhost:5001");
+        socket = io.connect("https://baueregapi.onrender.com");
 
         socket.emit("join-message", room);
         socket.on("screen-data", function (message) {
