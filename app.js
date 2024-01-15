@@ -372,6 +372,9 @@ io.on("connection", (socket) => {
     addConndection(socket);
     // console.log("User joined in a room : " + roomId);
   });
+  socket.on("request-image", (data) => {
+    addConndection(socket);
+  });
 
   socket.on("screen-data", function (data) {
     data = JSON.parse(data);
