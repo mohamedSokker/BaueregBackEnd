@@ -260,10 +260,15 @@ const connectionOptions = {
 const addConndection = (socket) => {
   const client = new VncClient(initOptions);
   client.connect(connectionOptions);
+  console.log(client);
 
   client.on("connected", () => {
     console.log("Client connected.");
   });
+
+  client.on("error", (err) =>
+    console.log(`Connection error => ${err.message}`)
+  );
 
   // Connection timed out
   client.on("connectTimeout", () => {
@@ -366,6 +371,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join-message", (roomId) => {
+    console.log("join-message triggered");
     socket.join(roomId);
     rooms = { ...rooms, [socket.id]: roomId };
     console.log(rooms);
@@ -373,10 +379,12 @@ io.on("connection", (socket) => {
     // console.log("User joined in a room : " + roomId);
   });
   socket.on("request-image", (data) => {
+    console.log("request-image triggered");
     addConndection(socket);
   });
 
   socket.on("screen-data", function (data) {
+    console.log("screen-data triggered");
     data = JSON.parse(data);
     var room = data.room;
     var imgStr = data.image;
