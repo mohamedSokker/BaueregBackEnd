@@ -258,100 +258,104 @@ const connectionOptions = {
 };
 
 const addConndection = (socket) => {
-  const client = new VncClient(initOptions);
-  client.connect(connectionOptions);
-  console.log(client);
+  try {
+    const client = new VncClient(initOptions);
+    client.connect(connectionOptions);
+    console.log(client.connected);
 
-  client.on("connected", () => {
-    console.log("Client connected.");
-  });
+    client.on("connected", () => {
+      console.log("Client connected.");
+    });
 
-  client.on("error", (err) =>
-    console.log(`Connection error => ${err.message}`)
-  );
-
-  // Connection timed out
-  client.on("connectTimeout", () => {
-    console.log("Connection timeout.");
-  });
-
-  // Client successfully authenticated
-  client.on("authenticated", () => {
-    console.log("Client authenticated.");
-  });
-
-  // Authentication error
-  client.on("authError", () => {
-    console.log("Client authentication error.");
-  });
-
-  // Bell received from server
-  client.on("bell", () => {
-    console.log("Bell received");
-  });
-
-  // Client disconnected
-  client.on("disconnect", () => {
-    console.log("Client disconnected.");
-    process.exit();
-  });
-
-  // Client disconnected
-  client.on("close", () => {
-    console.log("Client disconnected.");
-    process.exit();
-  });
-
-  // Clipboard event on server
-  client.on("cutText", (text) => {
-    console.log("clipboard text received: " + text);
-  });
-
-  // Frame buffer updated
-  client.on("firstFrameUpdate", (fb) => {
-    console.log("First Framebuffer update received.");
-  });
-
-  // Frame buffer updated
-  client.on("rect", (fb) => {
-    console.log("rect received.");
-  });
-
-  // Frame buffer updated
-  let imageBuffer = "hello";
-  client.on("frameUpdated", (fb) => {
-    console.log("Framebuffer updated.");
-    // console.log(client.getFb());
-    new Jimp(
-      {
-        width: client.clientWidth,
-        height: client.clientHeight,
-        data: client.getFb(),
-      },
-      async (err, image) => {
-        if (err) {
-          console.log(err);
-        }
-
-        imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
-        socket.emit("screen-data", imageBuffer);
-      }
+    client.on("error", (err) =>
+      console.log(`Connection error => ${err.message}`)
     );
-  });
 
-  // Color map updated (8 bit color only)
-  client.on("colorMapUpdated", (colorMap) => {
-    console.log("Color map updated. Colors: " + colorMap.length);
-  });
+    // Connection timed out
+    client.on("connectTimeout", () => {
+      console.log("Connection timeout.");
+    });
 
-  // Rect processed
-  client.on("rectProcessed", (rect) => {
-    console.log("rect processed");
-  });
+    // Client successfully authenticated
+    client.on("authenticated", () => {
+      console.log("Client authenticated.");
+    });
 
-  // client.requestFrameUpdate(false, 0, 0, 0, client.width, client.height);
+    // Authentication error
+    client.on("authError", () => {
+      console.log("Client authentication error.");
+    });
 
-  client.changeFps(10);
+    // Bell received from server
+    client.on("bell", () => {
+      console.log("Bell received");
+    });
+
+    // Client disconnected
+    client.on("disconnect", () => {
+      console.log("Client disconnected.");
+      process.exit();
+    });
+
+    // Client disconnected
+    client.on("close", () => {
+      console.log("Client disconnected.");
+      process.exit();
+    });
+
+    // Clipboard event on server
+    client.on("cutText", (text) => {
+      console.log("clipboard text received: " + text);
+    });
+
+    // Frame buffer updated
+    client.on("firstFrameUpdate", (fb) => {
+      console.log("First Framebuffer update received.");
+    });
+
+    // Frame buffer updated
+    client.on("rect", (fb) => {
+      console.log("rect received.");
+    });
+
+    // Frame buffer updated
+    let imageBuffer = "hello";
+    client.on("frameUpdated", (fb) => {
+      console.log("Framebuffer updated.");
+      // console.log(client.getFb());
+      new Jimp(
+        {
+          width: client.clientWidth,
+          height: client.clientHeight,
+          data: client.getFb(),
+        },
+        async (err, image) => {
+          if (err) {
+            console.log(err);
+          }
+
+          imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
+          socket.emit("screen-data", imageBuffer);
+        }
+      );
+    });
+
+    // Color map updated (8 bit color only)
+    client.on("colorMapUpdated", (colorMap) => {
+      console.log("Color map updated. Colors: " + colorMap.length);
+    });
+
+    // Rect processed
+    client.on("rectProcessed", (rect) => {
+      console.log("rect processed");
+    });
+
+    // client.requestFrameUpdate(false, 0, 0, 0, client.width, client.height);
+
+    client.changeFps(10);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 io.on("connection", (socket) => {
