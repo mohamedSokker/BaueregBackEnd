@@ -11,6 +11,8 @@ const http = require("http");
 const socketio = require("socket.io");
 const dotenv = require("dotenv").config();
 const { cache } = require("./routeCache");
+const path = require("path");
+const { addConndection } = require("./VNC_Client/vncClient");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -24,35 +26,8 @@ app.use(cookieParser());
 
 let CurrDir = process.env.CURRENT_DIRECTORY;
 
-// var AliexScrape = require(`aliexscrape`);
-
-// app.get("/aliexpress", (req, res) => {
-//   AliexScrape("1005005638299168") // 32853590425 is a productId
-//     .then((response) => res.status(200).json(response))
-//     .catch((error) => res.status(500).json(error.message));
-// });
-
-// const { aliExpress } = require(`./functions/AliExpress`);
-
-// app.post("/aliexpress", async (req, res) => {
-//   let input = req?.body?.input;
-//   let language = req?.body?.language;
-//   let aliExpressOBJ = await aliExpress(input, language).catch((e) => {
-//     console.log(e);
-//   });
-//   res.json(aliExpressOBJ);
-// });
-
 /////////////////////////////////////////////////Email//////////////////////////////////////////////////////
 const { transporter } = require("./config/mailConfig");
-
-// const mailOptions = {
-//   from: { name: "Bauer", address: process.env.GMAIL_EMAIL },
-//   to: [process.env.GMAIL_EMAIL],
-//   subject: "New Transportation",
-//   text: "Body of your email",
-//   attachments: [{filename: "copied.pdf", path: "/home/mohamed/bauereg/api/copied.pdf"}]
-// };
 
 app.use("/api/v1/sendEmail", async (req, res) => {
   try {
@@ -74,146 +49,26 @@ const mongoBackup = require("./Mongo Backup/routes/mongoBackup");
 app.use("/api/v1/mongoBackup", mongoBackup);
 
 //////////////////////////////////////////////////SSH//////////////////////////////////////////////////////
+const { createTunnel } = require("./VNC_Client/createTunnel");
+const portsCreated = [];
 
-let fs = require("fs"),
-  inspect = require("util").inspect,
-  Client = require("ssh2").Client;
-const util = require("util");
-const exec = util.promisify(require("child_process").exec);
-
-async function lsWithGrep() {
+app.get("/create-tunnel:port", async (req, res) => {
   try {
-    const { stdout, stderr } = await exec("pwd");
-    console.log("stdout:", stdout);
-    console.log("stderr:", stderr);
-  } catch (err) {
-    console.error(err);
-  }
-}
+    const port = Number(req.params.port);
+    if (!portsCreated.includes(port)) {
+      portsCreated.push(port);
+      await createTunnel(port);
+    }
+    return res.status(200).json({ message: `Success` });
 
-app.get("/create-tunnel", async (req, res) => {
-  lsWithGrep();
-  // const remotePortForward = require("ssh-remote-port-forward");
-  // const sshConfig = {
-  //   host: "mhsokker.ddnsfree.com",
-  //   port: 22,
-  //   username: "osama",
-  //   privateKey: require("fs").readFileSync("/home/mohamed/.ssh/id_rsa"),
-  // };
-  // const forwardConfig = {
-  //   remoteHost: "192.168.1.5",
-  //   remotePort: 5900,
-  //   localPort: 8000,
-  // };
-  // const ssh = new Client();
-  // ssh.on("ready", () => {
-  //   remotePortForward(ssh, forwardConfig, (err, forward) => {
-  //     if (err) {
-  //       console.error("Error creating port forward:", err);
-  //       ssh.end();
-  //       return;
-  //     }
-  //     console.log(
-  //       `SSH tunnel established. Forwarding from ${forward.localHost}:${forward.localPort} to ${forward.remoteHost}:${forward.remotePort}`
-  //     );
-  //     // Handle tunnel events or perform other tasks
-  //     // To close the tunnel when done
-  //     // forward.close();
-  //   });
-  // });
-  // ssh.on("error", (err) => {
-  //   console.error("SSH connection error:", err);
-  // });
-  // ssh.connect(sshConfig);
-  // const connectConfig = {
-  //   host: "192.168.1.7",
-  //   port: "22",
-  //   username: "osama",
-  //   privateKey: require("fs").readFileSync("/home/mohamed/.ssh/id_rsa"),
-  // };
-  // const sshConnection = await createSshConnection(connectConfig);
-  // console.log("Connected");
-  // await sshConnection.remoteForward("192.168.1.7", 8001);
-  // console.log("Forwarded");
+    // return res.sendFile(`${__dirname}/display.html`);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 });
 
-// const { Client } = require("ssh2");
+/////////////////////////////////////////////////Socket////////////////////////////////////////////////////
 
-// app.get("/create-tunnel", (req, res) => {
-//   try {
-//     // SSH tunnel configuration
-//     const sshConfig = {
-//       host: "192.168.1.7",
-//       port: 22, // SSH port
-//       username: "osama",
-//       privateKey: require("fs").readFileSync("/home/mohamed/.ssh/id_rsa"),
-//       // Add more configurations as needed
-//     };
-
-//     const forwardConfig = {
-//       srcHost: "localhost",
-//       srcPort: 8000, // Source port
-//       dstHost: "192.168.1.7",
-//       dstPort: 8001, // Destination port
-//     };
-
-//     const conn = new Client();
-
-//     conn
-//       .on("ready", () => {
-//         conn.forwardOut(
-//           forwardConfig.srcHost,
-//           forwardConfig.srcPort,
-//           forwardConfig.dstHost,
-//           forwardConfig.dstPort,
-//           (err, stream) => {
-//             // if (err) return res.status(500).json({ message: err.message });
-
-//             // You can do something with the SSH tunnel stream here
-//             console.log("SSH tunnel established");
-//             // console.log(stream);
-
-//             // For demonstration purposes, let's just send a success response
-//             // res.send("SSH tunnel established");
-//           }
-//         );
-//       })
-//       .on("tcp connection", (info, accept, reject) => {
-//         console.log("TCP :: INCOMING CONNECTION:");
-//         console.dir(info);
-//         accept()
-//           .on("close", () => {
-//             console.log("TCP :: CLOSED");
-//           })
-//           .on("data", (data) => {
-//             console.log("TCP :: DATA: " + data);
-//           })
-//           .end(
-//             [
-//               "HTTP/1.1 404 Not Found",
-//               "Date: Thu, 15 Nov 2012 02:07:58 GMT",
-//               "Server: ForwardedConnection",
-//               "Content-Length: 0",
-//               "Connection: close",
-//               "",
-//               "",
-//             ].join("\r\n")
-//           );
-//       });
-
-//     // conn.on("error", () => {
-//     //   return res.status(500).json({ message: "Failed to establish connection" });
-//     // });
-//     conn.connect(sshConfig);
-//   } catch (error) {
-//     return res.status(500).json({ message: error });
-//   }
-// });
-
-//////////////////////////////////////////////////Web Socket ///////////////////////////////////////////////
-// app.use("/display", (req, res) => {
-//   res.sendFile("/home/mohamed/bauereg/api/display.html");
-// });
 const server = http.createServer(app);
 let users = {};
 let rooms = {};
@@ -232,141 +87,8 @@ const io = socketio(server, {
   },
 });
 
-const VncClient = require("vnc-rfb-client");
-const Jimp = require("jimp");
-// const fs = require("fs");
-
-const initOptions = {
-  debug: false, // Set debug logging
-  encodings: [
-    // Encodings sent to server, in order of preference
-    VncClient.consts.encodings.copyRect,
-    VncClient.consts.encodings.zrle,
-    VncClient.consts.encodings.hextile,
-    VncClient.consts.encodings.raw,
-    VncClient.consts.encodings.pseudoDesktopSize,
-    VncClient.consts.encodings.pseudoCursor,
-  ],
-  debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
-};
-
-const connectionOptions = {
-  host: "127.0.0.1", // VNC Server
-  // password: "", // Password
-  set8BitColor: false, // If set to true, client will request 8 bit color, only supported with Raw encoding
-  port: 8000, // Remote server port
-};
-
-const addConndection = (socket) => {
-  try {
-    const client = new VncClient(initOptions);
-    client.connect(connectionOptions);
-    console.log(client.connected);
-
-    client.on("connected", () => {
-      console.log("Client connected.");
-    });
-
-    client.on("error", (err) =>
-      console.log(`Connection error => ${err.message}`)
-    );
-
-    // Connection timed out
-    client.on("connectTimeout", () => {
-      console.log("Connection timeout.");
-    });
-
-    // Client successfully authenticated
-    client.on("authenticated", () => {
-      console.log("Client authenticated.");
-    });
-
-    // Authentication error
-    client.on("authError", () => {
-      console.log("Client authentication error.");
-    });
-
-    // Bell received from server
-    client.on("bell", () => {
-      console.log("Bell received");
-    });
-
-    // Client disconnected
-    client.on("disconnect", () => {
-      console.log("Client disconnected.");
-      process.exit();
-    });
-
-    // Client disconnected
-    client.on("close", () => {
-      console.log("Client disconnected.");
-      process.exit();
-    });
-
-    // Clipboard event on server
-    client.on("cutText", (text) => {
-      console.log("clipboard text received: " + text);
-    });
-
-    // Frame buffer updated
-    client.on("firstFrameUpdate", (fb) => {
-      console.log("First Framebuffer update received.");
-    });
-
-    // Frame buffer updated
-    client.on("rect", (fb) => {
-      console.log("rect received.");
-    });
-
-    // Frame buffer updated
-    let imageBuffer = "hello";
-    client.on("frameUpdated", (fb) => {
-      console.log("Framebuffer updated.");
-      // console.log(client.getFb());
-      new Jimp(
-        {
-          width: client.clientWidth,
-          height: client.clientHeight,
-          data: client.getFb(),
-        },
-        async (err, image) => {
-          if (err) {
-            console.log(err);
-          }
-
-          imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
-          socket.emit("screen-data", imageBuffer);
-        }
-      );
-    });
-
-    // Color map updated (8 bit color only)
-    client.on("colorMapUpdated", (colorMap) => {
-      console.log("Color map updated. Colors: " + colorMap.length);
-    });
-
-    // Rect processed
-    client.on("rectProcessed", (rect) => {
-      console.log("rect processed");
-    });
-
-    // client.requestFrameUpdate(false, 0, 0, 0, client.width, client.height);
-
-    client.changeFps(10);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 io.on("connection", (socket) => {
   console.log(`New Connection ${socket.id}`);
-  // var r = createRfbConnection(vncConfigs, socket);
-  // socket.on("mouse", function (evnt) {
-  //   r.pointerEvent(evnt.x, evnt.y, evnt.button);
-  // });
-  // socket.on("keyboard", function (evnt) {
-  //   r.keyEvent(evnt.keyCode, evnt.isDown);
-  // });
 
   socket.emit("userID", {
     id: socket.id,
@@ -380,7 +102,6 @@ io.on("connection", (socket) => {
     rooms = { ...rooms, [socket.id]: roomId };
     console.log(rooms);
     addConndection(socket);
-    // console.log("User joined in a room : " + roomId);
   });
   socket.on("request-image", (data) => {
     console.log("request-image triggered");
@@ -393,16 +114,6 @@ io.on("connection", (socket) => {
     var room = data.room;
     var imgStr = data.image;
     socket.broadcast.to(room).emit("screen-data", imgStr);
-  });
-
-  socket.on("mouse-move", function (data) {
-    var room = JSON.parse(data).room;
-    socket.broadcast.to(room).emit("mouse-move", data);
-  });
-
-  socket.on("mouse-click", function (data) {
-    var room = JSON.parse(data).room;
-    socket.broadcast.to(room).emit("mouse-click", data);
   });
 
   socket.on("type", function (data) {
@@ -447,114 +158,6 @@ io.on("connection", (socket) => {
     delete users[socket?.id];
     console.log(rooms);
   });
-});
-
-///////////////////////////////////////////////VNC1/////////////////////////////////////////////////////////
-// const VncClient = require("vnc-rfb-client");
-// const Jimp = require("jimp");
-// const fs = require("fs");
-
-// const initOptions = {
-//   debug: false, // Set debug logging
-//   encodings: [
-//     // Encodings sent to server, in order of preference
-//     VncClient.consts.encodings.copyRect,
-//     VncClient.consts.encodings.zrle,
-//     VncClient.consts.encodings.hextile,
-//     VncClient.consts.encodings.raw,
-//     VncClient.consts.encodings.pseudoDesktopSize,
-//     VncClient.consts.encodings.pseudoCursor,
-//   ],
-//   debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
-// };
-
-// const connectionOptions = {
-//   host: "192.168.1.5", // VNC Server
-//   // password: "", // Password
-//   set8BitColor: false, // If set to true, client will request 8 bit color, only supported with Raw encoding
-//   port: 5900, // Remote server port
-// };
-
-app.get("/api/v1/vnc1", (req, res) => {
-  res.sendFile("/home/mohamed/bauereg/api/display.html");
-  // const client = new VncClient(initOptions);
-  // client.connect(connectionOptions);
-  // client.on("connected", () => {
-  //   console.log("Client connected.");
-  // });
-  // // Connection timed out
-  // client.on("connectTimeout", () => {
-  //   console.log("Connection timeout.");
-  // });
-  // // Client successfully authenticated
-  // client.on("authenticated", () => {
-  //   console.log("Client authenticated.");
-  // });
-  // // Authentication error
-  // client.on("authError", () => {
-  //   console.log("Client authentication error.");
-  // });
-  // // Bell received from server
-  // client.on("bell", () => {
-  //   console.log("Bell received");
-  // });
-  // // Client disconnected
-  // client.on("disconnect", () => {
-  //   console.log("Client disconnected.");
-  //   process.exit();
-  // });
-  // // Client disconnected
-  // client.on("close", () => {
-  //   console.log("Client disconnected.");
-  //   process.exit();
-  // });
-  // // Clipboard event on server
-  // client.on("cutText", (text) => {
-  //   console.log("clipboard text received: " + text);
-  // });
-  // // Frame buffer updated
-  // client.on("firstFrameUpdate", (fb) => {
-  //   console.log("First Framebuffer update received.");
-  // });
-  // // Frame buffer updated
-  // client.on("rect", (fb) => {
-  //   console.log("rect received.");
-  // });
-  // // Frame buffer updated
-  // let imageBuffer = "hello";
-  // client.on("frameUpdated", (fb) => {
-  //   console.log("Framebuffer updated.");
-  //   // console.log(client.getFb());
-  //   new Jimp(
-  //     {
-  //       width: client.clientWidth,
-  //       height: client.clientHeight,
-  //       data: client.getFb(),
-  //     },
-  //     async (err, image) => {
-  //       if (err) {
-  //         console.log(err);
-  //       }
-  //       imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
-  //       // res.render("/home/mohamed/bauereg/api/view.html", {
-  //       //   name: imageBuffer,
-  //       // });
-  //     }
-  //   );
-  // });
-  // // Color map updated (8 bit color only)
-  // client.on("colorMapUpdated", (colorMap) => {
-  //   console.log("Color map updated. Colors: " + colorMap.length);
-  // });
-  // // Rect processed
-  // client.on("rectProcessed", (rect) => {
-  //   console.log("rect processed");
-  // });
-  // // client.requestFrameUpdate(false, 0, 0, 0, client.width, client.height);
-  // client.changeFps(10);
-  // res.render("/home/mohamed/bauereg/api/view.html", { name: imageBuffer });
-  // res.sendFile("/home/mohamed/bauereg/api/view.html");
-  // client.resetState();
 });
 
 ////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
@@ -1433,5 +1036,5 @@ app.delete("*", (req, res) => {
 });
 
 server.listen(process.env.PORT, () => {
-  console.log("Server is listening on port 5001");
+  console.log(`Server is listening on port ${process.env.PORT}`);
 });

@@ -12,15 +12,15 @@
     ></script>
     <script>
       window.onload = function () {
-        var room = prompt("Please enter room ID : ");
-        if (room.trim().length == 0) {
-          document.write("<h1> Room ID is mandatory to join </h1>");
-          return;
-        }
+        // var room = prompt("Please enter room ID : ");
+        // if (room.trim().length == 0) {
+        //   document.write("<h1> Room ID is mandatory to join </h1>");
+        //   return;
+        // }
 
         socket = io.connect("https://baueregapi.onrender.com");
 
-        socket.emit("join-message", room);
+        socket.emit("join-message", "123");
         socket.on("screen-data", function (message) {
           //   console.log(message);
           $("img").attr("src", message);

@@ -84,11 +84,11 @@ app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
-const hostIP = "osama@192.168.1.7";
+const hostIP = "sokker@192.168.1.5";
 const { spawn } = require("child_process");
 
 app.get("/create-tunnel", (req, res) => {
-  const ssh = spawn("ssh", ["-fN", "-R", "8000:192.168.1.8:5900", hostIP]);
+  const ssh = spawn("ssh", ["-fN", "-Rvvv", "8000:192.168.1.8:5900", hostIP]);
   ssh.stdout.on("data", (data) => {
     console.log(`stdout: ${data}`);
   });
