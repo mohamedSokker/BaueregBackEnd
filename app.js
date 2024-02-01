@@ -52,7 +52,7 @@ app.use("/api/v1/mongoBackup", mongoBackup);
 const { createTunnel } = require("./VNC_Client/createTunnel");
 const portsCreated = [];
 
-app.get("/create-tunnel:port", async (req, res) => {
+app.get("/create-tunnel/:port", async (req, res) => {
   try {
     const port = Number(req.params.port);
     if (!portsCreated.includes(port)) {
