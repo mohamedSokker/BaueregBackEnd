@@ -93,6 +93,11 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     rooms = { ...rooms, [socket.id]: roomId };
     console.log(rooms);
+    const port = Number(roomId);
+    if (!portsCreated.includes(port)) {
+      portsCreated.push(port);
+      // await createTunnel(port);
+    }
     addConndection(socket, Number(roomId), portsCreated);
   });
   // socket.on("request-image", (data) => {
