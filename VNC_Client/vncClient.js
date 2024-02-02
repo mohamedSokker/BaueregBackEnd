@@ -106,7 +106,7 @@ const addConndection = (socket, port, portsCreated) => {
           }
 
           imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
-          socket.broadcast.to(port.toString()).emit("screen-data", imageBuffer);
+          socket.to(port.toString()).emit("screen-data", imageBuffer);
           // socket.emit("screen-data", imageBuffer);
         }
       );
