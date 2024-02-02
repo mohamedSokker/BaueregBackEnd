@@ -39,9 +39,12 @@ const addConndection = (socket, port, portsCreated, io) => {
       console.log("Client connected.");
     });
 
-    client.on("error", (err) =>
-      console.log(`Client Connection error => ${err.message}`)
-    );
+    client.on("error", (err) => {
+      try {
+      } catch (err) {
+        console.log(`Client Connection error => ${err.message}`);
+      }
+    });
 
     // Connection timed out
     client.on("connectTimeout", () => {
