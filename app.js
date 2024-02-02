@@ -12,7 +12,7 @@ const socketio = require("socket.io");
 const dotenv = require("dotenv").config();
 const { cache } = require("./routeCache");
 const path = require("path");
-const { addConndection } = require("./VNC_Client/vncClient");
+const { addConndection, client } = require("./VNC_Client/vncClient");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -50,7 +50,7 @@ app.use("/api/v1/mongoBackup", mongoBackup);
 
 //////////////////////////////////////////////////SSH//////////////////////////////////////////////////////
 // const { createTunnel } = require("./VNC_Client/createTunnel");
-const portsCreated = [];
+let portsCreated = [];
 
 app.get("/create-tunnel/:port", async (req, res) => {
   try {
@@ -154,6 +154,10 @@ io.on("connection", (socket) => {
     delete rooms[socket?.id];
     delete users[socket?.id];
     console.log(rooms);
+    if (Object.keys(rooms).length === 0) {
+      portsCreated = [];
+      client.disconnect();
+    }
   });
 });
 
