@@ -70,6 +70,7 @@ app.get("/create-tunnel/:port", async (req, res) => {
 
 /////////////////////////////////////////////////Socket////////////////////////////////////////////////////
 
+const { handleDisconnect } = require("./VNC_Client/handleConnection");
 const server = http.createServer(app);
 let users = {};
 let rooms = {};
@@ -157,6 +158,7 @@ io.on("connection", (socket) => {
     if (Object.keys(rooms).length === 0) {
       portsCreated = [];
       client.disconnect();
+      handleDisconnect(client);
     }
   });
 });
