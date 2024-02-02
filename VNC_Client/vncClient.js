@@ -91,21 +91,26 @@ const addConndection = (socket, port) => {
     let imageBuffer = "hello";
     client.on("frameUpdated", (fb) => {
       console.log("Framebuffer updated.");
-      new Jimp(
-        {
-          width: client.clientWidth,
-          height: client.clientHeight,
-          data: client.getFb(),
-        },
-        async (err, image) => {
-          if (err) {
-            console.log(`Image Error: ${err.message}`);
-          }
+      socket.emit("screen-data", {
+        width: client.clientWidth,
+        height: client.clientHeight,
+        data: client.getFb(),
+      });
+      // new Jimp(
+      //   {
+      //     width: client.clientWidth,
+      //     height: client.clientHeight,
+      //     data: client.getFb(),
+      //   },
+      //   async (err, image) => {
+      //     if (err) {
+      //       console.log(`Image Error: ${err.message}`);
+      //     }
 
-          imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
-          socket.emit("screen-data", imageBuffer);
-        }
-      );
+      //     imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
+      //     socket.emit("screen-data", imageBuffer);
+      //   }
+      // );
     });
 
     // Color map updated (8 bit color only)
