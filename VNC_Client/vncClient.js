@@ -18,7 +18,7 @@ const initOptions = {
 
 const client = new VncClient(initOptions);
 
-const addConndection = (socket, port, portsCreated) => {
+const addConndection = (socket, port, portsCreated, io) => {
   try {
     console.log(portsCreated, port);
     if (portsCreated.includes(port)) return;
@@ -106,7 +106,7 @@ const addConndection = (socket, port, portsCreated) => {
           }
 
           imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
-          socket.to(port.toString()).emit("screen-data", imageBuffer);
+          io.to(port.toString()).emit("screen-data", imageBuffer);
           // socket.emit("screen-data", imageBuffer);
         }
       );

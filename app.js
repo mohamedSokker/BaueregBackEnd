@@ -98,7 +98,7 @@ io.on("connection", (socket) => {
     //   portsCreated.push(port);
     //   // await createTunnel(port);
     // }
-    addConndection(socket, port, portsCreated);
+    addConndection(socket, port, portsCreated, io);
   });
   // socket.on("request-image", (data) => {
   //   console.log("request-image triggered");
