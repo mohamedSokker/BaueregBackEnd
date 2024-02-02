@@ -77,6 +77,7 @@ const io = socketio(server, {
   cors: {
     origin: [
       "http://localhost:3000",
+      "https://localhost:5000",
       "http://192.168.1.15:3000",
       "http://192.168.52.186:3000",
       "http://192.168.220.186:3000",

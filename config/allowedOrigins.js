@@ -4,6 +4,7 @@ const allowedOrigins = [
   "http://192.168.1.8:5000",
   "http://localhost:3000",
   "https://bauereg.onrender.com",
+  "https://localhost:5000",
 ];
 
 module.exports = allowedOrigins;
