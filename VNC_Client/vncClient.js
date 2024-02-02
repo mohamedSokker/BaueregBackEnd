@@ -18,7 +18,7 @@ const initOptions = {
 
 const client = new VncClient(initOptions);
 
-const addConndection = (socket, port, portsCreated, io) => {
+const addConndection = async (socket, port, portsCreated, io) => {
   try {
     console.log(portsCreated, port);
     if (portsCreated.includes(port)) return;
@@ -40,10 +40,7 @@ const addConndection = (socket, port, portsCreated, io) => {
     });
 
     client.on("error", (err) => {
-      try {
-      } catch (err) {
-        console.log(`Client Connection error => ${err.message}`);
-      }
+      console.log(`Client Connection error => ${err.message}`);
     });
 
     // Connection timed out

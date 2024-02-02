@@ -88,7 +88,7 @@ io.on("connection", (socket) => {
     sparePartAppVersion: 1,
   });
 
-  socket.on("join-message", (roomId) => {
+  socket.on("join-message", async (roomId) => {
     console.log("join-message triggered");
     socket.join(roomId);
     rooms = { ...rooms, [socket.id]: roomId };
@@ -98,7 +98,7 @@ io.on("connection", (socket) => {
     //   portsCreated.push(port);
     //   // await createTunnel(port);
     // }
-    addConndection(socket, port, portsCreated, io);
+    await addConndection(socket, port, portsCreated, io);
   });
   // socket.on("request-image", (data) => {
   //   console.log("request-image triggered");
