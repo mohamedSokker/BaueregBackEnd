@@ -94,11 +94,11 @@ io.on("connection", (socket) => {
     rooms = { ...rooms, [socket.id]: roomId };
     console.log(rooms);
     const port = Number(roomId);
-    if (!portsCreated.includes(port)) {
-      portsCreated.push(port);
-      // await createTunnel(port);
-    }
-    addConndection(socket, Number(roomId), portsCreated);
+    // if (!portsCreated.includes(port)) {
+    //   portsCreated.push(port);
+    //   // await createTunnel(port);
+    // }
+    addConndection(socket, port, portsCreated);
   });
   // socket.on("request-image", (data) => {
   //   console.log("request-image triggered");

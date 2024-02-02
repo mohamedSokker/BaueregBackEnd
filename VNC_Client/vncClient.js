@@ -22,6 +22,7 @@ const addConndection = (socket, port, portsCreated) => {
   try {
     console.log(portsCreated, port);
     if (portsCreated.includes(port)) return;
+    portsCreated.push(port);
     const connectionOptions = {
       host: "127.0.0.1", // VNC Server
       // password: "", // Password
