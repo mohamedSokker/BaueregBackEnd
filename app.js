@@ -57,10 +57,10 @@ app.get("/create-tunnel/:port", async (req, res) => {
     const port = Number(req.params.port);
     if (!portsCreated.includes(port)) {
       portsCreated.push(port);
-      return res.sendFile(`${__dirname}/display.html`);
       // await createTunnel(port);
     }
-    return res.status(200).json({ message: `Success` });
+    return res.sendFile(`${__dirname}/display.html`);
+    // return res.status(200).json({ message: `Success` });
 
     // return res.sendFile(`${__dirname}/display.html`);
   } catch (error) {
@@ -75,17 +75,7 @@ let users = {};
 let rooms = {};
 const io = socketio(server, {
   cors: {
-    origin: [
-      "http://localhost:3000",
-      "https://localhost:5000",
-      "http://192.168.1.15:3000",
-      "http://192.168.52.186:3000",
-      "http://192.168.220.186:3000",
-      "http://mhsokker.ddnsfree.com:3000",
-      "http://192.168.1.7:3000",
-      "https://bauereg.onrender.com",
-      "https://baueregapi.onrender.com",
-    ],
+    origin: "*",
   },
 });
 
