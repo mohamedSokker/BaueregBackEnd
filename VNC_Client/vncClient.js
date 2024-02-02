@@ -18,8 +18,9 @@ const initOptions = {
 
 const client = new VncClient(initOptions);
 
-const addConndection = (socket, port) => {
+const addConndection = (socket, port, portsCreated) => {
   try {
+    if (portsCreated.includes(port)) return;
     const connectionOptions = {
       host: "127.0.0.1", // VNC Server
       // password: "", // Password

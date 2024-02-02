@@ -93,7 +93,7 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     rooms = { ...rooms, [socket.id]: roomId };
     console.log(rooms);
-    addConndection(socket, Number(roomId));
+    addConndection(socket, Number(roomId), portsCreated);
   });
   // socket.on("request-image", (data) => {
   //   console.log("request-image triggered");
