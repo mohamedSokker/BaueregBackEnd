@@ -56,7 +56,7 @@ app.get("/create-tunnel/:port", async (req, res) => {
   try {
     const port = Number(req.params.port);
     if (!portsCreated.includes(port)) {
-      portsCreated.push(port);
+      portsCreated.push(Number(port));
       // await createTunnel(port);
     }
     return res.sendFile(`${__dirname}/display.html`);

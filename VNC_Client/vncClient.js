@@ -20,6 +20,7 @@ const client = new VncClient(initOptions);
 
 const addConndection = (socket, port, portsCreated) => {
   try {
+    console.log(portsCreated, port);
     if (portsCreated.includes(port)) return;
     const connectionOptions = {
       host: "127.0.0.1", // VNC Server
@@ -104,7 +105,8 @@ const addConndection = (socket, port, portsCreated) => {
           }
 
           imageBuffer = await image.getBase64Async(Jimp.MIME_JPEG);
-          socket.emit("screen-data", imageBuffer);
+          socket.broadcast.to(port.toString()).emit("screen-data", imageBuffer);
+          // socket.emit("screen-data", imageBuffer);
         }
       );
     });
