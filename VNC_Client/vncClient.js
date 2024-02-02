@@ -66,13 +66,13 @@ const addConndection = async (socket, port, portsCreated, io) => {
     // Client disconnected
     client.on("disconnect", () => {
       console.log("Client disconnected.");
-      process.exit();
+      // process.exit();
     });
 
     // Client disconnected
     client.on("close", () => {
       console.log("Client disconnected.");
-      process.exit();
+      // process.exit();
     });
 
     // Clipboard event on server
