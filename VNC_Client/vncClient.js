@@ -16,10 +16,11 @@ const initOptions = {
   debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
 };
 
-const client = new VncClient(initOptions);
+let client;
 
 const addConndection = async (socket, port, portsCreated, io) => {
   try {
+    client = new VncClient(initOptions);
     console.log(portsCreated, port);
     if (portsCreated.includes(port)) return;
     portsCreated.push(port);
