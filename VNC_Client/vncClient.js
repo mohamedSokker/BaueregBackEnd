@@ -16,17 +16,16 @@ const initOptions = {
   debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
 };
 
-const connectionOptions = {
-  host: "127.0.0.1", // VNC Server
-  // password: "", // Password
-  set8BitColor: false, // If set to true, client will request 8 bit color, only supported with Raw encoding
-  port: 8001, // Remote server port
-};
-
 const client = new VncClient(initOptions);
 
-const addConndection = (socket) => {
+const addConndection = (socket, port) => {
   try {
+    const connectionOptions = {
+      host: "127.0.0.1", // VNC Server
+      // password: "", // Password
+      set8BitColor: false, // If set to true, client will request 8 bit color, only supported with Raw encoding
+      port: port, // Remote server port
+    };
     client.connect(connectionOptions);
     console.log(client._connected);
     // setInterval(() => {

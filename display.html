@@ -18,9 +18,9 @@
         //   return;
         // }
 
-        socket = io.connect("https://baueregapi.onrender.com");
+        socket = io.connect("https://localhost:5000");
 
-        socket.emit("join-message", "123");
+        socket.emit("join-message", "8000");
         socket.on("screen-data", function (message) {
           //   console.log(message);
           $("img").attr("src", message);

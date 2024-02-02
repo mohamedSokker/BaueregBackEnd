@@ -3,9 +3,9 @@ const net = require("net");
 const fs = require("fs");
 
 const sshConfig = {
-  host: "mhsokker.ddnsfree.com",
+  host: "ssh.oregon.render.com",
   port: 22,
-  username: "osama",
+  username: "srv-cjgca8337aks73bnp2f0",
   privateKey: fs.readFileSync("/home/mohamed/.ssh/id_rsa"),
 };
 

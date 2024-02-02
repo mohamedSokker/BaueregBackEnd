@@ -49,7 +49,7 @@ const mongoBackup = require("./Mongo Backup/routes/mongoBackup");
 app.use("/api/v1/mongoBackup", mongoBackup);
 
 //////////////////////////////////////////////////SSH//////////////////////////////////////////////////////
-const { createTunnel } = require("./VNC_Client/createTunnel");
+// const { createTunnel } = require("./VNC_Client/createTunnel");
 const portsCreated = [];
 
 app.get("/create-tunnel/:port", async (req, res) => {
@@ -57,7 +57,8 @@ app.get("/create-tunnel/:port", async (req, res) => {
     const port = Number(req.params.port);
     if (!portsCreated.includes(port)) {
       portsCreated.push(port);
-      await createTunnel(port);
+      return res.sendFile(`${__dirname}/display.html`);
+      // await createTunnel(port);
     }
     return res.status(200).json({ message: `Success` });
 
@@ -101,20 +102,20 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     rooms = { ...rooms, [socket.id]: roomId };
     console.log(rooms);
-    addConndection(socket);
+    addConndection(socket, Number(roomId));
   });
-  socket.on("request-image", (data) => {
-    console.log("request-image triggered");
-    addConndection(socket);
-  });
+  // socket.on("request-image", (data) => {
+  //   console.log("request-image triggered");
+  //   addConndection(socket);
+  // });
 
-  socket.on("screen-data", function (data) {
-    console.log("screen-data triggered");
-    data = JSON.parse(data);
-    var room = data.room;
-    var imgStr = data.image;
-    socket.broadcast.to(room).emit("screen-data", imgStr);
-  });
+  // socket.on("screen-data", function (data) {
+  //   console.log("screen-data triggered");
+  //   data = JSON.parse(data);
+  //   var room = data.room;
+  //   var imgStr = data.image;
+  //   socket.broadcast.to(room).emit("screen-data", imgStr);
+  // });
 
   socket.on("type", function (data) {
     var room = JSON.parse(data).room;
