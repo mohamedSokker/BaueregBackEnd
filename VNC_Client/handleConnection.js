@@ -15,7 +15,7 @@ const rect = () => console.log("rect received.");
 const colorMapUpdated = (colorMap) =>
   console.log("Color map updated. Colors: " + colorMap.length);
 const rectProcessed = () => console.log("rect processed");
-const frameUpdated = () => {
+const frameUpdated = (client) => {
   console.log("Framebuffer updated.");
   new Jimp(
     {
@@ -74,7 +74,7 @@ const handleConnect = (client) => {
   client.on("rectProcessed", rectProcessed);
 
   // Frame buffer updated
-  client.on("frameUpdated", frameUpdated);
+  client.on("frameUpdated", (client) => frameUpdated(client));
 };
 
 const handleDisconnect = (client) => {
@@ -116,7 +116,7 @@ const handleDisconnect = (client) => {
   client.off("rectProcessed", rectProcessed);
 
   // Frame buffer updated
-  client.off("frameUpdated", frameUpdated);
+  client.off("frameUpdated", (client) => frameUpdated(client));
 };
 
 module.exports = { handleConnect, handleDisconnect };
