@@ -8,16 +8,17 @@ const initOptions = {
   encodings: [
     // Encodings sent to server, in order of preference
     VncClient.consts.encodings.copyRect,
-    VncClient.consts.encodings.zrle,
+    // VncClient.consts.encodings.zrle,
     VncClient.consts.encodings.hextile,
     VncClient.consts.encodings.raw,
-    VncClient.consts.encodings.pseudoDesktopSize,
-    VncClient.consts.encodings.pseudoCursor,
+    // VncClient.consts.encodings.pseudoDesktopSize,
+    // VncClient.consts.encodings.pseudoCursor,
   ],
   debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
 };
 
 const client = new VncClient(initOptions);
+let count = 0;
 
 const addConndection = async (socket, port, portsCreated, io) => {
   try {
@@ -27,16 +28,19 @@ const addConndection = async (socket, port, portsCreated, io) => {
       set8BitColor: false, // If set to true, client will request 8 bit color, only supported with Raw encoding
       port: port, // Remote server port
     };
-    client.connect(connectionOptions);
+    console.log(portsCreated);
     console.log(client._connected);
-    console.log(portsCreated, port);
     if (portsCreated.includes(port)) return;
+    client.connect(connectionOptions);
+    console.log(portsCreated, port);
     portsCreated.push(port);
-    handleConnect(client, io, port);
+    console.log(portsCreated, port);
+
+    if (count === 0) handleConnect(client, io, port, portsCreated);
+    count++;
     // setInterval(() => {
     //   if (!client.connected) client.connect(connectionOptions);
     // }, 1000);
-
     client.changeFps(10);
   } catch (error) {
     console.log(`Error in client connection: ${error}`);

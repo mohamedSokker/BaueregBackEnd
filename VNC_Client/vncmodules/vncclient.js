@@ -170,7 +170,7 @@ class VncClient extends Events {
 
     this._connection.on("close", () => {
       this.resetState();
-      this.emit("closed");
+      this.emit("close");
     });
 
     this._connection.on("timeout", () => {
@@ -633,10 +633,10 @@ class VncClient extends Events {
       }
       this._rects--;
       this.emit("rectProcessed", rect);
-      //
-      // if (!this._rects) {
-      //     this._socketBuffer.flush(true);
-      // }
+
+      if (!this._rects) {
+        this._socketBuffer.flush(true);
+      }
     }
 
     if (sendFbUpdate) {

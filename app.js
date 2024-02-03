@@ -156,11 +156,11 @@ io.on("connection", (socket) => {
     delete users[socket?.id];
     console.log(rooms);
     if (Object.keys(rooms).length === 0) {
-      portsCreated = [];
       console.log(client._connected);
-      client.disconnect();
+      portsCreated = [];
+      handleDisconnect(client, io, 8000, portsCreated);
+      if (client._connected) client.resetState();
       console.log("Disconnected", client._connected);
-      handleDisconnect(client, io, 8000);
     }
   });
 });

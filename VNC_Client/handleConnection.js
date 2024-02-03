@@ -1,13 +1,26 @@
 const Jimp = require("jimp");
 
-const connected = () => console.log("Client connected.");
+const connected = (client, portsCreated, port) => {
+  console.log(`Client connected.`);
+};
+
 const error = (err) => console.log(`Client Connection error => ${err.message}`);
 const connectTimeout = () => console.log("Connection timeout.");
 const authenticated = () => console.log("Client authenticated.");
 const authError = () => console.log("Client authentication error.");
 const bell = () => console.log("Bell received");
-const disconnect = () => console.log("Client disconnected.");
-const close = () => console.log("Client disconnected.");
+const disconnect = (client) => {
+  console.log("Client disconnected.");
+  console.log(client._connected);
+  portsCreated = [];
+  if (client._connected) client.disconnect();
+};
+const close = (client) => {
+  console.log("Client disconnected.");
+  console.log(client._connected);
+  portsCreated = [];
+  if (client._connected) client.disconnect();
+};
 const cutText = (text) => console.log("clipboard text received: " + text);
 const firstFrameUpdate = () =>
   console.log("First Framebuffer update received.");
@@ -35,10 +48,11 @@ const frameUpdated = (client, io, port) => {
   );
 };
 
-const handleConnect = (client, io, port) => {
-  client.on("connected", connected);
+const handleConnect = (client, io, port, portsCreated) => {
+  client.on("connected", () => connected(client, portsCreated, port));
 
   client.on("error", error);
+  client.on("connectError", error);
 
   // Connection timed out
   client.on("connectTimeout", connectTimeout);
@@ -53,10 +67,11 @@ const handleConnect = (client, io, port) => {
   client.on("bell", () => bell);
 
   // Client disconnected
-  client.on("disconnect", disconnect);
+  client.on("disconnect", () => disconnect(client));
+  client.on("disconnected", () => disconnect(client));
 
   // Client disconnected
-  client.on("close", close);
+  client.on("close", () => close(client));
 
   // Clipboard event on server
   client.on("cutText", cutText);
@@ -77,10 +92,11 @@ const handleConnect = (client, io, port) => {
   client.on("frameUpdated", () => frameUpdated(client, io, port));
 };
 
-const handleDisconnect = (client, io, port) => {
-  client.off("connected", connected);
+const handleDisconnect = (client, io, port, portsCreated) => {
+  client.off("connected", () => connected(client, portsCreated, port));
 
   client.off("error", (err) => err);
+  client.off("connectError", (err) => err);
 
   // Connection timed out
   client.off("connectTimeout", connectTimeout);
@@ -96,9 +112,10 @@ const handleDisconnect = (client, io, port) => {
 
   // Client disconnected
   client.off("disconnect", disconnect);
+  client.off("disconnected", () => disconnect(client));
 
   // Client disconnected
-  client.off("close", close);
+  client.off("close", () => close(client));
 
   // Clipboard event on server
   client.off("cutText", cutText);
