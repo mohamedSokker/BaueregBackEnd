@@ -21,9 +21,6 @@ const client = new VncClient(initOptions);
 
 const addConndection = async (socket, port, portsCreated, io) => {
   try {
-    console.log(portsCreated, port);
-    if (portsCreated.includes(port)) return;
-    portsCreated.push(port);
     const connectionOptions = {
       host: "127.0.0.1", // VNC Server
       // password: "", // Password
@@ -32,6 +29,9 @@ const addConndection = async (socket, port, portsCreated, io) => {
     };
     client.connect(connectionOptions);
     console.log(client._connected);
+    console.log(portsCreated, port);
+    if (portsCreated.includes(port)) return;
+    portsCreated.push(port);
     handleConnect(client, io, port);
     // setInterval(() => {
     //   if (!client.connected) client.connect(connectionOptions);

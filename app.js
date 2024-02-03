@@ -157,7 +157,9 @@ io.on("connection", (socket) => {
     console.log(rooms);
     if (Object.keys(rooms).length === 0) {
       portsCreated = [];
+      console.log(client._connected);
       client.disconnect();
+      console.log("Disconnected", client._connected);
       handleDisconnect(client, io, 8000);
     }
   });
