@@ -74,7 +74,7 @@ const handleConnect = (client) => {
   client.on("rectProcessed", rectProcessed);
 
   // Frame buffer updated
-  client.on("frameUpdated", frameUpdated(client));
+  client.on("frameUpdated", () => frameUpdated(client));
 };
 
 const handleDisconnect = (client) => {
@@ -116,7 +116,7 @@ const handleDisconnect = (client) => {
   client.off("rectProcessed", rectProcessed);
 
   // Frame buffer updated
-  client.off("frameUpdated", frameUpdated(client));
+  client.off("frameUpdated", () => frameUpdated(client));
 };
 
 module.exports = { handleConnect, handleDisconnect };
