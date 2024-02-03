@@ -32,7 +32,7 @@ const addConndection = async (socket, port, portsCreated, io) => {
     };
     client.connect(connectionOptions);
     console.log(client._connected);
-    handleConnect(client);
+    handleConnect(client, io, port);
     // setInterval(() => {
     //   if (!client.connected) client.connect(connectionOptions);
     // }, 1000);

@@ -158,7 +158,7 @@ io.on("connection", (socket) => {
     if (Object.keys(rooms).length === 0) {
       portsCreated = [];
       client.disconnect();
-      handleDisconnect(client);
+      handleDisconnect(client, io, 8000);
     }
   });
 });
