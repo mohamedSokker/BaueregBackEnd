@@ -725,6 +725,20 @@ class VncClient extends Events {
       clearInterval(this._timerPointer);
     }
 
+    this.debug = false;
+    this.debugLevel = LOG_INFO;
+    this._fps = 0;
+    this._timerInterval = 0;
+    this.encodings = [
+      encodings.copyRect,
+      encodings.zrle,
+      encodings.hextile,
+      encodings.raw,
+      encodings.pseudoDesktopSize,
+    ];
+    this.decode = {};
+    this._waitingServerInit = false;
+
     this._timerPointer = null;
 
     this._connection = null;

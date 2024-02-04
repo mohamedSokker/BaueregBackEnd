@@ -756,6 +756,7 @@ class VncClient extends Events {
       encodings.pseudoDesktopSize,
     ];
     this.decode = {};
+    this._waitingServerInit = false;
 
     this._timerPointer = null;
 
