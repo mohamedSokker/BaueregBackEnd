@@ -216,6 +216,7 @@ class VncClient extends Events {
     if (this._connection) {
       this._connection.end();
       this.resetState();
+      this._socketBuffer.flush();
       this.emit("disconnected");
     }
   }
