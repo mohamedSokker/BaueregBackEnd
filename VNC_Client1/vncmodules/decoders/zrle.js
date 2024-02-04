@@ -86,10 +86,10 @@ class Zrle {
 
         if (subEncoding === 129) {
           // intentionally left blank
-          console.log("Invalid subencoding. " + subEncoding);
+          // console.log("Invalid subencoding. " + subEncoding);
         } else if (subEncoding >= 17 && subEncoding <= 127) {
           // intentionatlly left blank
-          console.log("Invalid subencoding. " + subEncoding);
+          // console.log("Invalid subencoding. " + subEncoding);
         } else if (subEncoding === 0) {
           // Raw
           for (let h = 0; h < th; h++) {
