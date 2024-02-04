@@ -8,12 +8,12 @@ const initOptions = {
   encodings: [
     // Encodings sent to server, in order of preference
     VncClient.consts.encodings.copyRect,
-    // VncClient.consts.encodings.zrle,
-    // VncClient.consts.encodings.tight,
-    // VncClient.consts.encodings.hextile,
-    // VncClient.consts.encodings.raw,
-    // VncClient.consts.encodings.pseudoDesktopSize,
-    // VncClient.consts.encodings.pseudoCursor,
+    VncClient.consts.encodings.zrle,
+    VncClient.consts.encodings.tight,
+    VncClient.consts.encodings.hextile,
+    VncClient.consts.encodings.raw,
+    VncClient.consts.encodings.pseudoDesktopSize,
+    VncClient.consts.encodings.pseudoCursor,
   ],
   debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
 };

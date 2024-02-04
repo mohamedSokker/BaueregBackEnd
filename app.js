@@ -12,7 +12,7 @@ const socketio = require("socket.io");
 const dotenv = require("dotenv").config();
 const { cache } = require("./routeCache");
 const path = require("path");
-const { addConndection, client } = require("./VNC_Client/vncClient");
+const { addConndection, client } = require("./VNC_Client1/vncClient");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -70,7 +70,7 @@ app.get("/create-tunnel/:port", async (req, res) => {
 
 /////////////////////////////////////////////////Socket////////////////////////////////////////////////////
 
-const { handleDisconnect } = require("./VNC_Client/handleConnection");
+const { handleDisconnect } = require("./VNC_Client1/handleConnection");
 const server = http.createServer(app);
 let users = {};
 let rooms = {};
