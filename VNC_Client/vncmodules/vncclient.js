@@ -10,7 +10,7 @@ const Events = require("events").EventEmitter;
 const HextileDecoder = require("./decoders/hextile");
 const RawDecoder = require("./decoders/raw");
 const ZrleDecoder = require("./decoders/zrle");
-// const tightDecoder = require('./decoders/tight');
+const tightDecoder = require("./decoders/tight");
 const CopyrectDecoder = require("./decoders/copyrect");
 const SocketBuffer = require("./socketbuffer");
 const crypto = require("crypto");
@@ -85,7 +85,7 @@ class VncClient extends Events {
     this._decoders = {};
     this._decoders[encodings.raw] = new RawDecoder(this.debug, this.debugLevel);
     // TODO: Implement tight encoding
-    // this._decoders[encodings.tight] = new tightDecoder();
+    this._decoders[encodings.tight] = new tightDecoder();
     this._decoders[encodings.zrle] = new ZrleDecoder(
       this.debug,
       this.debugLevel
