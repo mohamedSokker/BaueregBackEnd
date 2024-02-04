@@ -9,6 +9,7 @@ const initOptions = {
     // Encodings sent to server, in order of preference
     VncClient.consts.encodings.copyRect,
     VncClient.consts.encodings.zrle,
+    VncClient.consts.encodings.tight,
     VncClient.consts.encodings.hextile,
     VncClient.consts.encodings.raw,
     VncClient.consts.encodings.pseudoDesktopSize,
