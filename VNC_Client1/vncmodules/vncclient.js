@@ -272,46 +272,46 @@ class VncClient extends Events {
     this._log(`Received: ${this._socketBuffer.toString()}`, LOG_VERBOSE);
     this._log(this._socketBuffer.buffer, LOG_VERBOSE);
     if (this._socketBuffer.toString() === versionString.V3_003) {
-      this._log("Sending 3.3", LOG_VERBOSE);
+      this._log("Sending 3.3");
       this.sendData(versionString.V3_003);
       this._version = "3.3";
     } else if (this._socketBuffer.toString() === versionString.V3_007) {
-      this._log("Sending 3.7", LOG_VERBOSE);
+      this._log("Sending 3.7");
       this.sendData(versionString.V3_007);
       this._version = "3.7";
     } else if (this._socketBuffer.toString() === versionString.V3_008) {
-      this._log("Sending 3.8", LOG_VERBOSE);
+      this._log("Sending 3.8");
       this.sendData(versionString.V3_008);
       this._version = "3.8";
     } else {
       // Negotiating auth mechanism
       this._handshaked = true;
-      if (this._socketBuffer.includes(0x02) && this._password) {
-        this._log(
-          "Password provided and server support VNC auth. Choosing VNC auth.",
-          LOG_VERBOSE
-        );
-        this._expectingChallenge = true;
-        this.sendData(new Buffer.from([0x02]));
-      } else if (this._socketBuffer.includes(1)) {
-        this._log(
-          "Password not provided or server does not support VNC auth. Trying none.",
-          LOG_VERBOSE
-        );
-        this.sendData(new Buffer.from([0x01]));
-        if (this._version === "3.7") {
-          this._sendClientInit();
-        } else {
+      setTimeout(() => {
+        if (this._socketBuffer.includes(0x02) && this._password) {
+          this._log(
+            "Password provided and server support VNC auth. Choosing VNC auth."
+          );
           this._expectingChallenge = true;
-          this._challengeResponseSent = true;
+          this.sendData(new Buffer.from([0x02]));
+        } else if (this._socketBuffer.includes(1)) {
+          this._log(
+            "Password not provided or server does not support VNC auth. Trying none."
+          );
+          this.sendData(new Buffer.from([0x01]));
+          if (this._version === "3.7") {
+            this._sendClientInit();
+          } else {
+            this._expectingChallenge = true;
+            this._challengeResponseSent = true;
+          }
+        } else {
+          this._log(
+            `Connection error. Msg: ${this._socketBuffer.toString()}`,
+            LOG_ERROR
+          );
+          this.disconnect();
         }
-      } else {
-        this._log(
-          `Connection error. Msg: ${this._socketBuffer.toString()}`,
-          LOG_ERROR
-        );
-        this.disconnect();
-      }
+      }, 1000);
     }
   }
 
