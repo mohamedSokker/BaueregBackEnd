@@ -282,15 +282,13 @@ class VncClient extends Events {
       setTimeout(() => {
         if (this._socketBuffer.includes(0x02) && this._password) {
           this._log(
-            "Password provided and server support VNC auth. Choosing VNC auth.",
-            true
+            "Password provided and server support VNC auth. Choosing VNC auth."
           );
           this._expectingChallenge = true;
           this.sendData(new Buffer.from([0x02]));
         } else if (this._socketBuffer.includes(1)) {
           this._log(
-            "Password not provided or server does not support VNC auth. Trying none.",
-            true
+            "Password not provided or server does not support VNC auth. Trying none."
           );
           this.sendData(new Buffer.from([0x01]));
           if (this._version === "3.7") {
@@ -329,19 +327,19 @@ class VncClient extends Events {
 
       if (this._socketBuffer.readUInt32BE() === 0) {
         // Auth success
-        this._log("Authenticated successfully", true);
+        this._log("Authenticated successfully");
         this._authenticated = true;
         this.emit("authenticated");
         this._expectingChallenge = false;
         this._sendClientInit();
       } else {
         // Auth fail
-        this._log("Authentication failed", true);
+        this._log("Authentication failed");
         this.emit("authError");
         this.resetState();
       }
     } else {
-      this._log("Challenge received.", true);
+      this._log("Challenge received.");
       await this._socketBuffer.waitBytes(16, "Auth challenge");
 
       const key = new Buffer(8);
