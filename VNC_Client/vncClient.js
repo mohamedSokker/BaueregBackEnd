@@ -14,6 +14,14 @@ const initOptions = {
     VncClient.consts.encodings.raw,
     VncClient.consts.encodings.pseudoDesktopSize,
     VncClient.consts.encodings.pseudoCursor,
+    VncClient.consts.encodings.corre,
+    VncClient.consts.encodings.h264,
+    VncClient.consts.encodings.pseudoQemuAudio,
+    VncClient.consts.encodings.pseudoQemuPointerMotionChange,
+    VncClient.consts.encodings.rre,
+    VncClient.consts.encodings.trle,
+    VncClient.consts.encodings.zlibhex,
+    VncClient.consts.encodings.zlib,
   ],
   debugLevel: 1, // Verbosity level (1 - 5) when debug is set to true
 };
