@@ -1,5 +1,5 @@
 // const VncClient = require("vnc-rfb-client");
-const VncClient = require("../VNC_Client/vncmodules/vncclient");
+const VncClient = require("../VNC_Client1/vncmodules/vncclient");
 const { handleConnect } = require("./handleConnection");
 // const Jimp = require("jimp");
 
