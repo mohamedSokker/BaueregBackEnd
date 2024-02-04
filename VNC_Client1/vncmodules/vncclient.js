@@ -198,12 +198,16 @@ class VncClient extends Events {
       }
 
       if (!this._handshaked) {
+        this._log(`handshake`);
         this._handleHandshake();
       } else if (this._expectingChallenge) {
+        this._log(`expectingChallenge`);
         await this._handleAuthChallenge();
       } else if (this._waitingServerInit) {
+        this._log(`_waitingServerInit`);
         await this._handleServerInit();
       } else {
+        this._log(`_handleData`);
         await this._handleData();
       }
     });
