@@ -11,7 +11,7 @@ const initOptions = {
     // VncClient.consts.encodings.zrle,
     // VncClient.consts.encodings.tight,
     // VncClient.consts.encodings.hextile,
-    // VncClient.consts.encodings.raw,
+    VncClient.consts.encodings.raw,
     // VncClient.consts.encodings.pseudoDesktopSize,
     // VncClient.consts.encodings.pseudoCursor,
   ],
