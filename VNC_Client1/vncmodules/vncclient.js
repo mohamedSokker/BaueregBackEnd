@@ -597,7 +597,7 @@ class VncClient extends Events {
       rect.width = this._socketBuffer.readUInt16BE();
       rect.height = this._socketBuffer.readUInt16BE();
       rect.encoding = this._socketBuffer.readInt32BE();
-      this._log(rect.encoding);
+      this._log(`rect: ${rect.encoding}`);
 
       if (rect.encoding === encodings.pseudoQemuAudio) {
         this.sendAudio(true);
