@@ -190,6 +190,7 @@ class VncClient extends Events {
     });
 
     this._connection.on("data", async (data) => {
+      this._log(`data Recieved`);
       this._log(data.toString(), LOG_DEBUG);
       this._socketBuffer.pushData(data);
 
