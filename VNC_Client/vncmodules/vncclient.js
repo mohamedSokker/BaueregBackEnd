@@ -339,7 +339,7 @@ class VncClient extends Events {
         this.resetState();
       }
     } else {
-      this._log("Challenge received.");
+      this._log("Challenge received.", true);
       await this._socketBuffer.waitBytes(16, "Auth challenge");
 
       const key = new Buffer(8);

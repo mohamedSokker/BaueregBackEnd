@@ -427,12 +427,9 @@ class VncClient extends Events {
     await this._socketBuffer.waitBytes(nameSize, "Name Size");
     this.clientName = this._socketBuffer.readNBytesOffset(nameSize).toString();
 
-    this._log(
-      `Screen size: ${this.clientWidth}x${this.clientHeight}`,
-      LOG_VERBOSE
-    );
-    this._log(`Client name: ${this.clientName}`, LOG_VERBOSE);
-    this._log(`pixelFormat: ${JSON.stringify(this.pixelFormat)}`, LOG_VERBOSE);
+    this._log(`Screen size: ${this.clientWidth}x${this.clientHeight}`);
+    this._log(`Client name: ${this.clientName}`);
+    this._log(`pixelFormat: ${JSON.stringify(this.pixelFormat)}`);
 
     if (this._set8BitColor) {
       this._log(
@@ -542,6 +539,7 @@ class VncClient extends Events {
    */
   async _handleData() {
     if (!this._rects) {
+      this._log(this._socketBuffer.buffer[0]);
       switch (this._socketBuffer.buffer[0]) {
         case serverMsgTypes.fbUpdate:
           await this._handleFbUpdate();
@@ -599,6 +597,7 @@ class VncClient extends Events {
       rect.width = this._socketBuffer.readUInt16BE();
       rect.height = this._socketBuffer.readUInt16BE();
       rect.encoding = this._socketBuffer.readInt32BE();
+      this._log(rect.encoding);
 
       if (rect.encoding === encodings.pseudoQemuAudio) {
         this.sendAudio(true);
@@ -647,10 +646,7 @@ class VncClient extends Events {
           this.pixelFormat.blueShift
         );
       } else {
-        this._log(
-          `Non supported update received. Encoding: ${rect.encoding}`,
-          LOG_VERBOSE
-        );
+        this._log(`Non supported update received. Encoding: ${rect.encoding}`);
       }
       this._rects--;
       this.emit("rectProcessed", rect);
