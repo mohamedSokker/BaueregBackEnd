@@ -726,7 +726,7 @@ class VncClient extends Events {
     }
 
     this.debug = false;
-    this.debugLevel = LOG_INFO;
+    this.debugLevel = 1;
     this._fps = 0;
     this._timerInterval = 0;
     this.encodings = [
