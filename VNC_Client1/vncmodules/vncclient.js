@@ -216,7 +216,7 @@ class VncClient extends Events {
     if (this._connection) {
       this._connection.end();
       this.resetState();
-      this._socketBuffer.flush();
+      this._socketBuffer.flush(false);
       this.emit("disconnected");
     }
   }
@@ -748,6 +748,18 @@ class VncClient extends Events {
     if (this._timerPointer) {
       clearInterval(this._timerPointer);
     }
+    this.debug = false;
+    this.debugLevel = LOG_INFO;
+    this._fps = 0;
+    this._timerInterval = 0;
+    this.encodings = [
+      encodings.copyRect,
+      encodings.zrle,
+      encodings.hextile,
+      encodings.raw,
+      encodings.pseudoDesktopSize,
+    ];
+    this.decode = {};
 
     this._timerPointer = null;
 
