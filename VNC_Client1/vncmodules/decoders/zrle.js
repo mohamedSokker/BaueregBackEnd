@@ -70,6 +70,7 @@ class Zrle {
         let initialOffset = this.unBuffer.offset;
         await this.unBuffer.waitBytes(1, "tile begin.");
         const subEncoding = this.unBuffer.readUInt8();
+        // console.log(subEncoding);
         const currTile = totalTiles - tiles;
 
         const tileX = currTile % tilesX;
@@ -122,6 +123,13 @@ class Zrle {
                   fbBytePosOffset,
                   4
                 );
+              } else if (bitsPerPixel === 16) {
+                await this.unBuffer.waitBytes(2, "raw 16bits");
+                fb.writeIntBE(
+                  this.unBuffer.readRgb16PlusAlpha(red, green, blue),
+                  fbBytePosOffset,
+                  4
+                );
               }
             }
           }
@@ -141,6 +149,9 @@ class Zrle {
           } else if (bitsPerPixel === 32) {
             await this.unBuffer.waitBytes(4, "single color 32bits");
             color = this.unBuffer.readRgba(red, green, blue);
+          } else if (bitsPerPixel === 16) {
+            await this.unBuffer.waitBytes(2, "raw 16bits");
+            color = this.unBuffer.readRgb16PlusAlpha(red, green, blue);
           }
           this.applyColor(tw, th, tx, ty, screenW, screenH, color, fb);
         } else if (subEncoding >= 2 && subEncoding <= 16) {
@@ -154,6 +165,9 @@ class Zrle {
             } else if (bitsPerPixel === 32) {
               await this.unBuffer.waitBytes(3, "palette 32 bits");
               color = this.unBuffer.readRgba(red, green, blue);
+            } else if (bitsPerPixel === 16) {
+              await this.unBuffer.waitBytes(2, "raw 16bits");
+              color = this.unBuffer.readRgb16PlusAlpha(red, green, blue);
             }
             palette.push(color);
           }
@@ -252,6 +266,9 @@ class Zrle {
                 } else if (bitsPerPixel === 32) {
                   await this.unBuffer.waitBytes(4, "rle 32bits");
                   color = this.unBuffer.readRgba(red, green, blue);
+                } else if (bitsPerPixel === 16) {
+                  await this.unBuffer.waitBytes(2, "raw 16bits");
+                  color = this.unBuffer.readRgb16PlusAlpha(red, green, blue);
                 }
                 await this.unBuffer.waitBytes(1, "rle runsize");
                 let runSize = this.unBuffer.readUInt8();
@@ -287,6 +304,9 @@ class Zrle {
             } else if (bitsPerPixel === 32) {
               await this.unBuffer.waitBytes(4, "paletterle 32bits");
               color = this.unBuffer.readRgba(red, green, blue);
+            } else if (bitsPerPixel === 16) {
+              await this.unBuffer.waitBytes(2, "raw 16bits");
+              color = this.unBuffer.readRgb16PlusAlpha(red, green, blue);
             }
 
             if (firstRle) {

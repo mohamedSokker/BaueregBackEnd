@@ -75,16 +75,12 @@ class VncClient extends Events {
     this._timerInterval = this._fps > 0 ? 1000 / this._fps : 0;
 
     // Default encodings
-    this.encodings =
-      options.encodings && options.encodings.length
-        ? options.encodings
-        : [
-            encodings.copyRect,
-            encodings.zrle,
-            encodings.hextile,
-            encodings.raw,
-            encodings.pseudoDesktopSize,
-          ];
+    this.encodings = [
+      encodings.copyRect,
+      encodings.zrle,
+      encodings.hextile,
+      encodings.raw,
+    ];
 
     this._audioChannels = options.audioChannels || 2;
     this._audioFrequency = options.audioFrequency || 22050;
@@ -191,6 +187,7 @@ class VncClient extends Events {
 
     this._connection.on("data", async (data) => {
       console.log(`data Recieved`);
+      // console.log(data.toString());
       this._log(data.toString(), LOG_DEBUG);
       this._socketBuffer.pushData(data);
 
@@ -605,7 +602,7 @@ class VncClient extends Events {
       rect.width = this._socketBuffer.readUInt16BE();
       rect.height = this._socketBuffer.readUInt16BE();
       rect.encoding = this._socketBuffer.readInt32BE();
-      this._log(`rect: ${rect.encoding}`);
+      console.log(`rect: ${rect.encoding}`);
 
       if (rect.encoding === encodings.pseudoQemuAudio) {
         this.sendAudio(true);
@@ -758,6 +755,23 @@ class VncClient extends Events {
     this._timerInterval = 0;
     this.encodings = [encodings.copyRect, encodings.hextile, encodings.raw];
     this.decode = {};
+    this._decoders = {};
+    this._decoders[encodings.raw] = new RawDecoder(this.debug, this.debugLevel);
+    // TODO: Implement tight encoding
+    // this._decoders[encodings.tight] = new tightDecoder();
+    this._decoders[encodings.zrle] = new ZrleDecoder(
+      this.debug,
+      this.debugLevel
+    );
+    this._decoders[encodings.copyRect] = new CopyrectDecoder(
+      this.debug,
+      this.debugLevel
+    );
+    this._decoders[encodings.hextile] = new HextileDecoder(
+      this.debug,
+      this.debugLevel
+    );
+
     this._waitingServerInit = false;
 
     this._timerPointer = null;
