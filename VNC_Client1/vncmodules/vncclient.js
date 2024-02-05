@@ -190,25 +190,26 @@ class VncClient extends Events {
     });
 
     this._connection.on("data", async (data) => {
-      this._log(`data Recieved`);
+      console.log(`data Recieved`);
       this._log(data.toString(), LOG_DEBUG);
       this._socketBuffer.pushData(data);
 
       if (this._processingFrame) {
+        this._log(`Processing Frame`);
         return;
       }
 
       if (!this._handshaked) {
-        this._log(`handshake`);
+        console.log(`handshake`);
         this._handleHandshake();
       } else if (this._expectingChallenge) {
-        this._log(`expectingChallenge`);
+        console.log(`expectingChallenge`);
         await this._handleAuthChallenge();
       } else if (this._waitingServerInit) {
-        this._log(`_waitingServerInit`);
+        console.log(`_waitingServerInit`);
         await this._handleServerInit();
       } else {
-        this._log(`_handleData`);
+        console.log(`_handleData`);
         await this._handleData();
       }
     });
@@ -342,19 +343,19 @@ class VncClient extends Events {
 
       if (this._socketBuffer.readUInt32BE() === 0) {
         // Auth success
-        this._log("Authenticated successfully", LOG_VERBOSE);
+        console.log("Authenticated successfully");
         this._authenticated = true;
         this.emit("authenticated");
         this._expectingChallenge = false;
         this._sendClientInit();
       } else {
         // Auth fail
-        this._log("Authentication failed", LOG_ERROR);
+        this._log("Authentication failed");
         this.emit("authError");
         this.resetState();
       }
     } else {
-      this._log("Challenge received.", LOG_VERBOSE);
+      this._log("Challenge received.");
       await this._socketBuffer.waitBytes(16, "Auth challenge");
 
       const key = Buffer.alloc(8);
@@ -403,6 +404,7 @@ class VncClient extends Events {
    * @private
    */
   async _handleServerInit() {
+    console.log(`handleServerInit`);
     this._waitingServerInit = false;
 
     await this._socketBuffer.waitBytes(24, "Server init");
@@ -432,9 +434,9 @@ class VncClient extends Events {
     await this._socketBuffer.waitBytes(nameSize, "Name Size");
     this.clientName = this._socketBuffer.readNBytesOffset(nameSize).toString();
 
-    this._log(`Screen size: ${this.clientWidth}x${this.clientHeight}`);
-    this._log(`Client name: ${this.clientName}`);
-    this._log(`pixelFormat: ${JSON.stringify(this.pixelFormat)}`);
+    console.log(`Screen size: ${this.clientWidth}x${this.clientHeight}`);
+    console.log(`Client name: ${this.clientName}`);
+    console.log(`pixelFormat: ${JSON.stringify(this.pixelFormat)}`);
 
     if (this._set8BitColor) {
       this._log(
@@ -501,7 +503,7 @@ class VncClient extends Events {
    * @private
    */
   _sendEncodings() {
-    this._log("Sending encodings.", LOG_VERBOSE);
+    this._log("Sending encodings.");
     this._encodingsSent = true;
     // If this._set8BitColor is set, only copyrect and raw encodings are supported
     const message = Buffer.alloc(
@@ -531,6 +533,7 @@ class VncClient extends Events {
    * @private
    */
   _sendClientInit() {
+    console.log(`Client Init`);
     this._log("Sending clientInit", LOG_VERBOSE);
     this._waitingServerInit = true;
     // Shared bit set
@@ -751,15 +754,9 @@ class VncClient extends Events {
     }
     this.debug = false;
     this.debugLevel = LOG_INFO;
-    this._fps = 0;
+    this._fps = 10;
     this._timerInterval = 0;
-    this.encodings = [
-      encodings.copyRect,
-      encodings.zrle,
-      encodings.hextile,
-      encodings.raw,
-      encodings.pseudoDesktopSize,
-    ];
+    this.encodings = [encodings.copyRect, encodings.hextile, encodings.raw];
     this.decode = {};
     this._waitingServerInit = false;
 
