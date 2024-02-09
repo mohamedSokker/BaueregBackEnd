@@ -188,7 +188,7 @@ class VncClient extends Events {
     this._connection.on("data", async (data) => {
       console.log(`data Recieved`);
       // console.log(data.toString());
-      this._log(data.toString(), LOG_DEBUG);
+      // this._log(data.toString(), LOG_DEBUG);
       this._socketBuffer.pushData(data);
 
       if (this._processingFrame) {
@@ -272,8 +272,8 @@ class VncClient extends Events {
    */
   _handleHandshake() {
     // Handshake, negotiating protocol version
-    this._log(`Received: ${this._socketBuffer.toString()}`, LOG_VERBOSE);
-    this._log(this._socketBuffer.buffer, LOG_VERBOSE);
+    // this._log(`Received: ${this._socketBuffer.toString()}`, LOG_VERBOSE);
+    // this._log(this._socketBuffer.buffer, LOG_VERBOSE);
     if (this._socketBuffer.toString() === versionString.V3_003) {
       this._log("Sending 3.3");
       this.sendData(versionString.V3_003);
@@ -544,7 +544,7 @@ class VncClient extends Events {
    */
   async _handleData() {
     if (!this._rects) {
-      this._log(this._socketBuffer.buffer[0]);
+      // this._log(this._socketBuffer.buffer[0]);
       switch (this._socketBuffer.buffer[0]) {
         case serverMsgTypes.fbUpdate:
           await this._handleFbUpdate();
@@ -650,6 +650,7 @@ class VncClient extends Events {
           this.pixelFormat.greenShift,
           this.pixelFormat.blueShift
         );
+        // console.log(rect);
       } else {
         this._log(`Non supported update received. Encoding: ${rect.encoding}`);
       }
@@ -696,7 +697,7 @@ class VncClient extends Events {
     let firstColor = this._socketBuffer.readUInt16BE();
     const numColors = this._socketBuffer.readUInt16BE();
 
-    this._log(`ColorMap received. Colors: ${numColors}.`, LOG_VERBOSE);
+    console.log(`ColorMap received. Colors: ${numColors}.`);
 
     await this._socketBuffer.waitBytes(numColors * 6, "Colormap data");
 
@@ -867,6 +868,7 @@ class VncClient extends Events {
             Math.floor(cursorBytePosOffset / 4 / 8) + 1
           );
           const bitmapBit = (cursorBytePosOffset / 4) % 8;
+          console.log(bitmapBit);
           const activePixel =
             bitmapBit === 0
               ? bitmapByte[0] & 128

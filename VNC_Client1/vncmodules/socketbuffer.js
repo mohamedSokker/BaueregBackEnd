@@ -1,6 +1,18 @@
 class SocketBuffer {
   constructor() {
     this.flush();
+    this.colorSettings = {
+      bitsPerPixel: 16,
+      depth: 16,
+      bigEndianFlag: 0,
+      trueColorFlag: 1,
+      redMax: 7936,
+      greenMax: 16128,
+      blueMax: 7936,
+      redShift: 1.375,
+      blueShift: 0,
+      greenShift: 0.625,
+    };
   }
 
   flush(keep = true) {
@@ -80,6 +92,27 @@ class SocketBuffer {
   readRgbPlusAlpha(red, green, blue) {
     const colorBuf = this.buffer.slice(this.offset, this.offset + 3);
     this.offset += 3;
+
+    // const hex = colorBuf
+    //   .slice(0, 1)
+    //   .toString("hex")
+    //   .concat(colorBuf.slice(1, 2).toString("hex"))
+    //   .concat(colorBuf.slice(2, 3).toString("hex"));
+
+    // const hexnot = `0x${hex}`;
+
+    // // const alpha = (hexnot >> 24) & 0xff;
+    // const blueValue = this.int2hex((hexnot >> 16) & 0xff);
+    // const greenValue = this.int2hex((hexnot >> 8) & 0xff);
+    // const redValue = this.int2hex((hexnot >> 0) & 0xff);
+
+    // return Buffer.concat([
+    //   new Buffer.from([`0x${redValue}`]),
+    //   new Buffer.from([`0x${greenValue}`]),
+    //   new Buffer.from([`0x${blueValue}`]),
+    //   new Buffer.from([255]),
+    // ]).readIntBE(0, 4);
+
     return red === 0 && green === 1 && blue === 2
       ? Buffer.concat([colorBuf, new Buffer.from([255])]).readIntBE(0, 4)
       : Buffer.concat([
@@ -90,37 +123,72 @@ class SocketBuffer {
         ]).readIntBE(0, 4);
   }
 
-  applyGammaCorrection(value) {
-    // Perform gamma correction (adjust as needed)
-    return Math.pow(value / 255, 1.2) * 255;
+  applyGammaCorrection(value, gamma = 2.2, channelShift = 1.0) {
+    return Math.pow(value / 255, gamma) * 255 * channelShift;
+  }
+
+  reverseBits(buf) {
+    for (let x = 0; x < buf.length; x++) {
+      let newByte = 0;
+      newByte += buf[x] & 128 ? 1 : 0;
+      newByte += buf[x] & 64 ? 2 : 0;
+      newByte += buf[x] & 32 ? 4 : 0;
+      newByte += buf[x] & 16 ? 8 : 0;
+      newByte += buf[x] & 8 ? 16 : 0;
+      newByte += buf[x] & 4 ? 32 : 0;
+      newByte += buf[x] & 2 ? 64 : 0;
+      newByte += buf[x] & 1 ? 128 : 0;
+      buf[x] = newByte;
+    }
+    return buf;
+  }
+
+  hex2bin(hex, length) {
+    let inithex2bin = parseInt(hex, 16).toString(2).padStart(8, "0");
+    while (inithex2bin.length < length) {
+      inithex2bin = `0${inithex2bin}`;
+    }
+    return inithex2bin;
+  }
+
+  int2bin(int) {
+    let initInt = int.toString(2);
+    while (initInt.length < 16) {
+      initInt = `0${initInt}`;
+    }
+    return initInt;
+  }
+
+  int2hex(int) {
+    return int.toString(16);
+  }
+
+  bin2int(bin) {
+    return parseInt(bin.toString(), 2);
+  }
+
+  reversebin(bin) {
+    return bin.split("").reverse().join("");
   }
 
   readRgb16PlusAlpha(red, green, blue) {
     const colorBuf = this.buffer.slice(this.offset, this.offset + 2);
     this.offset += 2;
 
-    // Extract RGB components from RGB565
     const rgb565Value = colorBuf.readUInt16LE(0);
-    const redValue =
-      this.applyGammaCorrection((rgb565Value & 0xf800) >> 8) * 1.2;
-    const greenValue =
-      this.applyGammaCorrection((rgb565Value & 0x07e0) >> 3) * 1;
-    const blueValue =
-      this.applyGammaCorrection((rgb565Value & 0x001f) << 3) * 0.8;
-    // const redValue = (rgb565Value & 0xf800) >> 8; // 5 bits for red
-    // const greenValue = (rgb565Value & 0x07e0) >> 3; // 6 bits for green
-    // const blueValue = (rgb565Value & 0x001f) << 3; // 5 bits for blue
 
-    // Combine the values into a single number
-    return (redValue << 16) | (greenValue << 8) | blueValue;
+    const redValue = this.int2hex(Math.floor(((rgb565Value >> 8) & 0xf8) * 1));
+    const greenValue = this.int2hex(
+      Math.floor(((rgb565Value >> 3) & 0xfc) * 1)
+    );
+    const blueValue = this.int2hex(Math.floor((rgb565Value << 3) & (0xf8 * 1)));
 
-    // return red === 0 && green === 1 && blue === 2
-    //   ? Buffer.concat([colorBuf, new Buffer.from([255])]).readIntBE(0, 4)
-    //   : Buffer.concat([
-    //       colorBuf.slice(red, red + 1),
-    //       colorBuf.slice(green, green + 1),
-    //       colorBuf.slice(blue, blue + 1),
-    //     ]).readIntBE(0, 3);
+    return Buffer.concat([
+      new Buffer.from([`0x${redValue}`]),
+      new Buffer.from([`0x${greenValue}`]),
+      new Buffer.from([`0x${blueValue}`]),
+      new Buffer.from([255]),
+    ]).readIntBE(0, 4);
   }
 
   readRgbColorMap(red, green, blue, redMax, greenMax, blueMax) {
@@ -141,7 +209,7 @@ class SocketBuffer {
   }
 
   readRgba(red, green, blue) {
-    console.log(`red: ${red}, green: ${green}, blue: ${blue}`);
+    // console.log(`red: ${red}, green: ${green}, blue: ${blue}`);
     if (red === 0 && green === 1 && blue === 2) {
       const data = this.buffer.readIntBE(this.offset, 4);
       this.offset += 4;

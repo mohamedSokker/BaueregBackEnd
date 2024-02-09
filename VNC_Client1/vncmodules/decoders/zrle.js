@@ -59,11 +59,10 @@ class Zrle {
 
       let firstRle = false;
 
-      this._log(
+      console.log(
         `Starting rect processing. ${rect.width}x${
           rect.height
-        }. Compressed size: ${dataSize}. Decompressed size: ${this.unBuffer.bytesLeft()}`,
-        3
+        }. Compressed size: ${dataSize}. Decompressed size: ${this.unBuffer.bytesLeft()}`
       );
 
       while (tiles) {
