@@ -4,7 +4,10 @@ const connected = (client, portsCreated, port) => {
   console.log(`Client connected.`);
 };
 
-const error = (err) => console.log(`Client Connection error => ${err.message}`);
+const error = (err, io) => {
+  console.log(`Client Connection error => ${err.message}`);
+  io.emit(`Client Connection error`, err.message);
+};
 const connectTimeout = () => console.log("Connection timeout.");
 const authenticated = () => console.log("Client authenticated.");
 const authError = () => console.log("Client authentication error.");
@@ -51,7 +54,7 @@ const frameUpdated = (client, io, port) => {
 const handleConnect = (client, io, port, portsCreated) => {
   client.on("connected", () => connected(client, portsCreated, port));
 
-  client.on("error", error);
+  client.on("error", (err) => error(err, io));
   client.on("connectError", error);
 
   // Connection timed out
@@ -95,7 +98,7 @@ const handleConnect = (client, io, port, portsCreated) => {
 const handleDisconnect = (client, io, port, portsCreated) => {
   client.off("connected", () => connected(client, portsCreated, port));
 
-  client.off("error", (err) => err);
+  client.off("error", (err) => error(err, io));
   client.off("connectError", (err) => err);
 
   // Connection timed out

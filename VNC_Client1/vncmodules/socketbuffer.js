@@ -177,11 +177,9 @@ class SocketBuffer {
 
     const rgb565Value = colorBuf.readUInt16LE(0);
 
-    const redValue = this.int2hex(Math.floor(((rgb565Value >> 8) & 0xf8) * 1));
-    const greenValue = this.int2hex(
-      Math.floor(((rgb565Value >> 3) & 0xfc) * 1)
-    );
-    const blueValue = this.int2hex(Math.floor((rgb565Value << 3) & (0xf8 * 1)));
+    const redValue = this.int2hex(Math.floor((rgb565Value >> 8) & 0xff));
+    const greenValue = this.int2hex(Math.floor((rgb565Value >> 3) & 0xff));
+    const blueValue = this.int2hex(Math.floor((rgb565Value << 3) & 0xff));
 
     return Buffer.concat([
       new Buffer.from([`0x${redValue}`]),
