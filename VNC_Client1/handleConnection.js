@@ -55,7 +55,7 @@ const handleConnect = (client, io, port, portsCreated) => {
   client.on("connected", () => connected(client, portsCreated, port));
 
   client.on("error", (err) => error(err, io));
-  client.on("connectError", error);
+  client.on("connectError", (err) => error(err, io));
 
   // Connection timed out
   client.on("connectTimeout", connectTimeout);
@@ -99,7 +99,7 @@ const handleDisconnect = (client, io, port, portsCreated) => {
   client.off("connected", () => connected(client, portsCreated, port));
 
   client.off("error", (err) => error(err, io));
-  client.off("connectError", (err) => err);
+  client.off("connectError", (err) => error(err, io));
 
   // Connection timed out
   client.off("connectTimeout", connectTimeout);
