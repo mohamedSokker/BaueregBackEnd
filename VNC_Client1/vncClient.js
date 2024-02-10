@@ -28,13 +28,13 @@ const addConndection = async (socket, port, portsCreated, io) => {
       set8BitColor: false, // If set to true, client will request 8 bit color, only supported with Raw encoding
       port: port, // Remote server port
     };
-    console.log(portsCreated);
-    console.log(client._connected);
+    console.log(portsCreated, port);
+    // console.log(client._connected);
     if (portsCreated.includes(port)) return;
     client.connect(connectionOptions);
-    console.log(portsCreated, port);
-    portsCreated.push(port);
-    console.log(portsCreated, port);
+    // console.log(portsCreated, port);
+    // portsCreated.push(port);
+    // console.log(portsCreated, port);
 
     if (count === 0) handleConnect(client, io, port, portsCreated);
     count++;

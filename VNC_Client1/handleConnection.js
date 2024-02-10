@@ -2,6 +2,7 @@ const Jimp = require("jimp");
 
 const connected = (client, portsCreated, port) => {
   console.log(`Client connected.`);
+  if (!portsCreated.includes(port)) portsCreated.push(port);
 };
 
 const error = (err, io) => {
