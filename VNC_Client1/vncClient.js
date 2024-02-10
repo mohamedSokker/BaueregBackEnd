@@ -32,7 +32,10 @@ const addConndection = async (socket, port, portsCreated, io) => {
     // console.log(client._connected);
     if (portsCreated.includes(port)) return;
     client.connect(connectionOptions);
-    if (!client._connected) portsCreated.push(port);
+    setTimeout(() => {
+      if (client._connected) portsCreated.push(port);
+    }, 5000);
+
     // console.log(portsCreated, port);
     // portsCreated.push(port);
     // console.log(portsCreated, port);
