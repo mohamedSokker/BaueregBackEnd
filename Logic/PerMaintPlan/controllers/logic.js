@@ -3,7 +3,7 @@ const xlsx = require("xlsx");
 const { getData } = require("../../../functions/getData");
 const addHours = require("../../globalFunction/addHours");
 
-const path = `/home/mohamed/bauereg/PeriodicMaint/PeriodicMaint.xlsx`;
+const path = `${__dirname}/PeriodicMaint/PeriodicMaint.xlsx`;
 
 const readExcel = async (sheet) => {
   try {

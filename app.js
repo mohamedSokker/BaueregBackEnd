@@ -26,6 +26,11 @@ app.use(cookieParser());
 
 let CurrDir = process.env.CURRENT_DIRECTORY;
 
+/////////////////////////////////////////////////Task Manager///////////////////////////////////////////////
+const taskManagerReadExcel = require("./TaskManager/routes/readExcel");
+
+app.use("/api/v1/taskManagerReadExcel", taskManagerReadExcel);
+
 /////////////////////////////////////////////////Email//////////////////////////////////////////////////////
 const { transporter } = require("./config/mailConfig");
 
