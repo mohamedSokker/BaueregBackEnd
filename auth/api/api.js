@@ -1,4 +1,5 @@
 const { authapp } = require("../../auth/controllers/auth");
+const { CurrDir } = require("../../Constants/constants");
 
 const manageUsers = require("../routes/manageUsers");
 const { uploadImg } = require("../controllers/uploadimg");
