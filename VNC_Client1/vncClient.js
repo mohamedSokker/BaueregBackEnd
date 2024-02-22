@@ -1,7 +1,5 @@
-// const VncClient = require("vnc-rfb-client");
 const VncClient = require("../VNC_Client1/vncmodules/vncclient");
 const { handleConnect } = require("./handleConnection");
-// const Jimp = require("jimp");
 
 const initOptions = {
   debug: false, // Set debug logging

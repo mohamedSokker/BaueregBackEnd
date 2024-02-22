@@ -3,6 +3,8 @@ const socketio = require("socket.io");
 const { addConndection, client } = require("../VNC_Client1/vncClient");
 const { handleDisconnect } = require("../VNC_Client1/handleConnection");
 
+let portsCreated = [];
+
 const socketFn = (server) => {
   let users = {};
   let rooms = {};
@@ -28,6 +30,18 @@ const socketFn = (server) => {
       console.log(rooms);
       const port = Number(roomId);
       await addConndection(socket, port, portsCreated, io);
+    });
+
+    socket.on("leave-room", (roomId) => {
+      delete rooms[socket?.id];
+      if (Object.keys(rooms).length === 0) {
+        console.log(client._connected);
+        portsCreated = [];
+        handleDisconnect(client, io, 8000, portsCreated);
+        if (client._connected) client.resetState();
+        console.log("Disconnected", client._connected);
+      }
+      socket.leave(roomId);
     });
 
     socket.on("type", function (data) {
