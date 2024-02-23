@@ -14,6 +14,9 @@ app.engine("html", require("ejs").renderFile);
 app.use(credentials);
 app.use(cors(corsOptions));
 app.use(cookieParser());
+
+// const { createData } = require("./createData");
+// createData();
 /////////////////////////////////////////////////Database Data//////////////////////////////////////////////
 const { databaseDataEndPoints } = require("./DatabaseData/api/api");
 databaseDataEndPoints(app);
