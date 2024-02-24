@@ -295,19 +295,19 @@ const tablesEndPoints = (app) => {
           if (replaced.includes(r.Equipment))
             r["Equipment"] = replacedItemd[r.Equipment];
           const spareParts = r.Spare_part;
-          if (spareParts !== "") {
-            const sparePartData = getMaintenanceStock(r);
-            sparePartData.map((d) => {
-              data.push({
-                ...r,
-                sparePart: d?.sparePart,
-                Quantity: d?.Quantity,
-                sparePart_SabCode: stocksData[d?.sparePart]
-                  ? stocksData[d?.sparePart]
-                  : null,
-              });
+          // if (spareParts !== "") {
+          const sparePartData = getMaintenanceStock(r);
+          sparePartData.map((d) => {
+            data.push({
+              ...r,
+              sparePart: d?.sparePart,
+              Quantity: d?.Quantity,
+              sparePart_SabCode: stocksData[d?.sparePart]
+                ? stocksData[d?.sparePart]
+                : null,
             });
-          }
+          });
+          // }
         }
       });
       return res.status(200).json(data);
