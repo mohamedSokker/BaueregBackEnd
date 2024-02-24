@@ -252,6 +252,70 @@ const tablesEndPoints = (app) => {
     }
   });
 
+  const getMaintenanceStock = (fieldsData) => {
+    const sparePartQuantity = fieldsData?.Spare_part;
+    const sparePartQuantityArray = sparePartQuantity?.split(",");
+    // const sparePartArray = [];
+    // const QuantityArray = [];
+    const sparePartdata = [];
+    sparePartQuantityArray?.map((data) => {
+      const sparePart = data?.split("(");
+      // sparePart && sparePartArray.push(sparePart[0]?.trim());
+      const Quantity = sparePart && sparePart[1] && sparePart[1].split(")");
+      sparePartdata.push({
+        sparePart: sparePart && sparePart[0]?.trim(),
+        Quantity: Quantity && Quantity[0],
+      });
+      // QuantityArray.push(Quantity[0]);
+    });
+    return sparePartdata;
+  };
+
+  app.get("/api/v2/MaintenanceV1", async (req, res) => {
+    const excluded = ["BC 30 883 #187304"];
+    const replacedItemd = {
+      "BC 30 873 #185148": "BC 30 BS 670 #670.5.116",
+      "BC 30 873 #185127": "BC 30 852 #184246",
+    };
+    const allowedEqTypes = ["Drilling_Machine", "Trench_Cutting_Machine"];
+    try {
+      const password = req.query.pass;
+      console.log(password);
+      if (password !== "Bauer_Germany_2024")
+        throw new Error("You are not authenticated");
+
+      const result = await tableGetAll(`Maintenance`, req.query);
+      let data = [];
+      result.map(async (r) => {
+        if (
+          !excluded.includes(r.Equipment) &&
+          allowedEqTypes.includes(r.Equipment_Type)
+        ) {
+          const replaced = Object.keys(replacedItemd);
+          if (replaced.includes(r.Equipment))
+            r["Equipment"] = replacedItemd[r.Equipment];
+          const spareParts = r.Spare_part;
+          if (spareParts !== "") {
+            const sparePartData = getMaintenanceStock(r);
+            sparePartData.map((d) => {
+              data.push({
+                ...r,
+                sparePart: d?.sparePart,
+                Quantity: d?.Quantity,
+                sparePart_SabCode: stocksData[d?.sparePart]
+                  ? stocksData[d?.sparePart]
+                  : null,
+              });
+            });
+          }
+        }
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  });
+
   app.use(
     "/api/v1/Maintenance_Stocks",
     authapp("Maintenance_Stocks"),
