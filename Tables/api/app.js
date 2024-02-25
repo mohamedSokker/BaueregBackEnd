@@ -2,6 +2,13 @@ const { authapp } = require("../../auth/controllers/auth");
 const tableGetAll = require("../../Logic/tablesData/tableGetAll");
 const { stocksData } = require("../../stocksData");
 
+const excluded = ["BC 30 883 #187304"];
+const replacedItemd = {
+  "BC 30 873 #185148": "BC 30 BS 670 #670.5.116",
+  "BC 30 873 #185127": "BC 30 852 #184246",
+};
+const allowedEqTypes = ["Drilling_Machine", "Trench_Cutting_Machine"];
+
 const appMaint = require("../../AppMobile/routes/AppMaintMaintenance");
 const appMaint_Notification = require("../../AppMobile/appNotification/routes/getNotification");
 const EqsInSites = require("../../routes/getEqsInSite");
@@ -77,6 +84,7 @@ const TotalPiles = require("../../routes/TotalPiles");
 const Users = require("../../routes/Users");
 const Week_Site_Plan = require("../../routes/Week_Site_Plan");
 const AppMobile = require("../../AppMobile/routes/AppMobile");
+const { getData } = require("../../functions/getData");
 
 const tablesEndPoints = (app) => {
   app.use("/api/v1/appMaint", authapp("appMaint"), appMaint);
@@ -212,12 +220,6 @@ const tablesEndPoints = (app) => {
   app.use("/api/v1/Maintenance", authapp("Maintenance"), Maintenance);
 
   app.get("/api/v2/Maintenance", async (req, res) => {
-    const excluded = ["BC 30 883 #187304"];
-    const replacedItemd = {
-      "BC 30 873 #185148": "BC 30 BS 670 #670.5.116",
-      "BC 30 873 #185127": "BC 30 852 #184246",
-    };
-    const allowedEqTypes = ["Drilling_Machine", "Trench_Cutting_Machine"];
     try {
       const password = req.query.pass;
       console.log(password);
@@ -254,30 +256,23 @@ const tablesEndPoints = (app) => {
 
   const getMaintenanceStock = (fieldsData) => {
     const sparePartQuantity = fieldsData?.Spare_part;
-    const sparePartQuantityArray = sparePartQuantity?.split(",");
-    // const sparePartArray = [];
-    // const QuantityArray = [];
+    let sparePartQuantityArray = sparePartQuantity?.split(",");
+    if (sparePartQuantityArray.length === 1)
+      sparePartQuantityArray = sparePartQuantity?.split(".");
     const sparePartdata = [];
     sparePartQuantityArray?.map((data) => {
       const sparePart = data?.split("(");
-      // sparePart && sparePartArray.push(sparePart[0]?.trim());
       const Quantity = sparePart && sparePart[1] && sparePart[1].split(")");
       sparePartdata.push({
         sparePart: sparePart && sparePart[0]?.trim(),
         Quantity: Quantity && Quantity[0],
+        Description: Quantity && Quantity[1] && Quantity[1]?.trim(),
       });
-      // QuantityArray.push(Quantity[0]);
     });
     return sparePartdata;
   };
 
   app.get("/api/v2/MaintenanceV1", async (req, res) => {
-    const excluded = ["BC 30 883 #187304"];
-    const replacedItemd = {
-      "BC 30 873 #185148": "BC 30 BS 670 #670.5.116",
-      "BC 30 873 #185127": "BC 30 852 #184246",
-    };
-    const allowedEqTypes = ["Drilling_Machine", "Trench_Cutting_Machine"];
     try {
       const password = req.query.pass;
       console.log(password);
@@ -294,21 +289,87 @@ const tablesEndPoints = (app) => {
           const replaced = Object.keys(replacedItemd);
           if (replaced.includes(r.Equipment))
             r["Equipment"] = replacedItemd[r.Equipment];
-          const spareParts = r.Spare_part;
-          // if (spareParts !== "") {
           const sparePartData = getMaintenanceStock(r);
           sparePartData.map((d) => {
             data.push({
               ...r,
               sparePart: d?.sparePart,
               Quantity: d?.Quantity,
+              Description: d.Description,
               sparePart_SabCode: stocksData[d?.sparePart]
                 ? stocksData[d?.sparePart]
                 : null,
             });
           });
-          // }
         }
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/v2/Maintenance_Stocks", async (req, res) => {
+    let currentData = {};
+    try {
+      const password = req.query.pass;
+      console.log(password);
+      if (password !== "Bauer_Germany_2024")
+        throw new Error("You are not authenticated");
+
+      const query = `SELECT * FROM Maintenance_Stocks ORDER BY Equipment,DateTime ASC`;
+      const result = await (await getData(query)).recordsets[0];
+      // const result = await tableGetAll(`Maintenance_Stocks`, req.query);
+      // result.sort((a, b) => {
+      //   if (a.Equipment < b.Equipment) return -1;
+      //   if (a.Equipment > b.Equipment) return 1;
+      //   return 0;
+      // });
+      let data = [];
+      result.map(async (r) => {
+        if (
+          !excluded.includes(r.Equipment) &&
+          allowedEqTypes.includes(r.Equipment_Type)
+        ) {
+          const replaced = Object.keys(replacedItemd);
+          if (replaced.includes(r.Equipment))
+            r["Equipment"] = replacedItemd[r.Equipment];
+          if (currentData?.CurrentEq === r[`Equipment`]) {
+            if (
+              currentData?.[r.SparePart_Code]?.lastTime &&
+              currentData?.[r.SparePart_Code]?.lastWH
+            ) {
+              data.push({
+                ...r,
+                lastChanged: currentData?.[r.SparePart_Code]?.lastTime,
+                WHTime:
+                  Number(r?.Working_Hours) -
+                  Number(currentData?.[r.SparePart_Code]?.lastWH),
+              });
+              currentData[r.SparePart_Code] = {
+                lastTime: r.DateTime,
+                lastWH: r.Working_Hours,
+              };
+            } else {
+              currentData[r.SparePart_Code] = {
+                lastTime: r.DateTime,
+                lastWH: r.Working_Hours,
+              };
+              data.push({ ...r, lastChanged: null, WHTime: 0 });
+            }
+          } else {
+            currentData = {};
+            currentData.CurrentEq = r.Equipment;
+            currentData[r.SparePart_Code] = {
+              lastTime: r.DateTime,
+              lastWH: r.Working_Hours,
+            };
+            data.push({ ...r, lastChanged: null, WHTime: 0 });
+          }
+          // data.push({ ...currentData });
+          // data.push(r);
+        }
+        // console.log(currentData);
       });
       return res.status(200).json(data);
     } catch (error) {
