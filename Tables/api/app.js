@@ -1,6 +1,7 @@
 const { authapp } = require("../../auth/controllers/auth");
 const tableGetAll = require("../../Logic/tablesData/tableGetAll");
 const { stocksData } = require("../../stocksData");
+const { equipmentsData } = require("../../Constants/equipmentsData");
 
 const excluded = ["BC 30 883 #187304"];
 const replacedItemd = {
@@ -245,7 +246,11 @@ const tablesEndPoints = (app) => {
             });
           }
 
-          data.push({ ...r, Spare_part_sabCode: JSON.stringify(sparePart) });
+          data.push({
+            ...r,
+            "Year of Manufacturing": equipmentsData[r.Equipment],
+            Spare_part_sabCode: JSON.stringify(sparePart),
+          });
         }
       });
       return res.status(200).json(data);
@@ -293,6 +298,7 @@ const tablesEndPoints = (app) => {
           sparePartData.map((d) => {
             data.push({
               ...r,
+              "Year of Manufacturing": equipmentsData[r.Equipment],
               sparePart: d?.sparePart,
               Quantity: d?.Quantity,
               Description: d.Description,
@@ -319,12 +325,7 @@ const tablesEndPoints = (app) => {
 
       const query = `SELECT * FROM Maintenance_Stocks ORDER BY Equipment,DateTime ASC`;
       const result = await (await getData(query)).recordsets[0];
-      // const result = await tableGetAll(`Maintenance_Stocks`, req.query);
-      // result.sort((a, b) => {
-      //   if (a.Equipment < b.Equipment) return -1;
-      //   if (a.Equipment > b.Equipment) return 1;
-      //   return 0;
-      // });
+
       let data = [];
       result.map(async (r) => {
         if (
@@ -341,6 +342,10 @@ const tablesEndPoints = (app) => {
             ) {
               data.push({
                 ...r,
+                "Year of Manufacturing": equipmentsData[r.Equipment],
+                Spare_part_sabCode: stocksData[r.SparePart_Code]
+                  ? stocksData[r.SparePart_Code]
+                  : null,
                 lastChanged: currentData?.[r.SparePart_Code]?.lastTime,
                 WHTime:
                   Number(r?.Working_Hours) -
@@ -355,7 +360,15 @@ const tablesEndPoints = (app) => {
                 lastTime: r.DateTime,
                 lastWH: r.Working_Hours,
               };
-              data.push({ ...r, lastChanged: null, WHTime: 0 });
+              data.push({
+                ...r,
+                "Year of Manufacturing": equipmentsData[r.Equipment],
+                Spare_part_sabCode: stocksData[r.SparePart_Code]
+                  ? stocksData[r.SparePart_Code]
+                  : null,
+                lastChanged: null,
+                WHTime: 0,
+              });
             }
           } else {
             currentData = {};
@@ -364,12 +377,17 @@ const tablesEndPoints = (app) => {
               lastTime: r.DateTime,
               lastWH: r.Working_Hours,
             };
-            data.push({ ...r, lastChanged: null, WHTime: 0 });
+            data.push({
+              ...r,
+              "Year of Manufacturing": equipmentsData[r.Equipment],
+              Spare_part_sabCode: stocksData[r.SparePart_Code]
+                ? stocksData[r.SparePart_Code]
+                : null,
+              lastChanged: null,
+              WHTime: 0,
+            });
           }
-          // data.push({ ...currentData });
-          // data.push(r);
         }
-        // console.log(currentData);
       });
       return res.status(200).json(data);
     } catch (error) {
