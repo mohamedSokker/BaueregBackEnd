@@ -4,13 +4,17 @@ const writer = fs.createWriteStream(
   `/home/mohamed/bauereg/api/Constants/equipmentsData.js`
 );
 
-const { stocksData } = require("./stocksData");
+const { getData } = require("./functions/getData");
 
-const createData = () => {
+const { stocksData } = require("./stocksData");
+const { stocksDesc } = require("./stocksData");
+
+const createData = async () => {
   try {
+    // const query = `SELECT * FROM AppStocks`;
+    // const jsonData = (await getData(query)).recordsets[0];
     console.log(__dirname);
     const workbook = xlsx.readFile(`/home/mohamed/Downloads/7.xlsx`);
-
     const jsonData = xlsx.utils.sheet_to_json(workbook.Sheets[`Sheet1`]);
     let data = {};
     for (let i = 0; i < jsonData.length; i++) {
@@ -20,21 +24,21 @@ const createData = () => {
     }
     // for (let i = 0; i < jsonData.length; i++) {
     //   if (
-    //     !stocksData[jsonData[i]?.Code] &&
-    //     !stocksData[jsonData[i]?.Code?.toString()?.split("-")[0]]
+    //     !stocksDesc[jsonData[i]?.Code] &&
+    //     !stocksDesc[jsonData[i]?.Code?.toString()?.split("-")[0]]
     //   ) {
     //     if (jsonData[i]?.Code.toString().includes("-")) {
     //       writer.write(
-    //         `"${jsonData[i]?.Code?.toString()?.split("-")[0]}": "${
-    //           jsonData[i]?.Sab_Code
-    //         }"` +
+    //         `'${jsonData[i]?.Code?.toString()?.split("-")[0]}': '${
+    //           jsonData[i]?.Description
+    //         }'` +
     //           ",\n" +
-    //           `"${jsonData[i]?.Code}": "${jsonData[i]?.Sab_Code}"` +
+    //           `'${jsonData[i]?.Code}': '${jsonData[i]?.Description}'` +
     //           ",\n"
     //       );
     //     } else {
     //       writer.write(
-    //         `"${jsonData[i]?.Code}": "${jsonData[i]?.Sab_Code}"` + ",\n"
+    //         `'${jsonData[i]?.Code}': '${jsonData[i]?.Description}'` + ",\n"
     //       );
     //     }
     //   }

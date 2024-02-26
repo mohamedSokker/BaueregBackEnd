@@ -1,6 +1,6 @@
 const { authapp } = require("../../auth/controllers/auth");
 const tableGetAll = require("../../Logic/tablesData/tableGetAll");
-const { stocksData } = require("../../stocksData");
+const { stocksData, stocksDesc } = require("../../stocksData");
 const { equipmentsData } = require("../../Constants/equipmentsData");
 
 const excluded = ["BC 30 883 #187304"];
@@ -346,6 +346,9 @@ const tablesEndPoints = (app) => {
                 Spare_part_sabCode: stocksData[r.SparePart_Code]
                   ? stocksData[r.SparePart_Code]
                   : null,
+                Description: stocksDesc[r.SparePart_Code]
+                  ? stocksDesc[r.SparePart_Code]
+                  : null,
                 lastChanged: currentData?.[r.SparePart_Code]?.lastTime,
                 WHTime:
                   Number(r?.Working_Hours) -
@@ -366,6 +369,9 @@ const tablesEndPoints = (app) => {
                 Spare_part_sabCode: stocksData[r.SparePart_Code]
                   ? stocksData[r.SparePart_Code]
                   : null,
+                Description: stocksDesc[r.SparePart_Code]
+                  ? stocksDesc[r.SparePart_Code]
+                  : null,
                 lastChanged: null,
                 WHTime: 0,
               });
@@ -382,6 +388,9 @@ const tablesEndPoints = (app) => {
               "Year of Manufacturing": equipmentsData[r.Equipment],
               Spare_part_sabCode: stocksData[r.SparePart_Code]
                 ? stocksData[r.SparePart_Code]
+                : null,
+              Description: stocksDesc[r.SparePart_Code]
+                ? stocksDesc[r.SparePart_Code]
                 : null,
               lastChanged: null,
               WHTime: 0,
