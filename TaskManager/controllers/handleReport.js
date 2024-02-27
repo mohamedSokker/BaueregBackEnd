@@ -11,7 +11,7 @@ const handleReport = async (req, res) => {
         '${JSON.stringify(bodyData.selectedData)}',
         '${bodyData.userName}',
         '${bodyData.userImage}',
-        'false',
+        'New',
         'false'
     )`;
     const data = await getData(query);
