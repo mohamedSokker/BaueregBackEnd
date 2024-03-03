@@ -23,6 +23,8 @@ const socketFn = (server) => {
       sparePartAppVersion: 1,
     });
 
+    socket.emit("RequestUserName", "RequestUserName");
+
     socket.on("join-message", async (roomId) => {
       console.log("join-message triggered");
       socket.join(roomId);

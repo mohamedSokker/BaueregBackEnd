@@ -189,6 +189,7 @@ const manageResources = {
       "Location_Bauer",
       "uploadImg",
       "manageUsers",
+      "Equipments_Location",
     ],
     Dashboard: ["Dashboard"],
     Kanban: ["AdminTasks", "Bauer_Equipments", "Location_Bauer", "manageUsers"],

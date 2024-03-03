@@ -8,6 +8,8 @@ const taskManagerUpdateReports = require("../routes/updateReports");
 const taskManagerUpdateTasks = require("../routes/updateTasks");
 const taskManagerDeleteReport = require("../routes/deleteReport");
 const taskManagerDeleteTask = require("../routes/deleteTask");
+const taskManagergetTargetTasks = require("../routes/getTargetTasks");
+const taskManagergetUsers = require("../routes/getUsers");
 
 const taskManagerEndPoints = (app) => {
   app.use("/api/v1/taskManagerReadExcel", taskManagerReadExcel);
@@ -20,6 +22,8 @@ const taskManagerEndPoints = (app) => {
   app.use("/api/v1/taskManagerUpdateTasks", taskManagerUpdateTasks);
   app.use("/api/v1/taskManagerDeleteReport", taskManagerDeleteReport);
   app.use("/api/v1/taskManagerDeleteTask", taskManagerDeleteTask);
+  app.use("/api/v1/taskManagergetTargetTasks", taskManagergetTargetTasks);
+  app.use("/api/v1/taskManagergetUsers", taskManagergetUsers);
 };
 
 module.exports = { taskManagerEndPoints };

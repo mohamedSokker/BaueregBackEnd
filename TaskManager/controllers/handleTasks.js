@@ -16,6 +16,7 @@ const handleTasks = async (req, res) => {
         Title,
         Description,
         Status,
+        IsReady,
         ReportID) VALUES (
             GETDATE(),
             'Inspected',
@@ -27,11 +28,12 @@ const handleTasks = async (req, res) => {
           bodydata[i].remarks ? `(${bodydata[i].remarks})` : ""
         }',
             'false',
+            'false',
             '${bodydata[i].reportID}'
         )`);
     }
     if (query !== ``) {
-      query += ` UPDATE TaskManagerReports SET Status = 'true' WHERE ID = '${bodydata[0].reportID}'`;
+      // query += ` UPDATE TaskManagerReports SET Status = 'true' WHERE ID = '${bodydata[0].reportID}'`;
       await getData(query);
     } else {
       throw new Error(`No Tasks Found`);

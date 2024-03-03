@@ -69,7 +69,6 @@ const addmanageUsers = async (req, res) => {
         query = query;
       } else {
         keysStatus = false;
-        res.status(404).send("Wrong Arguments");
         break;
       }
     }
