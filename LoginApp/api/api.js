@@ -29,7 +29,7 @@ const loginAppEndPoints = (app) => {
   };
 
   const specs = swaggerjsdoc(options);
-  app.use("/doc", auth, swaggerui.serve, swaggerui.setup(specs));
+  app.use("/doc", swaggerui.serve, swaggerui.setup(specs));
 
   app.get("*", (req, res) => {
     return res.status(400).json({ message: "No route found" });
