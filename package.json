@@ -27,6 +27,7 @@
     "nodemailer": "^6.9.8",
     "novnc": "^1.2.0",
     "novnc-node": "^0.5.3",
+    "openai": "^4.28.4",
     "pdf-lib": "^1.17.1",
     "pdf-parse": "^1.1.1",
     "pdf-poppler": "^0.2.1",

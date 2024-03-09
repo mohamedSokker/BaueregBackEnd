@@ -1,7 +1,18 @@
 const xlsx = require("xlsx");
+const path = require("path");
 
-const MCFilePath = `${__dirname}/Inspection/MC.xlsx`;
-const BGFilePath = `${__dirname}/Inspection/BG.xlsx`;
+const MCFilePath = `${path.join(
+  __dirname,
+  "..",
+  "..",
+  "/TaskManagerFiles"
+)}/YardInspection/MC.xlsx`;
+const BGFilePath = `${path.join(
+  __dirname,
+  "..",
+  "..",
+  "/TaskManagerFiles"
+)}/YardInspection/BG.xlsx`;
 
 const readExcel = (req, res) => {
   const filePath =
