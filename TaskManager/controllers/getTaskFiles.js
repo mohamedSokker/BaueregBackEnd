@@ -3,7 +3,13 @@ const path = require("path");
 
 const getTaskFiles = async (req, res) => {
   try {
-    const basePath = path.join(__dirname, "..", "..", "/TaskManagerFiles");
+    const basePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "/TaskManagerTasks"
+    );
     const fullpath = req.body.fullpath;
     if (fullpath.length < basePath.length) {
       return res.status(403).json({ message: "Unauthorized" });
