@@ -2,6 +2,7 @@ const { authapp } = require("../../auth/controllers/auth");
 const tableGetAll = require("../../Logic/tablesData/tableGetAll");
 const { stocksData, stocksDesc } = require("../../stocksData");
 const { equipmentsData } = require("../../Constants/equipmentsData");
+require("dotenv").config();
 
 const excluded = ["BC 30 883 #187304"];
 const replacedItemd = {
@@ -309,6 +310,31 @@ const tablesEndPoints = (app) => {
           });
         }
       });
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  });
+
+  const XlsxAll = require("../../functions/XlsxAll");
+  const ExcelDateToJSDate = require("../../functions/ExcelToJsDate");
+  const XLSX = require("xlsx");
+
+  app.get("/api/v2/MaintenanceV2", async (req, res) => {
+    try {
+      const password = req.query.pass;
+      console.log(password);
+      if (password !== "Bauer_Germany_2024")
+        throw new Error("You are not authenticated");
+
+      const url = process.env.MAINTENANCE_ONEDRIVE_URL;
+      const result = await XlsxAll(url);
+      const data = XLSX.utils.sheet_to_json(
+        result.Sheets[`Working Hours Difference`]
+      );
+      for (let i = 0; i < data.length; i++) {
+        data[i]["Date"] = ExcelDateToJSDate(data[i]["Date"]);
+      }
       return res.status(200).json(data);
     } catch (error) {
       return res.status(500).json({ message: error.message });
