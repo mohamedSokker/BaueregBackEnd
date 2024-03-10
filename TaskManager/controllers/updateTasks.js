@@ -8,6 +8,8 @@ const updateTasks = async (req, res) => {
     for (let i = 0; i < keys.length; i++) {
       if (bodyData[keys[i]] === null) {
         query += `${keys[i]} = NULL ,`;
+      } else if (bodyData[keys[i]] === "Date.Now") {
+        query += `${keys[i]} = GETDATE() ,`;
       } else if (keys[i] !== "ID") {
         query += `${keys[i]} = '${bodyData[keys[i]]}',`;
       }
