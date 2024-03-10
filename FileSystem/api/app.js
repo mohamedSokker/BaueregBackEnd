@@ -35,6 +35,8 @@ const fileSystemEndPoints = (app) => {
 
   app.get("/MaintApp/*", FileSystem);
 
+  app.get("/Bauereg/TaskManagerTasks/*", FileSystem);
+
   app.get("/Bauereg/Orders/*", FileSystem);
 
   app.get("/Bauereg/OilSamples/*", FileSystem);
