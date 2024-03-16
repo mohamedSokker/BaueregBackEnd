@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const config = {
   user: process.env.CONFIG_USER,
   password: process.env.CONFIG_PASSWORD,

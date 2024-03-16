@@ -1,11 +1,21 @@
-const { getData } = require("../../../functions/getData");
+const { updateData } = require("../../../app/service");
+const {
+  AppMaintNotificationSchema,
+} = require("../../../app/AppMaintNotification/schema");
+// const { getData } = require("../../../functions/getData");
 
 const updateNotification = async (req, res) => {
   try {
     const fieldsData = req.body;
-    console.log(fieldsData);
-    const query = `UPDATE AppMaintNotification SET Sent = 'true' WHERE ID = '${fieldsData?.ID}'`;
-    const result = await getData(query);
+    const result = await updateData(
+      { Sent: "true" },
+      fieldsData?.ID,
+      "AppMaintNotification",
+      AppMaintNotificationSchema
+    );
+    // console.log(fieldsData);
+    // const query = `UPDATE AppMaintNotification SET Sent = 'true' WHERE ID = '${fieldsData?.ID}'`;
+    // const result = await getData(query);
     return res.status(200).json(result);
   } catch (error) {
     console.log(error);

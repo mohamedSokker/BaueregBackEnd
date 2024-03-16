@@ -5,10 +5,13 @@ const { handleDisconnect } = require("../VNC_Client1/handleConnection");
 
 let portsCreated = [];
 
+let io;
+
 const socketFn = (server) => {
   let users = {};
   let rooms = {};
-  const io = socketio(server, {
+
+  io = socketio(server, {
     cors: {
       origin: "*",
     },
@@ -98,4 +101,4 @@ const socketFn = (server) => {
   });
 };
 
-module.exports = { socketFn };
+module.exports = { socketFn, io };

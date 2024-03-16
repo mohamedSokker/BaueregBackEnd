@@ -1,13 +1,15 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { getData } = require("../../functions/getData");
+// const { getData } = require("../../functions/getData");
+const { getAllData } = require("../../app/service");
 
 const appLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
-    var query = "SELECT * FROM AppMaintUsers";
-    let Results = await getData(query);
-    Results = Results.recordsets[0];
+    const Results = await getAllData("AppMaintUsers");
+    // var query = "SELECT * FROM AppMaintUsers";
+    // let Results = await getData(query);
+    // Results = Results.recordsets[0];
     const SearchedItems = Results?.find(
       (Result) =>
         Result.UserName == username ||

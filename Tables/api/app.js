@@ -278,6 +278,27 @@ const tablesEndPoints = (app) => {
     return sparePartdata;
   };
 
+  const getMaintenanceStockOneDrive = (fieldsData) => {
+    const sparePartQuantity = fieldsData?.[`Spare Part`];
+    let sparePartQuantityArray =
+      sparePartQuantity && typeof sparePartQuantity === "string"
+        ? sparePartQuantity?.split(",")
+        : [];
+    if (sparePartQuantityArray.length === 1)
+      sparePartQuantityArray = sparePartQuantity?.split(".");
+    const sparePartdata = [];
+    sparePartQuantityArray?.map((data) => {
+      const sparePart = data?.split("(");
+      const Quantity = sparePart && sparePart[1] && sparePart[1].split(")");
+      sparePartdata.push({
+        sparePart: sparePart && sparePart[0]?.trim(),
+        Quantity: Quantity && Quantity[0],
+        Description: Quantity && Quantity[1] && Quantity[1]?.trim(),
+      });
+    });
+    return sparePartdata;
+  };
+
   app.get("/api/v2/MaintenanceV1", async (req, res) => {
     try {
       const password = req.query.pass;
@@ -322,6 +343,7 @@ const tablesEndPoints = (app) => {
 
   app.get("/api/v2/MaintenanceV2", async (req, res) => {
     try {
+      let currentData = {};
       const password = req.query.pass;
       console.log(password);
       if (password !== "Bauer_Germany_2024")
@@ -329,13 +351,100 @@ const tablesEndPoints = (app) => {
 
       const url = process.env.MAINTENANCE_ONEDRIVE_URL;
       const result = await XlsxAll(url);
-      const data = XLSX.utils.sheet_to_json(
-        result.Sheets[`Working Hours Difference`]
-      );
+      let data = XLSX.utils.sheet_to_json(result.Sheets[`Sheet2`]);
+
       for (let i = 0; i < data.length; i++) {
         data[i]["Date"] = ExcelDateToJSDate(data[i]["Date"]);
+        data[i]["Breakdown Starting Time"] = ExcelDateToJSDate(
+          data[i]["Breakdown Starting Time"]
+        );
+        data[i]["Breakdown Ending Time"] = ExcelDateToJSDate(
+          data[i]["Breakdown Ending Time"]
+        );
       }
-      return res.status(200).json(data);
+
+      data = data.sort(function (a, b) {
+        return a.Equipment.localeCompare(b.Equipment);
+      });
+
+      let finalData = [];
+      data.map(async (r) => {
+        if (!excluded.includes(r.Equipment)) {
+          const replaced = Object.keys(replacedItemd);
+          if (replaced.includes(r.Equipment))
+            r["Equipment"] = replacedItemd[r.Equipment];
+          const sparePartData = getMaintenanceStockOneDrive(r);
+
+          if (currentData?.CurrentEq === r[`Equipment`]) {
+            if (
+              currentData?.[r[[`Spare Part`]]]?.lastTime &&
+              currentData?.[r[`Spare Part`]]?.lastWH
+            ) {
+              sparePartData.map((d) => {
+                finalData.push({
+                  ...r,
+                  "Year of Manufacturing": equipmentsData[r.Equipment],
+                  sparePart: d?.sparePart,
+                  Quantity: d?.Quantity,
+                  Description: d.Description,
+                  sparePart_SabCode: stocksData[d?.sparePart]
+                    ? stocksData[d?.sparePart]
+                    : null,
+                  lastChanged: currentData?.[r[`Spare Part`]]?.lastTime,
+                  WHTime:
+                    Number(r[`Working Hours`]) -
+                    Number(currentData?.[r[`Spare Part`]]?.lastWH),
+                });
+              });
+              currentData[r[`Spare Part`]] = {
+                lastTime: r.Date,
+                lastWH: r[`Working Hours`],
+              };
+            } else {
+              currentData[r[`Spare Part`]] = {
+                lastTime: r.Date,
+                lastWH: r[`Working Hours`],
+              };
+              sparePartData.map((d) => {
+                finalData.push({
+                  ...r,
+                  "Year of Manufacturing": equipmentsData[r.Equipment],
+                  sparePart: d?.sparePart,
+                  Quantity: d?.Quantity,
+                  Description: d.Description,
+                  sparePart_SabCode: stocksData[d?.sparePart]
+                    ? stocksData[d?.sparePart]
+                    : null,
+                  lastChanged: null,
+                  WHTime: 0,
+                });
+              });
+            }
+          } else {
+            currentData = {};
+            currentData.CurrentEq = r.Equipment;
+            currentData[r[`Spare Part`]] = {
+              lastTime: r.DateTime,
+              lastWH: r.Working_Hours,
+            };
+            sparePartData.map((d) => {
+              finalData.push({
+                ...r,
+                "Year of Manufacturing": equipmentsData[r.Equipment],
+                sparePart: d?.sparePart,
+                Quantity: d?.Quantity,
+                Description: d.Description,
+                sparePart_SabCode: stocksData[d?.sparePart]
+                  ? stocksData[d?.sparePart]
+                  : null,
+                lastChanged: null,
+                WHTime: 0,
+              });
+            });
+          }
+        }
+      });
+      return res.status(200).json(finalData);
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

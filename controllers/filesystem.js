@@ -1,5 +1,5 @@
 var fs = require("fs");
-var absPath = process.env.ABS_PATH;
+var absPath = process.env.ABS_PATH; // /home/mohamed
 let abshost = process.env.BASE_URL;
 
 function replaceAllChar(string, char1, char2) {
