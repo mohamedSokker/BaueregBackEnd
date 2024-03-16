@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const { getData } = require("../functions/getData");
 const { eventEmitter } = require("./subscribe");
 const { model } = require("./Model");
@@ -96,9 +98,17 @@ const addData = async (bodyData, table, schema) => {
     let query = `INSERT INTO ${table} VALUES ( `;
     const validation = validateAddData(bodyData, schema);
     if (validation) {
-      Object.keys(bodyData).map((item) => {
-        if (item !== "ID") {
-          query += `'${bodyData[item]}',`;
+      Object.keys(bodyData).map(async (item) => {
+        if (item === "Password") {
+          query += `'${await bcrypt.hash(bodyData[item], 10)}',`;
+        } else if (item !== "ID") {
+          if (bodyData[item] === null) {
+            query += "NULL,";
+          } else if (bodyData[item] === "Date.Now") {
+            query += "GETDATE(),";
+          } else {
+            query += `'${bodyData[item]}',`;
+          }
         }
       });
       query = query.slice(0, -1);
@@ -121,10 +131,14 @@ const addMany = async (data, table, schema) => {
     if (validation) {
       data.map((bodyData) => {
         query += `INSERT INTO ${table} VALUES ( `;
-        Object.keys(bodyData).map((item) => {
-          if (item !== "ID") {
-            if (bodyData[item] === "Date.Now") {
-              query += `GETDATE(),`;
+        Object.keys(bodyData).map(async (item) => {
+          if (item === "Password") {
+            query += `'${await bcrypt.hash(bodyData[item], 10)}',`;
+          } else if (item !== "ID") {
+            if (bodyData[item] === null) {
+              query += "NULL,";
+            } else if (bodyData[item] === "Date.Now") {
+              query += "GETDATE(),";
             } else {
               query += `'${bodyData[item]}',`;
             }
@@ -149,9 +163,17 @@ const updateData = async (bodyData, id, table, schema) => {
     let query = `UPDATE ${table} SET `;
     const validation = validateupdateData(bodyData, schema);
     if (validation) {
-      Object.keys(bodyData).map((item) => {
-        if (item !== "ID") {
-          query += `"${item}" = '${bodyData[item]}',`;
+      Object.keys(bodyData).map(async (item) => {
+        if (item === "Password") {
+          query += `"${item}" = '${await bcrypt.hash(bodyData[item], 10)}',`;
+        } else if (item !== "ID") {
+          if (bodyData[item] === null) {
+            query += `"${item}" = NULL,`;
+          } else if (bodyData[item] === "Date.Now") {
+            query += `"${item}" = GETDATE(),`;
+          } else {
+            query += `"${item}" = '${bodyData[item]}',`;
+          }
         }
       });
       query = query.slice(0, -1);
@@ -177,9 +199,17 @@ const updateMany = async (data, table, schema) => {
     if (validation) {
       data.map((bodyData) => {
         query += ` UPDATE ${table} SET `;
-        Object.keys(bodyData).map((item) => {
-          if (item !== "ID") {
-            query += `${item} = '${bodyData[item]}',`;
+        Object.keys(bodyData).map(async (item) => {
+          if (item === "Password") {
+            query += `"${item}" = '${await bcrypt.hash(bodyData[item], 10)}',`;
+          } else if (item !== "ID") {
+            if (bodyData[item] === null) {
+              query += `"${item}" = NULL,`;
+            } else if (bodyData[item] === "Date.Now") {
+              query += `"${item}" = GETDATE(),`;
+            } else {
+              query += `"${item}" = '${bodyData[item]}',`;
+            }
           }
         });
         query = query.slice(0, -1);

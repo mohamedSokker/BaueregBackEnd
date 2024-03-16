@@ -1,4 +1,4 @@
-const tableInsertData = require("../../Logic/tablesData/tableInsertData");
+// const tableInsertData = require("../../Logic/tablesData/tableInsertData");
 // const tableUpdateData = require("../../Logic/tablesData/tableUpdateData");
 // const tableDeleteData = require("../../Logic/tablesData/tableDeleteData");
 // const tableGetAll = require("../../Logic/tablesData/tableGetAll");
