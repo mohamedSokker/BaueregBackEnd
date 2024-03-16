@@ -105,7 +105,7 @@ const addData = async (bodyData, table, schema) => {
       query += ") ";
       const result = await getData(query);
       eventEmitter.emit("addedOne", { count: 1, table: table });
-      return result;
+      return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
     }
@@ -135,7 +135,7 @@ const addMany = async (data, table, schema) => {
       });
       const result = await getData(query);
       eventEmitter.emit("addedMany", { data: data.length, table, table });
-      return result;
+      return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
     }
@@ -161,7 +161,7 @@ const updateData = async (bodyData, id, table, schema) => {
         data: { ID: Number(id), ...bodyData },
         table: table,
       });
-      return result;
+      return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
     }
@@ -188,7 +188,7 @@ const updateMany = async (data, table, schema) => {
 
       const result = await getData(query);
       eventEmitter.emit("updatedMany", { data: data, table: table });
-      return result;
+      return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
     }
@@ -202,7 +202,7 @@ const deleteData = async (id, table) => {
     let query = `DELETE FROM ${table} WHERE ID = '${id}'`;
     const result = await getData(query);
     eventEmitter.emit("deletedOne", { id: id, table: table });
-    return result;
+    return result.recordsets[0];
   } catch (error) {
     throw new Error(error);
   }
@@ -216,7 +216,7 @@ const deleteMany = async (ids, table) => {
     });
     const result = await getData(query);
     eventEmitter.emit("deletedMany", { ids: ids, table: table });
-    return result;
+    return result.recordsets[0];
   } catch (error) {
     throw new Error(error);
   }
