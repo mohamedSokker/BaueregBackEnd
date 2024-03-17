@@ -30,7 +30,7 @@ const logic = async (req, res) => {
     //                AND Role <> 'Operator'`;
     // console.log(query);
     // const result = await getData(query);
-    return res.status(200).json(result.recordsets[0]);
+    return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
