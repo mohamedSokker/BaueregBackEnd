@@ -89,7 +89,7 @@ const tablesV2EndPoint = (app) => {
       addVariables(item.name, item.schema),
       route
     );
-    await getAllData(item.name);
+    // await getAllData(item.name);
   });
   app.use(
     "/api/v3/AppMaintUsers",

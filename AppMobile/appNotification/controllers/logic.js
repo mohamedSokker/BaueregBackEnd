@@ -11,11 +11,13 @@ const logic = async (req, res) => {
     // let query = ``;
     const allUsersData = await getAllData("AppMaintUsers");
     if (fieldsData?.type === "newIssue") {
-      const result = allUsersData.filter(
-        (item) =>
+      const result = allUsersData.filter((item) => {
+        console.log(item);
+        return (
           item.Location.includes(fieldsData?.Location) &&
           item.Role !== "Operator"
-      );
+        );
+      });
       // query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
       //                  Role <> 'Operator'`;
       // let result = await getData(query);
@@ -42,12 +44,14 @@ const logic = async (req, res) => {
         // await getData(notQuery);
       }
     } else if (fieldsData?.type === "endIssue") {
-      const result = allUsersData.filter(
-        (item) =>
+      const result = allUsersData.filter((item) => {
+        console.log(item);
+        return (
           item.Location.includes(fieldsData?.Location) &&
           item.Role === "Operator" &&
           item.Equipment_Type === fieldsData?.Equipment_Type
-      );
+        );
+      });
       // query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
       //                  Role = 'Operator' AND Equipment_Type = '${fieldsData?.Equipment_Type}'`;
       // let result = await getData(query);
