@@ -7,11 +7,18 @@ const logic = async (req, res) => {
 
     const allData = await getAllData("AppMaintUsers");
 
-    const result = allData.filter(
+    const filteredData = allData.filter(
       (item) =>
         Location.some((loc) => loc.includes(item.Location)) &&
         item.Role !== "Operator"
     );
+
+    console.log(`filteredData: ${filteredData}`);
+
+    const result = [];
+    filteredData.map((item) => {
+      result.push({ Token: item.Token });
+    });
     // let locQuery = ``;
     // for (let i = 0; i < Location.length; i++) {
     //   if (Location.length === 1) {

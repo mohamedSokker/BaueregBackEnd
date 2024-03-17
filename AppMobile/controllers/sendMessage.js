@@ -39,15 +39,18 @@ const sendMessage = async (req, res) => {
 
     tokens: fieldsData.Tokens,
   };
-
-  getMessaging(app1)
-    .sendEachForMulticast(message)
-    .then((response) => {
-      return res.status(200).json({ recieved: response.successCount });
-    })
-    .catch((error) => {
-      return res.status(500).json({ message: error.message });
-    });
+  if (fieldsData.Tokens.length > 0) {
+    getMessaging(app1)
+      .sendEachForMulticast(message)
+      .then((response) => {
+        return res.status(200).json({ recieved: response.successCount });
+      })
+      .catch((error) => {
+        return res.status(500).json({ message: error.message });
+      });
+  } else {
+    console.log("no tokens");
+  }
 };
 
 module.exports = { sendMessage };
