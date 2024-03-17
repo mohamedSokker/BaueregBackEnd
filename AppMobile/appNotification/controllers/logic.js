@@ -10,13 +10,16 @@ const logic = async (req, res) => {
     const bodyData = [];
     // let query = ``;
     const allUsersData = await getAllData("AppMaintUsers");
-    console.log(fieldsData?.Location);
+    console.log(
+      JSON.parse(fieldsData?.Location) && JSON.parse(fieldsData?.Location)[0]
+    );
     if (fieldsData?.type === "newIssue") {
       const result = allUsersData.filter((item) => {
-        console.log(item);
         return (
-          item.Location.includes(fieldsData?.Location) &&
-          item.Role !== "Operator"
+          item.Location.includes(
+            JSON.parse(fieldsData?.Location) &&
+              JSON.parse(fieldsData?.Location)[0]
+          ) && item.Role !== "Operator"
         );
       });
       // query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
@@ -46,7 +49,6 @@ const logic = async (req, res) => {
       }
     } else if (fieldsData?.type === "endIssue") {
       const result = allUsersData.filter((item) => {
-        console.log(item);
         return (
           item.Location.includes(fieldsData?.Location) &&
           item.Role === "Operator" &&
