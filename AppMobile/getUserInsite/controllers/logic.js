@@ -5,7 +5,7 @@ const logic = async (req, res) => {
   try {
     const { Location } = req.body;
 
-    console.log(`location: ${Location}`);
+    console.log(`location: ${JSON.stringify(Location)}`);
 
     const allData = await getAllData("AppMaintUsers");
 
