@@ -13,7 +13,6 @@ const logic = async (req, res) => {
     console.log(`location: ${fieldsData?.Location}`);
     if (fieldsData?.type === "newIssue") {
       const result = allUsersData.filter((item) => {
-        console.log(item);
         return (
           item.Location.includes(fieldsData?.Location) &&
           item.Role !== "Operator"
@@ -46,7 +45,6 @@ const logic = async (req, res) => {
       }
     } else if (fieldsData?.type === "endIssue") {
       const result = allUsersData.filter((item) => {
-        console.log(item);
         return (
           item.Location.includes(fieldsData?.Location) &&
           item.Role === "Operator" &&
