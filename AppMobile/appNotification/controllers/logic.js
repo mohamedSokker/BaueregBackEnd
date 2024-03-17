@@ -10,6 +10,7 @@ const logic = async (req, res) => {
     const bodyData = [];
     // let query = ``;
     const allUsersData = await getAllData("AppMaintUsers");
+    console.log(fieldsData?.Location);
     if (fieldsData?.type === "newIssue") {
       const result = allUsersData.filter((item) => {
         console.log(item);

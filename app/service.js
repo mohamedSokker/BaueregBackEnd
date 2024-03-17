@@ -11,22 +11,22 @@ const {
   validateManyUpdate,
 } = require("./validation");
 
-const getTableData = async (table) => {
-  try {
-    const getquery = `SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('${table}')`;
-    const data = (await getData(getquery)).recordsets[0];
-    let result = {};
-    data.map((d) => {
-      result[d.name] = {};
-    });
-    console.log(result);
-    return data;
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+// const getTableData = async (table) => {
+//   try {
+//     const getquery = `SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('${table}')`;
+//     const data = (await getData(getquery)).recordsets[0];
+//     let result = {};
+//     data.map((d) => {
+//       result[d.name] = {};
+//     });
+//     console.log(result);
+//     return data;
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
-getTableData("AppMaintUsers");
+// getTableData("AppMaintUsers");
 
 const createTable = async (table, schema) => {
   try {
