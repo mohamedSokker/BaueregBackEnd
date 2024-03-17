@@ -5,6 +5,8 @@ const logic = async (req, res) => {
   try {
     const { Location } = req.body;
 
+    console.log(`location: ${Location}`);
+
     const allData = await getAllData("AppMaintUsers");
 
     const filteredData = allData.filter(

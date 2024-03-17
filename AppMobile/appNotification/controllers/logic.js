@@ -10,7 +10,7 @@ const logic = async (req, res) => {
     const bodyData = [];
     // let query = ``;
     const allUsersData = await getAllData("AppMaintUsers");
-    console.log(`location: ${fieldsData?.Location}`);
+    // console.log(`location: ${fieldsData?.Location}`);
     if (fieldsData?.type === "newIssue") {
       const result = allUsersData.filter((item) => {
         return (
@@ -77,7 +77,7 @@ const logic = async (req, res) => {
         // await getData(notQuery);
       }
     }
-    console.log(bodyData);
+    // console.log(bodyData);
     await addMany(bodyData, "AppMaintNotification", AppMaintNotificationSchema);
     return res.status(200).json({ success: "true" });
   } catch (error) {
