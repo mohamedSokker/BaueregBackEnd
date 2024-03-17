@@ -49,7 +49,7 @@ const sendMessage = async (req, res) => {
         return res.status(500).json({ message: error.message });
       });
   } else {
-    return res.status(500).json({ message: "no tokens" });
+    return res.status(200).json({ message: "no tokens" });
   }
 };
 

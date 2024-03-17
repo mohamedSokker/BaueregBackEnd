@@ -11,7 +11,7 @@ const logic = async (req, res) => {
 
     const filteredData = allData.filter(
       (item) =>
-        Location.some((loc) => loc.includes(item.Location)) &&
+        Location.some((loc) => item.Location.includes(loc)) &&
         item.Role !== "Operator"
     );
 
