@@ -30,6 +30,7 @@ let { privateKey } = JSON.parse(process.env.FIREBASE_PRIVATE_KEY);
 
 const sendMessage = async (req, res) => {
   const fieldsData = req.body;
+  console.log(`fieldsData: ${JSON.stringify(fieldsData)}`);
   const message = {
     notification: {
       title: fieldsData.title,
