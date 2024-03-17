@@ -15,7 +15,7 @@ const logic = async (req, res) => {
         item.Role !== "Operator"
     );
 
-    console.log(`filteredData: ${filteredData}`);
+    console.log(`filteredData: ${JSON.stringify(filteredData)}`);
 
     const result = [];
     filteredData.map((item) => {
