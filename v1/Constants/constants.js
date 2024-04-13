@@ -1,0 +1,8 @@
+const { auth } = require("../controllers/auth");
+const { authapp } = require("../auth/controllers/auth");
+const { appMaintauth } = require("../AppMobile/controllers/auth");
+const { cache } = require("../../v3/data/routeCache");
+
+const CurrDir = process.env.CURRENT_DIRECTORY;
+
+module.exports = { auth, authapp, appMaintauth, cache, CurrDir };

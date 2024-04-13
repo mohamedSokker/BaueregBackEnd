@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const corsOptions = require("./config/corsAoptions");
-const credentials = require("./middleware/credentials");
+const corsOptions = require("./v3/config/corsAoptions");
+const credentials = require("./v3/middlewares/credentials");
 const cookieParser = require("cookie-parser");
 const http = require("http");
 const server = http.createServer(app);
@@ -18,68 +18,77 @@ app.use(cookieParser());
 // const { createData } = require("./createData");
 // createData();
 /////////////////////////////////////////////////Database Data//////////////////////////////////////////////
-const { databaseDataEndPoints } = require("./DatabaseData/api/api");
+const { databaseDataEndPoints } = require("./v1/DatabaseData/api/api");
 databaseDataEndPoints(app);
 /////////////////////////////////////////////////Task Manager///////////////////////////////////////////////
-const { taskManagerEndPoints } = require("./TaskManager/api/api");
-taskManagerEndPoints(app);
+// const { taskManagerEndPoints } = require("./v1/TaskManager/api/api");
+// taskManagerEndPoints(app);
 /////////////////////////////////////////////////Email//////////////////////////////////////////////////////
-const { emailEndPoint } = require("./Email/api/api");
-emailEndPoint(app);
+// const { emailEndPoint } = require("./v1/Email/api/api");
+// emailEndPoint(app);
 //////////////////////////////////////////////////QC Logic//////////////////////////////////////////////////
-const dataSelected = require("./Logic/QC/Maintenance/routes/getActiveSites");
-app.use("/api/v1/getActiveData", dataSelected);
+// const dataSelected = require("./v1/Logic/QC/Maintenance/routes/getActiveSites");
+// app.use("/api/v1/getActiveData", dataSelected);
 //////////////////////////////////////////////////Mongo DB Backup///////////////////////////////////////////
-const mongoBackup = require("./Mongo Backup/routes/mongoBackup");
-app.use("/api/v1/mongoBackup", mongoBackup);
+// const mongoBackup = require("./v1/Mongo Backup/routes/mongoBackup");
+// app.use("/api/v1/mongoBackup", mongoBackup);
 /////////////////////////////////////////////////Socket////////////////////////////////////////////////////
-const { socketFn } = require("./Socket/socket");
+const { socketFn } = require("./v3/socket/socket");
 socketFn(server);
 ////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
-const { oneDriveEndPoints } = require("./OneDrive/api/api");
-oneDriveEndPoints(app);
-//////////////////////////////////////////////////App Mobile ///////////////////////////////////////////////
-const { appMobileEndPoints } = require("./AppMobile/api/api");
+// const { oneDriveEndPoints } = require("./v1/OneDrive/api/api");
+// oneDriveEndPoints(app);
+//////////////////////////////////////////////////files ///////////////////////////////////////////////
+const { filesEndPoints } = require("./v3/files/api/api");
+filesEndPoints(app);
+//////////////////////////////////////////////////Website ///////////////////////////////////////////////
+const { webApi } = require("./v3/apis/web/webApi");
+webApi(app);
+//////////////////////////////////////////////////spare Part Mobile App ///////////////////////////////////////////////
+const { sparePartAppapi } = require("./v3/apis/sparePartApp/sparePartAppapi");
+sparePartAppapi(app);
+//////////////////////////////////////////////////Maintenance Mobile App ///////////////////////////////////////////////
+const { appMobileEndPoints } = require("./v3/apis/maintenanceMobileApp/api");
 appMobileEndPoints(app);
 /////////////////////////////////////////////////auth //////////////////////////////////////////////////////
-const { authEndPoints } = require("./auth/api/api");
-authEndPoints(app);
+// const { authEndPoints } = require("./v1/auth/api/api");
+// authEndPoints(app);
 //////////////////////////////////////////////////Transportations //////////////////////////////////////////
-const { transportationsEndPoints } = require("./Transportation/api/api");
-transportationsEndPoints(app);
+// const { transportationsEndPoints } = require("./v1/Transportation/api/api");
+// transportationsEndPoints(app);
 //////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
-const { dashboardEndPoints } = require("./Dashboard/api/api");
-dashboardEndPoints(app);
+// const { dashboardEndPoints } = require("./v1/Dashboard/api/api");
+// dashboardEndPoints(app);
 //////////////////////////////////////////////////Sites Logic /////////////////////////////////////////////
-const { sitesEndPoints } = require("./Sites/api/api");
-sitesEndPoints(app);
+// const { sitesEndPoints } = require("./v1/Sites/api/api");
+// sitesEndPoints(app);
 //////////////////////////////////////////////////Equipment Logic //////////////////////////////////////////
-const { equipmentsEndPoints } = require("./Equipments/api/api");
-equipmentsEndPoints(app);
+// const { equipmentsEndPoints } = require("./v1/Equipments/api/api");
+// equipmentsEndPoints(app);
 //////////////////////////////////////////////////Tables Logic /////////////////////////////////////////////
-const { tablesLogicEndPoints } = require("./TablesLogic/api/api");
-tablesLogicEndPoints(app);
+// const { tablesLogicEndPoints } = require("./v1/TablesLogic/api/api");
+// tablesLogicEndPoints(app);
 //////////////////////////////////////////////////Orders FileSystem ////////////////////////////////////////
-const { ordersFilesEndPoints } = require("./OrdersFile/api/api");
-ordersFilesEndPoints(app);
+// const { ordersFilesEndPoints } = require("./v1/OrdersFile/api/api");
+// ordersFilesEndPoints(app);
 //////////////////////////////////////////////////PDF Anaysis ///////////////////////////////////////////////
-const { pdfAnalysisEndPoints } = require("./pdfParsing/api/api");
-pdfAnalysisEndPoints(app);
+// const { pdfAnalysisEndPoints } = require("./v1/pdfParsing/api/api");
+// pdfAnalysisEndPoints(app);
 //////////////////////////////////////Spare Parts App ///////////////////////////////////////////////////
-const { sparePartEndPoints } = require("./sparePartApp/api/api");
-sparePartEndPoints(app);
+// const { sparePartEndPoints } = require("./v1/sparePartApp/api/api");
+// sparePartEndPoints(app);
 //////////////////////////////////////////////////Tables/////////////////////////////////////////////////////
-const { tablesEndPoints } = require("./Tables/api/app");
-tablesEndPoints(app);
+// const { tablesEndPoints } = require("./v1/Tables/api/app");
+// tablesEndPoints(app);
 //////////////////////////////////////////////////TablesV2/////////////////////////////////////////////////////
-const { tablesV2EndPoint } = require("./app/api");
+const { tablesV2EndPoint } = require("./v3/apis/mainAPI");
 tablesV2EndPoint(app);
 //////////////////////////////////////////////////File System ///////////////////////////////////////////////
-const { fileSystemEndPoints } = require("./FileSystem/api/app");
-fileSystemEndPoints(app);
+// const { fileSystemEndPoints } = require("./v1/FileSystem/api/app");
+// fileSystemEndPoints(app);
 //////////////////////////////////////////////////Login app ///////////////////////////////////////////////
-const { loginAppEndPoints } = require("./LoginApp/api/api");
-loginAppEndPoints(app);
+// const { loginAppEndPoints } = require("./v1/LoginApp/api/api");
+// loginAppEndPoints(app);
 
 server.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${process.env.PORT}`);
