@@ -49,16 +49,16 @@ const getAllData = async (table) => {
       console.log(`From Database`);
       const query = `SELECT * FROM ${table}`;
       const result = (await getData(query)).recordsets[0];
-      model[table] = result;
-      const size = Buffer.byteLength(JSON.stringify(model));
-      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
-      const sizeMB = sizeKB / 1024;
-      console.log(
-        `${size} byte`,
-        `${sizeKB.toFixed(2)} KB`,
-        `${sizeMB.toFixed(2)} MB`
-      );
-      console.log(table);
+      // model[table] = result;
+      // const size = Buffer.byteLength(JSON.stringify(model));
+      // const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+      // const sizeMB = sizeKB / 1024;
+      // console.log(
+      //   `${size} byte`,
+      //   `${sizeKB.toFixed(2)} KB`,
+      //   `${sizeMB.toFixed(2)} MB`
+      // );
+      // console.log(table);
       return result;
     } else {
       console.log(`From Model`);
@@ -125,7 +125,7 @@ const addData = async (bodyData, table, schema) => {
       query += ") ";
       // console.log(query);
       const result = await getData(query);
-      eventEmitter.emit("addedOne", { count: 1, table: table });
+      // eventEmitter.emit("addedOne", { count: 1, table: table });
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -191,7 +191,7 @@ const addMany = async (data, table, schema) => {
       console.log(query);
       const result = await getData(query);
 
-      eventEmitter.emit("addedMany", { data: data.length, table, table });
+      // eventEmitter.emit("addedMany", { data: data.length, table, table });
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -267,10 +267,10 @@ const updateData = async (bodyData, id, table, schema) => {
       query += ` WHERE ID = '${id}'`;
       // console.log(query);
       const result = await getData(query);
-      eventEmitter.emit("updatedOne", {
-        data: { ID: Number(id), ...newBody },
-        table: table,
-      });
+      // eventEmitter.emit("updatedOne", {
+      //   data: { ID: Number(id), ...newBody },
+      //   table: table,
+      // });
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -335,7 +335,7 @@ const updateMany = async (data, table, schema) => {
       console.log(query);
       const result = await getData(query);
 
-      eventEmitter.emit("updatedMany", { data: data, table: table });
+      // eventEmitter.emit("updatedMany", { data: data, table: table });
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -382,7 +382,7 @@ const deleteData = async (id, table) => {
   try {
     let query = `DELETE FROM ${table} WHERE ID = '${id}'`;
     const result = await getData(query);
-    eventEmitter.emit("deletedOne", { id: id, table: table });
+    // eventEmitter.emit("deletedOne", { id: id, table: table });
     return result.recordsets[0];
   } catch (error) {
     throw new Error(error);
@@ -405,7 +405,7 @@ const deleteMany = async (ids, table) => {
       query += `DELETE FROM ${table} WHERE ID = '${id}' `;
     });
     const result = await getData(query);
-    eventEmitter.emit("deletedMany", { ids: ids, table: table });
+    // eventEmitter.emit("deletedMany", { ids: ids, table: table });
     return result.recordsets[0];
   } catch (error) {
     throw new Error(error);
