@@ -8,7 +8,7 @@ const allData = async (req, res) => {
   try {
     const avData = await getAllData("Availability");
     const maintData = await getAllData("Maintenance");
-    const perMaintData = await getAllData("PeriodicMaintenance_Plan");
+    const maintStocksData = await getAllData("Maintenance_Stocks");
     const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
     const cons = await XlsxAll(consurl);
     const fuelCons = XLSX.utils.sheet_to_json(cons.Sheets[`Fuel Consumption`]);
@@ -60,7 +60,7 @@ const allData = async (req, res) => {
     const data = {
       avData: avData,
       maintData: maintData,
-      perMaintData: perMaintData,
+      maintStocksData: maintStocksData,
       fuelCons: fuelCons,
       oilCons: oilCons,
       prodDrill: prodDrill,
