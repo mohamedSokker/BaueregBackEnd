@@ -2,6 +2,19 @@ const XLSX = require("xlsx");
 const XlsxAll = require("../../../../v3/helpers/XlsxAll");
 const ExcelDateToJSDate = require("../../../../v3/helpers/ExcelToJsDate");
 require("dotenv").config();
+const { Readable } = require("stream");
+
+function createReadableStream(data) {
+  return new Readable({
+    objectMode: true,
+    read() {
+      data.forEach((item) => {
+        this.push(JSON.stringify(item) + "\n");
+      });
+      this.push(null);
+    },
+  });
+}
 
 const oilConsumption = async (req, res) => {
   try {
@@ -14,23 +27,11 @@ const oilConsumption = async (req, res) => {
     }
     oilCons.sort((a, b) => a["Date"] - b["Date"]);
 
-    const chunkSize = 1024 * 1024; // 1MB chuncks
-    let sentBytes = 0;
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Transfer-Encoding", "chunked");
 
-    const writableStream = new Writable({
-      write(chunk, emcoding, callback) {
-        sentBytes += chunk.length;
-        res.write(chunk);
-        callback();
-      },
-    });
-
-    writableStream.on("finish", () => {
-      res.end();
-      console.log(`Av Sent ${sentBytes} of data`);
-    });
-
-    oilCons.pipe(writableStream);
+    const readableStream = createReadableStream(oilCons);
+    readableStream.pipe(res);
 
     // return res.status(200).json(oilCons);
   } catch (error) {

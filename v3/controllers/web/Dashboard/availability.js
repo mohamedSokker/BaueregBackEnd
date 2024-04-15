@@ -1,28 +1,28 @@
-const { Writable } = require("stream");
+const { Readable } = require("stream");
 
 const { getAllData } = require("../../../services/mainService");
+
+function createReadableStream(data) {
+  return new Readable({
+    objectMode: true,
+    read() {
+      data.forEach((item) => {
+        this.push(JSON.stringify(item) + "\n");
+      });
+      this.push(null);
+    },
+  });
+}
 
 const availability = async (req, res) => {
   try {
     const avData = await getAllData("Availability");
 
-    const chunkSize = 1024 * 1024; // 1MB chuncks
-    let sentBytes = 0;
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Transfer-Encoding", "chunked");
 
-    const writableStream = new Writable({
-      write(chunk, emcoding, callback) {
-        sentBytes += chunk.length;
-        res.write(chunk);
-        callback();
-      },
-    });
-
-    writableStream.on("finish", () => {
-      res.end();
-      console.log(`Av Sent ${sentBytes} of data`);
-    });
-
-    avData.pipe(writableStream);
+    const readableStream = createReadableStream(avData);
+    readableStream.pipe(res);
 
     // return res.status(200).json(avData);
   } catch (error) {

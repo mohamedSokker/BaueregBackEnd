@@ -1,30 +1,31 @@
 const { getAllData } = require("../../../services/mainService");
 const XLSX = require("xlsx");
+const { Readable } = require("stream");
 const XlsxAll = require("../../../../v3/helpers/XlsxAll");
 const ExcelDateToJSDate = require("../../../../v3/helpers/ExcelToJsDate");
 require("dotenv").config();
+
+function createReadableStream(data) {
+  return new Readable({
+    objectMode: true,
+    read() {
+      data.forEach((item) => {
+        this.push(JSON.stringify(item) + "\n");
+      });
+      this.push(null);
+    },
+  });
+}
 
 const maintenance = async (req, res) => {
   try {
     const maintData = await getAllData("Maintenance");
 
-    const chunkSize = 1024 * 1024; // 1MB chuncks
-    let sentBytes = 0;
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Transfer-Encoding", "chunked");
 
-    const writableStream = new Writable({
-      write(chunk, emcoding, callback) {
-        sentBytes += chunk.length;
-        res.write(chunk);
-        callback();
-      },
-    });
-
-    writableStream.on("finish", () => {
-      res.end();
-      console.log(`Av Sent ${sentBytes} of data`);
-    });
-
-    maintData.pipe(writableStream);
+    const readableStream = createReadableStream(maintData);
+    readableStream.pipe(res);
 
     // return res.status(200).json(maintData);
   } catch (error) {
