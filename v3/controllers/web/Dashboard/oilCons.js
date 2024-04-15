@@ -14,7 +14,25 @@ const oilConsumption = async (req, res) => {
     }
     oilCons.sort((a, b) => a["Date"] - b["Date"]);
 
-    return res.status(200).json(oilCons);
+    const chunkSize = 1024 * 1024; // 1MB chuncks
+    let sentBytes = 0;
+
+    const writableStream = new Writable({
+      write(chunk, emcoding, callback) {
+        sentBytes += chunk.length;
+        res.write(chunk);
+        callback();
+      },
+    });
+
+    writableStream.on("finish", () => {
+      res.end();
+      console.log(`Av Sent ${sentBytes} of data`);
+    });
+
+    oilCons.pipe(writableStream);
+
+    // return res.status(200).json(oilCons);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

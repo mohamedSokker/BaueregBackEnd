@@ -25,7 +25,25 @@ const productionDrill = async (req, res) => {
     }
     prodDrill.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
 
-    return res.status(200).json(prodDrill);
+    const chunkSize = 1024 * 1024; // 1MB chuncks
+    let sentBytes = 0;
+
+    const writableStream = new Writable({
+      write(chunk, emcoding, callback) {
+        sentBytes += chunk.length;
+        res.write(chunk);
+        callback();
+      },
+    });
+
+    writableStream.on("finish", () => {
+      res.end();
+      console.log(`Av Sent ${sentBytes} of data`);
+    });
+
+    prodDrill.pipe(writableStream);
+
+    // return res.status(200).json(prodDrill);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
