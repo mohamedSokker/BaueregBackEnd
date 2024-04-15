@@ -19,6 +19,8 @@ function createReadableStream(data) {
 
 const fuelConsumption = async (req, res) => {
   try {
+    const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
+
     const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
     const cons = await XlsxAll(consurl);
     const fuelCons = XLSX.utils.sheet_to_json(cons.Sheets[`Fuel Consumption`]);
@@ -27,13 +29,30 @@ const fuelConsumption = async (req, res) => {
     }
     fuelCons.sort((a, b) => a["Date "] - b["Date "]);
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Transfer-Encoding", "chunked");
-
     const readableStream = createReadableStream(fuelCons);
     readableStream.pipe(res);
 
-    // return res.status(200).json(fuelCons);
+    readableStream.on("data", (chunk) => {});
+
+    readableStream.on("end", () => {
+      const memoryUsageAfter = process.memoryUsage().rss;
+      const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+      console.log(`Fuel Cons b ${memoryUsageBefore / (1024 * 1024)} MB`);
+      console.log(`Fuel Cons a ${memoryDiff / (1024 * 1024)} MB`);
+      res.end();
+    });
+
+    // res.status(200).json(fuelCons);
+
+    const memoryUsageAfter = process.memoryUsage().rss; // Measure memory usage after response
+    const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+    console.log(
+      `Fuel Cons Memory usage for /my-endpoint: ${
+        memoryDiff / (1024 * 1024)
+      } MB`
+    );
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

@@ -18,6 +18,7 @@ function createReadableStream(data) {
 
 const oilConsumption = async (req, res) => {
   try {
+    const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
     const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
     const cons = await XlsxAll(consurl);
     const oilCons = XLSX.utils.sheet_to_json(cons.Sheets[`Oil Consumption`]);
@@ -27,13 +28,19 @@ const oilConsumption = async (req, res) => {
     }
     oilCons.sort((a, b) => a["Date"] - b["Date"]);
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Transfer-Encoding", "chunked");
-
     const readableStream = createReadableStream(oilCons);
     readableStream.pipe(res);
 
-    // return res.status(200).json(oilCons);
+    readableStream.on("data", (chunk) => {});
+
+    readableStream.on("end", () => {
+      const memoryUsageAfter = process.memoryUsage().rss;
+      const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+      console.log(`Oil Cons b ${memoryUsageBefore / (1024 * 1024)} MB`);
+      console.log(`Oil Cons a ${memoryDiff / (1024 * 1024)} MB`);
+      res.end();
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

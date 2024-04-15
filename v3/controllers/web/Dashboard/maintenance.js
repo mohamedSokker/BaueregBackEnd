@@ -19,15 +19,23 @@ function createReadableStream(data) {
 
 const maintenance = async (req, res) => {
   try {
-    const maintData = await getAllData("Maintenance");
+    const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Transfer-Encoding", "chunked");
+    const maintData = await getAllData("Maintenance");
 
     const readableStream = createReadableStream(maintData);
     readableStream.pipe(res);
 
-    // return res.status(200).json(maintData);
+    readableStream.on("data", (chunk) => {});
+
+    readableStream.on("end", () => {
+      const memoryUsageAfter = process.memoryUsage().rss;
+      const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+      console.log(`Maintenance b ${memoryUsageBefore / (1024 * 1024)} MB`);
+      console.log(`Maintenance a ${memoryDiff / (1024 * 1024)} MB`);
+      res.end();
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

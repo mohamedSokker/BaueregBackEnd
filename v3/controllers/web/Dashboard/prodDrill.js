@@ -18,6 +18,7 @@ function createReadableStream(data) {
 
 const productionDrill = async (req, res) => {
   try {
+    const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
     const Piles = ["Piles"];
     const produrl = process.env.ONEDRIVE_URL;
     const prod = await XlsxAll(produrl);
@@ -38,13 +39,19 @@ const productionDrill = async (req, res) => {
     }
     prodDrill.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Transfer-Encoding", "chunked");
-
     const readableStream = createReadableStream(prodDrill);
     readableStream.pipe(res);
 
-    // return res.status(200).json(prodDrill);
+    readableStream.on("data", (chunk) => {});
+
+    readableStream.on("end", () => {
+      const memoryUsageAfter = process.memoryUsage().rss;
+      const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+      console.log(`Prod Drill b ${memoryUsageBefore / (1024 * 1024)} MB`);
+      console.log(`Prod Drill a ${memoryDiff / (1024 * 1024)} MB`);
+      res.end();
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
