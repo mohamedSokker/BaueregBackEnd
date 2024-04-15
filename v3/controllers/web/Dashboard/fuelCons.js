@@ -10,7 +10,7 @@ function createReadableStream(data) {
     objectMode: true,
     read() {
       data.forEach((item) => {
-        this.push(JSON.stringify(item) + "\n");
+        this.push(JSON.stringify(item) + ",");
       });
       this.push(null);
     },
