@@ -1,5 +1,7 @@
 const { Readable } = require("stream");
-const { streamArray } = require("stream-json/streamers/StreamArray");
+// const { streamArray } = require("stream-json/streamers/StreamArray");
+// const { io } = require("../../../socket/socket");
+const JSONStream = require("JSONStream");
 
 const { getAllData } = require("../../../services/mainService");
 
@@ -20,19 +22,45 @@ const availability = async (req, res) => {
     const memoryUsageBefore = process.memoryUsage().rss;
     const avData = await getAllData("Availability");
 
-    const readableStream = createReadableStream(avData);
-    readableStream.pipe(res);
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Transfer-Encoding", "chunked");
 
-    readableStream.on("data", (chunk) => {});
+    res.writeHead(200);
 
-    readableStream.on("end", () => {
-      const memoryUsageAfter = process.memoryUsage().rss;
-      const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+    const jsonStream = JSONStream.stringify();
 
-      console.log(`Availability b ${memoryUsageBefore / (1024 * 1024)} MB`);
-      console.log(`Availability a ${memoryDiff / (1024 * 1024)} MB`);
-      res.end();
+    // Pipe the large JSON object to the JSONStream serializer
+    jsonStream.pipe(res);
+
+    // Push the large JSON object into the JSONStream serializer
+    avData.forEach((item) => {
+      jsonStream.write(item);
     });
+
+    // End the JSONStream serializer
+    jsonStream.end();
+
+    const memoryUsageAfter = process.memoryUsage().rss;
+    const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+    console.log(`Availability b ${memoryUsageBefore / (1024 * 1024)} MB`);
+    console.log(`Availability a ${memoryDiff / (1024 * 1024)} MB`);
+
+    // const readableStream = createReadableStream(avData);
+    // // readableStream.pipe(res);
+
+    // readableStream.on("data", (chunk) => {
+    //   io.emit("avData", chunk);
+    // });
+
+    // readableStream.on("end", () => {
+    //   const memoryUsageAfter = process.memoryUsage().rss;
+    //   const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+    //   console.log(`Availability b ${memoryUsageBefore / (1024 * 1024)} MB`);
+    //   console.log(`Availability a ${memoryDiff / (1024 * 1024)} MB`);
+    //   // res.end();
+    // });
 
     // res.status(200).json(avData);
   } catch (error) {

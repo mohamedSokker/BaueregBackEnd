@@ -1,5 +1,6 @@
 const XLSX = require("xlsx");
 const { Readable } = require("stream");
+const JSONStream = require("JSONStream");
 
 const XlsxAll = require("../../../../v3/helpers/XlsxAll");
 const ExcelDateToJSDate = require("../../../../v3/helpers/ExcelToJsDate");
@@ -29,30 +30,29 @@ const fuelConsumption = async (req, res) => {
     }
     fuelCons.sort((a, b) => a["Date "] - b["Date "]);
 
-    const readableStream = createReadableStream(fuelCons);
-    readableStream.pipe(res);
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Transfer-Encoding", "chunked");
 
-    readableStream.on("data", (chunk) => {});
+    res.writeHead(200);
 
-    readableStream.on("end", () => {
-      const memoryUsageAfter = process.memoryUsage().rss;
-      const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+    const jsonStream = JSONStream.stringify();
 
-      console.log(`Fuel Cons b ${memoryUsageBefore / (1024 * 1024)} MB`);
-      console.log(`Fuel Cons a ${memoryDiff / (1024 * 1024)} MB`);
-      res.end();
+    // Pipe the large JSON object to the JSONStream serializer
+    jsonStream.pipe(res);
+
+    // Push the large JSON object into the JSONStream serializer
+    fuelCons.forEach((item) => {
+      jsonStream.write(item);
     });
 
-    // res.status(200).json(fuelCons);
+    // End the JSONStream serializer
+    jsonStream.end();
 
-    const memoryUsageAfter = process.memoryUsage().rss; // Measure memory usage after response
+    const memoryUsageAfter = process.memoryUsage().rss;
     const memoryDiff = memoryUsageAfter - memoryUsageBefore;
 
-    console.log(
-      `Fuel Cons Memory usage for /my-endpoint: ${
-        memoryDiff / (1024 * 1024)
-      } MB`
-    );
+    console.log(`Fuel Cons b ${memoryUsageBefore / (1024 * 1024)} MB`);
+    console.log(`Fuel Cons a ${memoryDiff / (1024 * 1024)} MB`);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

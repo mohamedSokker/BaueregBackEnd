@@ -1,5 +1,6 @@
 const { getAllData } = require("../../../services/mainService");
 const { Readable } = require("stream");
+const JSONStream = require("JSONStream");
 
 function createReadableStream(data) {
   return new Readable({
@@ -18,19 +19,29 @@ const maintStocks = async (req, res) => {
     const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
     const maintStocksData = await getAllData("Maintenance_Stocks");
 
-    const readableStream = createReadableStream(maintStocksData);
-    readableStream.pipe(res);
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Transfer-Encoding", "chunked");
 
-    readableStream.on("data", (chunk) => {});
+    res.writeHead(200);
 
-    readableStream.on("end", () => {
-      const memoryUsageAfter = process.memoryUsage().rss;
-      const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+    const jsonStream = JSONStream.stringify();
 
-      console.log(`Maint Stocks b ${memoryUsageBefore / (1024 * 1024)} MB`);
-      console.log(`Maint Stocks a ${memoryDiff / (1024 * 1024)} MB`);
-      res.end();
+    // Pipe the large JSON object to the JSONStream serializer
+    jsonStream.pipe(res);
+
+    // Push the large JSON object into the JSONStream serializer
+    maintStocksData.forEach((item) => {
+      jsonStream.write(item);
     });
+
+    // End the JSONStream serializer
+    jsonStream.end();
+
+    const memoryUsageAfter = process.memoryUsage().rss;
+    const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+    console.log(`Maint Stocks b ${memoryUsageBefore / (1024 * 1024)} MB`);
+    console.log(`Maint Stocks a ${memoryDiff / (1024 * 1024)} MB`);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
