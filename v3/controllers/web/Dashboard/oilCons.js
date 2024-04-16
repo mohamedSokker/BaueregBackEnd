@@ -4,6 +4,7 @@ const ExcelDateToJSDate = require("../../../../v3/helpers/ExcelToJsDate");
 require("dotenv").config();
 const { Readable } = require("stream");
 const JSONStream = require("JSONStream");
+const { model } = require("../../../model/mainModel");
 
 function createReadableStream(data) {
   return new Readable({
@@ -29,23 +30,37 @@ const oilConsumption = async (req, res) => {
     }
     oilCons.sort((a, b) => a["Date"] - b["Date"]);
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Transfer-Encoding", "chunked");
+    // res.setHeader("Content-Type", "application/json");
+    // res.setHeader("Transfer-Encoding", "chunked");
 
-    res.writeHead(200);
+    // res.writeHead(200);
 
-    const jsonStream = JSONStream.stringify();
+    const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
     // Pipe the large JSON object to the JSONStream serializer
     jsonStream.pipe(res);
 
-    // Push the large JSON object into the JSONStream serializer
-    oilCons.forEach((item) => {
-      jsonStream.write(item);
-    });
+    if (model["oilCons"]) {
+      // Push the large JSON object into the JSONStream serializer
+      model["oilCons"].forEach((item) => {
+        jsonStream.write(item);
+      });
 
-    // End the JSONStream serializer
-    jsonStream.end();
+      // End the JSONStream serializer
+      jsonStream.end();
+    } else {
+      const produrl = process.env.CONSUMPTON_ONEDRIVE_URL;
+      await XlsxAll(produrl).then((cons) => {
+        XLSX.utils
+          .sheet_to_json(cons.Sheets[`Oil Consumption`])
+          .forEach((item) => {
+            jsonStream.write(item);
+          });
+
+        // End the JSONStream serializer
+        jsonStream.end();
+      });
+    }
 
     const memoryUsageAfter = process.memoryUsage().rss;
     const memoryDiff = memoryUsageAfter - memoryUsageBefore;

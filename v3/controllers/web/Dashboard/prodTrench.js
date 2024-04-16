@@ -5,6 +5,8 @@ require("dotenv").config();
 const { Readable } = require("stream");
 const JSONStream = require("JSONStream");
 
+const { model } = require("../../../model/mainModel");
+
 function createReadableStream(data) {
   return new Readable({
     objectMode: true,
@@ -20,43 +22,59 @@ function createReadableStream(data) {
 const productionTrench = async (req, res) => {
   try {
     const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
-    const Trench = ["DW", "Cut-Off Wall", "Barrettes"];
-    const produrl = process.env.ONEDRIVE_URL;
-    const prod = await XlsxAll(produrl);
-    let prodTrench = [];
-    prod.SheetNames.map((sheetName) => {
-      if (Trench.includes(sheetName)) {
-        prodTrench = [
-          ...prodTrench,
-          ...XLSX.utils.sheet_to_json(prod.Sheets[sheetName]),
-        ];
-      }
-    });
+    // const Trench = ["DW", "Cut-Off Wall", "Barrettes"];
+    // const produrl = process.env.ONEDRIVE_URL;
+    // const prod = await XlsxAll(produrl);
+    // let prodTrench = [];
+    // prod.SheetNames.map((sheetName) => {
+    //   if (Trench.includes(sheetName)) {
+    //     prodTrench = [
+    //       ...prodTrench,
+    //       ...XLSX.utils.sheet_to_json(prod.Sheets[sheetName]),
+    //     ];
+    //   }
+    // });
 
-    for (let i = 0; i < prodTrench.length; i++) {
-      prodTrench[i]["Pouring Finish"] = ExcelDateToJSDate(
-        prodTrench[i]["Pouring Finish"]
-      );
-    }
-    prodTrench.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
+    // for (let i = 0; i < prodTrench.length; i++) {
+    //   prodTrench[i]["Pouring Finish"] = ExcelDateToJSDate(
+    //     prodTrench[i]["Pouring Finish"]
+    //   );
+    // }
+    // prodTrench.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Transfer-Encoding", "chunked");
+    // res.setHeader("Content-Type", "application/json");
+    // res.setHeader("Transfer-Encoding", "chunked");
 
-    res.writeHead(200);
+    // res.writeHead(200);
 
-    const jsonStream = JSONStream.stringify();
+    const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
     // Pipe the large JSON object to the JSONStream serializer
     jsonStream.pipe(res);
 
-    // Push the large JSON object into the JSONStream serializer
-    prodTrench.forEach((item) => {
-      jsonStream.write(item);
-    });
+    if (model["prodTrench"]) {
+      // Push the large JSON object into the JSONStream serializer
+      model["prodTrench"].forEach((item) => {
+        jsonStream.write(item);
+      });
 
-    // End the JSONStream serializer
-    jsonStream.end();
+      // End the JSONStream serializer
+      jsonStream.end();
+    } else {
+      const produrl = process.env.ONEDRIVE_URL;
+      await XlsxAll(produrl).then((prod) => {
+        [
+          ...XLSX.utils.sheet_to_json(prod.Sheets["DW"]),
+          ...XLSX.utils.sheet_to_json(prod.Sheets["Cut-Off Wall"]),
+          ...XLSX.utils.sheet_to_json(prod.Sheets["Barrettes"]),
+        ].forEach((item) => {
+          jsonStream.write(item);
+        });
+
+        // End the JSONStream serializer
+        jsonStream.end();
+      });
+    }
 
     const memoryUsageAfter = process.memoryUsage().rss;
     const memoryDiff = memoryUsageAfter - memoryUsageBefore;

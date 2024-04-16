@@ -1,4 +1,8 @@
-const { getAllData } = require("../services/mainService");
+const {
+  getAllData,
+  getAllCons,
+  getAllProd,
+} = require("../services/mainService");
 // const { migrateDate } = require("../controllers/web/Migration/handleAvCalc");
 // const { createTables } = require("../controllers/web/Migration/createTables");
 
@@ -133,6 +137,8 @@ const tablesV2EndPoint = async (app) => {
   try {
     await getAllData("AppMaintUsers");
     await getAllData("AdminUsersApp");
+    await getAllCons();
+    await getAllProd();
     // await createTables("QCTable");
 
     // setTimeout(() => {

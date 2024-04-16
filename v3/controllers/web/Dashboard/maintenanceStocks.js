@@ -1,4 +1,7 @@
-const { getAllData } = require("../../../services/mainService");
+// const { getAllData } = require("../../../services/mainService");
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
+
 const { Readable } = require("stream");
 const JSONStream = require("JSONStream");
 
@@ -17,25 +20,36 @@ function createReadableStream(data) {
 const maintStocks = async (req, res) => {
   try {
     const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
-    const maintStocksData = await getAllData("Maintenance_Stocks");
+    // const maintStocksData = await getAllData("Maintenance_Stocks");
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Transfer-Encoding", "chunked");
+    // res.setHeader("Content-Type", "application/json");
+    // res.setHeader("Transfer-Encoding", "chunked");
 
-    res.writeHead(200);
+    // res.writeHead(200);
 
-    const jsonStream = JSONStream.stringify();
+    const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
     // Pipe the large JSON object to the JSONStream serializer
     jsonStream.pipe(res);
 
-    // Push the large JSON object into the JSONStream serializer
-    maintStocksData.forEach((item) => {
-      jsonStream.write(item);
-    });
+    if (model["Maintenance_Stocks"]) {
+      // Push the large JSON object into the JSONStream serializer
+      model["Maintenance_Stocks"].forEach((item) => {
+        jsonStream.write(item);
+      });
 
-    // End the JSONStream serializer
-    jsonStream.end();
+      // End the JSONStream serializer
+      jsonStream.end();
+    } else {
+      getData("SELECT * FROM Maintenance_Stocks").then((result) => {
+        result.recordsets[0].forEach((item) => {
+          jsonStream.write(item);
+        });
+
+        // End the JSONStream serializer
+        jsonStream.end();
+      });
+    }
 
     const memoryUsageAfter = process.memoryUsage().rss;
     const memoryDiff = memoryUsageAfter - memoryUsageBefore;

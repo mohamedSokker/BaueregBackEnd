@@ -3,7 +3,7 @@ const eventEmitter = new events.EventEmitter();
 
 const { model } = require("../model/mainModel");
 const { getData } = require("../../v3/helpers/getData");
-const { io } = require("../socket/socket");
+// const { io } = require("../socket/socket");
 
 const getMany = async (Number, table) => {
   try {

@@ -5,6 +5,9 @@ const AllTables = require("../../../../v3/data/allTables");
 const AllStocks = require("../../../../v3/data/allStocks");
 const { dataEntry } = require("../../../data/dataentry");
 
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
+
 const handleRefreshToken = (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt)
@@ -30,15 +33,25 @@ const handleRefreshToken = (req, res) => {
         // var query = `SELECT TOP 1 * FROM AdminUsersApp WHERE UserName = '${decoded.username}'`;
         // let Results = await getData(query);
         // Results = Results.recordsets[0];
-        const allUsers = await getAllData("AdminUsersApp");
-        Results = allUsers.filter((user) => user.UserName === decoded.username);
-        const user = {
+        let user = {};
+        if (model["AdminUsersApp"]) {
+          Results = model["AdminUsersApp"].filter(
+            (user) => user.UserName === decoded.username
+          );
+        } else {
+          var query = `SELECT TOP 1 * FROM AdminUsersApp WHERE UserName = '${decoded.username}'`;
+          let Results = await getData(query);
+          Results = Results.recordsets[0];
+        }
+        // const allUsers = await getAllData("AdminUsersApp");
+        user = {
           username: decoded.username,
           title: Results[0]["Title"],
           department: Results[0]["Department"],
           roles: JSON.parse(Results[0]["UserRole"]),
           img: decoded.img,
         };
+
         const token = jwt.sign(tokenUser, process.env.TOKEN_SECRET_KEY, {
           expiresIn: "1h",
         });
@@ -56,18 +69,36 @@ const handleRefreshToken = (req, res) => {
             allStocksWithName.push({ name: stock });
           });
 
-          //   const query = `SELECT Location FROM Location_Bauer`;
+          const query = `SELECT Location FROM Location_Bauer`;
           //   const sites = await getData(query);
-          const sites = await getAllData("Location_Bauer");
-          sites?.map((item) => {
-            allSitesWithName.push({ name: item.Location });
-          });
-          //   const eqQuery = `SELECT Equipment FROM Bauer_Equipments`;
+          if (model["Location_Bauer"]) {
+            model["Location_Bauer"]?.map((item) => {
+              allSitesWithName.push({ name: item.Location });
+            });
+          } else {
+            getData(query).then((result) => {
+              result.recordsets[0]?.map((item) => {
+                allSitesWithName.push({ name: item.Location });
+              });
+            });
+          }
+          // const sites = await getAllData("Location_Bauer");
+
+          const eqQuery = `SELECT Equipment FROM Bauer_Equipments`;
           //   const eqs = await getData(eqQuery);
-          const eqs = await getAllData("Bauer_Equipments");
-          eqs?.map((item) => {
-            allEqsWithName.push({ name: item.Equipment });
-          });
+          if (model["Bauer_Equipments"]) {
+            model["Bauer_Equipments"]?.map((item) => {
+              allEqsWithName.push({ name: item.Equipment });
+            });
+          } else {
+            getData(eqQuery).then((result) => {
+              result.recordsets[0]?.map((item) => {
+                allEqsWithName.push({ name: item.Equipment });
+              });
+            });
+          }
+          // const eqs = await getAllData("Bauer_Equipments");
+
           user.roles.Editor = {
             Dashboard: true,
             Kanban: true,

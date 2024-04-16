@@ -3,7 +3,9 @@ const { Readable } = require("stream");
 // const { io } = require("../../../socket/socket");
 const JSONStream = require("JSONStream");
 
-const { getAllData } = require("../../../services/mainService");
+// const { getAllData } = require("../../../services/mainService");
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
 
 function createReadableStream(data) {
   return new Readable({
@@ -20,25 +22,36 @@ function createReadableStream(data) {
 const availability = async (req, res) => {
   try {
     const memoryUsageBefore = process.memoryUsage().rss;
-    const avData = await getAllData("Availability");
+    // const avData = await getAllData("Availability");
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Transfer-Encoding", "chunked");
+    // res.setHeader("Content-Type", "application/json");
+    // res.setHeader("Transfer-Encoding", "chunked");
 
-    res.writeHead(200);
+    // res.writeHead(200);
 
-    const jsonStream = JSONStream.stringify();
+    const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
     // Pipe the large JSON object to the JSONStream serializer
     jsonStream.pipe(res);
 
-    // Push the large JSON object into the JSONStream serializer
-    avData.forEach((item) => {
-      jsonStream.write(item);
-    });
+    if (model["Availability"]) {
+      // Push the large JSON object into the JSONStream serializer
+      model["Availability"].forEach((item) => {
+        jsonStream.write(item);
+      });
 
-    // End the JSONStream serializer
-    jsonStream.end();
+      // End the JSONStream serializer
+      jsonStream.end();
+    } else {
+      getData("SELECT * FROM Availability").then((result) => {
+        result.recordsets[0].forEach((item) => {
+          jsonStream.write(item);
+        });
+
+        // End the JSONStream serializer
+        jsonStream.end();
+      });
+    }
 
     const memoryUsageAfter = process.memoryUsage().rss;
     const memoryDiff = memoryUsageAfter - memoryUsageBefore;

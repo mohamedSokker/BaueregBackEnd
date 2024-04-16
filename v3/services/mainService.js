@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const { getData } = require("../../v3/helpers/getData");
 const { eventEmitter } = require("../subscriber/mainSubscriber");
 const { model } = require("../model/mainModel");
+const XLSX = require("xlsx");
+const XlsxAll = require("../../v3/helpers/XlsxAll");
 // const { TestSchema } = require("./schema");
 const {
   validateAddData,
@@ -10,6 +12,7 @@ const {
   validateupdateData,
   validateManyUpdate,
 } = require("../validations/mainValidation");
+require("dotenv").config();
 
 const getTableData = async (table) => {
   try {
@@ -38,6 +41,91 @@ const createTable = async (table, schema) => {
     query += ")";
     await getData(query);
     return `Success`;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getAllCons = async () => {
+  try {
+    if (!model["fuelCons"] || !model["oilCons"]) {
+      const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
+      await XlsxAll(consurl).then((cons) => {
+        model["fuelCons"] = XLSX.utils.sheet_to_json(
+          cons.Sheets[`Fuel Consumption`]
+        );
+        model["oilCons"] = XLSX.utils.sheet_to_json(
+          cons.Sheets[`Oil Consumption`]
+        );
+      });
+      const size = Buffer.byteLength(JSON.stringify(model));
+      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+      const sizeMB = sizeKB / 1024;
+      console.log(
+        `${size} byte`,
+        `${sizeKB.toFixed(2)} KB`,
+        `${sizeMB.toFixed(2)} MB`
+      );
+      console.log("cons");
+      return { fuelCons: model["fuelCons"], oilCons: model["oilCons"] };
+    } else {
+      console.log(`From Model`);
+      const size = Buffer.byteLength(JSON.stringify(model));
+      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+      const sizeMB = sizeKB / 1024;
+      console.log(
+        `${size} byte`,
+        `${sizeKB.toFixed(2)} KB`,
+        `${sizeMB.toFixed(2)} MB`
+      );
+      return { fuelCons: model["fuelCons"], oilCons: model["oilCons"] };
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getAllProd = async () => {
+  try {
+    if (!model["prodTrench"] || !model["prodDrill"]) {
+      const produrl = process.env.ONEDRIVE_URL;
+      await XlsxAll(produrl).then((prod) => {
+        model["prodDrill"] = XLSX.utils.sheet_to_json(prod.Sheets["Piles"]);
+        model["prodTrench"] = [
+          ...XLSX.utils.sheet_to_json(prod.Sheets["DW"]),
+          ...XLSX.utils.sheet_to_json(prod.Sheets["Cut-Off Wall"]),
+          ...XLSX.utils.sheet_to_json(prod.Sheets["Barrettes"]),
+        ];
+      });
+
+      const size = Buffer.byteLength(JSON.stringify(model));
+      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+      const sizeMB = sizeKB / 1024;
+      console.log(
+        `${size} byte`,
+        `${sizeKB.toFixed(2)} KB`,
+        `${sizeMB.toFixed(2)} MB`
+      );
+      console.log("prod");
+      return {
+        prodDrill: model["prodDrill"],
+        prodTrench: model["prodTrench"],
+      };
+    } else {
+      console.log(`From Model`);
+      const size = Buffer.byteLength(JSON.stringify(model));
+      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+      const sizeMB = sizeKB / 1024;
+      console.log(
+        `${size} byte`,
+        `${sizeKB.toFixed(2)} KB`,
+        `${sizeMB.toFixed(2)} MB`
+      );
+      return {
+        prodDrill: model["prodDrill"],
+        prodTrench: model["prodTrench"],
+      };
+    }
   } catch (error) {
     throw new Error(error);
   }
@@ -426,6 +514,8 @@ const deleteManyQuery = async (ids, table) => {
 
 module.exports = {
   createTable,
+  getAllCons,
+  getAllProd,
   getAllData,
   getOneData,
   addData,
