@@ -34,14 +34,16 @@ const handleRefreshToken = (req, res) => {
         // let Results = await getData(query);
         // Results = Results.recordsets[0];
         let user = {};
+        let Results = [];
         if (model["AdminUsersApp"]) {
           Results = model["AdminUsersApp"].filter(
             (user) => user.UserName === decoded.username
           );
         } else {
           var query = `SELECT TOP 1 * FROM AdminUsersApp WHERE UserName = '${decoded.username}'`;
-          let Results = await getData(query);
-          Results = Results.recordsets[0];
+          getData(query).then((result) => {
+            Results = result.recordsets[0];
+          });
         }
         // const allUsers = await getAllData("AdminUsersApp");
         user = {

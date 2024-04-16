@@ -2,7 +2,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // const { getData } = require("../../../../v3/helpers/getData");
-const { getAllData } = require("../../../services/mainService");
+// const { getAllData } = require("../../../services/mainService");
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
 
 const loginapp = async (req, res) => {
   try {
@@ -10,10 +12,21 @@ const loginapp = async (req, res) => {
     // var query = "SELECT * FROM AdminUsersApp";
     // let Results = await getData(query);
     // Results = Results.recordsets[0];
-    const Results = await getAllData("AdminUsersApp");
-    const SearchedItems = Results?.find(
-      (Result) => Result.UserName == username
-    );
+    // const Results = await getAllData("AdminUsersApp");
+    // const SearchedItems = Results?.find(
+    //   (Result) => Result.UserName == username
+    // );
+    let SearchedItems;
+    if (model["AdminUsersApp"]) {
+      SearchedItems = model["AdminUsersApp"].find(
+        (Result) => Result.UserName == username
+      );
+    } else {
+      var query = `SELECT * FROM AdminUsersApp WHERE UserName = '${username}'`;
+      getData(query).then((result) => {
+        SearchedItems = result.recordsets[0][0];
+      });
+    }
     if (!SearchedItems)
       return res.status(401).json({ message: `No Found Username in DB` });
     bcrypt.compare(password, SearchedItems["Password"], async (err, result) => {

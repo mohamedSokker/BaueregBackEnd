@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 // const { getData } = require("../../../../v3/helpers/getData");
 const { getAllData } = require("../../../services/mainService");
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
 
 const getTokenData = async (token) => {
   try {
@@ -29,13 +31,22 @@ const handleRefreshToken = async (req, res) => {
 
     const oldToken = authHeader && authHeader.split(" ")[1];
     const oldData = await getTokenData(oldToken);
-    // var query = `SELECT TOP 1 * FROM AdminUsersApp WHERE UserName = '${oldData.username}'`;
-    // let Results = await getData(query);
-    // Results = Results.recordsets[0];
-    const allUsers = await getAllData("AdminUsersApp");
-    const Results = allUsers.filter(
-      (user) => user.UserName === oldData.username
-    );
+
+    let Results = [];
+    if (model["AdminUsersApp"]) {
+    } else {
+      Results = model["AdminUsersApp"].filter(
+        (user) => user.UserName === oldData.username
+      );
+      var query = `SELECT TOP 1 * FROM AdminUsersApp WHERE UserName = '${oldData.username}'`;
+      getData(query).then((result) => {
+        Results = result.recordsets[0];
+      });
+    }
+    // const allUsers = await getAllData("AdminUsersApp");
+    // const Results = allUsers.filter(
+    //   (user) => user.UserName === oldData.username
+    // );
 
     // console.log(`Refresh Result => ${JSON.stringify(Results)}`);
 

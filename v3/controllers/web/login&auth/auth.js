@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 // const { getData } = require("../../../v3/helpers/getData");
-const { getAllData } = require("../../../services/mainService");
+// const { getAllData } = require("../../../services/mainService");
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
 
 let authapp = (endPointName) => {
   return (req, res, next) => {
@@ -15,10 +17,19 @@ let authapp = (endPointName) => {
       let Results = [];
       try {
         // console.log(`decode => ${JSON.stringify(decode)}`);
-        // var query = `SELECT TOP 1  UserRole FROM AdminUsersApp WHERE UserName = '${decode.username}'`;
-        // Results = await getData(query);
-        const allUsers = await getAllData("AdminUsersApp");
-        Results = allUsers.filter((user) => user.UserName === decode.username);
+
+        if (model["AdminUsersApp"]) {
+          Results = model["AdminUsersApp"].filter(
+            (user) => user.UserName === decode.username
+          );
+        } else {
+          var query = `SELECT TOP 1  UserRole FROM AdminUsersApp WHERE UserName = '${decode.username}'`;
+          getData(query).then((result) => {
+            Results = result.recordsets[0];
+          });
+        }
+        // const allUsers = await getAllData("AdminUsersApp");
+        // Results = allUsers.filter((user) => user.UserName === decode.username);
       } catch (error) {
         return res.status(500).json({ message: error.message });
       }

@@ -1,31 +1,63 @@
 // const { getData } = require("../../../v3/helpers/getData");
 const { transporter } = require("../../../config/mailConfig");
-const { getAllData, updateData } = require("../../../services/mainService");
+const { updateData } = require("../../../services/mainService");
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
 const {
   EquipmentsTransportSchema,
 } = require("../../../schemas/EquipmentsTransport/schema");
 
 const editEqsTrans = async (req, res) => {
   try {
+    const memoryUsageBefore = process.memoryUsage().rss;
+
     const bodyData = req.body;
 
     let emailArray = [];
     // const usersQuery = `SELECT * FROM AdminUsersApp`;
     // const data = await getData(usersQuery);
     // const allUsers = data.recordsets[0];
-    const allUsers = await getAllData("AdminUsersApp");
+    let civilUsers = [];
+    let maintUsers = [];
+    actualUsers = [];
+    if (model["AdminUsersApp"]) {
+      civilUsers = model["AdminUsersApp"].filter(
+        (user) => user.Title === "Manager" && user.Department === "Civil"
+      );
+      maintUsers = model["AdminUsersApp"].filter(
+        (user) => user.Title === "Manager" && user.Department === "Maintenance"
+      );
+      actualUsers = model["AdminUsersApp"].filter(
+        (user) => user.Title === "Office" && user.Department === "Transporter"
+      );
+    } else {
+      const usersQuery = `SELECT * FROM AdminUsersApp`;
+      getData(usersQuery).then((result) => {
+        civilUsers = result.recordsets[0].filter(
+          (user) => user.Title === "Manager" && user.Department === "Civil"
+        );
+        maintUsers = result.recordsets[0].filter(
+          (user) =>
+            user.Title === "Manager" && user.Department === "Maintenance"
+        );
+        actualUsers = result.recordsets[0].filter(
+          (user) => user.Title === "Office" && user.Department === "Transporter"
+        );
+      });
+    }
+    // const allUsers = await getAllData("AdminUsersApp");
 
-    const civilUsers = allUsers.filter(
-      (user) => user.Title === "Manager" && user.Department === "Civil"
-    );
+    // const civilUsers = allUsers.filter(
+    //   (user) => user.Title === "Manager" && user.Department === "Civil"
+    // );
 
-    const maintUsers = allUsers.filter(
-      (user) => user.Title === "Manager" && user.Department === "Maintenance"
-    );
+    // const maintUsers = allUsers.filter(
+    //   (user) => user.Title === "Manager" && user.Department === "Maintenance"
+    // );
 
-    const actualUsers = allUsers.filter(
-      (user) => user.Title === "Office" && user.Department === "Transporter"
-    );
+    // const actualUsers = allUsers.filter(
+    //   (user) => user.Title === "Office" && user.Department === "Transporter"
+    // );
 
     const id = Object.values(req.params)[0];
 
@@ -85,6 +117,13 @@ Please Visit link to Confirm: https://bauereg.onrender.com/Transportations`,
       Confirmed: JSON.stringify([bodyData?.username]),
       Status: "UnConfirmed",
     };
+
+    const memoryUsageAfter = process.memoryUsage().rss;
+    const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+    console.log(`editEqTrans b ${memoryUsageBefore / (1024 * 1024)} MB`);
+    console.log(`editEqTrans a ${memoryDiff / (1024 * 1024)} MB`);
+
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });

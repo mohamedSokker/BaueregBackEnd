@@ -136,18 +136,20 @@ const getAllData = async (table) => {
     if (!model[table]) {
       console.log(`From Database`);
       const query = `SELECT * FROM ${table}`;
-      const result = (await getData(query)).recordsets[0];
-      model[table] = result;
-      const size = Buffer.byteLength(JSON.stringify(model));
-      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
-      const sizeMB = sizeKB / 1024;
-      console.log(
-        `${size} byte`,
-        `${sizeKB.toFixed(2)} KB`,
-        `${sizeMB.toFixed(2)} MB`
-      );
-      console.log(table);
-      return result;
+      getData(query).then((data) => {
+        model[table] = data.recordsets[0];
+        const size = Buffer.byteLength(JSON.stringify(model));
+        const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+        const sizeMB = sizeKB / 1024;
+        console.log(
+          `${size} byte`,
+          `${sizeKB.toFixed(2)} KB`,
+          `${sizeMB.toFixed(2)} MB`
+        );
+        console.log(table);
+      });
+
+      return model[table];
     } else {
       console.log(`From Model`);
       const size = Buffer.byteLength(JSON.stringify(model));

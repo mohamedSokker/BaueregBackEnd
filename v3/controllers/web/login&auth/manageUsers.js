@@ -1,6 +1,10 @@
 // const { parseURL } = require("../../functions/parseURL");
 // const { getData } = require("../../../v3/helpers/getData");
 // const bcrypt = require("bcrypt");
+const JSONStream = require("JSONStream");
+
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
 const {
   getAllData,
   getOneData,
@@ -15,8 +19,31 @@ const {
 
 const getAllmanageUsers = async (req, res) => {
   try {
-    const result = await getAllData("AdminUsersApp");
-    return res.status(200).json(result);
+    // const result = await getAllData("AdminUsersApp");
+    // return res.status(200).json(result);
+    const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
+
+    // Pipe the large JSON object to the JSONStream serializer
+    jsonStream.pipe(res);
+
+    if (model["AdminUsersApp"]) {
+      // Push the large JSON object into the JSONStream serializer
+      model["AdminUsersApp"].forEach((item) => {
+        jsonStream.write(item);
+      });
+
+      // End the JSONStream serializer
+      jsonStream.end();
+    } else {
+      getData("SELECT * FROM AdminUsersApp").then((result) => {
+        result.recordsets[0].forEach((item) => {
+          jsonStream.write(item);
+        });
+
+        // End the JSONStream serializer
+        jsonStream.end();
+      });
+    }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

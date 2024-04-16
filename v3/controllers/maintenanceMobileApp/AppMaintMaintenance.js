@@ -3,8 +3,13 @@
 // const tableDeleteData = require("../../Logic/tablesData/tableDeleteData");
 // const tableGetAll = require("../../Logic/tablesData/tableGetAll");
 // const tableGetSingle = require("../../Logic/tablesData/tableGetSingle");
+const JSONStream = require("JSONStream");
+
+const { getData } = require("../../helpers/getData");
+const { model } = require("../../model/mainModel");
+
 const {
-  getAllData,
+  // getAllData,
   getOneData,
   addData,
   updateData,
@@ -16,9 +21,32 @@ const {
 
 const getAllAppMaintMaintenance = async (req, res) => {
   try {
-    const result = await getAllData("AppMaintMaintenance");
+    // const result = await getAllData("AppMaintMaintenance");
+    const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
+
+    // Pipe the large JSON object to the JSONStream serializer
+    jsonStream.pipe(res);
+
+    if (model["AppMaintMaintenance"]) {
+      // Push the large JSON object into the JSONStream serializer
+      model["AppMaintMaintenance"].forEach((item) => {
+        jsonStream.write(item);
+      });
+
+      // End the JSONStream serializer
+      jsonStream.end();
+    } else {
+      getData("SELECT * FROM AppMaintMaintenance").then((result) => {
+        result.recordsets[0].forEach((item) => {
+          jsonStream.write(item);
+        });
+
+        // End the JSONStream serializer
+        jsonStream.end();
+      });
+    }
     // const result = await tableGetAll(`AppMaintMaintenance`, req.query);
-    return res.status(200).json(result);
+    // return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

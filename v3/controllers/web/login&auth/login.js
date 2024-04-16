@@ -1,10 +1,12 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 // const { getData } = require("../../../v3/helpers/getData");
-const { getAllData } = require("../../../services/mainService");
+// const { getAllData } = require("../../../services/mainService");
 const AllTables = require("../../../data/allTables");
 const AllStocks = require("../../../data/allStocks");
 const { dataEntry } = require("../../../data/dataentry");
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
 
 const loginapp = async (req, res) => {
   try {
@@ -12,10 +14,22 @@ const loginapp = async (req, res) => {
     // var query = "SELECT * FROM AdminUsersApp";
     // let Results = await getData(query);
     // Results = Results.recordsets[0];
-    const Results = await getAllData("AdminUsersApp");
-    const SearchedItems = Results?.find(
-      (Result) => Result.UserName == username
-    );
+    // const Results = await getAllData("AdminUsersApp");
+    // const SearchedItems = Results?.find(
+    //   (Result) => Result.UserName == username
+    // );
+    let SearchedItems;
+    if (model["AdminUsersApp"]) {
+      SearchedItems = model["AdminUsersApp"].find(
+        (user) => user.UserName === username
+      );
+    } else {
+      var query = `SELECT TOP 1 * FROM AdminUsersApp WHERE UserName = '${username}'`;
+      getData(query).then((result) => {
+        SearchedItems = result.recordsets[0][0];
+      });
+    }
+
     if (!SearchedItems)
       return res.status(401).json({ message: `No Found Username in DB` });
     bcrypt.compare(password, SearchedItems["Password"], async (err, result) => {
@@ -51,16 +65,42 @@ const loginapp = async (req, res) => {
 
         // const query = `SELECT Location FROM Location_Bauer`;
         // const sites = await getData(query);
-        const sites = await getAllData("Location_Bauer");
-        sites?.map((item) => {
-          allSitesWithName.push({ name: item.Location });
-        });
+        const query = `SELECT Location FROM Location_Bauer`;
+        //   const sites = await getData(query);
+        if (model["Location_Bauer"]) {
+          model["Location_Bauer"]?.map((item) => {
+            allSitesWithName.push({ name: item.Location });
+          });
+        } else {
+          getData(query).then((result) => {
+            result.recordsets[0]?.map((item) => {
+              allSitesWithName.push({ name: item.Location });
+            });
+          });
+        }
+        // const sites = await getAllData("Location_Bauer");
+        // sites?.map((item) => {
+        //   allSitesWithName.push({ name: item.Location });
+        // });
         // const eqQuery = `SELECT Equipment FROM Bauer_Equipments`;
         // const eqs = await getData(eqQuery);
-        const eqs = await getAllData("Bauer_Equipments");
-        eqs?.map((item) => {
-          allEqsWithName.push({ name: item.Equipment });
-        });
+        const eqQuery = `SELECT Equipment FROM Bauer_Equipments`;
+        //   const eqs = await getData(eqQuery);
+        if (model["Bauer_Equipments"]) {
+          model["Bauer_Equipments"]?.map((item) => {
+            allEqsWithName.push({ name: item.Equipment });
+          });
+        } else {
+          getData(eqQuery).then((result) => {
+            result.recordsets[0]?.map((item) => {
+              allEqsWithName.push({ name: item.Equipment });
+            });
+          });
+        }
+        // const eqs = await getAllData("Bauer_Equipments");
+        // eqs?.map((item) => {
+        //   allEqsWithName.push({ name: item.Equipment });
+        // });
         user.roles.Editor = {
           Dashboard: true,
           Kanban: true,

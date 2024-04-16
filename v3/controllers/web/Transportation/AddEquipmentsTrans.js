@@ -1,10 +1,12 @@
 // const { getData } = require("../../../v3/helpers/getData");
 const { transporter } = require("../../../config/mailConfig");
 const {
-  getAllData,
+  // getAllData,
   addData,
   updateData,
 } = require("../../../services/mainService");
+const { getData } = require("../../../helpers/getData");
+const { model } = require("../../../model/mainModel");
 const {
   EquipmentsTransportSchema,
 } = require("../../../schemas/EquipmentsTransport/schema");
@@ -15,6 +17,8 @@ const {
 
 const logic = async (req, res) => {
   try {
+    const memoryUsageBefore = process.memoryUsage().rss;
+
     const fieldsData = req.body;
     console.log(fieldsData);
     let emailArray = [];
@@ -27,27 +31,73 @@ const logic = async (req, res) => {
     //                        WHERE ToLocation = '${fieldsData?.ToLocation}'
     //                        AND Equipment = '${fieldsData?.Equipment}'
     //                        AND Status = 'UnConfirmed'`;
-    const allEqsTrans = await getAllData("EquipmentsTransport");
-    // const usersQuery = `SELECT * FROM AdminUsersApp`;
-    // const data = await getData(`${eqsTransQuery} ${usersQuery}`);
-    const eqsTransData = allEqsTrans.filter(
-      (eq) =>
-        eq.ToLocation === fieldsData?.ToLocation &&
-        eq.Equipment === fieldsData?.Equipment &&
-        eq.Status === "UnConfirmed"
-    );
-    const allUsers = await getAllData("AdminUsersApp");
-    const civilUsers = allUsers.filter(
-      (user) => user.Title === "Manager" && user.Department === "Civil"
-    );
+    // const allEqsTrans = await getAllData("EquipmentsTransport");
+    // // const usersQuery = `SELECT * FROM AdminUsersApp`;
+    // // const data = await getData(`${eqsTransQuery} ${usersQuery}`);
+    // const eqsTransData = allEqsTrans.filter(
+    //   (eq) =>
+    // eq.ToLocation === fieldsData?.ToLocation &&
+    // eq.Equipment === fieldsData?.Equipment &&
+    // eq.Status === "UnConfirmed"
+    // );
+    let eqsTransData = [];
+    if (model["EquipmentsTransport"]) {
+      eqsTransData = model["EquipmentsTransport"].filter(
+        (eq) =>
+          eq.ToLocation === fieldsData?.ToLocation &&
+          eq.Equipment === fieldsData?.Equipment &&
+          eq.Status === "UnConfirmed"
+      );
+    } else {
+      const eqsTransQuery = `SELECT * FROM EquipmentsTransport
+                             WHERE ToLocation = '${fieldsData?.ToLocation}'
+                             AND Equipment = '${fieldsData?.Equipment}'
+                             AND Status = 'UnConfirmed'`;
+      getData(eqsTransQuery).then((result) => {
+        eqsTransData = result.recordsets[0];
+      });
+    }
 
-    const maintUsers = allUsers.filter(
-      (user) => user.Title === "Manager" && user.Department === "Maintenance"
-    );
+    let civilUsers = [];
+    let maintUsers = [];
+    actualUsers = [];
+    if (model["AdminUsersApp"]) {
+      civilUsers = model["AdminUsersApp"].filter(
+        (user) => user.Title === "Manager" && user.Department === "Civil"
+      );
+      maintUsers = model["AdminUsersApp"].filter(
+        (user) => user.Title === "Manager" && user.Department === "Maintenance"
+      );
+      actualUsers = model["AdminUsersApp"].filter(
+        (user) => user.Title === "Office" && user.Department === "Transporter"
+      );
+    } else {
+      const usersQuery = `SELECT * FROM AdminUsersApp`;
+      getData(usersQuery).then((result) => {
+        civilUsers = result.recordsets[0].filter(
+          (user) => user.Title === "Manager" && user.Department === "Civil"
+        );
+        maintUsers = result.recordsets[0].filter(
+          (user) =>
+            user.Title === "Manager" && user.Department === "Maintenance"
+        );
+        actualUsers = result.recordsets[0].filter(
+          (user) => user.Title === "Office" && user.Department === "Transporter"
+        );
+      });
+    }
+    // const allUsers = await getAllData("AdminUsersApp");
+    // const civilUsers = allUsers.filter(
+    //   (user) => user.Title === "Manager" && user.Department === "Civil"
+    // );
 
-    const actualUsers = allUsers.filter(
-      (user) => user.Title === "Office" && user.Department === "Transporter"
-    );
+    // const maintUsers = allUsers.filter(
+    //   (user) => user.Title === "Manager" && user.Department === "Maintenance"
+    // );
+
+    // const actualUsers = allUsers.filter(
+    //   (user) => user.Title === "Office" && user.Department === "Transporter"
+    // );
 
     let civilTransportUsers = [];
     let maintTransportUsers = [];
@@ -211,6 +261,13 @@ Please Visit link to Confirm: https://bauereg.onrender.com/Transportations`,
     };
     if (emailArray && emailArray.length > 0)
       await transporter.sendMail(mailOptions);
+
+    const memoryUsageAfter = process.memoryUsage().rss;
+    const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+    console.log(`addEqsTrans b ${memoryUsageBefore / (1024 * 1024)} MB`);
+    console.log(`addEqsTrans a ${memoryDiff / (1024 * 1024)} MB`);
+
     return res.status(200).json(newTransData);
   } catch (error) {
     return res.status(500).json({ message: error.message });
