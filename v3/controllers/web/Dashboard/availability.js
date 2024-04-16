@@ -21,13 +21,13 @@ function createReadableStream(data) {
 
 const availability = async (req, res) => {
   try {
-    const memoryUsageBefore = process.memoryUsage().rss;
     // const avData = await getAllData("Availability");
 
     // res.setHeader("Content-Type", "application/json");
     // res.setHeader("Transfer-Encoding", "chunked");
 
     // res.writeHead(200);
+    const memoryUsageBefore = process.memoryUsage().rss;
 
     const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 

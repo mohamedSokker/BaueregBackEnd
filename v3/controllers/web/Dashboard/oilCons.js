@@ -21,14 +21,14 @@ function createReadableStream(data) {
 const oilConsumption = async (req, res) => {
   try {
     const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
-    const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
-    const cons = await XlsxAll(consurl);
-    const oilCons = XLSX.utils.sheet_to_json(cons.Sheets[`Oil Consumption`]);
+    // const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
+    // const cons = await XlsxAll(consurl);
+    // const oilCons = XLSX.utils.sheet_to_json(cons.Sheets[`Oil Consumption`]);
 
-    for (let i = 0; i < oilCons.length; i++) {
-      oilCons[i]["Date"] = ExcelDateToJSDate(oilCons[i]["Date"]);
-    }
-    oilCons.sort((a, b) => a["Date"] - b["Date"]);
+    // for (let i = 0; i < oilCons.length; i++) {
+    //   oilCons[i]["Date"] = ExcelDateToJSDate(oilCons[i]["Date"]);
+    // }
+    // oilCons.sort((a, b) => a["Date"] - b["Date"]);
 
     // res.setHeader("Content-Type", "application/json");
     // res.setHeader("Transfer-Encoding", "chunked");

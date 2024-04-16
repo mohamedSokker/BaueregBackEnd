@@ -1,6 +1,6 @@
 const {
-  createTable,
-  getAllData,
+  // createTable,
+  // getAllData,
   getOneData,
   addData,
   addMany,
@@ -9,11 +9,47 @@ const {
   deleteData,
   deleteMany,
 } = require("../services/mainService");
+const JSONStream = require("JSONStream");
+
+// const { getAllData } = require("../../../services/mainService");
+const { getData } = require("../helpers/getData");
+const { model } = require("../model/mainModel");
 
 const getAllTable = async (req, res) => {
   try {
-    const data = await getAllData(req.table);
-    return res.status(200).json(data);
+    // const data = await getAllData(req.table);
+    const memoryUsageBefore = process.memoryUsage().rss;
+
+    const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
+
+    // Pipe the large JSON object to the JSONStream serializer
+    jsonStream.pipe(res);
+
+    if (model[req.table]) {
+      // Push the large JSON object into the JSONStream serializer
+      model[req.table].forEach((item) => {
+        jsonStream.write(item);
+      });
+
+      // End the JSONStream serializer
+      jsonStream.end();
+    } else {
+      getData(`SELECT * FROM ${req.table}`).then((result) => {
+        result.recordsets[0].forEach((item) => {
+          jsonStream.write(item);
+        });
+
+        // End the JSONStream serializer
+        jsonStream.end();
+      });
+    }
+
+    const memoryUsageAfter = process.memoryUsage().rss;
+    const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+
+    console.log(`${req.table} b ${memoryUsageBefore / (1024 * 1024)} MB`);
+    console.log(`${req.table} a ${memoryDiff / (1024 * 1024)} MB`);
+    // return res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
