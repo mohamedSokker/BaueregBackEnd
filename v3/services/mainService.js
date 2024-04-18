@@ -227,6 +227,7 @@ const addData = async (bodyData, table, schema) => {
       throw new Error(`Validation Failed`);
     }
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   }
 };
