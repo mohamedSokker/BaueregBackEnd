@@ -35,9 +35,9 @@ let authapp = (endPointName) => {
       }
 
       //   Results = Results.recordsets[0];
-      // console.log(Results);
+      console.log(Results);
       const roles = JSON.parse(Results[0]["UserRole"]);
-      // console.log(roles?.User);
+      console.log(roles);
 
       if (roles?.Admin) {
         next();
