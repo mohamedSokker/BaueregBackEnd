@@ -1,6 +1,6 @@
 const AllTables = [
-  "appMaint",
-  "appMaint_Notification",
+  "AppMaintMaintenance",
+  "AppMaintNotification",
   "AppMobile",
   "AppStocks",
   "AppNotification",
