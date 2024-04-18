@@ -65,6 +65,7 @@ const getAppMaintMaintenance = async (req, res) => {
 
 const addAppMaintMaintenance = async (req, res) => {
   try {
+    console.log(req, body);
     const result = await addData(
       req.body,
       "AppMaintMaintenance",
