@@ -29,17 +29,17 @@ const getAllAppMaintMaintenance = async (req, res) => {
 
     if (model["AppMaintMaintenance"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["AppMaintMaintenance"].forEach((item) => {
-        jsonStream.write(item);
-      });
+      for (let i = 0; i < model["AppMaintMaintenance"].length; i++) {
+        jsonStream.write(model["AppMaintMaintenance"][i]);
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
       getData("SELECT * FROM AppMaintMaintenance").then((result) => {
-        result.recordsets[0].forEach((item) => {
-          jsonStream.write(item);
-        });
+        for (let i = 0; i < result.recordsets[0].length; i++) {
+          jsonStream.write(result.recordsets[0][i]);
+        }
 
         // End the JSONStream serializer
         jsonStream.end();

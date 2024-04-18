@@ -44,24 +44,34 @@ const getEquipments = async (req, res) => {
 
     if (model["Equipments_Location"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["Equipments_Location"]
-        .filter(
+      for (
+        let i = 0;
+        i <
+        model["Equipments_Location"].filter(
           (item) =>
             Location.includes(item.Location) &&
             item.End_Date === null &&
             item.Equipment_Type === bodyData.Equipment_Type
-        )
-        .forEach((item) => {
-          jsonStream.write(item);
-        });
+        ).length;
+        i++
+      ) {
+        jsonStream.write(
+          model["Equipments_Location"].filter(
+            (item) =>
+              Location.includes(item.Location) &&
+              item.End_Date === null &&
+              item.Equipment_Type === bodyData.Equipment_Type
+          )[i]
+        );
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
       getData(query).then((result) => {
-        result.recordsets[0].forEach((item) => {
-          jsonStream.write(item);
-        });
+        for (let i = 0; i < result.recordsets[0].length; i++) {
+          jsonStream.write(result.recordsets[0][i]);
+        }
 
         // End the JSONStream serializer
         jsonStream.end();

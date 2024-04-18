@@ -14,6 +14,12 @@ const {
 } = require("../validations/mainValidation");
 require("dotenv").config();
 
+// const getDate = (date) => {
+//   const dt = new Date(date);
+//   dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+//   return dt.toISOString().slice(0, 16);
+// };
+
 const getTableData = async (table) => {
   try {
     const getquery = `SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('${table}')`;
@@ -205,7 +211,7 @@ const addData = async (bodyData, table, schema) => {
           if (bodyData[keysData[i]] === null) {
             query += "NULL,";
           } else if (bodyData[keysData[i]] === "Date.Now") {
-            query += "GETDATE(),";
+            query += `${new Date().toISOString()},`;
           } else {
             query += `'${bodyData[keysData[i]]}',`;
           }
@@ -215,7 +221,7 @@ const addData = async (bodyData, table, schema) => {
       query += ") ";
       // console.log(query);
       const result = await getData(query);
-      // eventEmitter.emit("addedOne", { count: 1, table: table });
+      eventEmitter.emit("addedOne", { count: 1, table: table });
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -238,7 +244,7 @@ const addDataQuery = async (bodyData, table, schema) => {
           if (bodyData[keysData[i]] === null) {
             query += "NULL,";
           } else if (bodyData[keysData[i]] === "Date.Now") {
-            query += "GETDATE(),";
+            query += `${new Date().toISOString()},`;
           } else {
             query += `'${bodyData[keysData[i]]}',`;
           }
@@ -269,7 +275,7 @@ const addMany = async (data, table, schema) => {
             if (bodyData[item] === null) {
               query += "NULL,";
             } else if (bodyData[item] === "Date.Now") {
-              query += "GETDATE(),";
+              query += `${new Date().toISOString()},`;
             } else {
               query += `'${bodyData[item]}',`;
             }
@@ -281,7 +287,7 @@ const addMany = async (data, table, schema) => {
       console.log(query);
       const result = await getData(query);
 
-      // eventEmitter.emit("addedMany", { data: data.length, table, table });
+      eventEmitter.emit("addedMany", { data: data.length, table, table });
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -305,7 +311,7 @@ const addManyQuery = async (data, table, schema) => {
             if (bodyData[item] === null) {
               query += "NULL,";
             } else if (bodyData[item] === "Date.Now") {
-              query += "GETDATE(),";
+              query += `${new Date().toISOString()},`;
             } else {
               query += `'${bodyData[item]}',`;
             }
@@ -347,7 +353,7 @@ const updateData = async (bodyData, id, table, schema) => {
           if (bodyData[keysData[i]] === null) {
             query += `"${keysData[i]}" = NULL,`;
           } else if (bodyData[keysData[i]] === "Date.Now") {
-            query += `"${keysData[i]}" = GETDATE(),`;
+            query += `"${keysData[i]}" = ${new Date().toISOString()},`;
           } else {
             query += `"${keysData[i]}" = '${bodyData[keysData[i]]}',`;
           }
@@ -357,10 +363,10 @@ const updateData = async (bodyData, id, table, schema) => {
       query += ` WHERE ID = '${id}'`;
       // console.log(query);
       const result = await getData(query);
-      // eventEmitter.emit("updatedOne", {
-      //   data: { ID: Number(id), ...newBody },
-      //   table: table,
-      // });
+      eventEmitter.emit("updatedOne", {
+        data: { ID: Number(id), ...newBody },
+        table: table,
+      });
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -382,7 +388,7 @@ const updateDataQuery = async (bodyData, id, table, schema) => {
           if (bodyData[item] === null) {
             query += `"${item}" = NULL,`;
           } else if (bodyData[item] === "Date.Now") {
-            query += `"${item}" = GETDATE(),`;
+            query += `"${item}" = ${new Date().toISOString()},`;
           } else {
             query += `"${item}" = '${bodyData[item]}',`;
           }
@@ -413,7 +419,7 @@ const updateMany = async (data, table, schema) => {
             if (bodyData[item] === null) {
               query += `"${item}" = NULL,`;
             } else if (bodyData[item] === "Date.Now") {
-              query += `"${item}" = GETDATE(),`;
+              query += `"${item}" = ${new Date().toISOString()},`;
             } else {
               query += `"${item}" = '${bodyData[item]}',`;
             }
@@ -425,7 +431,7 @@ const updateMany = async (data, table, schema) => {
       console.log(query);
       const result = await getData(query);
 
-      // eventEmitter.emit("updatedMany", { data: data, table: table });
+      eventEmitter.emit("updatedMany", { data: data, table: table });
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -449,7 +455,7 @@ const updateManyQuery = async (data, table, schema) => {
             if (bodyData[item] === null) {
               query += `"${item}" = NULL,`;
             } else if (bodyData[item] === "Date.Now") {
-              query += `"${item}" = GETDATE(),`;
+              query += `"${item}" = ${new Date().toISOString()},`;
             } else {
               query += `"${item}" = '${bodyData[item]}',`;
             }
@@ -472,7 +478,7 @@ const deleteData = async (id, table) => {
   try {
     let query = `DELETE FROM ${table} WHERE ID = '${id}'`;
     const result = await getData(query);
-    // eventEmitter.emit("deletedOne", { id: id, table: table });
+    eventEmitter.emit("deletedOne", { id: id, table: table });
     return result.recordsets[0];
   } catch (error) {
     throw new Error(error);
@@ -495,7 +501,7 @@ const deleteMany = async (ids, table) => {
       query += `DELETE FROM ${table} WHERE ID = '${id}' `;
     });
     const result = await getData(query);
-    // eventEmitter.emit("deletedMany", { ids: ids, table: table });
+    eventEmitter.emit("deletedMany", { ids: ids, table: table });
     return result.recordsets[0];
   } catch (error) {
     throw new Error(error);

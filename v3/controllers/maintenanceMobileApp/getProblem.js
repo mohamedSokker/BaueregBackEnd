@@ -30,11 +30,20 @@ const logic = async (req, res) => {
 
     if (model["AppMaintMaintenance"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["AppMaintMaintenance"]
-        .filter((item) => locsArray.includes(item.Location))
-        .forEach((item) => {
-          jsonStream.write(item);
-        });
+      for (
+        let i = 0;
+        i <
+        model["AppMaintMaintenance"].filter((item) =>
+          locsArray.includes(item.Location)
+        ).length;
+        i++
+      ) {
+        jsonStream.write(
+          model["AppMaintMaintenance"].filter((item) =>
+            locsArray.includes(item.Location)
+          )[i]
+        );
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
@@ -60,9 +69,9 @@ const logic = async (req, res) => {
       query = `${mainQuery} ${LocURL}`;
 
       getData(query).then((result) => {
-        result.recordsets[0].forEach((item) => {
-          jsonStream.write(item);
-        });
+        for (let i = 0; i < result.recordsets[0].length; i++) {
+          jsonStream.write(result.recordsets[0][i]);
+        }
 
         // End the JSONStream serializer
         jsonStream.end();

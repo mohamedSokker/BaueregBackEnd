@@ -23,19 +23,28 @@ const getNotification = async (req, res) => {
 
     if (model["AppMaintNotification"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["AppMaintNotification"]
-        .filter((item) => item.ToUser === username && item.Sent === "false")
-        .forEach((item) => {
-          jsonStream.write(item);
-        });
+      for (
+        let i = 0;
+        i <
+        model["AppMaintNotification"].filter(
+          (item) => item.ToUser === username && item.Sent === "false"
+        ).length;
+        i++
+      ) {
+        jsonStream.write(
+          model["AppMaintNotification"].filter(
+            (item) => item.ToUser === username && item.Sent === "false"
+          )[i]
+        );
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
       getData(query).then((result) => {
-        result.recordsets[0].forEach((item) => {
-          jsonStream.write(item);
-        });
+        for (let i = 0; i < result.recordsets[0].length; i++) {
+          jsonStream.write(result.recordsets[0][i]);
+        }
 
         // End the JSONStream serializer
         jsonStream.end();

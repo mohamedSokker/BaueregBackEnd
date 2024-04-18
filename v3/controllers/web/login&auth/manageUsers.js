@@ -6,7 +6,7 @@ const JSONStream = require("JSONStream");
 const { getData } = require("../../../helpers/getData");
 const { model } = require("../../../model/mainModel");
 const {
-  getAllData,
+  // getAllData,
   getOneData,
   addData,
   updateData,

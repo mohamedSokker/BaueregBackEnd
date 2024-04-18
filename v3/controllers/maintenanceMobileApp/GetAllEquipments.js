@@ -18,20 +18,28 @@ const getAllEq = async (req, res) => {
 
     if (model["Equipments_Location"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["Equipments_Location"]
-        .filter((item) => item.End_Date === null)
-        .forEach((item) => {
-          jsonStream.write(item);
-        });
+      for (
+        let i = 0;
+        i <
+        model["Equipments_Location"].filter((item) => item.End_Date === null)
+          .length;
+        i++
+      ) {
+        jsonStream.write(
+          model["Equipments_Location"].filter((item) => item.End_Date === null)[
+            i
+          ]
+        );
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
       getData("SELECT * FROM Equipments_Location WHERE ENd_Date IS NULL").then(
         (result) => {
-          result.recordsets[0]?.forEach((item) => {
-            jsonStream.write(item);
-          });
+          for (let i = 0; i < result.recordsets[0].length; i++) {
+            jsonStream.write(result.recordsets[0][i]);
+          }
 
           // End the JSONStream serializer
           jsonStream.end();

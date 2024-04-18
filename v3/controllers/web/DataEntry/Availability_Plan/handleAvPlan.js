@@ -1,6 +1,5 @@
-// const { getData } = require("../../../../v3/helpers/getData");
 const {
-  getAllData,
+  // getAllData,
   addData,
   updateData,
   addMany,
@@ -16,6 +15,9 @@ const getEqsInSite = require("../../../../helpers/getEquipmentsinSite");
 const formatDate = require("../../../../helpers/formatdate");
 const getDayName = require("../../../../helpers/getDayName");
 const addDays = require("../../../../helpers/addDays");
+
+const { getData } = require("../../../../helpers/getData");
+const { model } = require("../../../../model/mainModel");
 
 const checkifRecordExist = async (fieldsData, allAvPlan) => {
   // const allAvPlan = await getAllData("Availability_Plan");
@@ -34,10 +36,23 @@ const handleAvPlan = async (req, res) => {
   try {
     const fieldsData = req.body;
 
-    const allAv = await getAllData("Availability");
-    const allAvPlan = await getAllData("Availability_Plan");
+    // const allAv = await getAllData("Availability");
+    // const allAvPlan = await getAllData("Availability_Plan");
+    let targetAvPlan = [];
+    if (model["Availability_Plan"]) {
+      targetAvPlan = await checkifRecordExist(
+        fieldsData,
+        model["Availability_Plan"]
+      );
+    } else {
+      targetAvPlan = await checkifRecordExist(
+        fieldsData,
+        (
+          await getData("Availability_Plan")
+        ).recordsets[0]
+      );
+    }
 
-    const targetAvPlan = await checkifRecordExist(fieldsData, allAvPlan);
     const body = {
       ID: targetAvPlan && targetAvPlan[0]?.ID,
       Location: fieldsData.Location,
@@ -78,12 +93,24 @@ const handleAvPlan = async (req, res) => {
       let endDate = formatDate(fieldsData.DateTo);
 
       while (new Date(startDate) <= new Date(endDate)) {
-        const avData = allAv.filter(
-          (item) =>
-            formatDate(item.Date_Time) === formatDate(startDate) &&
-            item.Location === fieldsData.Location &&
-            item.Equipment === filteredEqs[i][`Equipment`]
-        );
+        let avData = [];
+        if (model["Availability"]) {
+          avData = model["Availability"].filter(
+            (item) =>
+              formatDate(item.Date_Time) === formatDate(startDate) &&
+              item.Location === fieldsData.Location &&
+              item.Equipment === filteredEqs[i][`Equipment`]
+          );
+        } else {
+          avData = await (
+            await getData("Availability")
+          ).recordsets[0].filter(
+            (item) =>
+              formatDate(item.Date_Time) === formatDate(startDate) &&
+              item.Location === fieldsData.Location &&
+              item.Equipment === filteredEqs[i][`Equipment`]
+          );
+        }
 
         // const targetData = allAvPlan.filter(
         //   (item) =>

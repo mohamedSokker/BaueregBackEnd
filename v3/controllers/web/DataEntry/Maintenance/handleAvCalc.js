@@ -1,4 +1,3 @@
-// const { getData } = require("../../../../helpers/getData");
 const formatDate = require("../../../../helpers/formatdate");
 const addDays = require("../../../../helpers/addDays");
 const dateDiffDays = require("../../../../helpers/dateDiff");
@@ -6,12 +5,14 @@ const dateDiffMin = require("../../../../helpers/dateDiffMin");
 const getDayName = require("../../../../helpers/getDayName");
 // const { getAllDataYard } = require("../../../services/mainServiceYard");
 const {
-  getAllData,
+  // getAllData,
   addData,
   updateData,
   addMany,
   updateMany,
 } = require("../../../../services/mainService");
+const { getData } = require("../../../../helpers/getData");
+const { model } = require("../../../../model/mainModel");
 
 const { MaintenanceSchema } = require("../../../../schemas/Maintenance/schema");
 const {
@@ -39,7 +40,6 @@ const getDate = (date) => {
 
 const getQueriesData = async (fieldsData, allMaint, allAvPlan, allAv) => {
   try {
-    allMaint.sort((a, b) => new Date(a.Date_Time) - new Date(b.Date_Time));
     const targetMaintData = allMaint.filter(
       (item) =>
         item.Location === fieldsData.Location &&
@@ -60,7 +60,6 @@ const getQueriesData = async (fieldsData, allMaint, allAvPlan, allAv) => {
       );
     });
 
-    allAv.sort((a, b) => new Date(a.Date_Time) - new Date(b.Date_Time));
     const targetAvData = allAv.filter(
       (item) =>
         new Date(formatDate(item.Date_Time)) >=
@@ -135,17 +134,17 @@ const getBreakdownTime = async (
   dateDiff
 ) => {
   newData?.map((data) => {
-    let newStartDate = new Date(data?.Problem_start_From);
-    let newEndDate = new Date(data?.Problem_End_To);
+    let newStartDate = new Date(data?.Problem_start_From).toISOString();
+    let newEndDate = new Date(data?.Problem_End_To).toISOString();
     if (dateDiffDays(data?.Problem_End_To, data?.Problem_start_From) > 0) {
       if (formatDate(startDate) === formatDate(data?.Problem_start_From)) {
-        newStartDate = new Date(data?.Problem_start_From);
+        newStartDate = new Date(data?.Problem_start_From).toISOString();
         newEndDate = new Date(
           getDate(`${formatDate(addDays(startDate, 1))} 00:00:00`)
         );
       } else if (formatDate(startDate) === formatDate(data?.Problem_End_To)) {
         newStartDate = new Date(getDate(`${formatDate(startDate)} 00:00:00`));
-        newEndDate = new Date(data?.Problem_End_To);
+        newEndDate = new Date(data?.Problem_End_To).toISOString();
       } else {
         newStartDate = new Date(getDate(`${formatDate(startDate)} 00:00:00`));
         newEndDate = new Date(
@@ -202,14 +201,22 @@ const getBreakdownTime = async (
   return { avTime, breakdownTime, perMaintTime, MaintAv, SiteAv };
 };
 
-const getMaintenanceStock = async (fieldsData, allMaint) => {
+const getMaintenanceStock = async (fieldsData) => {
   const sparePartQuantity =
     fieldsData?.Spare_part !== "" ? fieldsData?.Spare_part : null;
   const sparePartQuantityArray = sparePartQuantity?.split(",");
   //   console.log(sparePartQuantityArray);
-
-  const allMaintStocks = await getAllData("Maintenance_Stocks");
-  allMaintStocks.sort((a, b) => a.DateTime - b.DateTime);
+  let targetMaintStocks = [];
+  if (model["Maintenance_Stocks"]) {
+    model["Maintenance_Stocks"].sort((a, b) => a.DateTime - b.DateTime);
+    targetMaintStocks = model["Maintenance_Stocks"].filter(
+      (item) => item.SparePart_Code === sparePart[0]?.trim()
+    );
+  } else {
+    const query = `SELECT * FROM Maintenance_Stocks WHERE SparePart_Code = '${sparePart[0]?.trim()}' ORDER BY DateTime ASC`;
+    targetMaintStocks = (await getData(query)).recordsets[0];
+  }
+  //  allMaintStocks = await getAllData("Maintenance_Stocks");
 
   // const sparePartArray = [];
   // const QuantityArray = [];
@@ -217,10 +224,6 @@ const getMaintenanceStock = async (fieldsData, allMaint) => {
   sparePartQuantityArray?.map((data) => {
     const sparePart = data?.split("(");
     const Quantity = sparePart && sparePart[1]?.split(")");
-
-    const targetMaintStocks = allMaintStocks.filter(
-      (item) => item.SparePart_Code === sparePart[0]?.trim()
-    );
 
     if (
       sparePart[0]?.trim() &&
@@ -356,14 +359,16 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
     await checkIfAvPlan(avPlanData, startDate, endDate);
 
     maintenanceData.push({
-      Problem_start_From: new Date(fieldsData?.Problem_start_From),
-      Problem_End_To: new Date(fieldsData?.Problem_End_To),
+      Problem_start_From: new Date(
+        fieldsData?.Problem_start_From
+      ).toISOString(),
+      Problem_End_To: new Date(fieldsData?.Problem_End_To).toISOString(),
       Breakdown_Type: fieldsData?.Breakdown_Type,
     });
 
     // console.log(maintenanceData[maintenanceData.length - 1]);
 
-    const sparePart = await getMaintenanceStock(fieldsData, allMaint);
+    const sparePart = await getMaintenanceStock(fieldsData);
 
     while (new Date(startDate) <= new Date(endDate)) {
       perMaintTime = 0;
@@ -473,24 +478,21 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
 const addMaintenance = async (req, res) => {
   try {
     // console.log(req.body);
-    const allMaint = await getAllData("Maintenance");
-    allMaint.sort((a, b) => a.Date_Time - b.Date_Time);
-    let maintData = [];
-    allMaint.map((item) => {
-      maintData.push({
-        ...item,
-        Date_Time: formatDate(item.Date_Time),
-        Problem_start_From: new Date(item.Problem_start_From).toISOString(),
-        Problem_End_To: new Date(item.Problem_End_To).toISOString(),
-        Working_Hours: Number(item.Working_Hours).toFixed(0),
-      });
-    });
+    model["Maintenance"].sort((a, b) => a.Date_Time - b.Date_Time);
+    // let maintData = [];
+    // model["Maintenance"].map((item) => {
+    //   maintData.push({
+    //     ...item,
+    //     Date_Time: formatDate(item.Date_Time),
+    //     Problem_start_From: new Date(item.Problem_start_From).toISOString(),
+    //     Problem_End_To: new Date(item.Problem_End_To).toISOString(),
+    //     Working_Hours: Number(item.Working_Hours).toFixed(0),
+    //   });
+    // });
 
-    const allAvPlan = await getAllData("Availability_Plan");
-    allAvPlan.sort((a, b) => a.DateFrom - b.DateFrom);
+    model["Availability_Plan"].sort((a, b) => a.DateFrom - b.DateFrom);
 
-    const allAv = await getAllData("Availability");
-    allAv.sort((a, b) => a.Date_Time - b.Date_Time);
+    model["Availability"].sort((a, b) => a.Date_Time - b.Date_Time);
 
     //   const targetMaint = maintData.filter(
     //     (item) =>
@@ -510,9 +512,9 @@ const addMaintenance = async (req, res) => {
       );
       const response = await handleAvCalc(
         targetMaint[i],
-        allMaint,
-        allAvPlan,
-        allAv
+        model["Maintenance"],
+        model["Availability_Plan"],
+        model["Availability"]
       );
       result.push(response);
     }
