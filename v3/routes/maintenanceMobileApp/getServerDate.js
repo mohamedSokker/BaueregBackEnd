@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   logic,
-} = require("../../controllers/maintenanceMobileApp/appMaintNotification");
+} = require("../../controllers/maintenanceMobileApp/getServerDate");
 
 router.use((req, res, next) => {
   console.log("app get Server Date middleware");
