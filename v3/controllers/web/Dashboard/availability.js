@@ -36,17 +36,17 @@ const availability = async (req, res) => {
 
     if (model["Availability"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["Availability"].forEach((item) => {
-        jsonStream.write(item);
-      });
+      for (let i = 0; i < model["Availability"].length; i++) {
+        jsonStream.write(model["Availability"][i]);
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
       getData("SELECT * FROM Availability").then((result) => {
-        result.recordsets[0].forEach((item) => {
-          jsonStream.write(item);
-        });
+        for (let i = 0; i < result.recordsets[0].length; i++) {
+          jsonStream.write(result.recordsets[0][i]);
+        }
 
         // End the JSONStream serializer
         jsonStream.end();

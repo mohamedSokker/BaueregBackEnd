@@ -43,20 +43,24 @@ const fuelConsumption = async (req, res) => {
 
     if (model["fuelCons"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["fuelCons"].forEach((item) => {
-        jsonStream.write(item);
-      });
+      for (let i = 0; i < model["fuelCons"].length; i++) {
+        jsonStream.write(model["fuelCons"][i]);
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
       const produrl = process.env.CONSUMPTON_ONEDRIVE_URL;
       await XlsxAll(produrl).then((cons) => {
-        XLSX.utils
-          .sheet_to_json(cons.Sheets[`Fuel Consumption`])
-          .forEach((item) => {
-            jsonStream.write(item);
-          });
+        for (
+          let i = 0;
+          i < XLSX.utils.sheet_to_json(cons.Sheets[`Fuel Consumption`]).length;
+          i++
+        ) {
+          jsonStream.write(
+            XLSX.utils.sheet_to_json(cons.Sheets[`Fuel Consumption`])[i]
+          );
+        }
 
         // End the JSONStream serializer
         jsonStream.end();

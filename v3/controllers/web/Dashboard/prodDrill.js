@@ -53,18 +53,22 @@ const productionDrill = async (req, res) => {
 
     if (model["prodDrill"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["prodDrill"].forEach((item) => {
-        jsonStream.write(item);
-      });
+      for (let i = 0; i < model["prodDrill"].length; i++) {
+        jsonStream.write(model["prodDrill"][i]);
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
       const produrl = process.env.ONEDRIVE_URL;
       await XlsxAll(produrl).then((prod) => {
-        XLSX.utils.sheet_to_json(prod.Sheets["Piles"]).forEach((item) => {
-          jsonStream.write(item);
-        });
+        for (
+          let i = 0;
+          i < XLSX.utils.sheet_to_json(prod.Sheets["Piles"]).length;
+          i++
+        ) {
+          jsonStream.write(XLSX.utils.sheet_to_json(prod.Sheets["Piles"])[i]);
+        }
 
         // End the JSONStream serializer
         jsonStream.end();

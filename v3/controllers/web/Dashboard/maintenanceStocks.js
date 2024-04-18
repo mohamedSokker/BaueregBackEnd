@@ -34,6 +34,9 @@ const maintStocks = async (req, res) => {
 
     if (model["Maintenance_Stocks"]) {
       // Push the large JSON object into the JSONStream serializer
+      for (let i = 0; i < model["Maintenance_Stocks"].length; i++) {
+        jsonStream.write(model["Maintenance_Stocks"][i]);
+      }
       model["Maintenance_Stocks"].forEach((item) => {
         jsonStream.write(item);
       });
@@ -42,9 +45,9 @@ const maintStocks = async (req, res) => {
       jsonStream.end();
     } else {
       getData("SELECT * FROM Maintenance_Stocks").then((result) => {
-        result.recordsets[0].forEach((item) => {
-          jsonStream.write(item);
-        });
+        for (let i = 0; i < result.recordsets[0].length; i++) {
+          jsonStream.write(result.recordsets[0][i]);
+        }
 
         // End the JSONStream serializer
         jsonStream.end();

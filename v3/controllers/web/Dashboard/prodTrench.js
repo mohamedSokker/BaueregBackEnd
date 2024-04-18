@@ -54,22 +54,33 @@ const productionTrench = async (req, res) => {
 
     if (model["prodTrench"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["prodTrench"].forEach((item) => {
-        jsonStream.write(item);
-      });
+      for (let i = 0; i < model["prodTrench"].length; i++) {
+        jsonStream.write(model["prodTrench"][i]);
+      }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
       const produrl = process.env.ONEDRIVE_URL;
       await XlsxAll(produrl).then((prod) => {
-        [
-          ...XLSX.utils.sheet_to_json(prod.Sheets["DW"]),
-          ...XLSX.utils.sheet_to_json(prod.Sheets["Cut-Off Wall"]),
-          ...XLSX.utils.sheet_to_json(prod.Sheets["Barrettes"]),
-        ].forEach((item) => {
-          jsonStream.write(item);
-        });
+        for (
+          let i = 0;
+          i <
+          [
+            ...XLSX.utils.sheet_to_json(prod.Sheets["DW"]),
+            ...XLSX.utils.sheet_to_json(prod.Sheets["Cut-Off Wall"]),
+            ...XLSX.utils.sheet_to_json(prod.Sheets["Barrettes"]),
+          ].length;
+          i++
+        ) {
+          jsonStream.write(
+            [
+              ...XLSX.utils.sheet_to_json(prod.Sheets["DW"]),
+              ...XLSX.utils.sheet_to_json(prod.Sheets["Cut-Off Wall"]),
+              ...XLSX.utils.sheet_to_json(prod.Sheets["Barrettes"]),
+            ][i]
+          );
+        }
 
         // End the JSONStream serializer
         jsonStream.end();
