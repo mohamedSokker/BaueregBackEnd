@@ -211,7 +211,7 @@ const addData = async (bodyData, table, schema) => {
           if (bodyData[keysData[i]] === null) {
             query += "NULL,";
           } else if (bodyData[keysData[i]] === "Date.Now") {
-            query += `${new Date().toISOString()},`;
+            query += `'${new Date().toISOString()}',`;
           } else {
             query += `'${bodyData[keysData[i]]}',`;
           }
@@ -245,7 +245,7 @@ const addDataQuery = async (bodyData, table, schema) => {
           if (bodyData[keysData[i]] === null) {
             query += "NULL,";
           } else if (bodyData[keysData[i]] === "Date.Now") {
-            query += `${new Date().toISOString()},`;
+            query += `'${new Date().toISOString()}',`;
           } else {
             query += `'${bodyData[keysData[i]]}',`;
           }
@@ -276,7 +276,7 @@ const addMany = async (data, table, schema) => {
             if (bodyData[item] === null) {
               query += "NULL,";
             } else if (bodyData[item] === "Date.Now") {
-              query += `${new Date().toISOString()},`;
+              query += `'${new Date().toISOString()}',`;
             } else {
               query += `'${bodyData[item]}',`;
             }
@@ -313,7 +313,7 @@ const addManyQuery = async (data, table, schema) => {
             if (bodyData[item] === null) {
               query += "NULL,";
             } else if (bodyData[item] === "Date.Now") {
-              query += `${new Date().toISOString()},`;
+              query += `'${new Date().toISOString()}',`;
             } else {
               query += `'${bodyData[item]}',`;
             }
@@ -355,7 +355,7 @@ const updateData = async (bodyData, id, table, schema) => {
           if (bodyData[keysData[i]] === null) {
             query += `"${keysData[i]}" = NULL,`;
           } else if (bodyData[keysData[i]] === "Date.Now") {
-            query += `"${keysData[i]}" = ${new Date().toISOString()},`;
+            query += `"${keysData[i]}" = '${new Date().toISOString()}',`;
           } else {
             query += `"${keysData[i]}" = '${bodyData[keysData[i]]}',`;
           }
@@ -390,7 +390,7 @@ const updateDataQuery = async (bodyData, id, table, schema) => {
           if (bodyData[item] === null) {
             query += `"${item}" = NULL,`;
           } else if (bodyData[item] === "Date.Now") {
-            query += `"${item}" = ${new Date().toISOString()},`;
+            query += `"${item}" = '${new Date().toISOString()}',`;
           } else {
             query += `"${item}" = '${bodyData[item]}',`;
           }
@@ -421,7 +421,7 @@ const updateMany = async (data, table, schema) => {
             if (bodyData[item] === null) {
               query += `"${item}" = NULL,`;
             } else if (bodyData[item] === "Date.Now") {
-              query += `"${item}" = ${new Date().toISOString()},`;
+              query += `"${item}" = '${new Date().toISOString()}',`;
             } else {
               query += `"${item}" = '${bodyData[item]}',`;
             }
@@ -457,7 +457,7 @@ const updateManyQuery = async (data, table, schema) => {
             if (bodyData[item] === null) {
               query += `"${item}" = NULL,`;
             } else if (bodyData[item] === "Date.Now") {
-              query += `"${item}" = ${new Date().toISOString()},`;
+              query += `"${item}" = '${new Date().toISOString()}',`;
             } else {
               query += `"${item}" = '${bodyData[item]}',`;
             }
