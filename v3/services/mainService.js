@@ -294,6 +294,7 @@ const addMany = async (data, table, schema) => {
       throw new Error(`Validation Failed`);
     }
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   }
 };
