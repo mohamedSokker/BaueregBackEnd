@@ -1,6 +1,6 @@
 const admin = require("firebase-admin");
 const { initializeApp } = require("firebase-admin/app");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 // const { privateKey1 } = JSON.parse(process.env.FIREBASE_PRIVATE_KEY);
 // console.log(privateKey1);

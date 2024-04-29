@@ -15,65 +15,55 @@ const getMany = async (Number, table) => {
 };
 
 eventEmitter.on("addedOne", async ({ count, table }) => {
-  const oldData = [...model[table]];
   const addedData = await getMany(count, table);
-  const targetData = oldData.concat(addedData);
-  model[table] = targetData;
+  model[table] = model[table].concat(addedData);
   //   io.emit("appDataUpdate", model[table]);
 });
 
 eventEmitter.on("addedMany", async ({ data, table }) => {
-  const oldData = [...model[table]];
   const addedData = await getMany(data, table);
   const sortedAddedData = addedData.sort((a, b) => Number(a.ID) - Number(b.ID));
-  const targetData = oldData.concat(sortedAddedData);
-  model[table] = targetData;
+  model[table] = model[table].concat(sortedAddedData);
   //   io.emit("appDataUpdate", model[table]);
 });
 
 eventEmitter.on("updatedOne", ({ data, table }) => {
-  const oldData = [...model[table]];
   const updatedData = data;
-  const targetItem = oldData.find(
+  const targetItem = model[table].find(
     (item) => Number(item.ID) === Number(data.ID)
   );
-  const index = oldData.findIndex(
+  const index = model[table].findIndex(
     (item) => Number(item.ID) === Number(data.ID)
   );
   if (targetItem) {
-    oldData[index] = { ...targetItem, ...updatedData };
+    model[table][index] = { ...targetItem, ...updatedData };
   } else {
     console.log("Item not found.");
   }
-  model[table] = oldData;
   //   io.emit("appDataUpdate", model[table]);
 });
 
 eventEmitter.on("updatedMany", ({ data, table }) => {
-  const oldData = [...model[table]];
   const updatedData = data;
-  const targetData = oldData.map((originalItem) => {
+  const targetData = model[table].map((originalItem) => {
     let replacement = updatedData.find(
       (replaceItem) => replaceItem.ID === originalItem.ID
     );
 
-    return replacement ? replacement : originalItem;
+    return replacement ? { ...originalItem, ...replacement } : originalItem;
   });
+  console.log(targetData[targetData.length - 1]);
   model[table] = targetData;
   //   io.emit("appDataUpdate", model[table]);
 });
 
 eventEmitter.on("deletedOne", ({ id, table }) => {
-  const oldData = [...model[table]];
-  const targetData = oldData.filter((d) => Number(d.ID) !== Number(id));
-  model[table] = targetData;
+  model[table] = model[table].filter((d) => Number(d.ID) !== Number(id));
   //   io.emit("appDataUpdate", model[table]);
 });
 
 eventEmitter.on("deletedMany", ({ ids, table }) => {
-  const oldData = [...model[table]];
-  const targetData = oldData.filter((d) => !ids.includes(d.ID));
-  model[table] = targetData;
+  model[table] = model[table].filter((d) => !ids.includes(d.ID));
   //   io.emit("appDataUpdate", model[table]);
 });
 

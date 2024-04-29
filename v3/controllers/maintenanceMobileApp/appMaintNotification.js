@@ -1,19 +1,16 @@
-const { getAllData, addMany } = require("../../services/mainService");
+const { addMany } = require("../../services/mainService");
 const {
   AppMaintNotificationSchema,
 } = require("../../schemas/AppMaintNotification/schema");
 
 const { getData } = require("../../helpers/getData");
 const { model } = require("../../model/mainModel");
-// const { getData } = require("../../../functions/getData");
 
 const logic = async (req, res) => {
   try {
     const fieldsData = req.body;
     const bodyData = [];
-    // let query = ``;
-    // const allUsersData = await getAllData("AppMaintUsers");
-    // console.log(`location: ${fieldsData?.Location}`);
+
     if (model["AppMaintUsers"]) {
       if (fieldsData?.type === "newIssue") {
         const result = model["AppMaintUsers"].filter((item) => {
@@ -22,10 +19,7 @@ const logic = async (req, res) => {
             item.Role !== "Operator"
           );
         });
-        // query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
-        //                  Role <> 'Operator'`;
-        // let result = await getData(query);
-        // result = result.recordsets[0];
+
         for (let i = 0; i < result.length; i++) {
           bodyData.push({
             Date_Time: "Date.Now",
@@ -36,16 +30,6 @@ const logic = async (req, res) => {
             Seen: "false",
             Sent: "false",
           });
-          // let notQuery = `INSERT INTO AppMaintNotification VALUES(
-          //                 GETDATE(),
-          //                 '${fieldsData?.username}',
-          //                 '${fieldsData?.ProfileImg}',
-          //                 '${result[i]?.UserName}',
-          //                 '${fieldsData?.Equipment} Started New Problem ${fieldsData?.Breakdown_Type} at ${fieldsData?.Problem_start_From}',
-          //                 'false',
-          //                 'false'
-          // )`;
-          // await getData(notQuery);
         }
       } else if (fieldsData?.type === "endIssue") {
         const result = model["AppMaintUsers"].filter((item) => {
@@ -55,10 +39,7 @@ const logic = async (req, res) => {
             item.Equipment_Type === fieldsData?.Equipment_Type
           );
         });
-        // query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
-        //                  Role = 'Operator' AND Equipment_Type = '${fieldsData?.Equipment_Type}'`;
-        // let result = await getData(query);
-        // result = result.recordsets[0];
+
         for (let i = 0; i < result.length; i++) {
           bodyData.push({
             Date_Time: "Date.Now",
@@ -69,26 +50,10 @@ const logic = async (req, res) => {
             Seen: "false",
             Sent: "false",
           });
-          // let notQuery = `INSERT INTO AppMaintNotification VALUES(
-          //                 GETDATE(),
-          //                 '${fieldsData?.username}',
-          //                 '${fieldsData?.ProfileImg}',
-          //                 '${result[i]?.UserName}',
-          //                 '${fieldsData?.Equipment} Ended Problem ${fieldsData?.Breakdown_Type} at ${fieldsData?.problem_End_To}',
-          //                 'false',
-          //                 'false'
-          // )`;
-          // await getData(notQuery);
         }
       }
     } else {
       if (fieldsData?.type === "newIssue") {
-        // const result = allUsersData.filter((item) => {
-        //   return (
-        //     item.Location.includes(fieldsData?.Location) &&
-        //     item.Role !== "Operator"
-        //   );
-        // });
         query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
                          Role <> 'Operator'`;
         let result = await getData(query);
@@ -103,25 +68,8 @@ const logic = async (req, res) => {
             Seen: "false",
             Sent: "false",
           });
-          // let notQuery = `INSERT INTO AppMaintNotification VALUES(
-          //                 GETDATE(),
-          //                 '${fieldsData?.username}',
-          //                 '${fieldsData?.ProfileImg}',
-          //                 '${result[i]?.UserName}',
-          //                 '${fieldsData?.Equipment} Started New Problem ${fieldsData?.Breakdown_Type} at ${fieldsData?.Problem_start_From}',
-          //                 'false',
-          //                 'false'
-          // )`;
-          // await getData(notQuery);
         }
       } else if (fieldsData?.type === "endIssue") {
-        // const result = allUsersData.filter((item) => {
-        //   return (
-        //     item.Location.includes(fieldsData?.Location) &&
-        //     item.Role === "Operator" &&
-        //     item.Equipment_Type === fieldsData?.Equipment_Type
-        //   );
-        // });
         query = `SELECT * FROM AppMaintUsers WHERE Location LIKE '%${fieldsData?.Location}%' AND
                          Role = 'Operator' AND Equipment_Type = '${fieldsData?.Equipment_Type}'`;
         let result = await getData(query);
@@ -136,16 +84,6 @@ const logic = async (req, res) => {
             Seen: "false",
             Sent: "false",
           });
-          // let notQuery = `INSERT INTO AppMaintNotification VALUES(
-          //                 GETDATE(),
-          //                 '${fieldsData?.username}',
-          //                 '${fieldsData?.ProfileImg}',
-          //                 '${result[i]?.UserName}',
-          //                 '${fieldsData?.Equipment} Ended Problem ${fieldsData?.Breakdown_Type} at ${fieldsData?.problem_End_To}',
-          //                 'false',
-          //                 'false'
-          // )`;
-          // await getData(notQuery);
         }
       }
     }

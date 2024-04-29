@@ -67,6 +67,12 @@ const { MudPumpsSchema } = require("../schemas/MudPumps/schema");
 const { AppMaintUsersSchema } = require("../schemas/AppMaintUsers/schema");
 const { AdminUsersAppSchema } = require("../schemas/AdminUsersApp/schema");
 const { QCTableSchema } = require("../schemas/QCTable/schema");
+const { WorkShopsSchema } = require("../schemas/WorkShops/schema");
+const { AppStocksSchema } = require("../schemas/AppStocks/schema");
+const { AppPlaceOrderSchema } = require("../schemas/AppPlaceOrder/schema");
+const {
+  AppStocksTransitionSchema,
+} = require("../schemas/AppStocksTransition/schema");
 
 const route = require("../routes/mainRoute");
 const tables = [
@@ -101,6 +107,10 @@ const tables = [
   { name: "GearBoxesTrench", schema: GearBoxesTrenchSchema },
   { name: "MudPumps", schema: MudPumpsSchema },
   { name: "QCTable", schema: QCTableSchema },
+  { name: "WorkShops", schema: WorkShopsSchema },
+  { name: "AppStocks", schema: AppStocksSchema },
+  { name: "AppStocksTransition", schema: AppStocksTransitionSchema },
+  { name: "AppPlaceOrder", schema: AppPlaceOrderSchema },
 ];
 
 const addVariables = (table, schema) => {
@@ -140,7 +150,6 @@ const tablesV2EndPoint = async (app) => {
     await getAllCons();
     await getAllProd();
     // await createTables("QCTable");
-
     // setTimeout(() => {
     //   migrateDate();
     // }, 20000);
