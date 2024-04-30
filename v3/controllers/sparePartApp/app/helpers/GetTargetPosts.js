@@ -36,7 +36,7 @@ const getTargetPosts = async (req, res) => {
               (item) =>
                 item.Code === bodyData.Code &&
                 (item.ItemFrom === userRole?.StockRes[0] ||
-                  item.ItemFrom === userRole?.StockRes[0])
+                  item.ItemTo === userRole?.StockRes[0])
             )
             .slice(
               (page - 1) * Number(limit),
