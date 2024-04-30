@@ -173,8 +173,8 @@ const stocksNewItem = async (req, res) => {
         "AppStocks",
         AppStocksSchema
       );
-    await updateMany(
-      [updateStoreData.addStocksTrans],
+    await addData(
+      updateStoreData.addStocksTrans,
       "AppStocksTransition",
       AppStocksTransitionSchema
     );
