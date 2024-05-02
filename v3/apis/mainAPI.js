@@ -13,6 +13,9 @@ const { Kelly_LocationSchema } = require("../schemas/Kelly_Location/schema");
 const {
   Maintenance_StocksSchema,
 } = require("../schemas/Maintenance_Stocks/schema");
+const {
+  Maintenance_StocksDemoSchema,
+} = require("../schemas/Maintenance_StocksDemo/schema");
 const { GearBoxesSchema } = require("../schemas/GearBoxes/schema");
 const {
   Order_ConfirmationSchema,
@@ -81,6 +84,7 @@ const tables = [
   { name: "Maintenance", schema: MaintenanceSchema },
   { name: "Kelly_Location", schema: Kelly_LocationSchema },
   { name: "Maintenance_Stocks", schema: Maintenance_StocksSchema },
+  { name: "Maintenance_StocksDemo", schema: Maintenance_StocksDemoSchema },
   { name: "GearBoxes", schema: GearBoxesSchema },
   { name: "Order_Confirmation", schema: Order_ConfirmationSchema },
   { name: "Order_Invoice", schema: Order_InvoiceSchema },
