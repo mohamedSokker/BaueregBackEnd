@@ -25,7 +25,7 @@ const socketFn = (server) => {
     socket.emit("userID", {
       id: socket.id,
       appVersion: 5,
-      sparePartAppVersion: 1,
+      sparePartAppVersion: 2,
     });
 
     socket.emit("RequestUserName", "RequestUserName");
