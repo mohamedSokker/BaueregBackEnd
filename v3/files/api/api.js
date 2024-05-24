@@ -58,6 +58,22 @@ const filesEndPoints = (app) => {
     res.sendFile(filePath);
   });
 
+  app.get("/Bauereg/BReport/*", (req, res) => {
+    console.log(req.url);
+    const inputPath = req.url
+      .toString()
+      .replace(process.env.CURRENT_DIRECTORY, "")
+      .replace("Bauereg/BReport/", "");
+    const filePath = path.join(
+      __dirname,
+      "..",
+      "BReport",
+      `/${decodeURL(inputPath)}`
+    );
+    console.log(filePath);
+    res.sendFile(filePath);
+  });
+
   app.get("/Bauereg/Orders/*", (req, res) => {
     const inputPath = req.url
       .toString()

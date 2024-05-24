@@ -438,10 +438,10 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
     console.log(sparePart);
     console.log(avResult);
 
-    return res.status(200).json(data);
+    // return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: error.message });
+    // return res.status(500).json({ message: error.message });
   }
 };
 
@@ -471,7 +471,8 @@ const migrateDate = async () => {
   //       dateDiffDays(item.Problem_End_To, item.Problem_start_From) > 0
   //   );
   const targetMaint = maintData.filter(
-    (item) => new Date(formatDate(item.Date_Time)) >= new Date("2022-10-17")
+    // (item) => new Date(formatDate(item.Date_Time)) >= new Date("2022-10-17")
+    (item) => Number(item.ID) > 57454 && Number(item.ID) !== 57456
   );
   console.log(`Data length: ${targetMaint.length}`);
 

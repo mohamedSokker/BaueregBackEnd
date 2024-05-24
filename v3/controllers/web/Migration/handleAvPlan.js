@@ -178,7 +178,8 @@ const migrateDate = async () => {
   const allAvPlan = await getAllDataYard("Availability_Plan");
   allAvPlan.sort((a, b) => a.DateFrom - b.DateFrom);
   const targetAvPlan = allAvPlan.filter(
-    (item) => new Date(formatDate(item.DateFrom)) >= new Date("2022-01-01")
+    // (item) => new Date(formatDate(item.DateFrom)) >= new Date("2024-03-30")
+    (item) => Number(item.ID) > 45588
   );
   for (let i = 0; i < targetAvPlan.length; i++) {
     console.log(

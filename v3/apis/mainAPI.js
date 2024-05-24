@@ -126,18 +126,28 @@ const addVariables = (table, schema) => {
 };
 
 const tablesV2EndPoint = async (app) => {
-  tables.forEach(async (item) => {
-    app.use(
-      `/api/v3/${item.name}`,
-      addVariables(item.name, item.schema),
-      route
-    );
-    try {
-      await getAllData(item.name);
-    } catch (error) {
-      console.log(error.message);
-    }
-  });
+  try {
+    tables.forEach(async (item) => {
+      app.use(
+        `/api/v3/${item.name}`,
+        addVariables(item.name, item.schema),
+        route
+      );
+      try {
+        await getAllData(item.name);
+      } catch (error) {
+        console.log(error.message);
+      }
+    });
+
+    await getAllData("AppMaintUsers");
+    await getAllData("AdminUsersApp");
+    await getAllCons();
+    await getAllProd();
+  } catch (error) {
+    console.log(error.message);
+  }
+
   app.use(
     "/api/v3/AppMaintUsers",
     addVariables("AppMaintUsers", AppMaintUsersSchema),
@@ -148,21 +158,21 @@ const tablesV2EndPoint = async (app) => {
     addVariables("AdminUsersApp", AdminUsersAppSchema),
     route
   );
-  try {
-    await getAllData("AppMaintUsers");
-    await getAllData("AdminUsersApp");
-    await getAllCons();
-    await getAllProd();
-    // await createTables("QCTable");
-    // setTimeout(() => {
-    //   migrateDate();
-    // }, 20000);
-    // setTimeout(() => {
-    //   createTables();
-    // }, 20000);
-  } catch (error) {
-    console.log(error.message);
-  }
+  // try {
+  //   //   await getAllData("AppMaintUsers");
+  //   //   await getAllData("AdminUsersApp");
+  //   //   await getAllCons();
+  //   //   await getAllProd();
+  //   //   // await createTables("QCTable");
+  //   setTimeout(() => {
+  //     migrateDate();
+  //   }, 30000);
+  //   //   // setTimeout(() => {
+  //   //   //   createTables();
+  //   //   // }, 20000);
+  // } catch (error) {
+  //   console.log(error.message);
+  // }
 };
 
 module.exports = { tablesV2EndPoint };

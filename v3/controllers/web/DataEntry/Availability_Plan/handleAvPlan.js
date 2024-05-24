@@ -67,14 +67,14 @@ const handleAvPlan = async (req, res) => {
       Thursday: fieldsData.Thursday,
     };
     if (targetAvPlan) {
-      // await updateData(
-      //   body,
-      //   targetAvPlan[0]?.ID,
-      //   "Availability_Plan",
-      //   Availability_PlanSchema
-      // );
+      await updateData(
+        body,
+        targetAvPlan[0]?.ID,
+        "Availability_Plan",
+        Availability_PlanSchema
+      );
     } else {
-      // await addData(body, "Availability_Plan", Availability_PlanSchema);
+      await addData(body, "Availability_Plan", Availability_PlanSchema);
     }
 
     const eqs = await getEqsInSite(fieldsData.Location);
@@ -174,14 +174,15 @@ const handleAvPlan = async (req, res) => {
         startDate = formatDate(addDays(startDate, 1));
       }
     }
-    // if (addArray.length > 0)
-    //   await addMany(addArray, "Availability", AvailabilitySchema);
-    // if (editArray.length > 0)
-    //   await updateMany(editArray, "Availability", AvailabilitySchema);
+    if (addArray.length > 0)
+      await addMany(addArray, "Availability", AvailabilitySchema);
+    if (editArray.length > 0)
+      await updateMany(editArray, "Availability", AvailabilitySchema);
 
-    return res
-      .status(200)
-      .json({ addData: addArray, editData: editArray, avPlan: body });
+    // return res
+    //   .status(200)
+    //   .json({ addData: addArray, editData: editArray, avPlan: body });
+    return res.status(200).json({ message: "success" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });

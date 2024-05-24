@@ -206,24 +206,26 @@ const getMaintenanceStock = async (fieldsData) => {
     fieldsData?.Spare_part !== "" ? fieldsData?.Spare_part : null;
   const sparePartQuantityArray = sparePartQuantity?.split(",");
   //   console.log(sparePartQuantityArray);
-  let targetMaintStocks = [];
-  if (model["Maintenance_Stocks"]) {
-    model["Maintenance_Stocks"].sort((a, b) => a.DateTime - b.DateTime);
-    targetMaintStocks = model["Maintenance_Stocks"].filter(
-      (item) => item.SparePart_Code === sparePart[0]?.trim()
-    );
-  } else {
-    const query = `SELECT * FROM Maintenance_Stocks WHERE SparePart_Code = '${sparePart[0]?.trim()}' ORDER BY DateTime ASC`;
-    targetMaintStocks = (await getData(query)).recordsets[0];
-  }
+
   //  allMaintStocks = await getAllData("Maintenance_Stocks");
 
   // const sparePartArray = [];
   // const QuantityArray = [];
   const sparePartdata = [];
-  sparePartQuantityArray?.map((data) => {
+  sparePartQuantityArray?.map(async (data) => {
     const sparePart = data?.split("(");
     const Quantity = sparePart && sparePart[1]?.split(")");
+
+    let targetMaintStocks = [];
+    if (model["Maintenance_Stocks"]) {
+      model["Maintenance_Stocks"].sort((a, b) => a.DateTime - b.DateTime);
+      targetMaintStocks = model["Maintenance_Stocks"].filter(
+        (item) => item.SparePart_Code === sparePart[0]?.trim()
+      );
+    } else {
+      const query = `SELECT * FROM Maintenance_Stocks WHERE SparePart_Code = '${sparePart[0]?.trim()}' ORDER BY DateTime ASC`;
+      targetMaintStocks = (await getData(query)).recordsets[0];
+    }
 
     if (
       sparePart[0]?.trim() &&
@@ -435,7 +437,7 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
     });
 
     const maintResult = {
-      Date_Time: fieldsData.Date_Time,
+      Date_Time: formatDate(fieldsData.Problem_start_From),
       Location: fieldsData.Location,
       Equipment_Type: fieldsData.Equipment_Type,
       Equipment_Model: fieldsData.Equipment_Model,
@@ -454,18 +456,18 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
       Spare_part: fieldsData.Spare_part,
     };
 
-    // await addData(maintResult, "Maintenance", MaintenanceSchema);
-    // if (sparePart.length > 0)
-    //   await addMany(sparePart, "Maintenance_Stocks", Maintenance_StocksSchema);
-    // if (avResult.length > 0)
-    //   await updateMany(avResult, "Availability", AvailabilitySchema);
+    await addData(maintResult, "Maintenance", MaintenanceSchema);
+    if (sparePart.length > 0)
+      await addMany(sparePart, "Maintenance_Stocks", Maintenance_StocksSchema);
+    if (avResult.length > 0)
+      await updateMany(avResult, "Availability", AvailabilitySchema);
 
-    console.log(maintResult);
-    // console.log(data);
-    console.log(sparePart);
-    console.log(avResult);
+    // console.log(maintResult);
+    // // console.log(data);
+    // console.log(sparePart);
+    // console.log(avResult);
 
-    return { maintResult, sparePart, avResult };
+    // return { maintResult, sparePart, avResult };
 
     // return res.status(200).json(data, sparePart, avResult, fieldsData);
   } catch (error) {
@@ -502,7 +504,7 @@ const addMaintenance = async (req, res) => {
     const targetMaint = req.body;
     console.log(`Data length: ${targetMaint.length}`);
 
-    let result = [];
+    // let result = [];
 
     for (let i = 0; i < targetMaint.length; i++) {
       console.log(
@@ -510,16 +512,16 @@ const addMaintenance = async (req, res) => {
           2
         )} % at row ${i} / ${targetMaint.length}`
       );
-      const response = await handleAvCalc(
+      await handleAvCalc(
         targetMaint[i],
         model["Maintenance"],
         model["Availability_Plan"],
         model["Availability"]
       );
-      result.push(response);
+      // result.push(response);
     }
     console.log(`Finished`);
-    return res.status(200).json({ data: result });
+    return res.status(200).json({ message: "success" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
