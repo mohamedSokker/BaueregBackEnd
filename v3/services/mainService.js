@@ -285,7 +285,7 @@ const addMany = async (data, table, schema) => {
         query = query.slice(0, -1);
         query += ") ";
       });
-      // console.log(query);
+      console.log(query);
       const result = await getData(query);
 
       eventEmitter.emit("addedMany", { data: data.length, table, table });
@@ -363,7 +363,7 @@ const updateData = async (bodyData, id, table, schema) => {
       }
       query = query.slice(0, -1);
       query += ` WHERE ID = '${id}'`;
-      // console.log(query);
+      console.log(query);
       const result = await getData(query);
       eventEmitter.emit("updatedOne", {
         data: { ID: Number(id), ...newBody },
