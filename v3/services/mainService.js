@@ -219,7 +219,7 @@ const addData = async (bodyData, table, schema) => {
       }
       query = query.slice(0, -1);
       query += ") ";
-      // console.log(query);
+      console.log(query);
       const result = await getData(query);
       eventEmitter.emit("addedOne", { count: 1, table: table });
       return result.recordsets[0];
