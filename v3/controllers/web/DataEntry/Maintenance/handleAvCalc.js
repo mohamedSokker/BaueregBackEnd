@@ -21,6 +21,7 @@ const {
 const {
   Maintenance_StocksSchema,
 } = require("../../../../schemas/Maintenance_Stocks/schema");
+const { QCTableSchema } = require("../../../../schemas/QCTable/schema");
 
 const LeadTime = 1;
 const safetyStock = 1;
@@ -461,6 +462,13 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
       await addMany(sparePart, "Maintenance_Stocks", Maintenance_StocksSchema);
     if (avResult.length > 0)
       await updateMany(avResult, "Availability", AvailabilitySchema);
+
+    await updateData(
+      { Sent: "true" },
+      fieldsData?.ID,
+      "QCTable",
+      QCTableSchema
+    );
 
     // console.log(maintResult);
     // // console.log(data);
