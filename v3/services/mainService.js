@@ -142,18 +142,22 @@ const getAllData = async (table) => {
     if (!model[table]) {
       console.log(`From Database`);
       const query = `SELECT * FROM ${table}`;
-      getData(query).then((data) => {
-        model[table] = data.recordsets[0];
-        const size = Buffer.byteLength(JSON.stringify(model));
-        const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
-        const sizeMB = sizeKB / 1024;
-        console.log(
-          `${size} byte`,
-          `${sizeKB.toFixed(2)} KB`,
-          `${sizeMB.toFixed(2)} MB`
-        );
-        console.log(table);
-      });
+      getData(query)
+        .then((data) => {
+          model[table] = data.recordsets[0];
+          const size = Buffer.byteLength(JSON.stringify(model));
+          const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+          const sizeMB = sizeKB / 1024;
+          console.log(
+            `${size} byte`,
+            `${sizeKB.toFixed(2)} KB`,
+            `${sizeMB.toFixed(2)} MB`
+          );
+          console.log(table);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
       return model[table];
     } else {
@@ -253,6 +257,7 @@ const addDataQuery = async (bodyData, table, schema) => {
       }
       query = query.slice(0, -1);
       query += ") ";
+      console.log(query);
       return query;
     } else {
       throw new Error(`Validation Failed`);
@@ -321,6 +326,7 @@ const addManyQuery = async (data, table, schema) => {
         });
         query = query.slice(0, -1);
         query += ") ";
+        console.log(query);
       });
       return query;
     } else {
@@ -398,6 +404,7 @@ const updateDataQuery = async (bodyData, id, table, schema) => {
       });
       query = query.slice(0, -1);
       query += ` WHERE ID = '${id}'`;
+      console.log(query);
       return query;
     } else {
       throw new Error(`Validation Failed`);
@@ -466,7 +473,7 @@ const updateManyQuery = async (data, table, schema) => {
         query = query.slice(0, -1);
         query += ` WHERE ID = '${bodyData.ID}' `;
       });
-
+      console.log(query);
       return query;
     } else {
       throw new Error(`Validation Failed`);

@@ -1,8 +1,8 @@
 const { DBConnect } = require("./DBConnect");
 
 const getData = async (query) => {
-  const DB = await DBConnect();
   try {
+    const DB = await DBConnect();
     const result = await DB.query(query);
     await DB.close();
     return result;

@@ -44,6 +44,7 @@ const {
 const {
   Equipments_LocationSchema,
 } = require("../schemas/Equipments_Location/schema");
+const { Operating_HrsSchema } = require("../schemas/Operating_Hrs/schema");
 const { Location_BauerSchema } = require("../schemas/Location_Bauer/schema");
 const {
   TaskManagerReportsSchema,
@@ -99,6 +100,7 @@ const tables = [
   { name: "AppNotification", schema: AppNotificationSchema },
   { name: "EquipmentsTransport", schema: EquipmentsTransportSchema },
   { name: "Equipments_Location", schema: Equipments_LocationSchema },
+  { name: "Operating_Hrs", schema: Operating_HrsSchema },
   { name: "Location_Bauer", schema: Location_BauerSchema },
   { name: "TaskManagerReports", schema: TaskManagerReportsSchema },
   { name: "TaskManagerTasks", schema: TaskManagerTasksSchema },
