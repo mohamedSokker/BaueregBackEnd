@@ -1,6 +1,7 @@
 const path = require("path");
 require("dotenv").config();
 const fs = require("fs");
+const FileSystem = require("../fileSystem");
 
 function replaceAllChar(string, char1, char2) {
   while (string.includes(char1)) {
@@ -74,14 +75,15 @@ const filesEndPoints = (app) => {
     res.sendFile(filePath);
   });
 
-  app.get("/Bauereg/Orders/*", (req, res) => {
-    const inputPath = req.url
-      .toString()
-      .replace("bauereg", "")
-      .replace("Bauereg", "");
-    const filePath = path.join(__dirname, "..", `/${decodeURL(inputPath)}`);
-    res.sendFile(filePath);
-  });
+  // app.get("/Bauereg/Orders/*", (req, res) => {
+  //   const inputPath = req.url
+  //     .toString()
+  //     .replace("bauereg", "")
+  //     .replace("Bauereg", "");
+  //   const filePath = path.join(__dirname, "..", `/${decodeURL(inputPath)}`);
+  //   res.sendFile(filePath);
+  // });
+  app.get("/Bauereg/Orders/*", FileSystem);
 
   app.get("/Bauereg/OilSamples/*", (req, res) => {
     const inputPath = req.url
