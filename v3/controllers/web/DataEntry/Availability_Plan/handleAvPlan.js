@@ -24,8 +24,8 @@ const checkifRecordExist = async (fieldsData, allAvPlan) => {
   const targetData = allAvPlan.filter(
     (item) =>
       item.Location === fieldsData.Location &&
-      new Date(item.DateFrom) === new Date(fieldsData.DateFrom) &&
-      new Date(item.DateTo) === new Date(fieldsData.DateTo)
+      formatDate(item.DateFrom) === formatDate(fieldsData.DateFrom) &&
+      formatDate(item.DateTo) === formatDate(fieldsData.DateTo)
   );
 
   if (targetData?.length > 0) return targetData;
