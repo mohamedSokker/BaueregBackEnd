@@ -76,7 +76,7 @@ const handleAddEqLocation = async (req, res) => {
       resultOpHrs.push({
         ...item,
         Start_Date: new Date(item.Start_Date).toISOString().slice(0, 10),
-        End_Date: new Date().toISOString().slice(0, 10),
+        End_Date: new Date(bodyData.Start_Date).toISOString().slice(0, 10),
         End_OperatingHrs: bodyData.Working_Hours,
       });
     });
