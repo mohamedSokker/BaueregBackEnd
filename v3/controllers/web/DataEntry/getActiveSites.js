@@ -18,7 +18,7 @@ const getActiveSites = async (req, res) => {
       // Push the large JSON object into the JSONStream serializer
       if (model["Bauer_Equipments"]) {
         model["Equipments_Location"]
-          .filter((item) => item.End_Date === null)
+          // .filter((item) => item.End_Date === null)
           .forEach((result) => {
             jsonStream.write({
               ...result,
@@ -31,7 +31,7 @@ const getActiveSites = async (req, res) => {
         const query = `SELECT * FROM Bauer_Equipments`;
         getData(query).then((eqs) => {
           model["Equipments_Location"]
-            .filter((item) => item.End_Date === null)
+            // .filter((item) => item.End_Date === null)
             .forEach((result) => {
               jsonStream.write({
                 ...result,
@@ -54,7 +54,7 @@ const getActiveSites = async (req, res) => {
      FROM Equipments_Location
      JOIN Bauer_Equipments
      ON (Equipments_Location.Equipment = Bauer_Equipments.Equipment)
-     WHERE Equipments_Location.End_Date IS NULL`).then((result) => {
+     `).then((result) => {
         result.recordsets[0].forEach((item) => {
           jsonStream.write(item);
         });
