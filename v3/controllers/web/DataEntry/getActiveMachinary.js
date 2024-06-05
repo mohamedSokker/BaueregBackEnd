@@ -17,7 +17,7 @@ const getActiveMachinary = async (req, res) => {
     if (model["Machinary_Location"]) {
       // Push the large JSON object into the JSONStream serializer
       model["Machinary_Location"]
-        .filter((item) => item.End_Date === null)
+        // .filter((item) => item.End_Date === null)
         .forEach((result) => {
           jsonStream.write(result);
         });
@@ -25,16 +25,14 @@ const getActiveMachinary = async (req, res) => {
       // End the JSONStream serializer
       jsonStream.end();
     } else {
-      getData(`SELECT * FROM Machinary_Location WHERE End_Date IS NULL`).then(
-        (result) => {
-          result.recordsets[0].forEach((item) => {
-            jsonStream.write(item);
-          });
+      getData(`SELECT * FROM Machinary_Location`).then((result) => {
+        result.recordsets[0].forEach((item) => {
+          jsonStream.write(item);
+        });
 
-          // End the JSONStream serializer
-          jsonStream.end();
-        }
-      );
+        // End the JSONStream serializer
+        jsonStream.end();
+      });
     }
 
     const memoryUsageAfter = process.memoryUsage().rss;
