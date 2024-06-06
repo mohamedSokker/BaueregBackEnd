@@ -449,10 +449,10 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
       Action: fieldsData.Action,
       Problem_start_From: fieldsData.Problem_start_From,
       Problem_End_To: fieldsData.Problem_End_To,
-      Breakdown_time: dateDiffMin(
-        fieldsData.Problem_End_To,
-        fieldsData.Problem_start_From
-      ),
+      Breakdown_time: (
+        dateDiffMin(fieldsData.Problem_End_To, fieldsData.Problem_start_From) /
+        60
+      ).toFixed(1),
       Site_QC_Min: fieldsData.Site_QC_Min,
       Spare_part: fieldsData.Spare_part,
     };
