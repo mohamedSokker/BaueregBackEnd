@@ -112,6 +112,8 @@ const handleRefreshToken = (req, res) => {
               { name: "Quotation" },
               { name: "Confirmation" },
               { name: "Invoice" },
+              { name: "Order_IncompleteItems" },
+              { name: "Order_Status" },
             ],
             Stocks: [
               { name: "Barcode Generation" },

@@ -12,6 +12,10 @@ const {
   validateupdateData,
   validateManyUpdate,
 } = require("../validations/mainValidation");
+const { EqsToolsSchema } = require("../schemas/EqsTools/schema");
+const {
+  EqsToolsLocationSchema,
+} = require("../schemas/EqsToolsLocation/schema");
 require("dotenv").config();
 
 // const getDate = (date) => {
@@ -35,7 +39,7 @@ const getTableData = async (table) => {
   }
 };
 
-getTableData("WorkShops");
+// getTableData("WorkShops");
 
 const createTable = async (table, schema) => {
   try {
@@ -45,8 +49,22 @@ const createTable = async (table, schema) => {
     });
     query = query.slice(0, -1);
     query += ")";
+    console.log(query);
     await getData(query);
     return `Success`;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+// createTable("EqsTools", EqsToolsSchema);
+// createTable("EqsToolsLocation", EqsToolsLocationSchema);
+
+const deleteTable = async (table) => {
+  try {
+    const query = `DROP TABLE ${table}`;
+    console.log(query);
+    await getData(query);
   } catch (error) {
     throw new Error(error);
   }

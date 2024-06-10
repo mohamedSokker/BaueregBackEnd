@@ -1,9 +1,10 @@
-const { authEndPoints } = require("../web/login&auth/api");
-const { taskManagerEndPoints } = require("../web/TaskManager/api");
-const { transportationsEndPoints } = require("../web/Transportation/api");
-const { dashboardApi } = require("../web/Dashboard/api");
-const { dataEntryEndPoints } = require("../web/DataEntry/api");
-const { bReportEndPoints } = require("../web/BReport/api");
+const { authEndPoints } = require("./login&auth/api");
+const { taskManagerEndPoints } = require("./TaskManager/api");
+const { transportationsEndPoints } = require("./Transportation/api");
+const { dashboardApi } = require("./Dashboard/api");
+const { dataEntryEndPoints } = require("./DataEntry/api");
+const { bReportEndPoints } = require("./BReport/api");
+const { orderIncompleteEndPoints } = require("./OrdersAnalysis/api");
 
 const webApi = (app) => {
   authEndPoints(app);
@@ -12,6 +13,7 @@ const webApi = (app) => {
   dashboardApi(app);
   dataEntryEndPoints(app);
   bReportEndPoints(app);
+  orderIncompleteEndPoints(app);
 };
 
 module.exports = { webApi };
