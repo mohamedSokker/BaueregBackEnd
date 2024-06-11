@@ -33,17 +33,11 @@ let decodeURL = (secPath) => {
 
 const FileSystem = (req, res) => {
   // console.log(auth())
-  let secPath = req.url.toString();
+  let secPath = req.url;
   console.log(req.url);
   console.log(typeof req.url);
   secPath = decodeURL(secPath);
-  // secPath = secPath.replaceAll("%20", " ");
-  // secPath = secPath.replaceAll("%23", "#");
-  // secPath = secPath.replaceAll("%26", "&");
-  // secPath = secPath.replaceAll("%25", "%");
-  // secPath = secPath.replaceAll("%22", '"');
-  // secPath = secPath.replaceAll("%28", "(");
-  // secPath = secPath.replaceAll("%29", ")");
+
   let fullpath = absPath + secPath;
   let image = "unknown.jpg";
   let folder = "folder.jpg";

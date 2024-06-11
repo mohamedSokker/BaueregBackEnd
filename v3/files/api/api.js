@@ -85,23 +85,29 @@ const filesEndPoints = (app) => {
   // });
   app.get("/Bauereg/Orders/*", FileSystem);
 
-  app.get("/Bauereg/OilSamples/*", (req, res) => {
-    const inputPath = req.url
-      .toString()
-      .replace("bauereg", "")
-      .replace("Bauereg", "");
-    const filePath = path.join(__dirname, "..", `/${decodeURL(inputPath)}`);
-    res.sendFile(filePath);
-  });
+  app.get("/Bauereg/Catalogues/*", FileSystem);
 
-  app.get("/Bauereg/OilSamplesAnalyzed/*", (req, res) => {
-    const inputPath = req.url
-      .toString()
-      .replace("bauereg", "")
-      .replace("Bauereg", "");
-    const filePath = path.join(__dirname, "..", `/${decodeURL(inputPath)}`);
-    res.sendFile(filePath);
-  });
+  app.get("/Bauereg/OilSamples/*", FileSystem);
+
+  app.get("/Bauereg/OilSamplesAnalyzed/*", FileSystem);
+
+  // app.get("/Bauereg/OilSamples/*", (req, res) => {
+  //   const inputPath = req.url
+  //     .toString()
+  //     .replace("bauereg", "")
+  //     .replace("Bauereg", "");
+  //   const filePath = path.join(__dirname, "..", `/${decodeURL(inputPath)}`);
+  //   res.sendFile(filePath);
+  // });
+
+  // app.get("/Bauereg/OilSamplesAnalyzed/*", (req, res) => {
+  //   const inputPath = req.url
+  //     .toString()
+  //     .replace("bauereg", "")
+  //     .replace("Bauereg", "");
+  //   const filePath = path.join(__dirname, "..", `/${decodeURL(inputPath)}`);
+  //   res.sendFile(filePath);
+  // });
 
   app.get("/AppGetFiles", (req, res) => {
     try {

@@ -125,7 +125,7 @@ const loginapp = async (req, res) => {
           StocksList: allStocksWithName,
           Tables: allTablesWithName,
           DataEntry: dataEntry,
-          Catalogues: [],
+          Catalogues: true,
           OilSamples: true,
           OilSamplesAnalyzed: true,
           ManageUsers: true,
