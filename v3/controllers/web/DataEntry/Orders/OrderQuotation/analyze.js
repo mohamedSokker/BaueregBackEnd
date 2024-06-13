@@ -284,7 +284,7 @@ const getConfirmationItemsPublic = (text) => {
     targetTotalPrice = replaceAllChar(targetTotalPrice, ",", ".");
     data.push({
       targetDate,
-      targetConfirmNo,
+      targetQuotationNo: targetConfirmNo,
       targetOrderNo,
       targetShipmentMode,
       partNo,
