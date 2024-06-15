@@ -12,28 +12,36 @@ const dataEntryHandleEditMachLocation = require("../../../routes/web/DataEntry/M
 
 const orderConfirmationGetFiles = require("../../../routes/web/DataEntry/Orders/OrderConfirmation/getFiles");
 const orderConfirmationUploadFiles = require("../../../routes/web/DataEntry/Orders/OrderConfirmation/uploadFiles");
+const orderConfirmationSearchFiles = require("../../../routes/web/DataEntry/Orders/OrderConfirmation/searchFiles");
 const orderConfirmationDeleteFiles = require("../../../routes/web/DataEntry/Orders/OrderConfirmation/deleteFiles");
+const orderConfirmationRenameFiles = require("../../../routes/web/DataEntry/Orders/OrderConfirmation/rename");
 const orderConfirmationCreateFolder = require("../../../routes/web/DataEntry/Orders/OrderConfirmation/createFolder");
 const orderConfirmationAnalyze = require("../../../routes/web/DataEntry/Orders/OrderConfirmation/analyze");
 const orderConfirmationAddOrder = require("../../../routes/web/DataEntry/Orders/OrderConfirmation/addOrder");
 
 const orderNoGetFiles = require("../../../routes/web/DataEntry/Orders/OrderNo/getFiles");
 const orderNoUploadFiles = require("../../../routes/web/DataEntry/Orders/OrderNo/uploadFiles");
+const orderNoSearchFiles = require("../../../routes/web/DataEntry/Orders/OrderNo/searchFiles");
 const orderNoDeleteFiles = require("../../../routes/web/DataEntry/Orders/OrderNo/deleteFiles");
+const orderNoRenameFiles = require("../../../routes/web/DataEntry/Orders/OrderNo/rename");
 const orderNoCreateFolder = require("../../../routes/web/DataEntry/Orders/OrderNo/createFolder");
 const orderNoAnalyze = require("../../../routes/web/DataEntry/Orders/OrderNo/analyze");
 const orderNoAddOrder = require("../../../routes/web/DataEntry/Orders/OrderNo/addOrder");
 
 const orderQuotationGetFiles = require("../../../routes/web/DataEntry/Orders/OrderQuotation/getFiles");
 const orderQuotationUploadFiles = require("../../../routes/web/DataEntry/Orders/OrderQuotation/uploadFiles");
+const orderQuotationSearchFiles = require("../../../routes/web/DataEntry/Orders/OrderQuotation/searchFiles");
 const orderQuotationDeleteFiles = require("../../../routes/web/DataEntry/Orders/OrderQuotation/deleteFiles");
+const orderQuotationRenameFiles = require("../../../routes/web/DataEntry/Orders/OrderQuotation/rename");
 const orderQuotationCreateFolder = require("../../../routes/web/DataEntry/Orders/OrderQuotation/createFolder");
 const orderQuotationAnalyze = require("../../../routes/web/DataEntry/Orders/OrderQuotation/analyze");
 const orderQuotationAddOrder = require("../../../routes/web/DataEntry/Orders/OrderQuotation/addOrder");
 
 const orderInvoiceGetFiles = require("../../../routes/web/DataEntry/Orders/OrderInvoice/getFiles");
 const orderInvoiceUploadFiles = require("../../../routes/web/DataEntry/Orders/OrderInvoice/uploadFiles");
+const orderInvoiceSearchFiles = require("../../../routes/web/DataEntry/Orders/OrderInvoice/searchFiles");
 const orderInvoiceDeleteFiles = require("../../../routes/web/DataEntry/Orders/OrderInvoice/deleteFiles");
+const orderInvoiceRenameFiles = require("../../../routes/web/DataEntry/Orders/OrderInvoice/rename");
 const orderInvoiceCreateFolder = require("../../../routes/web/DataEntry/Orders/OrderInvoice/createFolder");
 const orderInvoiceAnalyze = require("../../../routes/web/DataEntry/Orders/OrderInvoice/analyze");
 const orderInvoiceAddOrder = require("../../../routes/web/DataEntry/Orders/OrderInvoice/addOrder");
@@ -62,7 +70,9 @@ const dataEntryEndPoints = (app) => {
 
   app.use("/api/v3/dataEntryOrderNoGetFiles", orderNoGetFiles);
   app.use("/api/v3/dataEntryOrderNoDeleteFiles", orderNoDeleteFiles);
+  app.use("/api/v3/dataEntryOrderNoRenameFiles", orderNoRenameFiles);
   app.use("/api/v3/dataEntryOrderNoUploadFiles", orderNoUploadFiles);
+  app.use("/api/v3/dataEntryOrderNoSearchFiles", orderNoSearchFiles);
   app.use("/api/v3/dataEntryOrderNoCreateFolder", orderNoCreateFolder);
   app.use("/api/v3/dataEntryOrderNoAnalyze", orderNoAnalyze);
   app.use("/api/v3/dataEntryOrderNoAddOrder", orderNoAddOrder);
@@ -73,8 +83,16 @@ const dataEntryEndPoints = (app) => {
     orderQuotationDeleteFiles
   );
   app.use(
+    "/api/v3/dataEntryOrderQuotationRenameFiles",
+    orderQuotationRenameFiles
+  );
+  app.use(
     "/api/v3/dataEntryOrderQuotationUploadFiles",
     orderQuotationUploadFiles
+  );
+  app.use(
+    "/api/v3/dataEntryOrderQuotationSearchFiles",
+    orderQuotationSearchFiles
   );
   app.use(
     "/api/v3/dataEntryOrderQuotationCreateFolder",
@@ -89,8 +107,16 @@ const dataEntryEndPoints = (app) => {
     orderConfirmationDeleteFiles
   );
   app.use(
+    "/api/v3/dataEntryOrderConfirmationRenameFiles",
+    orderConfirmationRenameFiles
+  );
+  app.use(
     "/api/v3/dataEntryOrderConfirmationUploadFiles",
     orderConfirmationUploadFiles
+  );
+  app.use(
+    "/api/v3/dataEntryOrderConfirmationSearchFiles",
+    orderConfirmationSearchFiles
   );
   app.use(
     "/api/v3/dataEntryOrderConfirmationCreateFolder",
@@ -107,7 +133,9 @@ const dataEntryEndPoints = (app) => {
 
   app.use("/api/v3/dataEntryOrderInvoiceFiles", orderInvoiceGetFiles);
   app.use("/api/v3/dataEntryOrderInvoiceDeleteFiles", orderInvoiceDeleteFiles);
+  app.use("/api/v3/dataEntryOrderInvoiceRenameFiles", orderInvoiceRenameFiles);
   app.use("/api/v3/dataEntryOrderInvoiceUploadFiles", orderInvoiceUploadFiles);
+  app.use("/api/v3/dataEntryOrderInvoiceSearchFiles", orderInvoiceSearchFiles);
   app.use(
     "/api/v3/dataEntryOrderInvoiceCreateFolder",
     orderInvoiceCreateFolder
