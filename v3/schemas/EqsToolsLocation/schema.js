@@ -5,9 +5,17 @@ const EqsToolsLocationSchema = {
     databaseType: "INT NOT NULL IDENTITY(1,1) PRIMARY KEY",
     validatePattern: regix.int,
   },
-  ToolID: {
-    databaseType: "INT",
-    validatePattern: regix.int,
+  Type: {
+    databaseType: "NVARCHAR(255)",
+    validatePattern: regix.nvarChar255,
+  },
+  Code: {
+    databaseType: "NVARCHAR(255)",
+    validatePattern: regix.nvarChar255,
+  },
+  Serial: {
+    databaseType: "NVARCHAR(255)",
+    validatePattern: regix.nvarChar255,
   },
   Start_Date: {
     databaseType: "DATE",

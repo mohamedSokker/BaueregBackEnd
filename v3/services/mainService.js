@@ -290,26 +290,38 @@ const addMany = async (data, table, schema) => {
     let query = ``;
     const validation = validateManyAdd(data, schema);
     if (validation) {
-      data.map((bodyData) => {
+      let count = 1;
+      for (let i = 0; i < data.length; i++) {
         query += `INSERT INTO ${table} VALUES ( `;
-        Object.keys(bodyData).map(async (item) => {
+        Object.keys(data[i]).map(async (item) => {
           if (item === "Password") {
-            query += `'${await bcrypt.hash(bodyData[item], 10)}',`;
+            query += `'${await bcrypt.hash(data[i][item], 10)}',`;
           } else if (item !== "ID") {
-            if (bodyData[item] === null) {
+            if (data[i][item] === null) {
               query += "NULL,";
-            } else if (bodyData[item] === "Date.Now") {
+            } else if (data[i][item] === "Date.Now") {
               query += `'${new Date().toISOString()}',`;
             } else {
-              query += `'${bodyData[item]}',`;
+              query += `'${data[i][item]}',`;
             }
           }
         });
         query = query.slice(0, -1);
         query += ") ";
-      });
-      console.log(query);
-      const result = await getData(query);
+        if (count === 2) {
+          console.log(`${query}\n`);
+          await getData(query);
+          count = 0;
+          query = ``;
+        }
+        count++;
+      }
+      if (query !== ``) {
+        console.log(`${query}\n`);
+        await getData(query);
+      }
+      // console.log(query);
+      // const result = await getData(query);
 
       eventEmitter.emit("addedMany", { data: data.length, table, table });
       return result.recordsets[0];
@@ -327,25 +339,32 @@ const addManyQuery = async (data, table, schema) => {
     let query = ``;
     const validation = validateManyAdd(data, schema);
     if (validation) {
-      data.map((bodyData) => {
+      let count = 1;
+      for (let i = 0; i < data.length; i++) {
         query += `INSERT INTO ${table} VALUES ( `;
-        Object.keys(bodyData).map(async (item) => {
+        Object.keys(data[i]).map(async (item) => {
           if (item === "Password") {
-            query += `'${await bcrypt.hash(bodyData[item], 10)}',`;
+            query += `'${await bcrypt.hash(data[i][item], 10)}',`;
           } else if (item !== "ID") {
-            if (bodyData[item] === null) {
+            if (data[i][item] === null) {
               query += "NULL,";
-            } else if (bodyData[item] === "Date.Now") {
+            } else if (data[i][item] === "Date.Now") {
               query += `'${new Date().toISOString()}',`;
             } else {
-              query += `'${bodyData[item]}',`;
+              query += `'${data[i][item]}',`;
             }
           }
         });
         query = query.slice(0, -1);
         query += ") ";
-        console.log(query);
-      });
+        if (count === 2) {
+          count = 0;
+          console.log(`${query}\n`);
+          query = ``;
+        }
+        count++;
+      }
+      if (query !== ``) console.log(`${query}\n`);
       return query;
     } else {
       throw new Error(`Validation Failed`);

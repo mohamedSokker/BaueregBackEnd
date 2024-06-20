@@ -1,5 +1,6 @@
 const dataEntryGetActiveSites = require("../../../routes/web/DataEntry/getActiveSites");
 const dataEntryGetActiveMachinary = require("../../../routes/web/DataEntry/getActiveMachinary");
+const dataEntryGetActiveTools = require("../../../routes/web/DataEntry/getActiveTools");
 const dataEntryGetBreakdowns = require("../../../routes/web/DataEntry/getBreakdowns");
 const dataEntryGetUserSites = require("../../../routes/web/DataEntry/getUsers");
 const dataEntryReadExcel = require("../../../routes/web/DataEntry/readExcel");
@@ -49,6 +50,7 @@ const orderInvoiceAddOrder = require("../../../routes/web/DataEntry/Orders/Order
 const dataEntryEndPoints = (app) => {
   app.use("/api/v1/getActiveData", dataEntryGetActiveSites);
   app.use("/api/v1/getActiveMachinary", dataEntryGetActiveMachinary);
+  app.use("/api/v1/getActiveTools", dataEntryGetActiveTools);
   app.use("/api/v1/getBreakdowns", dataEntryGetBreakdowns);
   app.use("/api/v1/getUserSites", dataEntryGetUserSites);
   app.use("/readExcel", dataEntryReadExcel);

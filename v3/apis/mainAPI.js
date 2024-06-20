@@ -77,6 +77,10 @@ const { AppPlaceOrderSchema } = require("../schemas/AppPlaceOrder/schema");
 const {
   AppStocksTransitionSchema,
 } = require("../schemas/AppStocksTransition/schema");
+const { EqsToolsSchema } = require("../schemas/EqsTools/schema");
+const {
+  EqsToolsLocationSchema,
+} = require("../schemas/EqsToolsLocation/schema");
 
 const route = require("../routes/mainRoute");
 const tables = [
@@ -117,6 +121,8 @@ const tables = [
   { name: "AppStocks", schema: AppStocksSchema },
   { name: "AppStocksTransition", schema: AppStocksTransitionSchema },
   { name: "AppPlaceOrder", schema: AppPlaceOrderSchema },
+  { name: "EqsTools", schema: EqsToolsSchema },
+  { name: "EqsToolsLocation", schema: EqsToolsLocationSchema },
 ];
 
 const addVariables = (table, schema) => {
