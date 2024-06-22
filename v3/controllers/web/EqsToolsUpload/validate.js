@@ -1,3 +1,5 @@
+const { model } = require("../../../model/mainModel");
+
 const regix = {
   int: /^[0-9]*$/,
   intEmpty: /^$|^[0-9]*$/,
@@ -17,7 +19,15 @@ const regix = {
 const validateData = async (data, tools, sites, eqs) => {
   let flag = true;
   let message = ``;
+  const lastID = model["EqsToolsLocation"].sort((a, b) => b.ID - a.ID)[0];
+  console.log(lastID.ID);
   for (let i = 0; i < data.length; i++) {
+    console.log(data[i].ID);
+    if (Number(data[i].ID) <= Number(lastID.ID)) {
+      flag = false;
+      message = `this ID is found once in database in row ${i + 2}`;
+      break;
+    }
     if (!tools.includes(data[i].Type)) {
       flag = false;
       message = `Type is not included in row ${i + 2}`;

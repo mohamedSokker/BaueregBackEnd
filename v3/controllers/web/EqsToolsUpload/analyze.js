@@ -56,6 +56,7 @@ const Analyze = async (req, res) => {
     tools = Array.from(new Set(tools));
 
     const data = [];
+    const dataWithID = [];
     excelData.map((item) => {
       data.push({
         // ...item,
@@ -71,13 +72,28 @@ const Analyze = async (req, res) => {
         Location: item.Location ? item.Location : "",
         Equipment: item.Equipment ? item.Equipment : "",
       });
+      dataWithID.push({
+        // ...item,
+        ID: item.ID ? item.ID : 0,
+        Type: item.Type ? item.Type : "",
+        Code: item.Code ? item.Code : "",
+        Serial: item.Serial ? item.Serial : "",
+        Start_Date: formatDate(ExcelDateToJSDate(item.Start_Date)),
+        End_Date: item.End_Date
+          ? formatDate(ExcelDateToJSDate(item.End_Date))
+          : "",
+        Start_WH: item.Start_WH ? item.Start_WH : "",
+        End_WH: item.End_WH ? item.End_WH : "",
+        Location: item.Location ? item.Location : "",
+        Equipment: item.Equipment ? item.Equipment : "",
+      });
     });
 
-    const validate = await validateData(data, tools, sites, eqs);
+    const validate = await validateData(dataWithID, tools, sites, eqs);
 
     if (validate.message !== "") throw new Error(validate.message);
 
-    await addMany(data, "EqsToolsLocation", EqsToolsLocationSchema);
+    await addManyQuery(data, "EqsToolsLocation", EqsToolsLocationSchema);
 
     return res.status(200).json({ messgae: "Success" });
   } catch (error) {
