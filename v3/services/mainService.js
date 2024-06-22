@@ -324,7 +324,7 @@ const addMany = async (data, table, schema) => {
       // const result = await getData(query);
 
       eventEmitter.emit("addedMany", { data: data.length, table, table });
-      return result.recordsets[0];
+      return `Success`;
     } else {
       throw new Error(`Validation Failed`);
     }

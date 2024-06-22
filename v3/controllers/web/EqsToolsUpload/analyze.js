@@ -5,7 +5,7 @@ const ExcelDateToJSDate = require("../../../helpers/ExcelToJsDate");
 const formatDate = require("../../../helpers/formatdate");
 
 const { validateData } = require("./validate");
-const { addManyQuery } = require("../../../services/mainService");
+const { addManyQuery, addMany } = require("../../../services/mainService");
 const {
   EqsToolsLocationSchema,
 } = require("../../../schemas/EqsToolsLocation/schema");
@@ -33,15 +33,21 @@ const Analyze = async (req, res) => {
 
     const excelData = XLSX.utils.sheet_to_json(workbook.Sheets["Sheet1"]);
 
-    const sites = [];
-    model["Location_Bauer"].map((item) => {
+    let sites = [];
+    let eqs = [];
+    model["Equipments_Location"].map((item) => {
       sites.push(item.Location);
-    });
-
-    const eqs = [];
-    model["Bauer_Equipments"].map((item) => {
       eqs.push(item.Equipment);
     });
+
+    sites = Array.from(new Set(sites));
+    eqs = Array.from(new Set(eqs));
+
+    // console.log(sites);
+
+    // model["Bauer_Equipments"].map((item) => {
+    //   eqs.push(item.Equipment);
+    // });
 
     let tools = [];
     model["EqsTools"].map((item) => {
@@ -52,7 +58,7 @@ const Analyze = async (req, res) => {
     const data = [];
     excelData.map((item) => {
       data.push({
-        ...item,
+        // ...item,
         Type: item.Type ? item.Type : "",
         Code: item.Code ? item.Code : "",
         Serial: item.Serial ? item.Serial : "",
@@ -71,7 +77,7 @@ const Analyze = async (req, res) => {
 
     if (validate.message !== "") throw new Error(validate.message);
 
-    await addManyQuery(data, "EqsToolsLocation", EqsToolsLocationSchema);
+    await addMany(data, "EqsToolsLocation", EqsToolsLocationSchema);
 
     return res.status(200).json({ messgae: "Success" });
   } catch (error) {
