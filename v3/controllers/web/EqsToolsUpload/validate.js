@@ -19,7 +19,8 @@ const regix = {
 const validateData = async (data, tools, sites, eqs) => {
   let flag = true;
   let message = ``;
-  const lastID = model["EqsToolsLocation"].sort((a, b) => b.ID - a.ID)[0];
+  const lastID =
+    model["EqsToolsLocation"][model["EqsToolsLocation"].length - 1];
   console.log(lastID.ID);
   for (let i = 0; i < data.length; i++) {
     console.log(data[i].ID);

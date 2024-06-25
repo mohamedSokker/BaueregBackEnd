@@ -8,6 +8,8 @@ const allowedOrigins = [
   "https://localhost:5000",
   "http://localhost:5173",
   "http://192.168.1.8:5173",
+  "http://localhost:8080",
+  "http://192.168.1.8:8080",
 ];
 
 module.exports = allowedOrigins;

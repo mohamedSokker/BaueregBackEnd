@@ -10,11 +10,7 @@ const Analyze = async (req, res) => {
     // const path = req.query.filepath;
     const targetpath = `${process.env.BASE_PATH}/OilSamplesAnalyzed/Bauer`;
     // const targetfileName = req.query.targetfilename;
-    const KeyWords = [
-      "Component: HYDRAULIC CIRCUITS",
-      "Machine: GEARBOX",
-      "Machine: Diesel engine",
-    ];
+    const KeyWords = ["HYDRAULIC CIRCUITS /", "GEARBOX /", "DIESEL ENGINES /"];
     const docAsBytes = await fs.promises.readFile(path);
     const pdfDocument = await pdfDoc.PDFDocument.load(docAsBytes);
     const noOfPages = pdfDocument.getPages().length;
@@ -40,15 +36,24 @@ const Analyze = async (req, res) => {
       const readpdfBytes = await readDoc.save();
       const readText = await pdf(readpdfBytes);
       pdfText = readText.text;
+
       let flag = false;
       KeyWords.map((keyword) => {
         if (pdfText.includes(keyword) && pdfText.includes("Diagnosis date:")) {
           const startText = pdfText.indexOf(keyword);
           const endText = pdfText.indexOf("\n", startText + 1);
           let textArray = pdfText.slice(startText, endText).split("/");
+          console.log(startText, endText, textArray);
           currentTool = textArray[textArray.length - 1].trim();
-          currentCat = keyword.split(":")[1].trim();
+          if (pdfText.includes("DISTRIBUTOR GEARBOX")) {
+            currentCat = "DISTRIBUTOR GEARBOX";
+            keyword.trim(" /");
+          } else {
+            currentCat = keyword.trim(" /");
+          }
+
           flag = true;
+
           return true;
         }
       });
@@ -59,14 +64,16 @@ const Analyze = async (req, res) => {
 
       if (i === 0 || currentTool !== prevTool) {
         if (pdfBytes !== undefined && prevTool !== "") {
-          const startText = prevpdfText.indexOf(prevTool);
-          const endText = prevpdfText.indexOf("\n", startText + 1);
-          let textArray = prevpdfText.slice(startText, endText).split("/");
-          targetfilename = textArray[textArray.length - 1].trim();
+          // const startText = prevpdfText.indexOf(prevTool);
+          // const endText = prevpdfText.indexOf("\n", startText + 1);
+          // let textArray = prevpdfText.slice(startText, endText).split("/");
+          // targetfilename = textArray[textArray.length - 1].trim();
+          targetfilename = prevTool;
           const startDate = prevpdfText.indexOf("Diagnosis date:");
           const endDate = prevpdfText.indexOf("\n", startDate + 1);
           let dateArray = prevpdfText.slice(startDate, endDate).split(":");
           targetdate = dateArray[dateArray.length - 1].trim();
+
           if (!fs.existsSync(`${targetpath}/${prevCat}`)) {
             fs.mkdirSync(`${targetpath}/${prevCat}`);
           }
@@ -104,6 +111,7 @@ const Analyze = async (req, res) => {
     }
     return res.status(200).json(data);
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };
