@@ -18,8 +18,8 @@ app.use(cookieParser());
 // const { createData } = require("./createData");
 // createData();
 /////////////////////////////////////////////////Database Data//////////////////////////////////////////////
-// const { databaseDataEndPoints } = require("./v1/DatabaseData/api/api");
-// databaseDataEndPoints(app);
+const { databaseDataEndPoints } = require("./v1/DatabaseData/api/api");
+databaseDataEndPoints(app);
 /////////////////////////////////////////////////Task Manager///////////////////////////////////////////////
 // const { taskManagerEndPoints } = require("./v1/TaskManager/api/api");
 // taskManagerEndPoints(app);

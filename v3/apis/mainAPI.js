@@ -81,6 +81,7 @@ const { EqsToolsSchema } = require("../schemas/EqsTools/schema");
 const {
   EqsToolsLocationSchema,
 } = require("../schemas/EqsToolsLocation/schema");
+const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
 
 const route = require("../routes/mainRoute");
 const tables = [
@@ -123,6 +124,7 @@ const tables = [
   { name: "AppPlaceOrder", schema: AppPlaceOrderSchema },
   { name: "EqsTools", schema: EqsToolsSchema },
   { name: "EqsToolsLocation", schema: EqsToolsLocationSchema },
+  { name: "OilSamples", schema: OilSamplesSchema },
 ];
 
 const addVariables = (table, schema) => {

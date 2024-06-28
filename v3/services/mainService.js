@@ -16,6 +16,7 @@ const { EqsToolsSchema } = require("../schemas/EqsTools/schema");
 const {
   EqsToolsLocationSchema,
 } = require("../schemas/EqsToolsLocation/schema");
+const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
 require("dotenv").config();
 
 // const getDate = (date) => {
@@ -57,7 +58,7 @@ const createTable = async (table, schema) => {
   }
 };
 
-// createTable("EqsTools", EqsToolsSchema);
+// createTable("OilSamples", OilSamplesSchema);
 // createTable("EqsToolsLocation", EqsToolsLocationSchema);
 
 const deleteTable = async (table) => {
@@ -69,6 +70,8 @@ const deleteTable = async (table) => {
     throw new Error(error);
   }
 };
+
+// deleteTable("OilSamples");
 
 const getAllCons = async () => {
   try {
@@ -276,7 +279,7 @@ const addDataQuery = async (bodyData, table, schema) => {
       query = query.slice(0, -1);
       query += ") ";
       console.log(query);
-      return query;
+      return `Success`;
     } else {
       throw new Error(`Validation Failed`);
     }
@@ -365,7 +368,7 @@ const addManyQuery = async (data, table, schema) => {
         count++;
       }
       if (query !== ``) console.log(`${query}\n`);
-      return query;
+      return `Success`;
     } else {
       throw new Error(`Validation Failed`);
     }
