@@ -1,9 +1,14 @@
 const socketio = require("socket.io");
 
-const { addConndection, client } = require("../../v1/VNC_Client1/vncClient");
-const { handleDisconnect } = require("../../v1/VNC_Client1/handleConnection");
+const {
+  addConndection,
+  client,
+} = require("../services/web/VNC_Client1/vncClient");
+const {
+  handleDisconnect,
+} = require("../services/web/VNC_Client1/handleConnection");
 
-const { availability } = require("../controllers/web/Dashboard/availability");
+// const { availability } = require("../controllers/web/Dashboard/availability");
 
 let portsCreated = [];
 
@@ -39,9 +44,9 @@ const socketFn = (server) => {
       await addConndection(socket, port, portsCreated, io);
     });
 
-    socket.on("requestAvData", async () => {
-      await availability(io);
-    });
+    // socket.on("requestAvData", async () => {
+    //   await availability(io);
+    // });
 
     socket.on("leave-room", (roomId) => {
       delete rooms[socket?.id];

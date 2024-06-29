@@ -72,6 +72,7 @@ const deleteTable = async (table) => {
 };
 
 // deleteTable("OilSamples");
+// deleteTable("EqsToolsLocation");
 
 const getAllCons = async () => {
   try {
@@ -537,6 +538,7 @@ const deleteData = async (id, table) => {
 const deleteDataQuery = async (id, table) => {
   try {
     let query = `DELETE FROM ${table} WHERE ID = '${id}'`;
+    console.log(query);
     return query;
   } catch (error) {
     throw new Error(error);

@@ -203,7 +203,7 @@ const Analyze = async (req, res) => {
                 category?.trim()?.split(":")?.length - 1
               ],
           Serial: type?.replace("\\n", ""),
-          OilType: oilType,
+          OilType: oilType ? oilType : "",
           Equipment: pageEq,
           Location: site,
           Equipment_Type: eqType,
