@@ -22,7 +22,7 @@ const Analyze = async (req, res) => {
 
     // const excelData = XLSX.utils.sheet_to_json(workbook.Sheets["Sheet1"]);
 
-    console.log(excelData);
+    // console.log(excelData);
 
     let sites = [];
     let eqs = [];

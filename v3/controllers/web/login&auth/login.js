@@ -115,6 +115,7 @@ const loginapp = async (req, res) => {
             { name: "Invoice" },
             { name: "Order_IncompleteItems" },
             { name: "Order_Status" },
+            { name: "OrderInvoice_NotFound" },
           ],
           Stocks: [
             { name: "Barcode Generation" },

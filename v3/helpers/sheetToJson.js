@@ -8,8 +8,8 @@ const sheerToJson = (data) => {
     let object = {};
     let count = 2;
     arrayData.map((item) => {
-      console.log(`item => ${item.slice(1)}`);
-      console.log(`count => ${count}`);
+      //   console.log(`item => ${item.slice(1)}`);
+      //   console.log(`count => ${count}`);
       if (item.slice(1) != count && item.slice(1) != "1") {
         result.push(object);
         count++;
