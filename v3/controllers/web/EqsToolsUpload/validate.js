@@ -49,7 +49,9 @@ const validateData = async (data, tools, sites, eqs) => {
       message = `Start Date is not matching date in row ${i + 2}`;
       break;
     }
-    if (!regix.dateEmty.test(data[i].End_Date)) {
+    if (
+      !regix.dateEmty.test(data[i].End_Date && data[i].End_Date !== "Date.Now")
+    ) {
       flag = false;
       message = `End Date is not matching date in row ${i + 2}`;
       break;
