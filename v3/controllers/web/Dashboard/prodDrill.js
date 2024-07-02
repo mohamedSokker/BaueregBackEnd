@@ -5,6 +5,7 @@ require("dotenv").config();
 const { Readable } = require("stream");
 const JSONStream = require("JSONStream");
 const { model } = require("../../../model/mainModel");
+const { sheerToJson } = require("../../../helpers/sheetToJson");
 
 function createReadableStream(data) {
   return new Readable({
@@ -21,30 +22,6 @@ function createReadableStream(data) {
 const productionDrill = async (req, res) => {
   try {
     const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
-    // const Piles = ["Piles"];
-    // const produrl = process.env.ONEDRIVE_URL;
-    // const prod = await XlsxAll(produrl);
-    // let prodDrill = [];
-    // prod.SheetNames.map((sheetName) => {
-    //   if (Piles.includes(sheetName)) {
-    //     prodDrill = [
-    //       ...prodDrill,
-    //       ...XLSX.utils.sheet_to_json(prod.Sheets[sheetName]),
-    //     ];
-    //   }
-    // });
-
-    // for (let i = 0; i < prodDrill.length; i++) {
-    //   prodDrill[i]["Pouring Finish"] = ExcelDateToJSDate(
-    //     prodDrill[i]["Pouring Finish"]
-    //   );
-    // }
-    // prodDrill.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
-
-    // res.setHeader("Content-Type", "application/json");
-    // res.setHeader("Transfer-Encoding", "chunked");
-
-    // res.writeHead(200);
 
     const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
@@ -62,12 +39,8 @@ const productionDrill = async (req, res) => {
     } else {
       const produrl = process.env.ONEDRIVE_URL;
       await XlsxAll(produrl).then((prod) => {
-        for (
-          let i = 0;
-          i < XLSX.utils.sheet_to_json(prod.Sheets["Piles"]).length;
-          i++
-        ) {
-          jsonStream.write(XLSX.utils.sheet_to_json(prod.Sheets["Piles"])[i]);
+        for (let i = 0; i < sheerToJson(prod.Sheets["Piles"]).length; i++) {
+          jsonStream.write(sheerToJson(prod.Sheets["Piles"])[i]);
         }
 
         // End the JSONStream serializer

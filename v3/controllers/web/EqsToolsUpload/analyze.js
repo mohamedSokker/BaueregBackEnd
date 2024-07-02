@@ -1,4 +1,3 @@
-const fs = require("fs");
 const XLSX = require("xlsx");
 const { model } = require("../../../model/mainModel");
 const ExcelDateToJSDate = require("../../../helpers/ExcelToJsDate");
@@ -9,29 +8,21 @@ const { addManyQuery, addMany } = require("../../../services/mainService");
 const {
   EqsToolsLocationSchema,
 } = require("../../../schemas/EqsToolsLocation/schema");
-
-const titleObj = [
-  "ID",
-  "Type",
-  "Code",
-  "Serial",
-  "Start_Date",
-  "End_Date",
-  "Start_WH",
-  "End_WH",
-  "Location",
-  "Equipment",
-];
+const { sheerToJson } = require("../../../helpers/sheetToJson");
 
 const Analyze = async (req, res) => {
   try {
     const basePath = req.body.path;
     const path = `/home/mohamed/bauereg/ToolsUpload${basePath}`;
-    console.log(path);
+    // console.log(path);
 
-    const workbook = XLSX.readFile(path);
+    const workbook = XLSX.readFile(path, { sheets: ["Sheet1"] });
 
-    const excelData = XLSX.utils.sheet_to_json(workbook.Sheets["Sheet1"]);
+    const excelData = sheerToJson(workbook.Sheets["Sheet1"]);
+
+    // const excelData = XLSX.utils.sheet_to_json(workbook.Sheets["Sheet1"]);
+
+    console.log(excelData);
 
     let sites = [];
     let eqs = [];
@@ -45,9 +36,9 @@ const Analyze = async (req, res) => {
 
     // console.log(sites);
 
-    // model["Bauer_Equipments"].map((item) => {
-    //   eqs.push(item.Equipment);
-    // });
+    model["Bauer_Equipments"].map((item) => {
+      eqs.push(item.Equipment);
+    });
 
     let tools = [];
     model["EqsTools"].map((item) => {
@@ -93,10 +84,11 @@ const Analyze = async (req, res) => {
 
     if (validate.message !== "") throw new Error(validate.message);
 
-    await addManyQuery(data, "EqsToolsLocation", EqsToolsLocationSchema);
+    await addMany(data, "EqsToolsLocation", EqsToolsLocationSchema);
 
     return res.status(200).json({ messgae: "Success" });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };

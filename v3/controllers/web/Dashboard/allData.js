@@ -2,6 +2,7 @@ const { getAllData } = require("../../../services/mainService");
 const XLSX = require("xlsx");
 const XlsxAll = require("../../../../v3/helpers/XlsxAll");
 const ExcelDateToJSDate = require("../../../../v3/helpers/ExcelToJsDate");
+const { sheerToJson } = require("../../../helpers/sheetToJson");
 require("dotenv").config();
 
 const allData = async (req, res) => {
@@ -11,8 +12,8 @@ const allData = async (req, res) => {
     const maintStocksData = await getAllData("Maintenance_Stocks");
     const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
     const cons = await XlsxAll(consurl);
-    const fuelCons = XLSX.utils.sheet_to_json(cons.Sheets[`Fuel Consumption`]);
-    const oilCons = XLSX.utils.sheet_to_json(cons.Sheets[`Oil Consumption`]);
+    const fuelCons = sheerToJson(cons.Sheets[`Fuel Consumption`]);
+    const oilCons = sheerToJson(cons.Sheets[`Oil Consumption`]);
     for (let i = 0; i < fuelCons.length; i++) {
       fuelCons[i]["Date "] = ExcelDateToJSDate(fuelCons[i]["Date "]);
     }
@@ -30,16 +31,10 @@ const allData = async (req, res) => {
     let prodTrench = [];
     prod.SheetNames.map((sheetName) => {
       if (Piles.includes(sheetName)) {
-        prodDrill = [
-          ...prodDrill,
-          ...XLSX.utils.sheet_to_json(prod.Sheets[sheetName]),
-        ];
+        prodDrill = [...prodDrill, ...sheerToJson(prod.Sheets[sheetName])];
       }
       if (Trench.includes(sheetName)) {
-        prodTrench = [
-          ...prodTrench,
-          ...XLSX.utils.sheet_to_json(prod.Sheets[sheetName]),
-        ];
+        prodTrench = [...prodTrench, ...sheerToJson(prod.Sheets[sheetName])];
       }
     });
 

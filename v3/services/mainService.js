@@ -17,6 +17,7 @@ const {
   EqsToolsLocationSchema,
 } = require("../schemas/EqsToolsLocation/schema");
 const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
+const { sheerToJson } = require("../helpers/sheetToJson");
 require("dotenv").config();
 
 // const getDate = (date) => {
@@ -79,12 +80,8 @@ const getAllCons = async () => {
     if (!model["fuelCons"] || !model["oilCons"]) {
       const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
       await XlsxAll(consurl).then((cons) => {
-        model["fuelCons"] = XLSX.utils.sheet_to_json(
-          cons.Sheets[`Fuel Consumption`]
-        );
-        model["oilCons"] = XLSX.utils.sheet_to_json(
-          cons.Sheets[`Oil Consumption`]
-        );
+        model["fuelCons"] = sheerToJson(cons.Sheets[`Fuel Consumption`]);
+        model["oilCons"] = sheerToJson(cons.Sheets[`Oil Consumption`]);
       });
       const size = Buffer.byteLength(JSON.stringify(model));
       const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
@@ -118,11 +115,11 @@ const getAllProd = async () => {
     if (!model["prodTrench"] || !model["prodDrill"]) {
       const produrl = process.env.ONEDRIVE_URL;
       await XlsxAll(produrl).then((prod) => {
-        model["prodDrill"] = XLSX.utils.sheet_to_json(prod.Sheets["Piles"]);
+        model["prodDrill"] = sheerToJson(prod.Sheets["Piles"]);
         model["prodTrench"] = [
-          ...XLSX.utils.sheet_to_json(prod.Sheets["DW"]),
-          ...XLSX.utils.sheet_to_json(prod.Sheets["Cut-Off Wall"]),
-          ...XLSX.utils.sheet_to_json(prod.Sheets["Barrettes"]),
+          ...sheerToJson(prod.Sheets["DW"]),
+          ...sheerToJson(prod.Sheets["Cut-Off Wall"]),
+          ...sheerToJson(prod.Sheets["Barrettes"]),
         ];
       });
 

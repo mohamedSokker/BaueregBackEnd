@@ -1,6 +1,7 @@
 const axios = require("axios");
 const XLSX = require("xlsx");
 const ExcelDateToJSDate = require("./ExcelToJsDate");
+const { sheerToJson } = require("./sheetToJson");
 
 const AxiosXlsx = async (url, sheet) => {
   let axiosResponse;
@@ -20,7 +21,7 @@ const AxiosXlsx = async (url, sheet) => {
     // let worksheets = workbook.SheetNames.map((sheetName) => {
     //   return {
     //     sheetName,
-    let data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+    let data = sheerToJson(workbook.Sheets[sheet]);
     for (let i = 0; i < data.length; i++) {
       data[i]["Pouring Finish"] = ExcelDateToJSDate(data[i]["Pouring Finish"]);
     }

@@ -1,5 +1,6 @@
 const xlsx = require("xlsx");
 const path = require("path");
+const { sheerToJson } = require("../../../helpers/sheetToJson");
 
 const MCFilePath = `${path.join(
   __dirname,
@@ -21,7 +22,7 @@ const readExcel = (req, res) => {
   try {
     const workbook = xlsx.readFile(filePath);
 
-    const jsonData = xlsx.utils.sheet_to_json(workbook.Sheets[sheet]);
+    const jsonData = sheerToJson(workbook.Sheets[sheet]);
     let data = {};
     jsonData.map((d) => {
       data = data[d.Title]

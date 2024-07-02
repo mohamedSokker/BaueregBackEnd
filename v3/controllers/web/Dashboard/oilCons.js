@@ -5,6 +5,7 @@ require("dotenv").config();
 const { Readable } = require("stream");
 const JSONStream = require("JSONStream");
 const { model } = require("../../../model/mainModel");
+const { sheerToJson } = require("../../../helpers/sheetToJson");
 
 function createReadableStream(data) {
   return new Readable({
@@ -21,19 +22,6 @@ function createReadableStream(data) {
 const oilConsumption = async (req, res) => {
   try {
     const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
-    // const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
-    // const cons = await XlsxAll(consurl);
-    // const oilCons = XLSX.utils.sheet_to_json(cons.Sheets[`Oil Consumption`]);
-
-    // for (let i = 0; i < oilCons.length; i++) {
-    //   oilCons[i]["Date"] = ExcelDateToJSDate(oilCons[i]["Date"]);
-    // }
-    // oilCons.sort((a, b) => a["Date"] - b["Date"]);
-
-    // res.setHeader("Content-Type", "application/json");
-    // res.setHeader("Transfer-Encoding", "chunked");
-
-    // res.writeHead(200);
 
     const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
@@ -53,18 +41,11 @@ const oilConsumption = async (req, res) => {
       await XlsxAll(produrl).then((cons) => {
         for (
           let i = 0;
-          i < XLSX.utils.sheet_to_json(cons.Sheets[`Oil Consumption`]).length;
+          i < sheerToJson(cons.Sheets[`Oil Consumption`]).length;
           i++
         ) {
-          jsonStream.write(
-            XLSX.utils.sheet_to_json(cons.Sheets[`Oil Consumption`])[i]
-          );
+          jsonStream.write(sheerToJson(cons.Sheets[`Oil Consumption`])[i]);
         }
-        // XLSX.utils
-        //   .sheet_to_json(cons.Sheets[`Oil Consumption`])
-        //   .forEach((item) => {
-        //     jsonStream.write(item);
-        //   });
 
         // End the JSONStream serializer
         jsonStream.end();

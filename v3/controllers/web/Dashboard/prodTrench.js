@@ -6,6 +6,7 @@ const { Readable } = require("stream");
 const JSONStream = require("JSONStream");
 
 const { model } = require("../../../model/mainModel");
+const { sheerToJson } = require("../../../helpers/sheetToJson");
 
 function createReadableStream(data) {
   return new Readable({
@@ -22,30 +23,6 @@ function createReadableStream(data) {
 const productionTrench = async (req, res) => {
   try {
     const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
-    // const Trench = ["DW", "Cut-Off Wall", "Barrettes"];
-    // const produrl = process.env.ONEDRIVE_URL;
-    // const prod = await XlsxAll(produrl);
-    // let prodTrench = [];
-    // prod.SheetNames.map((sheetName) => {
-    //   if (Trench.includes(sheetName)) {
-    //     prodTrench = [
-    //       ...prodTrench,
-    //       ...XLSX.utils.sheet_to_json(prod.Sheets[sheetName]),
-    //     ];
-    //   }
-    // });
-
-    // for (let i = 0; i < prodTrench.length; i++) {
-    //   prodTrench[i]["Pouring Finish"] = ExcelDateToJSDate(
-    //     prodTrench[i]["Pouring Finish"]
-    //   );
-    // }
-    // prodTrench.sort((a, b) => a["Pouring Finish"] - b["Pouring Finish"]);
-
-    // res.setHeader("Content-Type", "application/json");
-    // res.setHeader("Transfer-Encoding", "chunked");
-
-    // res.writeHead(200);
 
     const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
@@ -67,17 +44,17 @@ const productionTrench = async (req, res) => {
           let i = 0;
           i <
           [
-            ...XLSX.utils.sheet_to_json(prod.Sheets["DW"]),
-            ...XLSX.utils.sheet_to_json(prod.Sheets["Cut-Off Wall"]),
-            ...XLSX.utils.sheet_to_json(prod.Sheets["Barrettes"]),
+            ...sheerToJson(prod.Sheets["DW"]),
+            ...sheerToJson(prod.Sheets["Cut-Off Wall"]),
+            ...sheerToJson(prod.Sheets["Barrettes"]),
           ].length;
           i++
         ) {
           jsonStream.write(
             [
-              ...XLSX.utils.sheet_to_json(prod.Sheets["DW"]),
-              ...XLSX.utils.sheet_to_json(prod.Sheets["Cut-Off Wall"]),
-              ...XLSX.utils.sheet_to_json(prod.Sheets["Barrettes"]),
+              ...sheerToJson(prod.Sheets["DW"]),
+              ...sheerToJson(prod.Sheets["Cut-Off Wall"]),
+              ...sheerToJson(prod.Sheets["Barrettes"]),
             ][i]
           );
         }

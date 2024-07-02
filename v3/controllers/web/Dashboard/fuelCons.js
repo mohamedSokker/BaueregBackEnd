@@ -6,6 +6,7 @@ const XlsxAll = require("../../../../v3/helpers/XlsxAll");
 const ExcelDateToJSDate = require("../../../../v3/helpers/ExcelToJsDate");
 require("dotenv").config();
 const { model } = require("../../../model/mainModel");
+const { sheerToJson } = require("../../../helpers/sheetToJson");
 
 function createReadableStream(data) {
   return new Readable({
@@ -22,19 +23,6 @@ function createReadableStream(data) {
 const fuelConsumption = async (req, res) => {
   try {
     const memoryUsageBefore = process.memoryUsage().rss; // Measure memory usage before response
-
-    // const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
-    // const cons = await XlsxAll(consurl);
-    // const fuelCons = XLSX.utils.sheet_to_json(cons.Sheets[`Fuel Consumption`]);
-    // for (let i = 0; i < fuelCons.length; i++) {
-    //   fuelCons[i]["Date "] = ExcelDateToJSDate(fuelCons[i]["Date "]);
-    // }
-    // fuelCons.sort((a, b) => a["Date "] - b["Date "]);
-
-    // res.setHeader("Content-Type", "application/json");
-    // res.setHeader("Transfer-Encoding", "chunked");
-
-    // res.writeHead(200);
 
     const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
@@ -54,12 +42,10 @@ const fuelConsumption = async (req, res) => {
       await XlsxAll(produrl).then((cons) => {
         for (
           let i = 0;
-          i < XLSX.utils.sheet_to_json(cons.Sheets[`Fuel Consumption`]).length;
+          i < sheerToJson(cons.Sheets[`Fuel Consumption`]).length;
           i++
         ) {
-          jsonStream.write(
-            XLSX.utils.sheet_to_json(cons.Sheets[`Fuel Consumption`])[i]
-          );
+          jsonStream.write(sheerToJson(cons.Sheets[`Fuel Consumption`])[i]);
         }
 
         // End the JSONStream serializer
