@@ -27,18 +27,26 @@ const Analyze = async (req, res) => {
     let sites = [];
     let eqs = [];
     model["Equipments_Location"].map((item) => {
-      sites.push(item.Location);
-      eqs.push(item.Equipment);
+      if (!sites.includes(item.Location)) sites.push(item.Location);
+      if (!eqs.includes(item.Equipment)) eqs.push(item.Equipment);
     });
 
-    sites = Array.from(new Set(sites));
-    eqs = Array.from(new Set(eqs));
+    model["Location_Bauer"].map((item) => {
+      if (!sites.includes(item.Location)) sites.push(item.Location);
+    });
+
+    // sites = Array.from(new Set(sites));
+    // eqs = Array.from(new Set(eqs));
+
+    // sites.push("");
 
     // console.log(sites);
 
-    model["Bauer_Equipments"].map((item) => {
-      eqs.push(item.Equipment);
-    });
+    // model["Bauer_Equipments"].map((item) => {
+    //   eqs.push(item.Equipment);
+    // });
+
+    if (!eqs.includes("Spare")) eqs.push("Spare");
 
     let tools = [];
     model["EqsTools"].map((item) => {
