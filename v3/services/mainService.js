@@ -41,6 +41,27 @@ const getTableData = async (table) => {
   }
 };
 
+const getTables = async () => {
+  try {
+    const query =
+      "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'";
+    const data = await getData(query);
+    model["AllTables"] = data.recordsets[0];
+    const size = Buffer.byteLength(JSON.stringify(model));
+    const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+    const sizeMB = sizeKB / 1024;
+    console.log(
+      `${size} byte`,
+      `${sizeKB.toFixed(2)} KB`,
+      `${sizeMB.toFixed(2)} MB`
+    );
+    console.log("AllTables");
+    return data.recordsets[0];
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // getTableData("WorkShops");
 
 const createTable = async (table, schema) => {
@@ -570,6 +591,7 @@ const deleteManyQuery = async (ids, table) => {
 
 module.exports = {
   createTable,
+  getTables,
   getAllCons,
   getAllProd,
   getAllData,

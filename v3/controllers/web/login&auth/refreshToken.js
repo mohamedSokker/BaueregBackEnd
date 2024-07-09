@@ -130,6 +130,8 @@ const handleRefreshToken = (req, res) => {
             OilSamplesAnalyzed: true,
             ManageUsers: true,
             ManageAppUsers: true,
+            CustomDataEntry: true,
+            ManageCustomDataEntry: true,
           };
         }
         return res.status(200).json({ token: token, user: user });

@@ -10,6 +10,7 @@ const { oilSamplesAnalyzedEndPoints } = require("./OilSamplesAnalyzed/api");
 const { CataloguesEndPoints } = require("./Catalogues/api");
 const { EqsToolsLocEndPoints } = require("./EqsToolsLocation/api");
 const { EqsToolsUploadEndPoints } = require("./EqsToolsUpload.js/api");
+const { CustomDataEntryEndPoints } = require("./CustomDataEntry/api");
 
 const webApi = (app) => {
   authEndPoints(app);
@@ -24,6 +25,7 @@ const webApi = (app) => {
   CataloguesEndPoints(app);
   EqsToolsLocEndPoints(app);
   EqsToolsUploadEndPoints(app);
+  CustomDataEntryEndPoints(app);
 };
 
 module.exports = { webApi };

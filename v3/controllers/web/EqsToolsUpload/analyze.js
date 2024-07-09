@@ -40,7 +40,7 @@ const Analyze = async (req, res) => {
 
     // sites.push("");
 
-    // console.log(sites);
+    console.log(sites);
 
     // model["Bauer_Equipments"].map((item) => {
     //   eqs.push(item.Equipment);
@@ -64,10 +64,16 @@ const Analyze = async (req, res) => {
         Serial: item.Serial ? item.Serial : "",
         Start_Date: formatDate(ExcelDateToJSDate(item.Start_Date)),
         End_Date: item.End_Date
-          ? formatDate(ExcelDateToJSDate(item.End_Date))
+          ? item.End_Date === "Null"
+            ? null
+            : formatDate(ExcelDateToJSDate(item.End_Date))
           : "",
         Start_WH: item.Start_WH ? item.Start_WH : "",
-        End_WH: item.End_WH ? item.End_WH : "",
+        End_WH: item.End_WH
+          ? item.End_WH === "Null"
+            ? null
+            : item.End_WH
+          : "",
         Location: item.Location ? item.Location : "",
         Equipment: item.Equipment ? item.Equipment : "",
       });
@@ -79,10 +85,16 @@ const Analyze = async (req, res) => {
         Serial: item.Serial ? item.Serial : "",
         Start_Date: formatDate(ExcelDateToJSDate(item.Start_Date)),
         End_Date: item.End_Date
-          ? formatDate(ExcelDateToJSDate(item.End_Date))
+          ? item.End_Date === "Null"
+            ? "Null"
+            : formatDate(ExcelDateToJSDate(item.End_Date))
           : "",
         Start_WH: item.Start_WH ? item.Start_WH : "",
-        End_WH: item.End_WH ? item.End_WH : "",
+        End_WH: item.End_WH
+          ? item.End_WH === "Null"
+            ? "Null"
+            : item.End_WH
+          : "",
         Location: item.Location ? item.Location : "",
         Equipment: item.Equipment ? item.Equipment : "",
       });

@@ -1,4 +1,5 @@
 const {
+  getTables,
   getAllData,
   getAllCons,
   getAllProd,
@@ -84,11 +85,13 @@ const {
 const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
 
 const route = require("../routes/mainRoute");
+const { getAllTables } = require("../helpers/getTables");
+
 const tables = [
   { name: "Test", schema: TestSchema },
   { name: "Availability", schema: AvailabilitySchema },
   { name: "Maintenance", schema: MaintenanceSchema },
-  // { name: "Kelly_Location", schema: Kelly_LocationSchema },
+  { name: "Kelly_Location", schema: Kelly_LocationSchema },
   { name: "Maintenance_Stocks", schema: Maintenance_StocksSchema },
   // { name: "Maintenance_StocksDemo", schema: Maintenance_StocksDemoSchema },
   // { name: "GearBoxes", schema: GearBoxesSchema },
@@ -154,6 +157,7 @@ const tablesV2EndPoint = async (app) => {
     await getAllData("AdminUsersApp");
     await getAllCons();
     await getAllProd();
+    await getTables();
   } catch (error) {
     console.log(error.message);
   }
@@ -168,6 +172,8 @@ const tablesV2EndPoint = async (app) => {
     addVariables("AdminUsersApp", AdminUsersAppSchema),
     route
   );
+
+  app.get("/api/v3/AllTables", getAllTables);
   // try {
   //   //   await getAllData("AppMaintUsers");
   //   //   await getAllData("AdminUsersApp");

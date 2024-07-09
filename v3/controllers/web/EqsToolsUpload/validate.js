@@ -49,9 +49,8 @@ const validateData = async (data, tools, sites, eqs) => {
       message = `Start Date is not matching date in row ${i + 2}`;
       break;
     }
-    if (
-      !regix.dateEmty.test(data[i].End_Date && data[i].End_Date !== "Date.Now")
-    ) {
+    if (!regix.dateEmty.test(data[i].End_Date) && data[i].End_Date !== "Null") {
+      console.log(data[i].End_Date);
       flag = false;
       message = `End Date is not matching date in row ${i + 2}`;
       break;
@@ -61,12 +60,14 @@ const validateData = async (data, tools, sites, eqs) => {
       message = `Start WH is not matching int in row ${i + 2}`;
       break;
     }
-    if (!regix.intEmpty.test(data[i].End_WH)) {
+    if (!regix.intEmpty.test(data[i].End_WH) && data[i].End_WH != "Null") {
+      console.log(data[i].End_WH);
       flag = false;
       message = `End WH is not matching int in row ${i + 2}`;
       break;
     }
     if (!sites.includes(data[i].Location)) {
+      console.log(data[i].Location);
       flag = false;
       message = `Location is not included in row ${i + 2}`;
       break;

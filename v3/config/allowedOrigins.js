@@ -5,6 +5,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5000",
   "https://bauereg.onrender.com",
+  "https://bauereg.com",
   "https://localhost:5000",
   "http://localhost:5173",
   "http://192.168.1.8:5173",

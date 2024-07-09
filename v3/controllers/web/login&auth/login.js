@@ -131,6 +131,8 @@ const loginapp = async (req, res) => {
           OilSamplesAnalyzed: true,
           ManageUsers: true,
           ManageAppUsers: true,
+          CustomDataEntry: true,
+          ManageCustomDataEntry: true,
         };
       }
       const token = jwt.sign(Tokenuser, process.env.TOKEN_SECRET_KEY, {
