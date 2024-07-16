@@ -51,7 +51,7 @@ const addRoute = (name, schema) => {
 
 app.post("/api/v3/CustomDataEntryCreateTable", async (req, res) => {
   try {
-    const { Name, Schemas, Fields } = req.body;
+    const { Name, Schemas, Fields, Exist } = req.body;
     console.log(Name);
     console.log(Schemas);
     console.log(Fields);
@@ -64,7 +64,7 @@ app.post("/api/v3/CustomDataEntryCreateTable", async (req, res) => {
     });
     console.log(schemas);
     await createTable(Name, Schemas);
-    addRoute(Name, schemas);
+    if (Exist) addRoute(Name, schemas);
     return res.status(200).json({ message: "Success" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
