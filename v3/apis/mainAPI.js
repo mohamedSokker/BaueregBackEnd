@@ -1,5 +1,6 @@
 const {
   getTables,
+  getTableData,
   getAllData,
   getAllCons,
   getAllProd,
@@ -83,9 +84,11 @@ const {
   EqsToolsLocationSchema,
 } = require("../schemas/EqsToolsLocation/schema");
 const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
+const { ManageDataEntrySchema } = require("../schemas/ManageDataEntry/schema");
 
 const route = require("../routes/mainRoute");
 const { getAllTables } = require("../helpers/getTables");
+const { regix } = require("../helpers/regix");
 
 const tables = [
   { name: "Test", schema: TestSchema },
@@ -128,6 +131,7 @@ const tables = [
   { name: "EqsTools", schema: EqsToolsSchema },
   { name: "EqsToolsLocation", schema: EqsToolsLocationSchema },
   { name: "OilSamples", schema: OilSamplesSchema },
+  { name: "ManageDataEntry", schema: ManageDataEntrySchema },
 ];
 
 const addVariables = (table, schema) => {
@@ -146,6 +150,13 @@ const tablesV2EndPoint = async (app) => {
         addVariables(item.name, item.schema),
         route
       );
+      app.get(`/api/v3/${item.name}Schema`, async (req, res) => {
+        try {
+          return res.status(200).json(item.schema);
+        } catch (error) {
+          return res.status(500).json({ message: error.message });
+        }
+      });
       try {
         await getAllData(item.name);
       } catch (error) {
@@ -158,6 +169,31 @@ const tablesV2EndPoint = async (app) => {
     await getAllCons();
     await getAllProd();
     await getTables();
+    getAllData("ManageDataEntry").then(async (result) => {
+      result?.map(async (item) => {
+        let schemas = {};
+        const fields = JSON.parse(item?.Fields);
+        Object?.keys(fields)?.map((it) => {
+          schemas = {
+            ...schemas,
+            [it]: { validatePattern: regix?.[fields?.[it]?.validateString] },
+          };
+        });
+        console.log(schemas);
+        // console.log(`Manage Data Entry Item => ${JSON.stringify(item)}`);
+        app.use(
+          `/api/v3/${item.Name}`,
+          addVariables(item.Name, schemas),
+          route
+        );
+
+        try {
+          await getAllData(item.Name);
+        } catch (error) {
+          console.log(error.message);
+        }
+      });
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -174,6 +210,16 @@ const tablesV2EndPoint = async (app) => {
   );
 
   app.get("/api/v3/AllTables", getAllTables);
+  app.get("/api/v3/getTableData", async (req, res) => {
+    try {
+      console.log(req.query);
+      const table = req.query.table;
+      const data = await getTableData(table);
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  });
   // try {
   //   //   await getAllData("AppMaintUsers");
   //   //   await getAllData("AdminUsersApp");

@@ -53,14 +53,14 @@ const Analyze = async (req, res) => {
         if (key !== "ID")
           newItem[key] = item[key]
             ? targetData[0]?.Fields[key]?.Type === "Date"
-              ? targetData[0]?.Fields[key]?.canBeEmpty
+              ? targetData[0]?.Fields[key]?.canBeEmpty && item[key] === "Null"
                 ? null
                 : formatDate(ExcelDateToJSDate(item[key]))
               : item[key]
             : "";
         newItemWithID[key] = item[key]
           ? targetData[0]?.Fields[key]?.Type === "Date"
-            ? targetData[0]?.Fields[key]?.canBeEmpty
+            ? targetData[0]?.Fields[key]?.canBeEmpty && item[key] === "Null"
               ? "Null"
               : formatDate(ExcelDateToJSDate(item[key]))
             : item[key]
@@ -77,7 +77,7 @@ const Analyze = async (req, res) => {
     }
 
     if (data.length > 0) {
-      await addManyQuery(data, targetData[0]?.Name, targetData[0]?.Schema);
+      await addMany(data, targetData[0]?.Name, targetData[0]?.Schemas);
     }
 
     return res.status(200).json({ messgae: "Success" });

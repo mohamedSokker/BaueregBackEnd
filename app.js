@@ -15,33 +15,69 @@ app.use(credentials);
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
-// const { createData } = require("./createData");
-// createData();
-/////////////////////////////////////////////////Database Data//////////////////////////////////////////////
-// const { databaseDataEndPoints } = require("./v1/DatabaseData/api/api");
-// databaseDataEndPoints(app);
-/////////////////////////////////////////////////Task Manager///////////////////////////////////////////////
-// const { taskManagerEndPoints } = require("./v1/TaskManager/api/api");
-// taskManagerEndPoints(app);
-/////////////////////////////////////////////////Email//////////////////////////////////////////////////////
-// const { emailEndPoint } = require("./v1/Email/api/api");
-// emailEndPoint(app);
-//////////////////////////////////////////////////QC Logic//////////////////////////////////////////////////
-// const dataSelected = require("./v1/Logic/QC/Maintenance/routes/getActiveSites");
-// app.use("/api/v1/getActiveData", dataSelected);
-//////////////////////////////////////////////////Mongo DB Backup///////////////////////////////////////////
-// const mongoBackup = require("./v1/Mongo Backup/routes/mongoBackup");
-// app.use("/api/v1/mongoBackup", mongoBackup);
-/////////////////////////////////////////////////Socket////////////////////////////////////////////////////
+// const { copyFiles } = require("./v3/helpers/copyFiles");
+// const { writeToExcel } = require("./v3/helpers/excelWrite");
+
+// const copyAndAddExcel = async () => {
+//   try {
+//     await copyFiles(
+//       "/home/mohamed/bauereg/DataEntryFiles/Standard.xlsx",
+//       "/home/mohamed/bauereg/DataEntryFiles/aa/Standard.xlsx"
+//     );
+//     await writeToExcel(
+//       "/home/mohamed/bauereg/DataEntryFiles/aa/Standard.xlsx",
+//       Object.keys(DBdata[0]?.Fields)
+//     );
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// copyAndAddExcel();
+
+const route = require("./v3/routes/mainRoute");
+const { createTableQuery, createTable } = require("./v3/services/mainService");
+
+const addVariables = (table, schema) => {
+  return (req, res, next) => {
+    req.table = table;
+    req.schema = schema;
+    next();
+  };
+};
+
+const addRoute = (name, schema) => {
+  app.use(`/api/v3/${name}`, addVariables(name, schema), route);
+};
+
+app.post("/api/v3/CustomDataEntryCreateTable", async (req, res) => {
+  try {
+    const { Name, Schemas, Fields } = req.body;
+    console.log(Name);
+    console.log(Schemas);
+    console.log(Fields);
+    let schemas = {};
+    Object?.keys(Fields)?.map((it) => {
+      schemas = {
+        ...schemas,
+        [it]: { validatePattern: regix?.[Fields?.[it]?.validateString] },
+      };
+    });
+    console.log(schemas);
+    await createTable(Name, Schemas);
+    addRoute(Name, schemas);
+    return res.status(200).json({ message: "Success" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+/////////////////////////////////////////////////Socket////////////////////////////////////////////////////////////////
 const { socketFn } = require("./v3/socket/socket");
 socketFn(server);
-////////////////////////////////////////////// One Drive Excel ///////////////////////////////////////////////////////////////////
-// const { oneDriveEndPoints } = require("./v1/OneDrive/api/api");
-// oneDriveEndPoints(app);
-//////////////////////////////////////////////////files ///////////////////////////////////////////////
+//////////////////////////////////////////////////files ///////////////////////////////////////////////////////////////
 const { filesEndPoints } = require("./v3/files/api/api");
 filesEndPoints(app);
-//////////////////////////////////////////////////Website ///////////////////////////////////////////////
+//////////////////////////////////////////////////Website /////////////////////////////////////////////////////////////
 const { webApi } = require("./v3/apis/web/webApi");
 webApi(app);
 //////////////////////////////////////////////////spare Part Mobile App ///////////////////////////////////////////////
@@ -50,45 +86,12 @@ sparePartAppapi(app);
 //////////////////////////////////////////////////Maintenance Mobile App ///////////////////////////////////////////////
 const { appMobileEndPoints } = require("./v3/apis/maintenanceMobileApp/api");
 appMobileEndPoints(app);
-/////////////////////////////////////////////////auth //////////////////////////////////////////////////////
-// const { authEndPoints } = require("./v1/auth/api/api");
-// authEndPoints(app);
-//////////////////////////////////////////////////Transportations //////////////////////////////////////////
-// const { transportationsEndPoints } = require("./v1/Transportation/api/api");
-// transportationsEndPoints(app);
-//////////////////////////////////////////////////Dashboard Logic //////////////////////////////////////////
-// const { dashboardEndPoints } = require("./v1/Dashboard/api/api");
-// dashboardEndPoints(app);
-//////////////////////////////////////////////////Sites Logic /////////////////////////////////////////////
-// const { sitesEndPoints } = require("./v1/Sites/api/api");
-// sitesEndPoints(app);
-//////////////////////////////////////////////////Equipment Logic //////////////////////////////////////////
-// const { equipmentsEndPoints } = require("./v1/Equipments/api/api");
-// equipmentsEndPoints(app);
-//////////////////////////////////////////////////Tables Logic /////////////////////////////////////////////
-// const { tablesLogicEndPoints } = require("./v1/TablesLogic/api/api");
-// tablesLogicEndPoints(app);
-//////////////////////////////////////////////////Orders FileSystem ////////////////////////////////////////
-// const { ordersFilesEndPoints } = require("./v1/OrdersFile/api/api");
-// ordersFilesEndPoints(app);
-//////////////////////////////////////////////////PDF Anaysis ///////////////////////////////////////////////
-// const { pdfAnalysisEndPoints } = require("./v1/pdfParsing/api/api");
-// pdfAnalysisEndPoints(app);
-//////////////////////////////////////Spare Parts App ///////////////////////////////////////////////////
-// const { sparePartEndPoints } = require("./v1/sparePartApp/api/api");
-// sparePartEndPoints(app);
-//////////////////////////////////////////////////Tables/////////////////////////////////////////////////////
-// const { tablesEndPoints } = require("./v1/Tables/api/app");
-// tablesEndPoints(app);
-//////////////////////////////////////////////////TablesV2/////////////////////////////////////////////////////
+//////////////////////////////////////////////////Main API/////////////////////////////////////////////////////////////
+
 const { tablesV2EndPoint } = require("./v3/apis/mainAPI");
+const { regix } = require("./v3/helpers/regix");
+
 tablesV2EndPoint(app);
-//////////////////////////////////////////////////File System ///////////////////////////////////////////////
-// const { fileSystemEndPoints } = require("./v1/FileSystem/api/app");
-// fileSystemEndPoints(app);
-//////////////////////////////////////////////////Login app ///////////////////////////////////////////////
-// const { loginAppEndPoints } = require("./v1/LoginApp/api/api");
-// loginAppEndPoints(app);
 
 server.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${process.env.PORT}`);

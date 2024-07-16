@@ -5,6 +5,8 @@ const CustomDataEntryRenameFiles = require("../../../routes/web/CustomDataEntry/
 const CustomDataEntryUploadFiles = require("../../../routes/web/CustomDataEntry/uploadFiles");
 const CustomDataEntrySearchFiles = require("../../../routes/web/CustomDataEntry/searchFiles");
 const CustomDataEntryAnalyzeFiles = require("../../../routes/web/CustomDataEntry/analyze");
+const CustomDataEntryCreateFolders = require("../../../routes/web/CustomDataEntry/createFolders");
+const CustomDataEntryInitExcel = require("../../../routes/web/CustomDataEntry/initExcel");
 
 const CustomDataEntryEndPoints = (app) => {
   app.use("/api/v3/CustomDataEntryGetFiles", CustomDataEntryGetFiles);
@@ -14,6 +16,8 @@ const CustomDataEntryEndPoints = (app) => {
   app.use("/api/v3/CustomDataEntryUploadFiles", CustomDataEntryUploadFiles);
   app.use("/api/v3/CustomDataEntrySearchFiles", CustomDataEntrySearchFiles);
   app.use("/api/v3/CustomDataEntryAnalyzeFiles", CustomDataEntryAnalyzeFiles);
+  app.use("/api/v3/CustomDataEntryCreateFolders", CustomDataEntryCreateFolders);
+  app.use("/api/v3/CustomDataEntryInitExcel", CustomDataEntryInitExcel);
 };
 
 module.exports = { CustomDataEntryEndPoints };

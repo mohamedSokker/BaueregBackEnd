@@ -58,7 +58,7 @@ eventEmitter.on("updatedMany", ({ data, table }) => {
 });
 
 eventEmitter.on("deletedOne", ({ id, table }) => {
-  model[table] = model[table].filter((d) => Number(d.ID) !== Number(id));
+  model[table] = model[table]?.filter((d) => Number(d.ID) !== Number(id));
   //   io.emit("appDataUpdate", model[table]);
 });
 

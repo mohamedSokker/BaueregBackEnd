@@ -35,7 +35,7 @@ const getAllTable = async (req, res) => {
       jsonStream.end();
     } else {
       getData(`SELECT * FROM ${req.table}`).then((result) => {
-        result.recordsets[0].forEach((item) => {
+        result?.recordsets?.[0]?.forEach((item) => {
           jsonStream.write(item);
         });
 

@@ -18,6 +18,7 @@ const {
 } = require("../schemas/EqsToolsLocation/schema");
 const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
 const { sheerToJson } = require("../helpers/sheetToJson");
+const { ManageDataEntrySchema } = require("../schemas/ManageDataEntry/schema");
 require("dotenv").config();
 
 // const getDate = (date) => {
@@ -30,11 +31,11 @@ const getTableData = async (table) => {
   try {
     const getquery = `SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('${table}')`;
     const data = (await getData(getquery)).recordsets[0];
-    let result = {};
-    data.map((d) => {
-      result[d.name] = {};
-    });
-    console.log(result);
+    // let result = {};
+    // data.map((d) => {
+    //   result[d.name] = {};
+    // });
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error.message);
@@ -80,7 +81,23 @@ const createTable = async (table, schema) => {
   }
 };
 
-// createTable("OilSamples", OilSamplesSchema);
+const createTableQuery = async (table, schema) => {
+  try {
+    let query = `CREATE TABLE ${table} (`;
+    Object.keys(schema).map((item) => {
+      query += `${item} ${schema[item].databaseType},`;
+    });
+    query = query.slice(0, -1);
+    query += ")";
+    console.log(query);
+    // await getData(query);
+    return `Success`;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+// createTable("ManageDataEntry", ManageDataEntrySchema);
 // createTable("EqsToolsLocation", EqsToolsLocationSchema);
 
 const deleteTable = async (table) => {
@@ -93,7 +110,7 @@ const deleteTable = async (table) => {
   }
 };
 
-// deleteTable("OilSamples");
+// deleteTable("aa");
 // deleteTable("EqsToolsLocation");
 
 const getAllCons = async () => {
@@ -545,6 +562,7 @@ const updateManyQuery = async (data, table, schema) => {
 const deleteData = async (id, table) => {
   try {
     let query = `DELETE FROM ${table} WHERE ID = '${id}'`;
+    console.log(query);
     const result = await getData(query);
     eventEmitter.emit("deletedOne", { id: id, table: table });
     return result.recordsets[0];
@@ -552,6 +570,9 @@ const deleteData = async (id, table) => {
     throw new Error(error);
   }
 };
+
+// deleteData("13", "ManageDataEntry");
+// deleteData("5", "ManageDataEntry");
 
 const deleteDataQuery = async (id, table) => {
   try {
@@ -591,7 +612,9 @@ const deleteManyQuery = async (ids, table) => {
 
 module.exports = {
   createTable,
+  createTableQuery,
   getTables,
+  getTableData,
   getAllCons,
   getAllProd,
   getAllData,
