@@ -64,7 +64,7 @@ app.post("/api/v3/CustomDataEntryCreateTable", async (req, res) => {
     });
     console.log(schemas);
     await createTable(Name, Schemas);
-    if (Exist) addRoute(Name, schemas);
+    if (!Exist) addRoute(Name, schemas);
     return res.status(200).json({ message: "Success" });
   } catch (error) {
     return res.status(500).json({ message: error.message });

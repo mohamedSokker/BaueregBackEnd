@@ -181,7 +181,7 @@ const tablesV2EndPoint = async (app) => {
         });
         console.log(schemas);
         // console.log(`Manage Data Entry Item => ${JSON.stringify(item)}`);
-        if (item.Exist) {
+        if (!item.Exist) {
           app.use(
             `/api/v3/${item.Name}`,
             addVariables(item.Name, schemas),
