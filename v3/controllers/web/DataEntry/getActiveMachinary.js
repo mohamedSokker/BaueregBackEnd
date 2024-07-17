@@ -14,9 +14,9 @@ const getActiveMachinary = async (req, res) => {
     // Pipe the large JSON object to the JSONStream serializer
     jsonStream.pipe(res);
 
-    if (model["Machinary_Location"]) {
+    if (model["Machinary"]) {
       // Push the large JSON object into the JSONStream serializer
-      model["Machinary_Location"]
+      model["Machinary"]
         // .filter((item) => item.End_Date === null)
         .forEach((result) => {
           jsonStream.write(result);
@@ -25,7 +25,7 @@ const getActiveMachinary = async (req, res) => {
       // End the JSONStream serializer
       jsonStream.end();
     } else {
-      getData(`SELECT * FROM Machinary_Location`).then((result) => {
+      getData(`SELECT * FROM Machinary`).then((result) => {
         result.recordsets[0].forEach((item) => {
           jsonStream.write(item);
         });
