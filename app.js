@@ -15,24 +15,28 @@ app.use(credentials);
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
-// const { copyFiles } = require("./v3/helpers/copyFiles");
-// const { writeToExcel } = require("./v3/helpers/excelWrite");
+// let model = {};
 
-// const copyAndAddExcel = async () => {
-//   try {
-//     await copyFiles(
-//       "/home/mohamed/bauereg/DataEntryFiles/Standard.xlsx",
-//       "/home/mohamed/bauereg/DataEntryFiles/aa/Standard.xlsx"
-//     );
-//     await writeToExcel(
-//       "/home/mohamed/bauereg/DataEntryFiles/aa/Standard.xlsx",
-//       Object.keys(DBdata[0]?.Fields)
-//     );
-//   } catch (error) {
-//     console.log(error);
-//   }
+// model["Bauer_Equipments"] = [
+//   { ID: 1, Equipment: "MC 128 #168" },
+//   { ID: 2, Equipment: "MC 128 #154" },
+//   { ID: 3, Equipment: "MC 96 #303" },
+//   { ID: 4, Equipment: "MC 96 #191" },
+//   { ID: 5, Equipment: "MC 96 #293" },
+//   { ID: 6, Equipment: "BC 30 #881" },
+//   { ID: 7, Equipment: "BC 30 #882" },
+// ];
+// // console.log(model);
+
+// const fn = () => {
+//   const result = new Function(
+//     "model",
+//     `let count = 0; model?.Bauer_Equipments?.filter((item) => item?.Equipment?.startsWith('MC 96')).map((item) => count += item?.ID); return count;`
+//   );
+//   console.log(result(model));
 // };
-// copyAndAddExcel();
+
+// fn();
 
 const route = require("./v3/routes/mainRoute");
 const { createTableQuery, createTable } = require("./v3/services/mainService");

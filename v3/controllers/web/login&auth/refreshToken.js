@@ -132,6 +132,7 @@ const handleRefreshToken = (req, res) => {
             ManageAppUsers: true,
             CustomDataEntry: true,
             ManageCustomDataEntry: true,
+            ManageDatabase: true,
           };
         }
         return res.status(200).json({ token: token, user: user });

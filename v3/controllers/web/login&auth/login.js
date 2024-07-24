@@ -133,6 +133,7 @@ const loginapp = async (req, res) => {
           ManageAppUsers: true,
           CustomDataEntry: true,
           ManageCustomDataEntry: true,
+          ManageDatabase: true,
         };
       }
       const token = jwt.sign(Tokenuser, process.env.TOKEN_SECRET_KEY, {
