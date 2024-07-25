@@ -1,5 +1,5 @@
 const { model } = require("../../../../model/mainModel");
-const { addDataQuery } = require("../../../../services/mainService");
+const { addDataQuery, addData } = require("../../../../services/mainService");
 const {
   Recieved_InvoicesSchema,
 } = require("../../../../schemas/Recieved_Invoices/schema");
@@ -35,7 +35,7 @@ const handleAddReceivedInvoice = async (req, res) => {
       Equipments: eqs.join(","),
       Received_Date: bodyData?.Received_Date,
     };
-    await addDataQuery(
+    await addData(
       recievedInvoiceData,
       "Recieved_Invoices",
       Recieved_InvoicesSchema
