@@ -59,6 +59,7 @@ app.post("/api/v3/CustomDataEntryCreateTable", async (req, res) => {
     console.log(Name);
     console.log(Schemas);
     console.log(Fields);
+    console.log(Exist);
     let schemas = {};
     Object?.keys(Fields)?.map((it) => {
       schemas = {

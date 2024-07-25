@@ -179,9 +179,10 @@ const tablesV2EndPoint = async (app) => {
             [it]: { validatePattern: regix?.[fields?.[it]?.validateString] },
           };
         });
-        console.log(schemas);
+
+        // console.log(schemas);
         // console.log(`Manage Data Entry Item => ${JSON.stringify(item)}`);
-        if (!item.Exist) {
+        if (item.Exist === "false") {
           app.use(
             `/api/v3/${item.Name}`,
             addVariables(item.Name, schemas),
