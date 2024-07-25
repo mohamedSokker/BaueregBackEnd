@@ -6,6 +6,7 @@ const dataEntry = [
   { name: "Machinary" },
   { name: "Tools" },
   { name: "ToolsLocation" },
+  { name: "Received_Invoice" },
 ];
 
 module.exports = { dataEntry };
