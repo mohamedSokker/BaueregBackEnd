@@ -13,8 +13,8 @@ const handleReport = async (req, res) => {
       Equipment_Model: bodyData.eqModel,
       Equipment: bodyData.eq,
       ReportData: JSON.stringify(bodyData.selectedData),
-      UserName: bodyData.UserName,
-      UserImage: bodyData.UserImage,
+      UserName: bodyData.userName,
+      UserImage: bodyData.userImage,
       Status: "New",
       Sent: "false",
     };

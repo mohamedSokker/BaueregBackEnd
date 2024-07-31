@@ -22,6 +22,15 @@ const handleTasks = async (req, res) => {
           Description: bodydata[i]?.remarks
             ? `${bodydata[i].desc} ${bodydata[i].remarks}`
             : bodydata[i].desc,
+          Description_Ar: bodydata[i]?.Description_Ar
+            ? bodydata[i]?.Description_Ar
+            : null,
+          ToUser: bodydata[i]?.ToUser ? bodydata[i]?.ToUser : null,
+          StartTime: bodydata[i]?.StartTime ? bodydata[i]?.StartTime : null,
+          EndTime: bodydata[i]?.EndTime ? bodydata[i]?.EndTime : null,
+          Periority: bodydata[i]?.Periority ? bodydata[i]?.Periority : null,
+          Duration: bodydata[i]?.Duration ? bodydata[i]?.Duration : null,
+          Workshop: bodydata[i]?.Workshop ? bodydata[i]?.Workshop : null,
           Status: "false",
           IsReady: "false",
           ReportID: bodydata[i].reportID,

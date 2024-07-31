@@ -72,6 +72,10 @@ const TaskManagerTasksSchema = {
     validatePattern: regix.nvarChar255,
     isNull: true,
   },
+  ReportID: {
+    databaseType: "NVARCHAR(255) NULL",
+    validatePattern: regix.nvarChar255,
+  },
 };
 
 module.exports = { TaskManagerTasksSchema };

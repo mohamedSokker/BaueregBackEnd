@@ -19,6 +19,9 @@ const {
 const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
 const { sheerToJson } = require("../helpers/sheetToJson");
 const { ManageDataEntrySchema } = require("../schemas/ManageDataEntry/schema");
+const {
+  TaskManagerTasksSchema,
+} = require("../schemas/TaskManagerTasks/schema");
 require("dotenv").config();
 
 // const getDate = (date) => {
@@ -98,7 +101,7 @@ const createTableQuery = async (table, schema) => {
 };
 
 // createTable("ManageDataEntry", ManageDataEntrySchema);
-// createTable("EqsToolsLocation", EqsToolsLocationSchema);
+// createTable("TaskManagerTasks", TaskManagerTasksSchema);
 
 const deleteTable = async (table) => {
   try {
@@ -110,7 +113,7 @@ const deleteTable = async (table) => {
   }
 };
 
-// deleteTable("aa");
+// deleteTable("TaskManagerTasks");
 // deleteTable("EqsToolsLocation");
 
 const getAllCons = async () => {
