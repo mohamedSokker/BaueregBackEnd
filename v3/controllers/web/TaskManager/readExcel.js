@@ -6,13 +6,17 @@ const MCFilePath = `${path.join(
   __dirname,
   "..",
   "..",
-  "/TaskManagerFiles"
+  "..",
+  "files",
+  "/TaskManagerTasks"
 )}/YardInspection/MC.xlsx`;
 const BGFilePath = `${path.join(
   __dirname,
   "..",
   "..",
-  "/TaskManagerFiles"
+  "..",
+  "files",
+  "/TaskManagerTasks"
 )}/YardInspection/BG.xlsx`;
 
 const readExcel = (req, res) => {

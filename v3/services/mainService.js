@@ -571,7 +571,7 @@ const deleteData = async (id, table) => {
   }
 };
 
-// deleteData("13", "ManageDataEntry");
+// deleteData("18", "ManageDataEntry");
 // deleteData("5", "ManageDataEntry");
 
 const deleteDataQuery = async (id, table) => {

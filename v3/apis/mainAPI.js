@@ -188,6 +188,13 @@ const tablesV2EndPoint = async (app) => {
             addVariables(item.Name, schemas),
             route
           );
+          app.use(`/api/v3/${item.Name}Schema`, (req, res) => {
+            try {
+              return res.status(200).json(JSON.parse(item.Schemas));
+            } catch (error) {
+              return res.status(500).json({ message: error.message });
+            }
+          });
         }
 
         try {
