@@ -136,6 +136,7 @@ const getConfirmationItems = (text) => {
         partNo,
         Quantity,
         unit,
+        Sent: "true",
       });
     count++;
   }
