@@ -115,6 +115,7 @@ const getConfirmationItems = (text) => {
     itemEndPos = text.indexOf("\n", itemStart + 1);
     if (itemEndPos === -1) break;
     item = text.slice(itemStart, itemEndPos);
+    console.log(item);
     let itemArray = item.split("\t");
     let Quantity = itemArray[1];
     let unit = itemArray[2];
