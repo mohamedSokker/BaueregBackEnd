@@ -94,6 +94,7 @@ const removeText = (text, keyword) => {
 };
 
 const getConfirmationItems = (text) => {
+  console.log(JSON.stringify(text));
   let count = 0;
   let itemStart;
   let itemDeliveryDate;
@@ -115,23 +116,27 @@ const getConfirmationItems = (text) => {
     itemEndPos = text.indexOf("\n", itemStart + 1);
     if (itemEndPos === -1) break;
     item = text.slice(itemStart, itemEndPos);
-    console.log(item);
+    // console.log(JSON.stringify(item));
     let itemArray = item.split("\t");
     let Quantity = itemArray[1];
     let unit = itemArray[2];
     let desc = itemArray[3];
-    console.log(desc);
-    desc = desc.replace(/\s\s+/g, " ");
+    // console.log(desc);
+    desc = desc?.replace(/\s\s+/g, " ");
     let partNo = itemArray[4];
-    data.push({
-      targetDate,
-      OrderNo,
-      Eq,
-      desc,
-      partNo,
-      Quantity,
-      unit,
-    });
+    Quantity &&
+      unit &&
+      desc &&
+      partNo &&
+      data.push({
+        targetDate,
+        OrderNo,
+        Eq,
+        desc,
+        partNo,
+        Quantity,
+        unit,
+      });
     count++;
   }
 
