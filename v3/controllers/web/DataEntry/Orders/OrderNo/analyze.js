@@ -119,6 +119,7 @@ const getConfirmationItems = (text) => {
     let Quantity = itemArray[1];
     let unit = itemArray[2];
     let desc = itemArray[3];
+    console.log(desc);
     desc = desc.replace(/\s\s+/g, " ");
     let partNo = itemArray[4];
     data.push({
