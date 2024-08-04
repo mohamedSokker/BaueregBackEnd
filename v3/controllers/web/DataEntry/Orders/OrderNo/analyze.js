@@ -94,7 +94,7 @@ const removeText = (text, keyword) => {
 };
 
 const getConfirmationItems = (text) => {
-  console.log(JSON.stringify(text));
+  // console.log(JSON.stringify(text));
   let count = 0;
   let itemStart;
   let itemDeliveryDate;
