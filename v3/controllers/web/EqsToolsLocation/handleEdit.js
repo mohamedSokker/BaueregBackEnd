@@ -10,7 +10,7 @@ const {
 const handleEdit = async (req, res) => {
   try {
     const bodyData = req.body;
-    await updateDataQuery(
+    await updateData(
       bodyData,
       bodyData.ID,
       "EqsToolsLocation",

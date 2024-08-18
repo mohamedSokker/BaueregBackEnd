@@ -18,12 +18,8 @@ const handleAdd = async (req, res) => {
         item.Type === bodyData.Type &&
         item.Code === bodyData.Code
     );
-    await addDataQuery(bodyData, "EqsToolsLocation", EqsToolsLocationSchema);
-    await updateManyQuery(
-      targetData,
-      "EqsToolsLocation",
-      EqsToolsLocationSchema
-    );
+    await addData(bodyData, "EqsToolsLocation", EqsToolsLocationSchema);
+    await updateMany(targetData, "EqsToolsLocation", EqsToolsLocationSchema);
     return res.status(200).json({ message: "Success" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
