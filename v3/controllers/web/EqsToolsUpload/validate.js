@@ -1,4 +1,6 @@
 const { model } = require("../../../model/mainModel");
+const ExcelDateToJSDate = require("../../../helpers/ExcelToJsDate");
+const formatDate = require("../../../helpers/formatdate");
 
 const regix = {
   int: /^[0-9]*$/,
@@ -20,7 +22,7 @@ const validateData = async (data, tools, sites, eqs) => {
   let flag = true;
   let message = ``;
   const lastID =
-    model["EqsToolsLocation"][model["EqsToolsLocation"].length - 1];
+    model["EqsToolsLocation"]?.[model["EqsToolsLocation"]?.length - 1];
   // console.log(lastID?.ID);
   for (let i = 0; i < data.length; i++) {
     // console.log(data[i].ID);
@@ -44,15 +46,25 @@ const validateData = async (data, tools, sites, eqs) => {
       message = `Serial is not matching nvar255empty in row ${i + 2}`;
       break;
     }
-    if (!regix.date.test(data[i].Start_Date)) {
+    if (!regix.date.test(formatDate(ExcelDateToJSDate(data[i].Start_Date)))) {
       console.log(data[i].Start_Date);
-      console.log(regix.date.test(data[i].Start_Date));
+      console.log(formatDate(ExcelDateToJSDate(data[i].Start_Date)));
+      console.log(
+        regix.date.test(formatDate(ExcelDateToJSDate(data[i].Start_Date)))
+      );
       flag = false;
       message = `Start Date is not matching date in row ${i + 2}`;
       break;
     }
-    if (!regix.dateEmty.test(data[i].End_Date) && data[i].End_Date !== "Null") {
+    if (
+      !regix.dateEmty.test(formatDate(ExcelDateToJSDate(data[i].End_Date))) &&
+      data[i].End_Date !== "Null"
+    ) {
       console.log(data[i].End_Date);
+      console.log(formatDate(ExcelDateToJSDate(data[i].End_Date)));
+      console.log(
+        regix.date.test(formatDate(ExcelDateToJSDate(data[i].End_Date)))
+      );
       flag = false;
       message = `End Date is not matching date in row ${i + 2}`;
       break;

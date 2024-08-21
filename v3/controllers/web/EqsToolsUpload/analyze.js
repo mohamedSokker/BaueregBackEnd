@@ -26,12 +26,12 @@ const Analyze = async (req, res) => {
 
     let sites = [];
     let eqs = [];
-    model["Equipments_Location"].map((item) => {
+    model["Equipments_Location"]?.map((item) => {
       if (!sites.includes(item.Location)) sites.push(item.Location);
       if (!eqs.includes(item.Equipment)) eqs.push(item.Equipment);
     });
 
-    model["Location_Bauer"].map((item) => {
+    model["Location_Bauer"]?.map((item) => {
       if (!sites.includes(item.Location)) sites.push(item.Location);
     });
 
@@ -49,7 +49,7 @@ const Analyze = async (req, res) => {
     if (!eqs.includes("Spare")) eqs.push("Spare");
 
     let tools = [];
-    model["EqsTools"].map((item) => {
+    model["EqsTools"]?.map((item) => {
       tools.push(item.Type);
     });
     tools = Array.from(new Set(tools));
@@ -83,11 +83,11 @@ const Analyze = async (req, res) => {
         Type: item.Type ? item.Type : "",
         Code: item.Code ? item.Code : "",
         Serial: item.Serial ? item.Serial : "",
-        Start_Date: formatDate(ExcelDateToJSDate(item.Start_Date)),
+        Start_Date: item.Start_Date,
         End_Date: item.End_Date
           ? item.End_Date === "Null"
             ? "Null"
-            : formatDate(ExcelDateToJSDate(item.End_Date))
+            : item.End_Date
           : "",
         Start_WH: item.Start_WH ? item.Start_WH : "",
         End_WH: item.End_WH
