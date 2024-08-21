@@ -45,6 +45,8 @@ const validateData = async (data, tools, sites, eqs) => {
       break;
     }
     if (!regix.date.test(data[i].Start_Date)) {
+      console.log(data[i].Start_Date);
+      console.log(regix.date.test(data[i].Start_Date));
       flag = false;
       message = `Start Date is not matching date in row ${i + 2}`;
       break;
