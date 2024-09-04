@@ -8,17 +8,18 @@ const sheerToJson = (data) => {
     let object = {};
     let count = 2;
     arrayData.map((item) => {
-      //   console.log(`item => ${item.slice(1)}`);
-      //   console.log(`count => ${count}`);
-      if (item.slice(1) != count && item.slice(1) != "1") {
+      if (
+        item.replace(/[A-Z]/g, "") != count &&
+        item.replace(/[A-Z]/g, "") != "1"
+      ) {
         result.push(object);
         count++;
         object = {};
       }
-      if (item.slice(1) != "1") {
+      if (item.replace(/[A-Z]/g, "") != "1") {
         object = {
           ...object,
-          [data[`${item.slice(0, 1)}1`]?.v]: data[item]?.v,
+          [data[`${item.split(/[0-9]/).join("")}1`]?.v]: data[item]?.v,
         };
       }
     });
