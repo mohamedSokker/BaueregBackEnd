@@ -97,6 +97,8 @@ const filesEndPoints = (app) => {
 
   app.get("/Bauereg/DataEntryFiles/*", FileSystem);
 
+  app.get("/Bauereg/Models/*", FileSystem);
+
   // app.get("/Bauereg/OilSamples/*", (req, res) => {
   //   const inputPath = req.url
   //     .toString()
