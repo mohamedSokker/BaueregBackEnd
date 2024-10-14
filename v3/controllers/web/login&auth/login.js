@@ -132,7 +132,7 @@ const loginapp = async (req, res) => {
           ManageUsers: true,
           ManageAppUsers: true,
           CustomDataEntry: true,
-          ManageCustomDataEntry: true,
+          ManageDataEntry: true,
           ManageDatabase: true,
         };
       }
