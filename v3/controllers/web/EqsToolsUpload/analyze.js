@@ -40,7 +40,7 @@ const Analyze = async (req, res) => {
 
     // sites.push("");
 
-    console.log(sites);
+    // console.log(sites);
 
     // model["Bauer_Equipments"].map((item) => {
     //   eqs.push(item.Equipment);
@@ -103,6 +103,8 @@ const Analyze = async (req, res) => {
     const validate = await validateData(dataWithID, tools, sites, eqs);
 
     if (validate.message !== "") throw new Error(validate.message);
+
+    // console.log(data);
 
     await addMany(data, "EqsToolsLocation", EqsToolsLocationSchema);
 

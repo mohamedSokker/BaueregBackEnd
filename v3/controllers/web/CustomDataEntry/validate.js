@@ -12,6 +12,7 @@ const regix = {
   nvarChar255: /^.{0,255}$/,
   nvarchar255Empty: /^$|^.{0,255}$/,
   decimal81: /^\d{1,7}(\.\d{1})?$/,
+  "decimal(8,1)": /^\d{1,7}(\.\d{1,})?$/,
   decimal82: /^\d{1,7}(\.\d{2})?$/,
   text: /^[a-zA-Z0-9 :,"{}[\]]*$/,
 };
@@ -70,8 +71,11 @@ const validateData = async (data, savedData, targetData) => {
             data[i]?.[item]
           )
         ) {
+          // console.log(data[i]);
           flag = false;
-          message = `${data[i]?.[item]} is not matching date in row ${i + 2}`;
+          message = `${data[i]?.[item]} is not matching ${
+            targetData[0]?.Fields[item].validateString
+          } in row ${i + 2}`;
         }
       }
     });

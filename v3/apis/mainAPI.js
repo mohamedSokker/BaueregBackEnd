@@ -1,3 +1,5 @@
+const sql = require("mssql");
+
 const {
   getTables,
   getTableData,
@@ -89,11 +91,11 @@ const { ManageDataEntrySchema } = require("../schemas/ManageDataEntry/schema");
 const route = require("../routes/mainRoute");
 const { getAllTables } = require("../helpers/getTables");
 const { regix } = require("../helpers/regix");
+const { model } = require("../model/mainModel");
+const config = require("../config/config");
 
 const tables = [
   { name: "Test", schema: TestSchema },
-  { name: "Availability", schema: AvailabilitySchema },
-  { name: "Maintenance", schema: MaintenanceSchema },
   { name: "Kelly_Location", schema: Kelly_LocationSchema },
   { name: "Maintenance_Stocks", schema: Maintenance_StocksSchema },
   // { name: "Maintenance_StocksDemo", schema: Maintenance_StocksDemoSchema },
@@ -132,7 +134,41 @@ const tables = [
   { name: "EqsToolsLocation", schema: EqsToolsLocationSchema },
   { name: "OilSamples", schema: OilSamplesSchema },
   { name: "ManageDataEntry", schema: ManageDataEntrySchema },
+  { name: "Availability", schema: AvailabilitySchema },
+  { name: "Maintenance", schema: MaintenanceSchema },
 ];
+
+async function fetchDataFromTable(pool, table, query) {
+  if (!query) {
+    console.log(`Fetching data from table: ${table}`);
+    return pool
+      .request()
+      .query(`SELECT * FROM ${table}`)
+      .then((result) => {
+        const memoryUsage = process.memoryUsage().rss;
+        console.log(`${table}  ${memoryUsage / (1024 * 1024)} MB`);
+        model[table] = result.recordset;
+        return result.recordset;
+      })
+      .catch((err) => {
+        console.error(`Error fetching data from table: ${table}`, err);
+      });
+  } else {
+    console.log(`Fetching data from table: ${table}`);
+    return pool
+      .request()
+      .query(query)
+      .then((result) => {
+        const memoryUsage = process.memoryUsage().rss;
+        console.log(`${table}  ${memoryUsage / (1024 * 1024)} MB`);
+        model[table] = result.recordset;
+        return result.recordset;
+      })
+      .catch((err) => {
+        console.error(`Error fetching data from table: ${table}`, err);
+      });
+  }
+}
 
 const addVariables = (table, schema) => {
   return (req, res, next) => {
@@ -143,70 +179,92 @@ const addVariables = (table, schema) => {
 };
 
 const tablesV2EndPoint = async (app) => {
-  try {
-    tables.forEach(async (item) => {
-      app.use(
-        `/api/v3/${item.name}`,
-        addVariables(item.name, item.schema),
-        route
-      );
-      app.get(`/api/v3/${item.name}Schema`, async (req, res) => {
-        try {
-          return res.status(200).json(item.schema);
-        } catch (error) {
-          return res.status(500).json({ message: error.message });
-        }
-      });
-      try {
-        await getAllData(item.name);
-      } catch (error) {
-        console.log(error.message);
-      }
-    });
+  sql
+    .connect(config)
+    .then((pool) => {
+      let promise = Promise.resolve();
 
-    await getAllData("AppMaintUsers");
-    await getAllData("AdminUsersApp");
-    await getAllCons();
-    await getAllProd();
-    await getTables();
-    getAllData("ManageDataEntry").then(async (result) => {
-      result?.map(async (item) => {
-        let schemas = {};
-        const fields = JSON.parse(item?.Fields);
-        Object?.keys(fields)?.map((it) => {
-          schemas = {
-            ...schemas,
-            [it]: { validatePattern: regix?.[fields?.[it]?.validateString] },
-          };
-        });
-
-        // console.log(schemas);
-        // console.log(`Manage Data Entry Item => ${JSON.stringify(item)}`);
-        if (item.Exist === "false") {
+      tables.forEach((item) => {
+        promise = promise.then(() => {
           app.use(
-            `/api/v3/${item.Name}`,
-            addVariables(item.Name, schemas),
+            `/api/v3/${item.name}`,
+            addVariables(item.name, item.schema),
             route
           );
-          app.use(`/api/v3/${item.Name}Schema`, (req, res) => {
+          app.get(`/api/v3/${item.name}Schema`, async (req, res) => {
             try {
-              return res.status(200).json(JSON.parse(item.Schemas));
+              return res.status(200).json(item.schema);
             } catch (error) {
               return res.status(500).json({ message: error.message });
             }
           });
-        }
-
-        try {
-          await getAllData(item.Name);
-        } catch (error) {
-          console.log(error.message);
-        }
+          return fetchDataFromTable(pool, item.name);
+        });
       });
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
+
+      return promise
+        .then(() => {
+          return fetchDataFromTable(pool, "AppMaintUsers");
+        })
+        .then(() => {
+          return fetchDataFromTable(pool, "AdminUsersApp");
+        })
+        .then(() => {
+          return getAllCons();
+        })
+        .then(() => {
+          return getAllProd();
+        })
+        .then(() => {
+          return fetchDataFromTable(
+            pool,
+            "",
+            "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'"
+          );
+        })
+        .then(() => {
+          return fetchDataFromTable(pool, "ManageDataEntry");
+        })
+        .then((result) => {
+          result?.forEach((item) => {
+            promise = promise.then(() => {
+              let schemas = {};
+              const fields = JSON.parse(item?.Fields);
+              Object?.keys(fields)?.map((it) => {
+                schemas = {
+                  ...schemas,
+                  [it]: {
+                    validatePattern: regix?.[fields?.[it]?.validateString],
+                  },
+                };
+              });
+
+              if (item.Exist === "false") {
+                app.use(
+                  `/api/v3/${item.Name}`,
+                  addVariables(item.Name, schemas),
+                  route
+                );
+                app.use(`/api/v3/${item.Name}Schema`, (req, res) => {
+                  try {
+                    return res.status(200).json(JSON.parse(item.Schemas));
+                  } catch (error) {
+                    return res.status(500).json({ message: error.message });
+                  }
+                });
+              }
+              schemas = null;
+              return fetchDataFromTable(pool, item.Name);
+            });
+          });
+          return promise;
+        })
+        .then(() => {
+          console.log("All data fetched");
+          return pool.close(); // Close the connection pool
+        });
+    })
+    .catch((error) => console.log(error));
 
   app.use(
     "/api/v3/AppMaintUsers",

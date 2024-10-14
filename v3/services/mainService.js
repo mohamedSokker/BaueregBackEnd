@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 
+const sql = require("mssql");
 const { getData } = require("../../v3/helpers/getData");
 const { eventEmitter } = require("../subscriber/mainSubscriber");
 const { model } = require("../model/mainModel");
@@ -23,6 +24,8 @@ const {
   TaskManagerTasksSchema,
 } = require("../schemas/TaskManagerTasks/schema");
 require("dotenv").config();
+
+const config = require("../config/config");
 
 // const getDate = (date) => {
 //   const dt = new Date(date);
@@ -54,12 +57,13 @@ const getTables = async () => {
     const size = Buffer.byteLength(JSON.stringify(model));
     const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
     const sizeMB = sizeKB / 1024;
-    console.log(
-      `${size} byte`,
-      `${sizeKB.toFixed(2)} KB`,
-      `${sizeMB.toFixed(2)} MB`
-    );
-    console.log("AllTables");
+    const memoryUsage = process.memoryUsage().rss;
+    // console.log(
+    //   `${size} byte`,
+    //   `${sizeKB.toFixed(2)} KB`,
+    //   `${sizeMB.toFixed(2)} MB`
+    // );
+    console.log(`Tables ${memoryUsage / (1024 * 1024)} MB`);
     return data.recordsets[0];
   } catch (error) {
     console.log(error.message);
@@ -70,9 +74,9 @@ const getTables = async () => {
 
 const createTable = async (table, schema) => {
   try {
-    let query = `CREATE TABLE ${table} (`;
+    let query = `CREATE TABLE "${table}" (`;
     Object.keys(schema).map((item) => {
-      query += `${item} ${schema[item].databaseType},`;
+      query += `"${item}" ${schema[item].databaseType},`;
     });
     query = query.slice(0, -1);
     query += ")";
@@ -113,6 +117,18 @@ const deleteTable = async (table) => {
   }
 };
 
+const deleteTableAllData = async (table) => {
+  try {
+    const query = `DELETE FROM ${table}`;
+    console.log(query);
+    await getData(query);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+// deleteTableAllData("OilConsumption");
+
 // deleteTable("TaskManagerTasks");
 // deleteTable("EqsToolsLocation");
 
@@ -120,20 +136,21 @@ const getAllCons = async () => {
   try {
     if (!model["fuelCons"] || !model["oilCons"]) {
       const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
-      await XlsxAll(consurl).then((cons) => {
+      return XlsxAll(consurl).then((cons) => {
         model["fuelCons"] = sheerToJson(cons.Sheets[`Fuel Consumption`]);
         model["oilCons"] = sheerToJson(cons.Sheets[`Oil Consumption`]);
+        const size = Buffer.byteLength(JSON.stringify(model));
+        const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+        const sizeMB = sizeKB / 1024;
+        const memoryUsage = process.memoryUsage().rss;
+        // console.log(
+        //   `${size} byte`,
+        //   `${sizeKB.toFixed(2)} KB`,
+        //   `${sizeMB.toFixed(2)} MB`
+        // );
+        console.log(`cons ${memoryUsage / (1024 * 1024)} MB`);
+        return { fuelCons: model["fuelCons"], oilCons: model["oilCons"] };
       });
-      const size = Buffer.byteLength(JSON.stringify(model));
-      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
-      const sizeMB = sizeKB / 1024;
-      console.log(
-        `${size} byte`,
-        `${sizeKB.toFixed(2)} KB`,
-        `${sizeMB.toFixed(2)} MB`
-      );
-      console.log("cons");
-      return { fuelCons: model["fuelCons"], oilCons: model["oilCons"] };
     } else {
       console.log(`From Model`);
       const size = Buffer.byteLength(JSON.stringify(model));
@@ -155,28 +172,28 @@ const getAllProd = async () => {
   try {
     if (!model["prodTrench"] || !model["prodDrill"]) {
       const produrl = process.env.ONEDRIVE_URL;
-      await XlsxAll(produrl).then((prod) => {
+      return XlsxAll(produrl).then((prod) => {
         model["prodDrill"] = sheerToJson(prod.Sheets["Piles"]);
         model["prodTrench"] = [
           ...sheerToJson(prod.Sheets["DW"]),
           ...sheerToJson(prod.Sheets["Cut-Off Wall"]),
           ...sheerToJson(prod.Sheets["Barrettes"]),
         ];
+        const size = Buffer.byteLength(JSON.stringify(model));
+        const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+        const sizeMB = sizeKB / 1024;
+        const memoryUsage = process.memoryUsage().rss;
+        // console.log(
+        //   `${size} byte`,
+        //   `${sizeKB.toFixed(2)} KB`,
+        //   `${sizeMB.toFixed(2)} MB`
+        // );
+        console.log(`prod ${memoryUsage / (1024 * 1024)} MB`);
+        return {
+          prodDrill: model["prodDrill"],
+          prodTrench: model["prodTrench"],
+        };
       });
-
-      const size = Buffer.byteLength(JSON.stringify(model));
-      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
-      const sizeMB = sizeKB / 1024;
-      console.log(
-        `${size} byte`,
-        `${sizeKB.toFixed(2)} KB`,
-        `${sizeMB.toFixed(2)} MB`
-      );
-      console.log("prod");
-      return {
-        prodDrill: model["prodDrill"],
-        prodTrench: model["prodTrench"],
-      };
     } else {
       console.log(`From Model`);
       const size = Buffer.byteLength(JSON.stringify(model));
@@ -198,43 +215,46 @@ const getAllProd = async () => {
 };
 
 const getAllData = async (table) => {
-  try {
-    if (!model[table]) {
-      console.log(`From Database`);
-      const query = `SELECT * FROM ${table}`;
-      getData(query)
-        .then((data) => {
-          model[table] = data.recordsets[0];
-          const size = Buffer.byteLength(JSON.stringify(model));
-          const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
-          const sizeMB = sizeKB / 1024;
-          console.log(
-            `${size} byte`,
-            `${sizeKB.toFixed(2)} KB`,
-            `${sizeMB.toFixed(2)} MB`
-          );
-          console.log(table);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      return model[table];
-    } else {
-      console.log(`From Model`);
-      const size = Buffer.byteLength(JSON.stringify(model));
-      const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
-      const sizeMB = sizeKB / 1024;
-      console.log(
-        `${size} byte`,
-        `${sizeKB.toFixed(2)} KB`,
-        `${sizeMB.toFixed(2)} MB`
-      );
-      return model[table];
-    }
-  } catch (error) {
-    throw new Error(error);
+  // try {
+  if (!model[table]) {
+    console.log(`From Database ${table}`);
+    const query = `SELECT * FROM ${table}`;
+    return getData(query)
+      .then((data) => {
+        model[table] = data.recordsets[0];
+        const size = Buffer.byteLength(JSON.stringify(model));
+        const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+        const sizeMB = sizeKB / 1024;
+        const memoryUsage = process.memoryUsage().rss;
+        // console.log(
+        //   `${size} byte`,
+        //   `${sizeKB.toFixed(2)} KB`,
+        //   `${sizeMB.toFixed(2)} MB`
+        // );
+        console.log(`${table}  ${memoryUsage / (1024 * 1024)} MB`);
+        return data.recordsets[0];
+        // console.log(table);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    console.log(`From Model ${table}`);
+    const size = Buffer.byteLength(JSON.stringify(model));
+    const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+    const sizeMB = sizeKB / 1024;
+    const memoryUsage = process.memoryUsage().rss;
+    console.log(
+      `${size} byte`,
+      `${sizeKB.toFixed(2)} KB`,
+      `${sizeMB.toFixed(2)} MB`
+    );
+    console.log(`${table}  ${memoryUsage / (1024 * 1024)} MB`);
+    return model[table];
   }
+  // } catch (error) {
+  //   throw new Error(error);
+  // }
 };
 
 const getOneData = async (id, table) => {
@@ -285,6 +305,7 @@ const addData = async (bodyData, table, schema) => {
       query += ") ";
       console.log(query);
       const result = await getData(query);
+      query = null;
       eventEmitter.emit("addedOne", { count: 1, table: table });
       return result.recordsets[0];
     } else {
@@ -327,46 +348,82 @@ const addDataQuery = async (bodyData, table, schema) => {
   }
 };
 
+const performQueryOneConnection = async (pool, query) => {
+  return pool
+    .request()
+    .query(query)
+    .then((result) => {
+      const memoryUsage = process.memoryUsage().rss;
+      console.log(`${memoryUsage / (1024 * 1024)} MB`);
+    })
+    .catch((err) => {
+      console.log(`Error Processing Query ${err.message}`);
+    });
+};
+
 const addMany = async (data, table, schema) => {
   try {
     let query = ``;
     const validation = validateManyAdd(data, schema);
     if (validation) {
-      let count = 1;
-      for (let i = 0; i < data.length; i++) {
-        query += `INSERT INTO ${table} VALUES ( `;
-        Object.keys(data[i]).map(async (item) => {
-          if (item === "Password") {
-            query += `'${await bcrypt.hash(data[i][item], 10)}',`;
-          } else if (item !== "ID") {
-            if (data[i][item] === null) {
-              query += "NULL,";
-            } else if (data[i][item] === "Date.Now") {
-              query += `'${new Date().toISOString()}',`;
-            } else {
-              query += `'${data[i][item]}',`;
+      sql.connect(config).then((pool) => {
+        let promise = Promise.resolve();
+
+        let count = 1;
+        data.forEach((d) => {
+          promise = promise.then(async () => {
+            query += `INSERT INTO ${table} VALUES ( `;
+            Object.keys(d).map(async (item) => {
+              if (item === "Password") {
+                query += `'${await bcrypt.hash(d[item], 10)}',`;
+              } else if (item !== "ID") {
+                if (d[item] === null) {
+                  query += "NULL,";
+                } else if (d[item] === "Date.Now") {
+                  query += `'${new Date().toISOString()}',`;
+                } else {
+                  query += `'${d[item]}',`;
+                }
+              }
+            });
+            query = query.slice(0, -1);
+            query += ") ";
+            if (count === 50) {
+              console.log(`${query}\n`);
+
+              await performQueryOneConnection(pool, query);
+              count = 0;
+              query = ``;
             }
-          }
+            count++;
+          });
         });
-        query = query.slice(0, -1);
-        query += ") ";
-        if (count === 2) {
-          console.log(`${query}\n`);
-          await getData(query);
-          count = 0;
-          query = ``;
-        }
-        count++;
-      }
-      if (query !== ``) {
-        console.log(`${query}\n`);
-        await getData(query);
-      }
+        return promise
+          .then(() => {
+            if (query !== ``) {
+              console.log(`${query}\n`);
+              return performQueryOneConnection(pool, query);
+            }
+          })
+          .then(() => {
+            return pool.close(); // Close the connection pool
+          })
+          .then(() => {
+            eventEmitter.emit("addedMany", { data: data.length, table, table });
+          })
+          .then(() => {
+            query = null;
+          })
+          .then(() => {
+            return `Success`;
+          })
+          .catch((err) => {
+            console.log(`Error ${err.message}`);
+          });
+      });
+
       // console.log(query);
       // const result = await getData(query);
-
-      eventEmitter.emit("addedMany", { data: data.length, table, table });
-      return `Success`;
     } else {
       throw new Error(`Validation Failed`);
     }
@@ -450,6 +507,7 @@ const updateData = async (bodyData, id, table, schema) => {
       query += ` WHERE ID = '${id}'`;
       console.log(query);
       const result = await getData(query);
+      query = null;
       eventEmitter.emit("updatedOne", {
         data: { ID: Number(id), ...newBody },
         table: table,
@@ -498,29 +556,51 @@ const updateMany = async (data, table, schema) => {
     let query = ``;
     const validation = validateManyUpdate(data, schema);
     if (validation) {
-      data.map((bodyData) => {
-        query += ` UPDATE ${table} SET `;
-        Object.keys(bodyData).map(async (item) => {
-          if (item === "Password") {
-            query += `"${item}" = '${await bcrypt.hash(bodyData[item], 10)}',`;
-          } else if (item !== "ID") {
-            if (bodyData[item] === null) {
-              query += `"${item}" = NULL,`;
-            } else if (bodyData[item] === "Date.Now") {
-              query += `"${item}" = '${new Date().toISOString()}',`;
-            } else {
-              query += `"${item}" = '${bodyData[item]}',`;
-            }
-          }
-        });
-        query = query.slice(0, -1);
-        query += ` WHERE ID = '${bodyData.ID}' `;
-      });
-      console.log(query);
-      const result = await getData(query);
+      sql.connect(config).then((pool) => {
+        let promise = Promise.resolve();
 
-      eventEmitter.emit("updatedMany", { data: data, table: table });
-      return result.recordsets[0];
+        data.forEach((bodyData) => {
+          promise = promise.then(() => {
+            query += ` UPDATE ${table} SET `;
+            Object.keys(bodyData).map(async (item) => {
+              if (item === "Password") {
+                query += `"${item}" = '${await bcrypt.hash(
+                  bodyData[item],
+                  10
+                )}',`;
+              } else if (item !== "ID") {
+                if (bodyData[item] === null) {
+                  query += `"${item}" = NULL,`;
+                } else if (bodyData[item] === "Date.Now") {
+                  query += `"${item}" = '${new Date().toISOString()}',`;
+                } else {
+                  query += `"${item}" = '${bodyData[item]}',`;
+                }
+              }
+            });
+            query = query.slice(0, -1);
+            query += ` WHERE ID = '${bodyData.ID}' `;
+          });
+        });
+
+        return promise
+          .then(() => {
+            console.log(query);
+            return performQueryOneConnection(pool, query);
+          })
+          .then((result) => {
+            return result.recordsets[0];
+          })
+          .then(() => {
+            return pool.close(); // Close the connection pool
+          })
+          .then(() => {
+            query = null;
+          })
+          .then(() => {
+            eventEmitter.emit("updatedMany", { data: data, table: table });
+          });
+      });
     } else {
       throw new Error(`Validation Failed`);
     }
@@ -567,6 +647,7 @@ const deleteData = async (id, table) => {
     let query = `DELETE FROM ${table} WHERE ID = '${id}'`;
     console.log(query);
     const result = await getData(query);
+    query = null;
     eventEmitter.emit("deletedOne", { id: id, table: table });
     return result.recordsets[0];
   } catch (error) {
@@ -594,6 +675,7 @@ const deleteMany = async (ids, table) => {
       query += `DELETE FROM ${table} WHERE ID = '${id}' `;
     });
     const result = await getData(query);
+    query = null;
     eventEmitter.emit("deletedMany", { ids: ids, table: table });
     return result.recordsets[0];
   } catch (error) {
