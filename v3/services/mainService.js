@@ -429,7 +429,7 @@ const addMany = async (data, table, schema) => {
     }
   } catch (error) {
     console.log(error);
-    throw new Error(error);
+    // throw new Error(error);
   }
 };
 
@@ -588,8 +588,8 @@ const updateMany = async (data, table, schema) => {
             console.log(query);
             return performQueryOneConnection(pool, query);
           })
-          .then((result) => {
-            return result.recordsets[0];
+          .then(() => {
+            return `Success`;
           })
           .then(() => {
             return pool.close(); // Close the connection pool
@@ -605,7 +605,7 @@ const updateMany = async (data, table, schema) => {
       throw new Error(`Validation Failed`);
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 

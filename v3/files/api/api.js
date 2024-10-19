@@ -23,13 +23,16 @@ const decodeURL = (secPath) => {
 
 const filesEndPoints = (app) => {
   app.get("/users/img/:username/:imgName", (req, res) => {
-    const filePath = path.join(
-      __dirname,
-      "..",
-      "/users",
-      `/${decodeURL(req.params.username)}`,
-      `/${decodeURL(req.params.imgName)}`
-    );
+    // const filePath = path.join(
+    //   __dirname,
+    //   "..",
+    //   "/users",
+    //   `/${decodeURL(req.params.username)}`,
+    //   `/${decodeURL(req.params.imgName)}`
+    // );
+    const filePath = `/home/mohamed/bauereg/api/users/${decodeURL(
+      req.params.username
+    )}/${decodeURL(req.params.imgName)}`;
     res.sendFile(filePath);
   });
 

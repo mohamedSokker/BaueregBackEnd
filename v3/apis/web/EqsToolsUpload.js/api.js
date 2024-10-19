@@ -6,12 +6,23 @@ const EqsToolsUploadUploadFiles = require("../../../routes/web/EqsToolsUpload/up
 const EqsToolsUploadSearchFiles = require("../../../routes/web/EqsToolsUpload/searchFiles");
 const EqsToolsUploadAnalyzeFiles = require("../../../routes/web/EqsToolsUpload/analyze");
 
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 * 1024 },
+});
+
 const EqsToolsUploadEndPoints = (app) => {
   app.use("/api/v3/EqsToolsUploadCreateFolder", EqsToolsUploadCreateFolder);
   app.use("/api/v3/EqsToolsUploadGetFiles", EqsToolsUploadGetFiles);
   app.use("/api/v3/EqsToolsUploadDeleteFiles", EqsToolsUploadDeleteFiles);
   app.use("/api/v3/EqsToolsUploadRenameFiles", EqsToolsUploadRenameFiles);
-  app.use("/api/v3/EqsToolsUploadUploadFiles", EqsToolsUploadUploadFiles);
+  app.use(
+    "/api/v3/EqsToolsUploadUploadFiles",
+    upload.single("files"),
+    EqsToolsUploadUploadFiles
+  );
   app.use("/api/v3/EqsToolsUploadSearchFiles", EqsToolsUploadSearchFiles);
   app.use("/api/v3/EqsToolsUploadAnalyzeFiles", EqsToolsUploadAnalyzeFiles);
 };

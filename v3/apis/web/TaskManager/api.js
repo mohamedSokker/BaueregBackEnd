@@ -14,6 +14,13 @@ const taskMagaerGetTaskFiles = require("../../../routes/web/TaskManager/getTaskF
 const taskManagerUploadItems = require("../../../routes/web/TaskManager/uploadItems");
 const taskManagerDeleteFile = require("../../../routes/web/TaskManager/deleteFile");
 
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 * 1024 },
+});
+
 const taskManagerEndPoints = (app) => {
   app.use("/api/v1/taskManagerReadExcel", taskManagerReadExcel);
   app.use("/api/v1/taskManagerGetEquipments", taskManagerGetEquipments);
@@ -28,7 +35,11 @@ const taskManagerEndPoints = (app) => {
   app.use("/api/v1/taskManagergetTargetTasks", taskManagergetTargetTasks);
   app.use("/api/v1/taskManagergetUsers", taskManagergetUsers);
   app.use("/api/v1/taskMagaerGetTaskFiles", taskMagaerGetTaskFiles);
-  app.use("/api/v1/taskManagerUploadItems", taskManagerUploadItems);
+  app.use(
+    "/api/v1/taskManagerUploadItems",
+    upload.single("files"),
+    taskManagerUploadItems
+  );
   app.use("/api/v1/taskManagerDeleteFile", taskManagerDeleteFile);
 };
 

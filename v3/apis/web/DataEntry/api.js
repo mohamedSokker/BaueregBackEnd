@@ -49,6 +49,13 @@ const orderInvoiceCreateFolder = require("../../../routes/web/DataEntry/Orders/O
 const orderInvoiceAnalyze = require("../../../routes/web/DataEntry/Orders/OrderInvoice/analyze");
 const orderInvoiceAddOrder = require("../../../routes/web/DataEntry/Orders/OrderInvoice/addOrder");
 
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 * 1024 },
+});
+
 const dataEntryEndPoints = (app) => {
   app.use("/api/v1/getActiveData", dataEntryGetActiveSites);
   app.use("/api/v1/getActiveMachinary", dataEntryGetActiveMachinary);
@@ -80,7 +87,11 @@ const dataEntryEndPoints = (app) => {
   app.use("/api/v3/dataEntryOrderNoGetFiles", orderNoGetFiles);
   app.use("/api/v3/dataEntryOrderNoDeleteFiles", orderNoDeleteFiles);
   app.use("/api/v3/dataEntryOrderNoRenameFiles", orderNoRenameFiles);
-  app.use("/api/v3/dataEntryOrderNoUploadFiles", orderNoUploadFiles);
+  app.use(
+    "/api/v3/dataEntryOrderNoUploadFiles",
+    upload.single("files"),
+    orderNoUploadFiles
+  );
   app.use("/api/v3/dataEntryOrderNoSearchFiles", orderNoSearchFiles);
   app.use("/api/v3/dataEntryOrderNoCreateFolder", orderNoCreateFolder);
   app.use("/api/v3/dataEntryOrderNoAnalyze", orderNoAnalyze);
@@ -97,6 +108,7 @@ const dataEntryEndPoints = (app) => {
   );
   app.use(
     "/api/v3/dataEntryOrderQuotationUploadFiles",
+    upload.single("files"),
     orderQuotationUploadFiles
   );
   app.use(
@@ -121,6 +133,7 @@ const dataEntryEndPoints = (app) => {
   );
   app.use(
     "/api/v3/dataEntryOrderConfirmationUploadFiles",
+    upload.single("files"),
     orderConfirmationUploadFiles
   );
   app.use(
@@ -143,7 +156,11 @@ const dataEntryEndPoints = (app) => {
   app.use("/api/v3/dataEntryOrderInvoiceFiles", orderInvoiceGetFiles);
   app.use("/api/v3/dataEntryOrderInvoiceDeleteFiles", orderInvoiceDeleteFiles);
   app.use("/api/v3/dataEntryOrderInvoiceRenameFiles", orderInvoiceRenameFiles);
-  app.use("/api/v3/dataEntryOrderInvoiceUploadFiles", orderInvoiceUploadFiles);
+  app.use(
+    "/api/v3/dataEntryOrderInvoiceUploadFiles",
+    upload.single("files"),
+    orderInvoiceUploadFiles
+  );
   app.use("/api/v3/dataEntryOrderInvoiceSearchFiles", orderInvoiceSearchFiles);
   app.use(
     "/api/v3/dataEntryOrderInvoiceCreateFolder",

@@ -8,12 +8,23 @@ const CustomDataEntryAnalyzeFiles = require("../../../routes/web/CustomDataEntry
 const CustomDataEntryCreateFolders = require("../../../routes/web/CustomDataEntry/createFolders");
 const CustomDataEntryInitExcel = require("../../../routes/web/CustomDataEntry/initExcel");
 
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 * 1024 },
+});
+
 const CustomDataEntryEndPoints = (app) => {
   app.use("/api/v3/CustomDataEntryGetFiles", CustomDataEntryGetFiles);
   app.use("/api/v3/CustomDataEntryCreateFolder", CustomDataEntryCreateFolder);
   app.use("/api/v3/CustomDataEntryDeleteFiles", CustomDataEntryDeleteFiles);
   app.use("/api/v3/CustomDataEntryRenameFiles", CustomDataEntryRenameFiles);
-  app.use("/api/v3/CustomDataEntryUploadFiles", CustomDataEntryUploadFiles);
+  app.use(
+    "/api/v3/CustomDataEntryUploadFiles",
+    upload.single("files"),
+    CustomDataEntryUploadFiles
+  );
   app.use("/api/v3/CustomDataEntrySearchFiles", CustomDataEntrySearchFiles);
   app.use("/api/v3/CustomDataEntryAnalyzeFiles", CustomDataEntryAnalyzeFiles);
   app.use("/api/v3/CustomDataEntryCreateFolders", CustomDataEntryCreateFolders);
