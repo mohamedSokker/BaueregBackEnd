@@ -93,6 +93,7 @@ const { getAllTables } = require("../helpers/getTables");
 const { regix } = require("../helpers/regix");
 const { model } = require("../model/mainModel");
 const config = require("../config/config");
+const { getData } = require("../helpers/getData");
 
 const tables = [
   { name: "Test", schema: TestSchema },
@@ -283,6 +284,17 @@ const tablesV2EndPoint = async (app) => {
       console.log(req.query);
       const table = req.query.table;
       const data = await getTableData(table);
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  });
+  app.post("/api/v3/performQuery", async (req, res) => {
+    try {
+      const { query } = req.body;
+      console.log(query);
+      const data = await getData(query);
+      console.log(data);
       return res.status(200).json(data);
     } catch (error) {
       return res.status(500).json({ message: error.message });

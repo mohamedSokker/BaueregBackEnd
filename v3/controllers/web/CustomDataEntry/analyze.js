@@ -53,7 +53,7 @@ const Analyze = async (req, res) => {
         if (key !== "ID")
           newItem[key] =
             item[key] || item[key] === 0
-              ? targetData[0]?.Fields[key]?.Type === "Date"
+              ? targetData[0]?.Fields[key]?.Type
                 ? targetData[0]?.Fields[key]?.canBeEmpty && item[key] === "Null"
                   ? null
                   : formatDate(ExcelDateToJSDate(item[key]))
@@ -61,7 +61,7 @@ const Analyze = async (req, res) => {
               : "";
         newItemWithID[key] =
           item[key] || item[key] === 0
-            ? targetData[0]?.Fields[key]?.Type === "Date"
+            ? targetData[0]?.Fields[key]?.Type
               ? targetData[0]?.Fields[key]?.canBeEmpty && item[key] === "Null"
                 ? "Null"
                 : formatDate(ExcelDateToJSDate(item[key]))
