@@ -10,7 +10,7 @@ const getMany = async (Number, table) => {
     const query = `SELECT TOP ${Number} * FROM ${table} ORDER BY ID DESC`;
     return (await getData(query)).recordsets[0];
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 

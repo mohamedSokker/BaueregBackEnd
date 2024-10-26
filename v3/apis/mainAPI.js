@@ -171,6 +171,21 @@ async function fetchDataFromTable(pool, table, query) {
   }
 }
 
+async function performQuery(pool, table, query) {
+  console.log(`Peforming Query: ${query}`);
+  return pool
+    .request()
+    .query(query)
+    .then((result) => {
+      const memoryUsage = process.memoryUsage().rss;
+      console.log(` ${memoryUsage / (1024 * 1024)} MB`);
+      return result;
+    })
+    .catch((err) => {
+      console.error(`Error Peforming Query On table: ${table}`, err);
+    });
+}
+
 const addVariables = (table, schema) => {
   return (req, res, next) => {
     req.table = table;
@@ -290,15 +305,38 @@ const tablesV2EndPoint = async (app) => {
     }
   });
   app.post("/api/v3/performQuery", async (req, res) => {
-    try {
-      const { query } = req.body;
-      console.log(query);
-      const data = await getData(query);
-      console.log(data);
-      return res.status(200).json(data);
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
-    }
+    const { query, table } = req.body;
+    sql
+      .connect(config)
+      .then((pool) => {
+        let promise = Promise.resolve();
+
+        return promise
+          .then(() => {
+            return performQuery(pool, table, query);
+          })
+          .then((result) => {
+            return { getData: fetchDataFromTable(pool, table), result: result };
+          })
+          .then((result) => {
+            return res.status(200).json(result);
+          })
+          .catch((err) => {
+            return res.status(500).json({ message: err.message });
+          });
+      })
+      .catch((err) => {
+        return res.status(500).json({ message: err.message });
+      });
+    // try {
+    //   const { query } = req.body;
+    //   console.log(query);
+    //   const data = await getData(query);
+    //   console.log(data);
+    //   return res.status(200).json(data);
+    // } catch (error) {
+    //   return res.status(500).json({ message: error.message });
+    // }
   });
   // try {
   //   //   await getAllData("AppMaintUsers");

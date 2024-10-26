@@ -84,7 +84,7 @@ const createTable = async (table, schema) => {
     await getData(query);
     return `Success`;
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -100,7 +100,7 @@ const createTableQuery = async (table, schema) => {
     // await getData(query);
     return `Success`;
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -113,7 +113,7 @@ const deleteTable = async (table) => {
     console.log(query);
     await getData(query);
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -123,7 +123,7 @@ const deleteTableAllData = async (table) => {
     console.log(query);
     await getData(query);
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -164,7 +164,7 @@ const getAllCons = async () => {
       return { fuelCons: model["fuelCons"], oilCons: model["oilCons"] };
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -210,7 +210,7 @@ const getAllProd = async () => {
       };
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -269,7 +269,7 @@ const getOneData = async (id, table) => {
       return model[table].filter((item) => item.ID === Number(id));
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -278,7 +278,7 @@ const getMany = async (Number, table) => {
     const query = `SELECT TOP ${Number} * FROM ${table} ORDER BY ID DESC`;
     return (await getData(query)).recordsets[0];
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -313,7 +313,6 @@ const addData = async (bodyData, table, schema) => {
     }
   } catch (error) {
     console.log(error);
-    throw new Error(error);
   }
 };
 
@@ -344,7 +343,7 @@ const addDataQuery = async (bodyData, table, schema) => {
       throw new Error(`Validation Failed`);
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -469,7 +468,7 @@ const addManyQuery = async (data, table, schema) => {
       throw new Error(`Validation Failed`);
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -517,7 +516,7 @@ const updateData = async (bodyData, id, table, schema) => {
       throw new Error(`Validation Failed`);
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -547,7 +546,7 @@ const updateDataQuery = async (bodyData, id, table, schema) => {
       throw new Error(`Validation Failed`);
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -638,7 +637,7 @@ const updateManyQuery = async (data, table, schema) => {
       throw new Error(`Validation Failed`);
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -651,7 +650,7 @@ const deleteData = async (id, table) => {
     eventEmitter.emit("deletedOne", { id: id, table: table });
     return result.recordsets[0];
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -664,7 +663,7 @@ const deleteDataQuery = async (id, table) => {
     console.log(query);
     return query;
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -679,7 +678,7 @@ const deleteMany = async (ids, table) => {
     eventEmitter.emit("deletedMany", { ids: ids, table: table });
     return result.recordsets[0];
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
@@ -691,7 +690,7 @@ const deleteManyQuery = async (ids, table) => {
     });
     return query;
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 };
 
