@@ -226,10 +226,10 @@ const tablesV2EndPoint = async (app) => {
           return fetchDataFromTable(pool, "AdminUsersApp");
         })
         .then(() => {
-          //return getAllCons();
+          return getAllCons();
         })
         .then(() => {
-          //return getAllProd();
+          return getAllProd();
         })
         .then(() => {
           return fetchDataFromTable(
