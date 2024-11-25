@@ -47,7 +47,6 @@ const validateData = async (data, savedData, targetData) => {
     Object.keys(targetData[0]?.Fields)?.map((item) => {
       if (targetData[0]?.Fields[item].Type === "DropDown") {
         if (
-          !savedData?.[item]?.includes(data[i]?.[item].toString()) ||
           !savedData?.[item]?.includes(data[i]?.[item]?.toString()) ||
           !regix?.[targetData[0]?.Fields[item].validateString].test(
             data[i]?.[item]
@@ -68,7 +67,7 @@ const validateData = async (data, savedData, targetData) => {
         }
       } else {
         if (
-          !regix?.[targetData[0]?.Fields[item].validateString].test(
+          !regix?.[targetData[0]?.Fields[item].validateString]?.test(
             data[i]?.[item]
           )
         ) {
