@@ -47,11 +47,8 @@ const validateData = async (data, savedData, targetData) => {
     Object.keys(targetData[0]?.Fields)?.map((item) => {
       if (targetData[0]?.Fields[item].Type === "DropDown") {
         if (
-<<<<<<< HEAD
           !savedData?.[item]?.includes(data[i]?.[item].toString()) ||
-=======
           !savedData?.[item]?.includes(data[i]?.[item]?.toString()) ||
->>>>>>> d3337670a9cf36e67b21d72bd5e5f59eb8c5a119
           !regix?.[targetData[0]?.Fields[item].validateString].test(
             data[i]?.[item]
           )
