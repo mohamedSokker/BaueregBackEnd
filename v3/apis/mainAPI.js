@@ -144,7 +144,7 @@ async function fetchDataFromTable(pool, table, query) {
     console.log(`Fetching data from table: ${table}`);
     return pool
       .request()
-      .query(`SELECT * FROM ${table}`)
+      .query(`SELECT * FROM "${table}"`)
       .then((result) => {
         const memoryUsage = process.memoryUsage().rss;
         console.log(`${table}  ${memoryUsage / (1024 * 1024)} MB`);

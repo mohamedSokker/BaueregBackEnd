@@ -137,8 +137,8 @@ const getAllCons = async () => {
     if (!model["fuelCons"] || !model["oilCons"]) {
       const consurl = process.env.CONSUMPTON_ONEDRIVE_URL;
       return XlsxAll(consurl).then((cons) => {
-        model["fuelCons"] = sheerToJson(cons.Sheets[`Fuel Consumption`]);
-        model["oilCons"] = sheerToJson(cons.Sheets[`Oil Consumption`]);
+        model["fuelCons"] = sheerToJson(cons?.Sheets?.[`Fuel Consumption`]);
+        model["oilCons"] = sheerToJson(cons?.Sheets?.[`Oil Consumption`]);
         const size = Buffer.byteLength(JSON.stringify(model));
         const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
         const sizeMB = sizeKB / 1024;

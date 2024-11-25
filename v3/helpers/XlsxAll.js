@@ -17,7 +17,8 @@ const XlsxAll = async (url) => {
     // const workbook = XLSX.read(axiosResponse.data);
     return XLSX.read(axiosResponse.data);
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
+    // throw new Error(error);
   }
 };
 

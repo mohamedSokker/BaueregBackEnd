@@ -3,7 +3,7 @@ const sheerToJson = (data) => {
     delete data?.["!ref"];
     delete data?.["!autofilter"];
     delete data?.["!margins"];
-    const arrayData = Object.keys(data);
+    const arrayData = data ? Object.keys(data) : [];
     const result = [];
     let object = {};
     let count = 2;
@@ -16,10 +16,16 @@ const sheerToJson = (data) => {
         count++;
         object = {};
       }
+
       if (item.replace(/[A-Z]/g, "") != "1") {
+        // if (item.replace(/[A-Z]/g, "") == "2") {
+        //   console.log(data[`${item.split(/[0-9]/).join("")}1`]?.v);
+        // }
         object = {
           ...object,
-          [data[`${item.split(/[0-9]/).join("")}1`]?.v]: data[item]?.v,
+          [data[`${item.split(/[0-9]/).join("")}1`]?.v]: data[item]?.v
+            ? data[item]?.v
+            : "",
         };
       }
     });

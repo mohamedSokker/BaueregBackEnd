@@ -134,6 +134,8 @@ const loginapp = async (req, res) => {
           CustomDataEntry: true,
           ManageDataEntry: true,
           ManageDatabase: true,
+          ManageMiniPowerBi: true,
+          MiniPowerBi: true,
         };
       }
       const token = jwt.sign(Tokenuser, process.env.TOKEN_SECRET_KEY, {

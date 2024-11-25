@@ -133,6 +133,8 @@ const handleRefreshToken = (req, res) => {
             CustomDataEntry: true,
             ManageDataEntry: true,
             ManageDatabase: true,
+            ManageMiniPowerBi: true,
+            MiniPowerBi: true,
           };
         }
         return res.status(200).json({ token: token, user: user });
