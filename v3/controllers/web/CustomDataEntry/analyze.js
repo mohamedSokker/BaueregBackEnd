@@ -32,10 +32,17 @@ const Analyze = async (req, res) => {
         const modelCol = targetData[0]?.Fields[item].Column;
         model[modelKey].map((it) => {
           if (!savedData[item]) {
+<<<<<<< HEAD
             savedData = { ...savedData, [item]: [it[modelCol].toString()] };
           } else {
             if (!savedData[item].includes(it[modelCol])) {
               savedData[item].push(it[modelCol].toString());
+=======
+            savedData = { ...savedData, [item]: [it[modelCol] ? it[modelCol].toString() : it[modelCol]]};
+          } else {
+            if (!savedData[item].includes(it[modelCol])) {
+              savedData[item].push(it[modelCol] ? it[modelCol].toString() : it[modelCol]);
+>>>>>>> d3337670a9cf36e67b21d72bd5e5f59eb8c5a119
             }
           }
         });
