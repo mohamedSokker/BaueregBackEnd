@@ -28,28 +28,36 @@ const oilConsumption = async (req, res) => {
     // Pipe the large JSON object to the JSONStream serializer
     jsonStream.pipe(res);
 
-    if (model["oilCons"]) {
+    if (model["OilConsumption"]) {
       // Push the large JSON object into the JSONStream serializer
-      for (let i = 0; i < model["oilCons"].length; i++) {
-        jsonStream.write(model["oilCons"][i]);
+      for (let i = 0; i < model["OilConsumption"].length; i++) {
+        jsonStream.write(model["OilConsumption"][i]);
       }
 
       // End the JSONStream serializer
       jsonStream.end();
     } else {
-      const produrl = process.env.CONSUMPTON_ONEDRIVE_URL;
-      await XlsxAll(produrl).then((cons) => {
-        for (
-          let i = 0;
-          i < sheerToJson(cons.Sheets[`Oil Consumption`]).length;
-          i++
-        ) {
-          jsonStream.write(sheerToJson(cons.Sheets[`Oil Consumption`])[i]);
+      getData("SELECT * FROM OilConsumption").then((result) => {
+        for (let i = 0; i < result.recordsets[0].length; i++) {
+          jsonStream.write(result.recordsets[0][i]);
         }
 
         // End the JSONStream serializer
         jsonStream.end();
       });
+      // const produrl = process.env.CONSUMPTON_ONEDRIVE_URL;
+      // await XlsxAll(produrl).then((cons) => {
+      //   for (
+      //     let i = 0;
+      //     i < sheerToJson(cons.Sheets[`Oil Consumption`]).length;
+      //     i++
+      //   ) {
+      //     jsonStream.write(sheerToJson(cons.Sheets[`Oil Consumption`])[i]);
+      //   }
+
+      //   // End the JSONStream serializer
+      //   jsonStream.end();
+      // });
     }
 
     const memoryUsageAfter = process.memoryUsage().rss;
