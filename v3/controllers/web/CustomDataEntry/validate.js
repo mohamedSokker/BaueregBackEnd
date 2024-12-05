@@ -53,7 +53,9 @@ const validateData = async (data, savedData, targetData) => {
           )
         ) {
           flag = false;
-          message = `${data[i]?.[item]} is not included in row ${i + 2}`;
+          message = `${data[i]?.[item]} is not included in row ${
+            i + 2
+          }  at column ${item}`;
         }
       } else if (targetData[0]?.Fields[item].canBeEmpty) {
         if (
@@ -63,7 +65,9 @@ const validateData = async (data, savedData, targetData) => {
           data[i]?.[item] !== "Null"
         ) {
           flag = false;
-          message = `${data[i]?.[item]} is not matching date in row ${i + 2}`;
+          message = `${data[i]?.[item]} is not matching date in row ${
+            i + 2
+          }  at column ${item}`;
         }
       } else {
         if (
@@ -75,7 +79,7 @@ const validateData = async (data, savedData, targetData) => {
           flag = false;
           message = `${data[i]?.[item]} is not matching ${
             targetData[0]?.Fields[item].validateString
-          } in row ${i + 2}`;
+          } in row ${i + 2} at column ${item}`;
         }
       }
     });
