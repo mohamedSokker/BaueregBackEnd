@@ -32,10 +32,10 @@ const Analyze = async (req, res) => {
         const modelCol = targetData[0]?.Fields[item].Column;
         model[modelKey].map((it) => {
           if (!savedData[item]) {
-            savedData = { ...savedData, [item]: [it[modelCol].toString()] };
+            savedData = { ...savedData, [item]: [it[modelCol]?.toString()] };
           } else {
             if (!savedData[item].includes(it[modelCol])) {
-              savedData[item].push(it[modelCol].toString());
+              savedData[item].push(it[modelCol]?.toString());
             }
           }
         });
