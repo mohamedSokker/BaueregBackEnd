@@ -13,19 +13,16 @@ const {
   validateupdateData,
   validateManyUpdate,
 } = require("../validations/mainValidation");
-const { EqsToolsSchema } = require("../schemas/EqsTools/schema");
-const {
-  EqsToolsLocationSchema,
-} = require("../schemas/EqsToolsLocation/schema");
-const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
+
 const { sheerToJson } = require("../helpers/sheetToJson");
-const { ManageDataEntrySchema } = require("../schemas/ManageDataEntry/schema");
-const {
-  TaskManagerTasksSchema,
-} = require("../schemas/TaskManagerTasks/schema");
+
 require("dotenv").config();
 
 const config = require("../config/config");
+const {
+  PowerBiRelationShipsSchema,
+} = require("../schemas/PowerBiRelationShips/schema");
+const { PowerBiViewSchema } = require("../schemas/PowerBiView/schema");
 
 // const getDate = (date) => {
 //   const dt = new Date(date);
@@ -104,8 +101,8 @@ const createTableQuery = async (table, schema) => {
   }
 };
 
-// createTable("ManageDataEntry", ManageDataEntrySchema);
-// createTable("TaskManagerTasks", TaskManagerTasksSchema);
+// createTable("PowerBiRelationShips", PowerBiRelationShipsSchema);
+// createTable("PowerBiView", PowerBiViewSchema);
 
 const deleteTable = async (table) => {
   try {

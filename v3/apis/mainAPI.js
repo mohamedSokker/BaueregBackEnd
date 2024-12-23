@@ -87,6 +87,10 @@ const {
 } = require("../schemas/EqsToolsLocation/schema");
 const { OilSamplesSchema } = require("../schemas/OilSamples/schema");
 const { ManageDataEntrySchema } = require("../schemas/ManageDataEntry/schema");
+const {
+  PowerBiRelationShipsSchema,
+} = require("../schemas/PowerBiRelationShips/schema");
+const { PowerBiViewSchema } = require("../schemas/PowerBiView/schema");
 
 const route = require("../routes/mainRoute");
 const { getAllTables } = require("../helpers/getTables");
@@ -137,6 +141,8 @@ const tables = [
   { name: "ManageDataEntry", schema: ManageDataEntrySchema },
   { name: "Availability", schema: AvailabilitySchema },
   { name: "Maintenance", schema: MaintenanceSchema },
+  { name: "PowerBiRelationShips", schema: PowerBiRelationShipsSchema },
+  { name: "PowerBiView", schema: PowerBiViewSchema },
 ];
 
 async function fetchDataFromTable(pool, table, query) {
