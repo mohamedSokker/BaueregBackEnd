@@ -168,7 +168,7 @@ const getAllCons = async () => {
 const getAllProd = async () => {
   try {
     if (!model["prodTrench"] || !model["prodDrill"]) {
-      const path = `/home/mohamed/bauereg/api/v3/files/Production/ProdTemp.xlsx`;
+      const path = `/home/mohamed/bauereg/ProdExcel/ProdTemp.xlsx`;
       const workbook = XLSX.readFile(path);
       model["prodDrill"] = sheerToJson(workbook.Sheets["Piles"]);
       model["prodTrench"] = [
