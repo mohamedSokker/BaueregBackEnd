@@ -25,14 +25,19 @@ const getAllTables = async (req, res) => {
     } else {
       getData(
         "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'"
-      ).then((result) => {
-        result.recordsets[0].forEach((item) => {
-          jsonStream.write(item);
-        });
+      )
+        .then((result) => {
+          model["AllTables"] = result?.recordset;
+          result.recordsets[0].forEach((item) => {
+            jsonStream.write(item);
+          });
 
-        // End the JSONStream serializer
-        jsonStream.end();
-      });
+          // End the JSONStream serializer
+          jsonStream.end();
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
 
     const memoryUsageAfter = process.memoryUsage().rss;

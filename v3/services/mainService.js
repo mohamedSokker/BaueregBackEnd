@@ -168,29 +168,37 @@ const getAllCons = async () => {
 const getAllProd = async () => {
   try {
     if (!model["prodTrench"] || !model["prodDrill"]) {
-      const produrl = process.env.ONEDRIVE_URL;
-      return XlsxAll(produrl).then((prod) => {
-        model["prodDrill"] = sheerToJson(prod.Sheets["Piles"]);
-        model["prodTrench"] = [
-          ...sheerToJson(prod.Sheets["DW"]),
-          ...sheerToJson(prod.Sheets["Cut-Off Wall"]),
-          ...sheerToJson(prod.Sheets["Barrettes"]),
-        ];
-        const size = Buffer.byteLength(JSON.stringify(model));
-        const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
-        const sizeMB = sizeKB / 1024;
-        const memoryUsage = process.memoryUsage().rss;
-        // console.log(
-        //   `${size} byte`,
-        //   `${sizeKB.toFixed(2)} KB`,
-        //   `${sizeMB.toFixed(2)} MB`
-        // );
-        console.log(`prod ${memoryUsage / (1024 * 1024)} MB`);
-        return {
-          prodDrill: model["prodDrill"],
-          prodTrench: model["prodTrench"],
-        };
-      });
+      const path = `/home/mohamed/bauereg/api/v3/files/Production/ProdTemp.xlsx`;
+      const workbook = XLSX.readFile(path);
+      model["prodDrill"] = sheerToJson(workbook.Sheets["Piles"]);
+      model["prodTrench"] = [
+        ...sheerToJson(workbook.Sheets["DW"]),
+        ...sheerToJson(workbook.Sheets["Cut-Off Wall"]),
+        ...sheerToJson(workbook.Sheets["Barrettes"]),
+      ];
+      // const produrl = process.env.ONEDRIVE_URL;
+      // return XlsxAll(produrl).then((prod) => {
+      //   model["prodDrill"] = sheerToJson(prod.Sheets["Piles"]);
+      //   model["prodTrench"] = [
+      //     ...sheerToJson(prod.Sheets["DW"]),
+      //     ...sheerToJson(prod.Sheets["Cut-Off Wall"]),
+      //     ...sheerToJson(prod.Sheets["Barrettes"]),
+      //   ];
+      //   const size = Buffer.byteLength(JSON.stringify(model));
+      //   const sizeKB = Buffer.byteLength(JSON.stringify(model)) / 1024;
+      //   const sizeMB = sizeKB / 1024;
+      //   const memoryUsage = process.memoryUsage().rss;
+      //   // console.log(
+      //   //   `${size} byte`,
+      //   //   `${sizeKB.toFixed(2)} KB`,
+      //   //   `${sizeMB.toFixed(2)} MB`
+      //   // );
+      //   console.log(`prod ${memoryUsage / (1024 * 1024)} MB`);
+      return {
+        prodDrill: model["prodDrill"],
+        prodTrench: model["prodTrench"],
+      };
+      // });
     } else {
       console.log(`From Model`);
       const size = Buffer.byteLength(JSON.stringify(model));

@@ -101,7 +101,7 @@ const { getData } = require("../helpers/getData");
 
 const tables = [
   { name: "Test", schema: TestSchema },
-  { name: "Kelly_Location", schema: Kelly_LocationSchema },
+  // { name: "Kelly_Location", schema: Kelly_LocationSchema },
   { name: "Maintenance_Stocks", schema: Maintenance_StocksSchema },
   // { name: "Maintenance_StocksDemo", schema: Maintenance_StocksDemoSchema },
   // { name: "GearBoxes", schema: GearBoxesSchema },
