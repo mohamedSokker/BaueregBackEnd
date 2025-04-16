@@ -145,7 +145,7 @@ const tables = [
   { name: "PowerBiView", schema: PowerBiViewSchema },
 ];
 
-async function fetchDataFromTable(pool, table, query) {
+async function fetchDataFromTable(pool, table, query, schema) {
   if (!query) {
     console.log(`Fetching data from table: ${table}`);
     return pool
@@ -155,6 +155,7 @@ async function fetchDataFromTable(pool, table, query) {
         const memoryUsage = process.memoryUsage().rss;
         console.log(`${table}  ${memoryUsage / (1024 * 1024)} MB`);
         model[table] = result.recordset;
+        if (schema) model[`${table}Schema`] = schema;
         return result.recordset;
       })
       .catch((err) => {
@@ -220,16 +221,26 @@ const tablesV2EndPoint = async (app) => {
               return res.status(500).json({ message: error.message });
             }
           });
-          return fetchDataFromTable(pool, item.name);
+          return fetchDataFromTable(pool, item.name, null, item.schema);
         });
       });
 
       return promise
         .then(() => {
-          return fetchDataFromTable(pool, "AppMaintUsers");
+          return fetchDataFromTable(
+            pool,
+            "AppMaintUsers",
+            null,
+            AppMaintUsersSchema
+          );
         })
         .then(() => {
-          return fetchDataFromTable(pool, "AdminUsersApp");
+          return fetchDataFromTable(
+            pool,
+            "AdminUsersApp",
+            null,
+            AdminUsersAppSchema
+          );
         })
         .then(() => {
           // return getAllCons();
@@ -241,11 +252,17 @@ const tablesV2EndPoint = async (app) => {
           return fetchDataFromTable(
             pool,
             "",
-            "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'"
+            "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'",
+            null
           );
         })
         .then(() => {
-          return fetchDataFromTable(pool, "ManageDataEntry");
+          return fetchDataFromTable(
+            pool,
+            "ManageDataEntry",
+            null,
+            ManageDataEntrySchema
+          );
         })
         .then((result) => {
           result?.forEach((item) => {
@@ -276,7 +293,7 @@ const tablesV2EndPoint = async (app) => {
                 });
               }
               schemas = null;
-              return fetchDataFromTable(pool, item.Name);
+              return fetchDataFromTable(pool, item.Name, null, item.Schemas);
             });
           });
           return promise;
@@ -322,7 +339,10 @@ const tablesV2EndPoint = async (app) => {
             return performQuery(pool, table, query);
           })
           .then((result) => {
-            return { getData: fetchDataFromTable(pool, table), result: result };
+            return {
+              getData: fetchDataFromTable(pool, table, null, null),
+              result: result,
+            };
           })
           .then((result) => {
             return res.status(200).json(result);

@@ -123,14 +123,17 @@ const filesEndPoints = (app) => {
   app.get("/AppGetFiles", (req, res) => {
     try {
       let basePath = process.env.BASE_PATH;
-      if (req.query.fullpath.length < basePath.length) {
+      const dirPath = path.resolve(req.query.fullpath);
+      if (dirPath.length < basePath.length) {
         return res.status(403).json({ message: "Unauthorized" });
       } else {
-        let arrayOfFiles = fs.readdirSync(`${req.query.fullpath}`);
+        console.log(dirPath);
+        let arrayOfFiles = fs.readdirSync(dirPath);
+        console.log(arrayOfFiles);
         let filesList = [];
 
         arrayOfFiles.forEach((file) => {
-          if (fs.lstatSync(`${req.query.fullpath}/${file}`).isFile()) {
+          if (fs.lstatSync(`${dirPath}/${file}`).isFile()) {
             filesList.push({ file: file, type: "file" });
           } else {
             filesList.push({ file: file, type: "folder" });

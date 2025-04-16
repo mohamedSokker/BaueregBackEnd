@@ -29,7 +29,7 @@ const socketFn = (server) => {
 
     socket.emit("userID", {
       id: socket.id,
-      appVersion: 5,
+      appVersion: 6,
       sparePartAppVersion: 2,
     });
 
@@ -72,18 +72,22 @@ const socketFn = (server) => {
     });
 
     socket.on("scanned", (data) => {
+      console.log("socket scanned => checkScan");
       socket.to(data.split("==")[1]).emit("checkScan", data);
     });
 
     socket.on("successScan", (data1) => {
+      console.log("socket successScan => confirmScan");
       socket.to(data1?.data?.split("==")[0]).emit("confirmScan", data1);
     });
 
     socket.on("updateAppData", (data) => {
+      console.log("socket updateAppData => appDataUpdate");
       socket.broadcast.emit("appDataUpdate", data);
     });
 
     socket.on("appNewMaint", (data) => {
+      console.log("socket appNewMaint => appNewMessage");
       socket.broadcast.emit("appNewMessage", data);
     });
 

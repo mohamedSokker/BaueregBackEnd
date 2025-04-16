@@ -45,9 +45,9 @@ const appLogin = async (req, res) => {
         Token: SearchedItems["Token"],
       };
       const token = jwt.sign(user, process.env.TOKEN_SECRET_KEY, {
-        expiresIn: "5000000d",
+        expiresIn: "1h",
       });
-      return res.status(200).json({ token: token });
+      return res.status(200).json({ token: token, user: user });
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });

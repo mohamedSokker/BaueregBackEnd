@@ -33,12 +33,12 @@ const handleRefreshToken = async (req, res) => {
     const oldData = await getTokenData(oldToken);
 
     let Results = [];
-    if (model["AdminUsersApp"]) {
-      Results = model["AdminUsersApp"].filter(
+    if (model["AppMaintUsers"]) {
+      Results = model["AppMaintUsers"].filter(
         (user) => user.UserName === oldData.username
       );
     } else {
-      var query = `SELECT TOP 1 * FROM AdminUsersApp WHERE UserName = '${oldData.username}'`;
+      var query = `SELECT TOP 1 * FROM AppMaintUsers WHERE UserName = '${oldData.username}'`;
       getData(query).then((result) => {
         Results = result.recordsets[0];
       });
@@ -51,15 +51,29 @@ const handleRefreshToken = async (req, res) => {
     // console.log(`Refresh Result => ${JSON.stringify(Results)}`);
 
     const tokenUser = {
+      // username: Results[0]["UserName"],
+      // // roles: decoded.roles,
+      // img: Results[0]["ProfileImg"],
+      id: Results[0]["ID"],
       username: Results[0]["UserName"],
-      // roles: decoded.roles,
+      role: Results[0]["Role"],
       img: Results[0]["ProfileImg"],
+      eqtype: Results[0]["Equipment_Type"],
+      Location: Results[0]["Location"],
+      Token: Results[0]["Token"],
     };
     // console.log(Results[0]["UserRole"]);
     const user = {
+      // username: Results[0]["UserName"],
+      // roles: JSON.parse(Results[0]?.Role),
+      // img: Results[0]["ProfileImg"],
+      id: Results[0]["ID"],
       username: Results[0]["UserName"],
-      roles: JSON.parse(Results[0]?.UserRole),
+      role: Results[0]["Role"],
       img: Results[0]["ProfileImg"],
+      eqtype: Results[0]["Equipment_Type"],
+      Location: Results[0]["Location"],
+      Token: Results[0]["Token"],
     };
     const token = jwt.sign(tokenUser, process.env.TOKEN_SECRET_KEY, {
       expiresIn: "1h",

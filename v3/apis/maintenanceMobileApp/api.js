@@ -20,6 +20,7 @@ const {
   sendMessage,
 } = require("../../controllers/maintenanceMobileApp/sendMessage");
 const appMaint_getNotification = require("../../routes/maintenanceMobileApp/getNotification");
+const appRefresh = require("../../routes/maintenanceMobileApp/login&auth/refreshToken");
 
 const appMobileEndPoints = (app) => {
   app.use("/api/v1/getServerDate", appMaintauth, getServerDate);
@@ -48,6 +49,7 @@ const appMobileEndPoints = (app) => {
     appMaintauth,
     appMaint_getNotification
   );
+  app.use("/appRefresh", appRefresh);
 };
 
 module.exports = { appMobileEndPoints };

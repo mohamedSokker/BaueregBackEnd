@@ -16,20 +16,13 @@ const getReports = async (req, res) => {
     jsonStream.pipe(res);
 
     if (model["AppMaintMaintenance"]) {
+      const filteredData = model["AppMaintMaintenance"].filter((item) => {
+        // console.log(item);
+        return Location.some((loc) => loc.includes(item.Location));
+      });
       // Push the large JSON object into the JSONStream serializer
-      for (
-        let i = 0;
-        i <
-        model["AppMaintMaintenance"].filter((item) =>
-          Location.some((loc) => loc.includes(item.Location))
-        ).length;
-        i++
-      ) {
-        jsonStream.write(
-          model["AppMaintMaintenance"].filter((item) =>
-            Location.some((loc) => loc.includes(item.Location))
-          )[i]
-        );
+      for (let i = 0; i < filteredData.length; i++) {
+        jsonStream.write(filteredData[i]);
       }
 
       // End the JSONStream serializer
