@@ -1,10 +1,16 @@
+const sql = require("mssql");
+
+const config = require("../../../config/config");
 const { getData } = require("../../../../v3/helpers/getData");
-const { getAllDataYard } = require("../../../services/mainServiceYard");
+// const { getAllDataYard } = require("../../../services/mainServiceYard");
+const { getAllData } = require("../../../services/mainService");
 const {
   addData,
   updateData,
   addMany,
   updateMany,
+  addManyQuery,
+  updateManyQuery,
 } = require("../../../services/mainService");
 const {
   Availability_PlanSchema,
@@ -14,6 +20,21 @@ const getEqsInSite = require("../../../helpers/getEquipmentsinSite");
 const formatDate = require("../../../helpers/formatdate");
 const getDayName = require("../../../helpers/getDayName");
 const addDays = require("../../../helpers/addDays");
+
+async function performQuery(pool, table, query) {
+  console.log(`Peforming Query: ${query}`);
+  return pool
+    .request()
+    .query(query)
+    .then((result) => {
+      const memoryUsage = process.memoryUsage().rss;
+      console.log(` ${memoryUsage / (1024 * 1024)} MB`);
+      return result;
+    })
+    .catch((err) => {
+      console.error(`Error Peforming Query On table: ${table}`, err);
+    });
+}
 
 const checkifRecordExist = async (fieldsData, allAvPlan) => {
   //   const allAvPlan = await getAllData("Availability_Plan");
@@ -28,11 +49,9 @@ const checkifRecordExist = async (fieldsData, allAvPlan) => {
   return null;
 };
 
-const handleAvPlan = async (DBData, allAvPlan) => {
+const handleAvPlan = async (DBData, allAvPlan, allAv) => {
   try {
     const fieldsData = DBData;
-
-    const allAv = [];
 
     // const allAvPlan = await getAllData("Availability_Plan");
 
@@ -50,18 +69,18 @@ const handleAvPlan = async (DBData, allAvPlan) => {
       Wednesday: fieldsData.Wednesday,
       Thursday: fieldsData.Thursday,
     };
-    if (targetAvPlan) {
-      await updateData(
-        body,
-        targetAvPlan[0]?.ID,
-        "Availability_Plan",
-        Availability_PlanSchema
-      );
-    } else {
-      await addData(body, "Availability_Plan", Availability_PlanSchema);
-    }
+    // if (targetAvPlan) {
+    //   await updateData(
+    //     body,
+    //     targetAvPlan[0]?.ID,
+    //     "Availability_Plan",
+    //     Availability_PlanSchema
+    //   );
+    // } else {
+    //   await addData(body, "Availability_Plan", Availability_PlanSchema);
+    // }
 
-    const allEqsLoc = await getAllDataYard("Equipments_Location");
+    const allEqsLoc = await getAllData("Equipments_Location");
     const eqs = allEqsLoc.filter((item) =>
       item.End_Date === null
         ? item.Location === fieldsData.Location &&
@@ -162,9 +181,13 @@ const handleAvPlan = async (DBData, allAvPlan) => {
     //   JSON.stringify({ addData: addArray, editData: editArray, avPlan: body })
     // );
     if (addArray.length > 0)
-      await addMany(addArray, "Availability", AvailabilitySchema);
+      return await addManyQuery(addArray, "Availability", AvailabilitySchema);
     if (editArray.length > 0)
-      await updateMany(editArray, "Availability", AvailabilitySchema);
+      return await updateManyQuery(
+        editArray,
+        "Availability",
+        AvailabilitySchema
+      );
     // return res
     //   .status(200)
     //   .json({ addData: addArray, editData: editArray, avPlan: body });
@@ -175,18 +198,45 @@ const handleAvPlan = async (DBData, allAvPlan) => {
 };
 
 const migrateDate = async () => {
-  const allAvPlan = await getAllDataYard("Availability_Plan");
-  allAvPlan.sort((a, b) => a.DateFrom - b.DateFrom);
-  const targetAvPlan = allAvPlan.filter(
-    // (item) => new Date(formatDate(item.DateFrom)) >= new Date("2024-03-30")
-    (item) => Number(item.ID) > 45588
-  );
-  for (let i = 0; i < targetAvPlan.length; i++) {
-    console.log(
-      `loading ${(((i + 1) / targetAvPlan.length) * 100).toFixed(2)} %`
+  sql.connect(config).then((pool) => {
+    let promise = Promise.resolve();
+
+    return (
+      promise
+        // .then(() => {
+        //   // return performQuery(
+        //   //   pool,
+        //   //   "Availability",
+        //   //   `DELETE FROM Availability WHERE Equipment = 'MC 128 #154'`
+        //   // );
+        // })
+        .then(async () => {
+          const allAv = await getAllData("Availability");
+          const allAvPlan = await getAllData("Availability_Plan");
+          allAvPlan.sort((a, b) => a.DateFrom - b.DateFrom);
+          // const targetAvPlan = allAvPlan.filter(
+          //   (item) => item.Equipment === "MC 128 #154"
+          // );
+          allAvPlan.forEach((item, i) => {
+            promise = promise.then(async () => {
+              console.log(
+                `loading ${(((i + 1) / allAvPlan.length) * 100).toFixed(2)} %`
+              );
+              return performQuery(
+                pool,
+                "Availability",
+                await handleAvPlan(item, allAvPlan, allAv)
+              );
+            });
+          });
+          return promise;
+        })
+        .then(() => {
+          console.log("Finished");
+          return pool.close(); // Close the connection pool
+        })
     );
-    await handleAvPlan(targetAvPlan[i], targetAvPlan);
-  }
+  });
 };
 
 module.exports = { migrateDate };

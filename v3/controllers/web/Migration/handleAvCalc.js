@@ -1,3 +1,7 @@
+const sql = require("mssql");
+
+const config = require("../../../config/config");
+
 // const { getData } = require("../../../../helpers/getData");
 const formatDate = require("../../../helpers/formatdate");
 const addDays = require("../../../helpers/addDays");
@@ -11,6 +15,7 @@ const {
   updateData,
   addMany,
   updateMany,
+  updateManyQuery,
 } = require("../../../services/mainService");
 
 const { MaintenanceSchema } = require("../../../schemas/Maintenance/schema");
@@ -21,6 +26,21 @@ const {
 
 const LeadTime = 1;
 const safetyStock = 1;
+
+async function performQuery(pool, table, query) {
+  console.log(`Peforming Query: ${query}`);
+  return pool
+    .request()
+    .query(query)
+    .then((result) => {
+      const memoryUsage = process.memoryUsage().rss;
+      console.log(` ${memoryUsage / (1024 * 1024)} MB`);
+      return result;
+    })
+    .catch((err) => {
+      console.error(`Error Peforming Query On table: ${table}`, err);
+    });
+}
 
 const avCalc = (avTime, PerMaintTime, BreakdownTime) => {
   return (
@@ -427,16 +447,20 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
       }
     });
 
-    await addData(fieldsData, "Maintenance", MaintenanceSchema);
-    if (sparePart.length > 0)
-      await addMany(sparePart, "Maintenance_Stocks", Maintenance_StocksSchema);
+    // await addData(fieldsData, "Maintenance", MaintenanceSchema);
+    // if (sparePart.length > 0)
+    //   await addMany(sparePart, "Maintenance_Stocks", Maintenance_StocksSchema);
     if (avResult.length > 0)
-      await updateMany(avResult, "Availability", AvailabilitySchema);
+      return await updateManyQuery(
+        avResult,
+        "Availability",
+        AvailabilitySchema
+      );
 
-    console.log(avData);
-    console.log(data);
-    console.log(sparePart);
-    console.log(avResult);
+    // console.log(avData);
+    // console.log(data);
+    // console.log(sparePart);
+    // console.log(avResult);
 
     // return res.status(200).json(data);
   } catch (error) {
@@ -446,45 +470,75 @@ const handleAvCalc = async (maintData, allMaint, allAvPlan, allAv) => {
 };
 
 const migrateDate = async () => {
-  const allMaint = await getAllData("Maintenance");
-  allMaint.sort((a, b) => a.Date_Time - b.Date_Time);
-  let maintData = [];
-  allMaint.map((item) => {
-    maintData.push({
-      ...item,
-      Date_Time: formatDate(item.Date_Time),
-      Problem_start_From: new Date(item.Problem_start_From).toISOString(),
-      Problem_End_To: new Date(item.Problem_End_To).toISOString(),
-      Working_Hours: Number(item.Working_Hours).toFixed(0),
-    });
+  sql.connect(config).then((pool) => {
+    let promise = Promise.resolve();
+
+    return (
+      promise
+        // .then(() => {
+        //   // return performQuery(
+        //   //   pool,
+        //   //   "Availability",
+        //   //   `DELETE FROM Availability WHERE Equipment = 'MC 128 #154'`
+        //   // );
+        // })
+        .then(async () => {
+          const allMaint = await getAllData("Maintenance");
+          allMaint.sort((a, b) => a.Date_Time - b.Date_Time);
+          let maintData = [];
+          allMaint.map((item) => {
+            maintData.push({
+              ...item,
+              Date_Time: formatDate(item.Date_Time),
+              Problem_start_From: new Date(
+                item.Problem_start_From
+              ).toISOString(),
+              Problem_End_To: new Date(item.Problem_End_To).toISOString(),
+              Working_Hours: Number(item.Working_Hours).toFixed(0),
+            });
+          });
+
+          const allAvPlan = await getAllData("Availability_Plan");
+          allAvPlan.sort((a, b) => a.DateFrom - b.DateFrom);
+
+          const allAv = await getAllData("Availability");
+          allAv.sort((a, b) => a.Date_Time - b.Date_Time);
+
+          const targetMaint = maintData.filter(
+            (item) => item.Equipment === "MC 128 #154"
+          );
+          console.log(`Data length: ${targetMaint.length}`);
+
+          targetMaint.forEach((item, i) => {
+            promise = promise.then(async () => {
+              console.log(
+                `loading ${(((i + 1) / targetMaint.length) * 100).toFixed(2)} %`
+              );
+              return performQuery(
+                pool,
+                "Availability",
+                await handleAvCalc(item, allMaint, allAvPlan, allAv)
+              );
+            });
+          });
+          return promise;
+        })
+        .then(() => {
+          console.log("Finished");
+          return pool.close(); // Close the connection pool
+        })
+    );
   });
 
-  const allAvPlan = await getAllData("Availability_Plan");
-  allAvPlan.sort((a, b) => a.DateFrom - b.DateFrom);
-
-  const allAv = await getAllData("Availability");
-  allAv.sort((a, b) => a.Date_Time - b.Date_Time);
-
-  //   const targetMaint = maintData.filter(
-  //     (item) =>
-  //       new Date(formatDate(item.Date_Time)) >= new Date("2022-05-29") &&
-  //       dateDiffDays(item.Problem_End_To, item.Problem_start_From) > 0
+  // for (let i = 0; i < targetMaint.length; i++) {
+  //   console.log(
+  //     `loading ${(((i + 1) / targetMaint.length) * 100).toFixed(
+  //       2
+  //     )} % at row ${i} / ${targetMaint.length}`
   //   );
-  const targetMaint = maintData.filter(
-    // (item) => new Date(formatDate(item.Date_Time)) >= new Date("2022-10-17")
-    (item) => Number(item.ID) > 57454 && Number(item.ID) !== 57456
-  );
-  console.log(`Data length: ${targetMaint.length}`);
-
-  for (let i = 0; i < targetMaint.length; i++) {
-    console.log(
-      `loading ${(((i + 1) / targetMaint.length) * 100).toFixed(
-        2
-      )} % at row ${i} / ${targetMaint.length}`
-    );
-    await handleAvCalc(targetMaint[i], allMaint, allAvPlan, allAv);
-  }
-  console.log(`Finished`);
+  //   await handleAvCalc(targetMaint[i], allMaint, allAvPlan, allAv);
+  // }
+  // console.log(`Finished`);
 };
 
 module.exports = { migrateDate };

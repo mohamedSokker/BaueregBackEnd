@@ -468,7 +468,7 @@ const addManyQuery = async (data, table, schema) => {
         count++;
       }
       if (query !== ``) console.log(`${query}\n`);
-      return `Success`;
+      return query;
     } else {
       throw new Error(`Validation Failed`);
     }

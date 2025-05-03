@@ -370,9 +370,9 @@ const tablesV2EndPoint = async (app) => {
   //   //   await getAllCons();
   //   //   await getAllProd();
   //   //   // await createTables("QCTable");
-  //   setTimeout(() => {
-  //     migrateDate();
-  //   }, 30000);
+  // setTimeout(() => {
+  //   migrateDate();
+  // }, 100000);
   //   //   // setTimeout(() => {
   //   //   //   createTables();
   //   //   // }, 20000);
