@@ -366,76 +366,122 @@ const performQueryOneConnection = async (pool, query) => {
 };
 
 const addMany = async (data, table, schema) => {
+  const validation = validateManyAdd(data, schema);
+  if (!validation) throw new Error("Validation Failed");
+
   try {
-    let query = ``;
-    const validation = validateManyAdd(data, schema);
-    if (validation) {
-      sql.connect(config).then((pool) => {
-        let promise = Promise.resolve();
+    await sql.connect(config);
 
-        let count = 1;
-        data.forEach((d) => {
-          promise = promise.then(async () => {
-            query += `INSERT INTO ${table} VALUES ( `;
-            Object.keys(d).map(async (item) => {
-              if (item === "Password") {
-                query += `'${await bcrypt.hash(d[item], 10)}',`;
-              } else if (item !== "ID") {
-                if (d[item] === null) {
-                  query += "NULL,";
-                } else if (d[item] === "Date.Now") {
-                  query += `'${new Date().toISOString()}',`;
-                } else {
-                  query += `'${d[item]}',`;
-                }
-              }
-            });
-            query = query.slice(0, -1);
-            query += ") ";
-            if (count === 50) {
-              console.log(`${query}\n`);
+    const table = new sql.Table(table); // Table name
 
-              await performQueryOneConnection(pool, query);
-              count = 0;
-              query = ``;
-            }
-            count++;
-          });
-        });
-        return promise
-          .then(() => {
-            if (query !== ``) {
-              console.log(`${query}\n`);
-              return performQueryOneConnection(pool, query);
-            }
-          })
-          .then(() => {
-            return pool.close(); // Close the connection pool
-          })
-          .then(() => {
-            eventEmitter.emit("addedMany", { data: data.length, table, table });
-          })
-          .then(() => {
-            query = null;
-          })
-          .then(() => {
-            return `Success`;
-          })
-          .catch((err) => {
-            console.log(`Error ${err.message}`);
-          });
+    // Define columns based on schema or first object
+    Object.keys(data[0]).forEach((col) => {
+      if (col !== "ID") {
+        table.columns.add(col, sql.NVarChar(sql.MAX), { nullable: true });
+      }
+    });
+
+    // Add rows
+    data.forEach((row) => {
+      const values = {};
+      Object.keys(row).forEach(async (key) => {
+        if (key === "Password") {
+          values[key] = await bcrypt.hash(row[key], 10);
+        } else if (key === "Date.Now") {
+          values[key] = new Date().toISOString();
+        } else if (key !== "ID") {
+          values[key] = row[key];
+        }
       });
+      table.rows.add(...Object.values(values));
+    });
 
-      // console.log(query);
-      // const result = await getData(query);
-    } else {
-      throw new Error(`Validation Failed`);
-    }
+    // Perform bulk insert
+    const request = new sql.Request();
+    const result = await request.bulk(table);
+
+    eventEmitter.emit("addedMany", { data: data.length, table });
+
+    return "Success";
   } catch (error) {
-    console.log(error);
-    // throw new Error(error);
+    console.error(`Error inserting data: ${error.message}`);
+    throw error;
+  } finally {
+    await sql.close();
   }
 };
+
+// const addMany = async (data, table, schema) => {
+//   try {
+//     let query = ``;
+//     const validation = validateManyAdd(data, schema);
+//     if (validation) {
+//       sql.connect(config).then((pool) => {
+//         let promise = Promise.resolve();
+
+//         let count = 1;
+//         data.forEach((d) => {
+//           promise = promise.then(async () => {
+//             query += `INSERT INTO ${table} VALUES ( `;
+//             Object.keys(d).map(async (item) => {
+//               if (item === "Password") {
+//                 query += `'${await bcrypt.hash(d[item], 10)}',`;
+//               } else if (item !== "ID") {
+//                 if (d[item] === null) {
+//                   query += "NULL,";
+//                 } else if (d[item] === "Date.Now") {
+//                   query += `'${new Date().toISOString()}',`;
+//                 } else {
+//                   query += `'${d[item]}',`;
+//                 }
+//               }
+//             });
+//             query = query.slice(0, -1);
+//             query += ") ";
+//             if (count === 50) {
+//               console.log(`${query}\n`);
+
+//               await performQueryOneConnection(pool, query);
+//               count = 0;
+//               query = ``;
+//             }
+//             count++;
+//           });
+//         });
+//         return promise
+//           .then(() => {
+//             if (query !== ``) {
+//               console.log(`${query}\n`);
+//               return performQueryOneConnection(pool, query);
+//             }
+//           })
+//           .then(() => {
+//             return pool.close(); // Close the connection pool
+//           })
+//           .then(() => {
+//             eventEmitter.emit("addedMany", { data: data.length, table, table });
+//           })
+//           .then(() => {
+//             query = null;
+//           })
+//           .then(() => {
+//             return `Success`;
+//           })
+//           .catch((err) => {
+//             console.log(`Error ${err.message}`);
+//           });
+//       });
+
+//       // console.log(query);
+//       // const result = await getData(query);
+//     } else {
+//       throw new Error(`Validation Failed`);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     // throw new Error(error);
+//   }
+// };
 
 const addManyQuery = async (data, table, schema) => {
   try {
