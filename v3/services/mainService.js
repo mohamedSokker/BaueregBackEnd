@@ -365,14 +365,14 @@ const performQueryOneConnection = async (pool, query) => {
     });
 };
 
-const addMany = async (data, table, schema) => {
+const addMany = async (data, tableName, schema) => {
   const validation = validateManyAdd(data, schema);
   if (!validation) throw new Error("Validation Failed");
 
   try {
     await sql.connect(config);
 
-    const table = new sql.Table(table); // Table name
+    const table = new sql.Table(tableName); // Table name
 
     // Define columns based on schema or first object
     Object.keys(data[0]).forEach((col) => {
@@ -400,7 +400,7 @@ const addMany = async (data, table, schema) => {
     const request = new sql.Request();
     const result = await request.bulk(table);
 
-    eventEmitter.emit("addedMany", { data: data.length, table });
+    eventEmitter.emit("addedMany", { data: data.length, tableName });
 
     return "Success";
   } catch (error) {
