@@ -372,37 +372,71 @@ const addMany = async (data, tableName, schema) => {
   try {
     await sql.connect(config);
 
-    const table = new sql.Table(tableName); // Table name
+    const table = new sql.Table(tableName);
 
-    // Define columns based on schema or first object
-    Object.keys(data[0]).forEach((col) => {
-      if (col !== "ID") {
-        table.columns.add(col, sql.NVarChar(sql.MAX), { nullable: true });
+    // Step 1: Define columns using schema
+    Object.entries(schema).forEach(([colName, colDef]) => {
+      if (colName === "ID") return; // Skip ID since it's auto-generated
+      console.log(schema);
+
+      let type;
+      switch (true) {
+        case colDef.databaseType.includes("NVARCHAR"):
+          type = sql.NVarChar(
+            colDef.databaseType.match(/\((\d+)\)/)?.[1] || sql.MAX
+          );
+          break;
+        case colDef.databaseType.includes("INT"):
+          type = sql.Int;
+          break;
+        case colDef.databaseType.includes("DECIMAL"):
+          type = sql.Decimal(8, 1);
+          break;
+        case colDef.databaseType.includes("TEXT"):
+          type = sql.Text;
+          break;
+        case colDef.databaseType.includes("DATETIME"):
+          type = sql.DateTime;
+          break;
+        case colDef.databaseType.includes("DATE"):
+          type = sql.Date;
+          break;
+        default:
+          type = sql.NVarChar(sql.MAX); // fallback
       }
+
+      const nullable = !colDef.databaseType.includes("NOT NULL");
+      table.columns.add(colName, type, { nullable });
     });
 
-    // Add rows
-    data.forEach((row) => {
+    // Step 2: Add rows with transformations
+    for (const row of data) {
       const values = {};
-      Object.keys(row).forEach(async (key) => {
+      for (const key of Object.keys(row)) {
+        if (key === "ID") continue;
+
         if (key === "Password") {
+          // Hash password
           values[key] = await bcrypt.hash(row[key], 10);
         } else if (key === "Date.Now") {
+          // Auto-set current date
           values[key] = new Date().toISOString();
-        } else if (key !== "ID") {
+        } else {
           values[key] = row[key];
         }
-      });
-      table.rows.add(...Object.values(values));
-    });
+      }
 
-    // Perform bulk insert
+      table.rows.add(...Object.values(values));
+    }
+
+    console.log(table);
+    // Step 3: Perform bulk insert
     const request = new sql.Request();
     const result = await request.bulk(table);
 
-    eventEmitter.emit("addedMany", { data: data.length, tableName });
+    eventEmitter.emit("addedMany", { data: data.length, table: tableName });
 
-    return "Success";
+    return result;
   } catch (error) {
     console.error(`Error inserting data: ${error.message}`);
     throw error;

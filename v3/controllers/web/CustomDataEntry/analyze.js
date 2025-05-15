@@ -22,7 +22,7 @@ const Analyze = async (req, res) => {
 
     const excelData = sheerToJson(workbook.Sheets["Sheet1"]);
 
-    console.log(excelData);
+    // console.log(excelData);
 
     let savedData = {};
 
@@ -85,7 +85,7 @@ const Analyze = async (req, res) => {
       dataWithID.push(newItemWithID);
     });
 
-    console.log(dataWithID);
+    // console.log(dataWithID);
 
     if (dataWithID.length > 0) {
       const validate = await validateData(dataWithID, savedData, targetData);
