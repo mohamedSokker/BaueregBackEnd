@@ -365,157 +365,157 @@ const performQueryOneConnection = async (pool, query) => {
     });
 };
 
-const addMany = async (data, tableName, schema) => {
-  const validation = validateManyAdd(data, schema);
-  if (!validation) throw new Error("Validation Failed");
+// const addMany = async (data, tableName, schema) => {
+//   const validation = validateManyAdd(data, schema);
+//   if (!validation) throw new Error("Validation Failed");
 
-  try {
-    await sql.connect(config);
-
-    const table = new sql.Table(tableName);
-
-    // Step 1: Define columns using schema
-    Object.entries(schema).forEach(([colName, colDef]) => {
-      if (colName === "ID") return; // Skip ID since it's auto-generated
-      console.log(schema);
-
-      let type;
-      switch (true) {
-        case colDef.databaseType.includes("NVARCHAR"):
-          type = sql.NVarChar(
-            colDef.databaseType.match(/\((\d+)\)/)?.[1] || sql.MAX
-          );
-          break;
-        case colDef.databaseType.includes("INT"):
-          type = sql.Int;
-          break;
-        case colDef.databaseType.includes("DECIMAL"):
-          type = sql.Decimal(8, 1);
-          break;
-        case colDef.databaseType.includes("TEXT"):
-          type = sql.Text;
-          break;
-        case colDef.databaseType.includes("DATETIME"):
-          type = sql.DateTime;
-          break;
-        case colDef.databaseType.includes("DATE"):
-          type = sql.Date;
-          break;
-        default:
-          type = sql.NVarChar(sql.MAX); // fallback
-      }
-
-      const nullable = !colDef.databaseType.includes("NOT NULL");
-      table.columns.add(colName, type, { nullable });
-    });
-
-    // Step 2: Add rows with transformations
-    for (const row of data) {
-      const values = {};
-      for (const key of Object.keys(row)) {
-        if (key === "ID") continue;
-
-        if (key === "Password") {
-          // Hash password
-          values[key] = await bcrypt.hash(row[key], 10);
-        } else if (key === "Date.Now") {
-          // Auto-set current date
-          values[key] = new Date().toISOString();
-        } else {
-          values[key] = row[key];
-        }
-      }
-
-      table.rows.add(...Object.values(values));
-    }
-
-    console.log(table);
-    // Step 3: Perform bulk insert
-    const request = new sql.Request();
-    const result = await request.bulk(table);
-
-    eventEmitter.emit("addedMany", { data: data.length, table: tableName });
-
-    return result;
-  } catch (error) {
-    console.error(`Error inserting data: ${error.message}`);
-    throw error;
-  } finally {
-    await sql.close();
-  }
-};
-
-// const addMany = async (data, table, schema) => {
 //   try {
-//     let query = ``;
-//     const validation = validateManyAdd(data, schema);
-//     if (validation) {
-//       sql.connect(config).then((pool) => {
-//         let promise = Promise.resolve();
+//     await sql.connect(config);
 
-//         let count = 1;
-//         data.forEach((d) => {
-//           promise = promise.then(async () => {
-//             query += `INSERT INTO ${table} VALUES ( `;
-//             Object.keys(d).map(async (item) => {
-//               if (item === "Password") {
-//                 query += `'${await bcrypt.hash(d[item], 10)}',`;
-//               } else if (item !== "ID") {
-//                 if (d[item] === null) {
-//                   query += "NULL,";
-//                 } else if (d[item] === "Date.Now") {
-//                   query += `'${new Date().toISOString()}',`;
-//                 } else {
-//                   query += `'${d[item]}',`;
-//                 }
-//               }
-//             });
-//             query = query.slice(0, -1);
-//             query += ") ";
-//             if (count === 50) {
-//               console.log(`${query}\n`);
+//     const table = new sql.Table(tableName);
 
-//               await performQueryOneConnection(pool, query);
-//               count = 0;
-//               query = ``;
-//             }
-//             count++;
-//           });
-//         });
-//         return promise
-//           .then(() => {
-//             if (query !== ``) {
-//               console.log(`${query}\n`);
-//               return performQueryOneConnection(pool, query);
-//             }
-//           })
-//           .then(() => {
-//             return pool.close(); // Close the connection pool
-//           })
-//           .then(() => {
-//             eventEmitter.emit("addedMany", { data: data.length, table, table });
-//           })
-//           .then(() => {
-//             query = null;
-//           })
-//           .then(() => {
-//             return `Success`;
-//           })
-//           .catch((err) => {
-//             console.log(`Error ${err.message}`);
-//           });
-//       });
+//     // Step 1: Define columns using schema
+//     Object.entries(schema).forEach(([colName, colDef]) => {
+//       if (colName === "ID") return; // Skip ID since it's auto-generated
+//       console.log(schema);
 
-//       // console.log(query);
-//       // const result = await getData(query);
-//     } else {
-//       throw new Error(`Validation Failed`);
+//       let type;
+//       switch (true) {
+//         case colDef.databaseType.includes("NVARCHAR"):
+//           type = sql.NVarChar(
+//             colDef.databaseType.match(/\((\d+)\)/)?.[1] || sql.MAX
+//           );
+//           break;
+//         case colDef.databaseType.includes("INT"):
+//           type = sql.Int;
+//           break;
+//         case colDef.databaseType.includes("DECIMAL"):
+//           type = sql.Decimal(8, 1);
+//           break;
+//         case colDef.databaseType.includes("TEXT"):
+//           type = sql.Text;
+//           break;
+//         case colDef.databaseType.includes("DATETIME"):
+//           type = sql.DateTime;
+//           break;
+//         case colDef.databaseType.includes("DATE"):
+//           type = sql.Date;
+//           break;
+//         default:
+//           type = sql.NVarChar(sql.MAX); // fallback
+//       }
+
+//       const nullable = !colDef.databaseType.includes("NOT NULL");
+//       table.columns.add(colName, type, { nullable });
+//     });
+
+//     // Step 2: Add rows with transformations
+//     for (const row of data) {
+//       const values = {};
+//       for (const key of Object.keys(row)) {
+//         if (key === "ID") continue;
+
+//         if (key === "Password") {
+//           // Hash password
+//           values[key] = await bcrypt.hash(row[key], 10);
+//         } else if (key === "Date.Now") {
+//           // Auto-set current date
+//           values[key] = new Date().toISOString();
+//         } else {
+//           values[key] = row[key];
+//         }
+//       }
+
+//       table.rows.add(...Object.values(values));
 //     }
+
+//     console.log(table);
+//     // Step 3: Perform bulk insert
+//     const request = new sql.Request();
+//     const result = await request.bulk(table);
+
+//     eventEmitter.emit("addedMany", { data: data.length, table: tableName });
+
+//     return result;
 //   } catch (error) {
-//     console.log(error);
-//     // throw new Error(error);
+//     console.error(`Error inserting data: ${error.message}`);
+//     throw error;
+//   } finally {
+//     await sql.close();
 //   }
 // };
+
+const addMany = async (data, table, schema) => {
+  try {
+    let query = ``;
+    const validation = validateManyAdd(data, schema);
+    if (validation) {
+      sql.connect(config).then((pool) => {
+        let promise = Promise.resolve();
+
+        let count = 1;
+        data.forEach((d) => {
+          promise = promise.then(async () => {
+            query += `INSERT INTO ${table} VALUES ( `;
+            Object.keys(d).map(async (item) => {
+              if (item === "Password") {
+                query += `'${await bcrypt.hash(d[item], 10)}',`;
+              } else if (item !== "ID") {
+                if (d[item] === null) {
+                  query += "NULL,";
+                } else if (d[item] === "Date.Now") {
+                  query += `'${new Date().toISOString()}',`;
+                } else {
+                  query += `'${d[item]}',`;
+                }
+              }
+            });
+            query = query.slice(0, -1);
+            query += ") ";
+            if (count === 50) {
+              console.log(`${query}\n`);
+
+              await performQueryOneConnection(pool, query);
+              count = 0;
+              query = ``;
+            }
+            count++;
+          });
+        });
+        return promise
+          .then(() => {
+            if (query !== ``) {
+              console.log(`${query}\n`);
+              return performQueryOneConnection(pool, query);
+            }
+          })
+          .then(() => {
+            return pool.close(); // Close the connection pool
+          })
+          .then(() => {
+            eventEmitter.emit("addedMany", { data: data.length, table, table });
+          })
+          .then(() => {
+            query = null;
+          })
+          .then(() => {
+            return `Success`;
+          })
+          .catch((err) => {
+            console.log(`Error ${err.message}`);
+          });
+      });
+
+      // console.log(query);
+      // const result = await getData(query);
+    } else {
+      throw new Error(`Validation Failed`);
+    }
+  } catch (error) {
+    console.log(error);
+    // throw new Error(error);
+  }
+};
 
 const addManyQuery = async (data, table, schema) => {
   try {

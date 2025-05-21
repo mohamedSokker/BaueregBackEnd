@@ -273,7 +273,7 @@ const getMaintenanceStock = async (fieldsData) => {
               [item.Equipment]: { currentWH: item.Working_Hours },
             },
           };
-          console.log(history[item?.SparePart_Code]);
+          // console.log(history[item?.SparePart_Code]);
           if (currentCons > maxCons) maxCons = currentCons;
         } else {
           history = {
@@ -283,7 +283,7 @@ const getMaintenanceStock = async (fieldsData) => {
               [item.Equipment]: { currentWH: item.Working_Hours },
             },
           };
-          console.log(history[item?.SparePart_Code]);
+          // console.log(history[item?.SparePart_Code]);
         }
       });
 
