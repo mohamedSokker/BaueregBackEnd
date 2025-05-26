@@ -23,6 +23,7 @@ const {
   PowerBiRelationShipsSchema,
 } = require("../schemas/PowerBiRelationShips/schema");
 const { PowerBiViewSchema } = require("../schemas/PowerBiView/schema");
+const { setCache } = require("./web/Cache/cache");
 
 // const getDate = (date) => {
 //   const dt = new Date(date);
@@ -312,6 +313,7 @@ const addData = async (bodyData, table, schema) => {
       const result = await getData(query);
       query = null;
       eventEmitter.emit("addedOne", { count: 1, table: table });
+      // setCache(table, bodyData);
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);
@@ -482,28 +484,37 @@ const addMany = async (data, table, schema) => {
             count++;
           });
         });
-        return promise
-          .then(() => {
-            if (query !== ``) {
-              console.log(`${query}\n`);
-              return performQueryOneConnection(pool, query);
-            }
-          })
-          .then(() => {
-            return pool.close(); // Close the connection pool
-          })
-          .then(() => {
-            eventEmitter.emit("addedMany", { data: data.length, table, table });
-          })
-          .then(() => {
-            query = null;
-          })
-          .then(() => {
-            return `Success`;
-          })
-          .catch((err) => {
-            console.log(`Error ${err.message}`);
-          });
+        return (
+          promise
+            .then(() => {
+              if (query !== ``) {
+                console.log(`${query}\n`);
+                return performQueryOneConnection(pool, query);
+              }
+            })
+            .then(() => {
+              return pool.close(); // Close the connection pool
+            })
+            .then(() => {
+              eventEmitter.emit("addedMany", {
+                data: data.length,
+                table,
+                table,
+              });
+            })
+            // .then(() => {
+            //   setCache(table, data);
+            // })
+            .then(() => {
+              query = null;
+            })
+            .then(() => {
+              return `Success`;
+            })
+            .catch((err) => {
+              console.log(`Error ${err.message}`);
+            })
+        );
       });
 
       // console.log(query);
@@ -596,6 +607,7 @@ const updateData = async (bodyData, id, table, schema) => {
         data: { ID: Number(id), ...newBody },
         table: table,
       });
+
       return result.recordsets[0];
     } else {
       throw new Error(`Validation Failed`);

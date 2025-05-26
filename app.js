@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const corsOptions = require("./v3/config/corsAoptions");
 const credentials = require("./v3/middlewares/credentials");
+const { loadCache } = require("./v3/services/web/Cache/cache");
 const cookieParser = require("cookie-parser");
 const http = require("http");
 const server = http.createServer(app);
@@ -75,7 +76,8 @@ app.post("/api/v3/CustomDataEntryCreateTable", async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 });
-
+/////////////////////////////////////////////////Cache ////////////////////////////////////////////////////////////////
+// loadCache();
 /////////////////////////////////////////////////Socket////////////////////////////////////////////////////////////////
 const { socketFn } = require("./v3/socket/socket");
 socketFn(server);

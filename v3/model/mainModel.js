@@ -1,3 +1,4 @@
 const model = {};
+const cache = {};
 
-module.exports = { model };
+module.exports = { model, cache };

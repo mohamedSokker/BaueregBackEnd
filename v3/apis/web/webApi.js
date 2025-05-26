@@ -12,6 +12,7 @@ const { EqsToolsLocEndPoints } = require("./EqsToolsLocation/api");
 const { EqsToolsUploadEndPoints } = require("./EqsToolsUpload.js/api");
 const { CustomDataEntryEndPoints } = require("./CustomDataEntry/api");
 const { AIEndPoints } = require("./AI(RAG)/api");
+const { homeEndPoints } = require("./Home/api");
 
 const webApi = (app) => {
   authEndPoints(app);
@@ -28,6 +29,7 @@ const webApi = (app) => {
   EqsToolsUploadEndPoints(app);
   CustomDataEntryEndPoints(app);
   AIEndPoints(app);
+  homeEndPoints(app);
 };
 
 module.exports = { webApi };
