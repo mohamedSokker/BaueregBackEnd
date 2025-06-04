@@ -48,7 +48,7 @@ const CACHE_LOCATIONS_WITH_DATE = {
   Location_Mudpump: "EndDate",
   Locations_Kelly: "EndDate",
   Location_DieselMotor: "EndDate",
-  Location_TravelingGearbox: "EndDAte",
+  Location_TravelingGearbox: "EndDate",
 };
 
 function filterCacheLastMonth(cache, sitesArray) {
@@ -99,20 +99,40 @@ const home = (req, res) => {
   try {
     const body = req.body;
 
+    const memoryUsageBefore = process.memoryUsage().rss;
+
+    // res.setHeader("Content-Type", "application/json");
+
+    // Use stringifyObject to stream a large object
+    const jsonStream = JSONStream.stringifyObject();
+    jsonStream.pipe(res);
+
+    const filteredCache = filterCacheLastMonth(model, body.Sites);
+
+    // Stream each key of the filteredCache
+    const keys = Object.keys(filteredCache);
+    for (const key in filteredCache) {
+      if (filteredCache.hasOwnProperty(key)) {
+        jsonStream.write({ [key]: filteredCache[key] });
+      }
+    }
+
+    jsonStream.end();
+
     // const memoryUsageBefore = process.memoryUsage().rss;
 
     // const jsonStream = JSONStream.stringify("[\n", "\n,\n", "\n]\n", 1024);
 
     // jsonStream.pipe(res);
 
-    const filteredCache = filterCacheLastMonth(model, body.Sites);
-    return res.status(200).json({ data: filteredCache });
+    // const filteredCache = filterCacheLastMonth(model, body.Sites);
+    // return res.status(200).json({ data: filteredCache });
 
-    // const memoryUsageAfter = process.memoryUsage().rss;
-    // const memoryDiff = memoryUsageAfter - memoryUsageBefore;
+    const memoryUsageAfter = process.memoryUsage().rss;
+    const memoryDiff = memoryUsageAfter - memoryUsageBefore;
 
-    // console.log(`Home b ${memoryUsageBefore / (1024 * 1024)} MB`);
-    // console.log(`Home a ${memoryDiff / (1024 * 1024)} MB`);
+    console.log(`Home b ${memoryUsageBefore / (1024 * 1024)} MB`);
+    console.log(`Home a ${memoryDiff / (1024 * 1024)} MB`);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

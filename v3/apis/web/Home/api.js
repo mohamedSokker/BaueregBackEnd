@@ -1,7 +1,43 @@
 const home = require("../../../routes/web/Home/home");
+const homeFuelCons = require("../../../routes/web/Home/homeFuelCons");
+const homeOilCons = require("../../../routes/web/Home/homeOilCons");
+const homeProdGrouting = require("../../../routes/web/Home/homeProdGrouting");
+const homeProdPiles = require("../../../routes/web/Home/homeProdPiles");
+const homeProdTrench = require("../../../routes/web/Home/homeProdTrench");
+const homeDailyWH = require("../../../routes/web/Home/homeDailyWH");
+const homeEqsLoc = require("../../../routes/web/Home/homeEqsLoc");
+const homeMachLoc = require("../../../routes/web/Home/homeMachLoc");
+const homeWIre = require("../../../routes/web/Home/homeWIre");
+const homeLocGBTrench = require("../../../routes/web/Home/homeLocGBTrench");
+const homeLocGBDrill = require("../../../routes/web/Home/homeLocGBDrill");
+const homeLocMudPump = require("../../../routes/web/Home/homeLocMudPump");
+const homeLocKelly = require("../../../routes/web/Home/homeLocKelly");
+const homeLocDiesel = require("../../../routes/web/Home/homeLocDiesel");
+const homeLocTrGB = require("../../../routes/web/Home/homeLocTrGB");
+const homeOilSamples = require("../../../routes/web/Home/homeOilSamples");
+const homeMaint = require("../../../routes/web/Home/homeMaint");
+const homePerMaint = require("../../../routes/web/Home/homePerMaint");
 
 const homeEndPoints = (app) => {
   app.use("/api/v3/home", home);
+  app.use("/api/v3/homeFuelCons", homeFuelCons);
+  app.use("/api/v3/homeOilCons", homeOilCons);
+  app.use("/api/v3/homeProdGrouting", homeProdGrouting);
+  app.use("/api/v3/homeProdPiles", homeProdPiles);
+  app.use("/api/v3/homeProdTrench", homeProdTrench);
+  app.use("/api/v3/homeDailyWH", homeDailyWH);
+  app.use("/api/v3/homeEqsLoc", homeEqsLoc);
+  app.use("/api/v3/homeMachLoc", homeMachLoc);
+  app.use("/api/v3/homeWire", homeWIre);
+  app.use("/api/v3/homeLocGBTrench", homeLocGBTrench);
+  app.use("/api/v3/homeLocGBDrill", homeLocGBDrill);
+  app.use("/api/v3/homeLocMudPump", homeLocMudPump);
+  app.use("/api/v3/homeLocKelly", homeLocKelly);
+  app.use("/api/v3/homeLocDiesel", homeLocDiesel);
+  app.use("/api/v3/homeLocTrGB", homeLocTrGB);
+  app.use("/api/v3/homeOilSamples", homeOilSamples);
+  app.use("/api/v3/homeMaint", homeMaint);
+  app.use("/api/v3/homePerMaint", homePerMaint);
 };
 
 module.exports = { homeEndPoints };
