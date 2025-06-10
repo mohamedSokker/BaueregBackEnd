@@ -18,7 +18,6 @@ const homeLocTrGB = require("../../../routes/web/Home/homeLocTrGB");
 const homeOilSamples = require("../../../routes/web/Home/homeOilSamples");
 const homeMaint = require("../../../routes/web/Home/homeMaint");
 const homePerMaint = require("../../../routes/web/Home/homePerMaint");
-///////////////////////////////////////////////
 const homeEndPoints = (app) => {
   app.use("/api/v3/home", home);
   app.use("/api/v3/homeCons", homeCons);
