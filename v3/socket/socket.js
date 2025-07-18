@@ -45,7 +45,7 @@ const socketFn = (server) => {
 
     socket.on("EdumeNot", (data) => {
       console.log("Edume Not", data);
-      io.broadcast.emit("EdumeRecNot", data);
+      socket.broadcast.emit("EdumeRecNot", data);
     });
 
     setupVNCHandlers(io, socket, rooms, portsCreated);
