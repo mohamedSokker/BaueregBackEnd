@@ -43,6 +43,11 @@ const socketFn = (server) => {
 
     socket.emit("RequestUserName", "RequestUserName");
 
+    socket.on("EdumeNot", (data) => {
+      console.log("Edume Not", data);
+      io.broadcast.emit("EdumeRecNot", data);
+    });
+
     setupVNCHandlers(io, socket, rooms, portsCreated);
 
     setupMaintAppHandlers(io, socket, users);
